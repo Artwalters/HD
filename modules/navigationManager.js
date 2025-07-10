@@ -34,6 +34,12 @@ class NavigationManager {
         this.consecutiveOffRouteCount = 0;
         this.offRouteConfirmationThreshold = 3; // Need 3 consecutive off-route readings
         
+        // Panel state management
+        this.isPanelMinimized = false;
+        this.swipeStartY = 0;
+        this.swipeCurrentY = 0;
+        this.swipeThreshold = 50; // pixels to trigger minimize/maximize
+        
         // Progress tracking
         this.positionHistory = [];
         this.speedHistory = [];
@@ -284,6 +290,9 @@ class NavigationManager {
                     destination: destinationName
                 });
             }
+            
+            // Add zoom out/in animation when starting navigation
+            this.startNavigationWithZoomAnimation();
             
             // Start camera following only during navigation
             if (this.isFollowingUser) {
@@ -786,6 +795,60 @@ class NavigationManager {
     }
 
     /**
+     * Start navigation with zoom out/in animation
+     */
+    startNavigationWithZoomAnimation() {
+        if (!this.currentRoute) return;
+        
+        const userLocation = this.locationManager.getUserLocation();
+        if (!userLocation) return;
+        
+        const destinationCoords = [this.currentRoute.destination.lng, this.currentRoute.destination.lat];
+        const userCoords = [userLocation.lng, userLocation.lat];
+        
+        // Calculate distance to determine animation speed
+        const distance = this.calculateDistance(
+            userLocation.lat, userLocation.lng,
+            this.currentRoute.destination.lat, this.currentRoute.destination.lng
+        );
+        
+        // Adjust duration based on distance - longer distances get faster animations
+        let zoomOutDuration = 800;
+        let zoomInDuration = 1200;
+        
+        if (distance > 5000) { // More than 5km
+            zoomOutDuration = 400;
+            zoomInDuration = 600;
+        } else if (distance > 2000) { // More than 2km
+            zoomOutDuration = 600;
+            zoomInDuration = 900;
+        }
+        
+        console.log(`🎬 Starting navigation animation (distance: ${Math.round(distance)}m, durations: ${zoomOutDuration}/${zoomInDuration}ms)`);
+        
+        // Step 1: Zoom out to show both user and destination
+        const bounds = new mapboxgl.LngLatBounds();
+        bounds.extend(userCoords);
+        bounds.extend(destinationCoords);
+        
+        this.map.fitBounds(bounds, {
+            padding: 100,
+            duration: zoomOutDuration,
+            essential: true
+        });
+        
+        // Step 2: After zoom out, zoom back in to user location for navigation
+        setTimeout(() => {
+            this.map.flyTo({
+                center: userCoords,
+                zoom: 16,
+                duration: zoomInDuration,
+                essential: true
+            });
+        }, zoomOutDuration + 200); // Small delay between animations
+    }
+
+    /**
      * Start camera following
      */
     startCameraFollowing() {
@@ -942,6 +1005,10 @@ class NavigationManager {
 
         return `
             <div class="navigation-content">
+                <!-- Swipe handle for minimizing panel -->
+                <div class="navigation-handle">
+                    <div class="handle-bar"></div>
+                </div>
                 <div class="navigation-header">
                     <div class="navigation-info">
                         <h3>${route.destination.name}</h3>
@@ -1493,6 +1560,104 @@ class NavigationManager {
         
         this.isInitialized = false;
         console.log('🗑️ Navigation manager vernietigd');
+    }
+    
+    /**
+     * Setup swipe gestures for panel minimize/maximize
+     */
+    setupSwipeGestures() {
+        if (!this.navigationPanel) return;
+        
+        let startY = 0;
+        let currentY = 0;
+        let isDragging = false;
+        
+        const handleStart = (e) => {
+            startY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+            currentY = startY;
+            isDragging = true;
+            this.navigationPanel.style.transition = 'none';
+        };
+        
+        const handleMove = (e) => {
+            if (!isDragging) return;
+            
+            e.preventDefault();
+            currentY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+            const deltaY = currentY - startY;
+            
+            // Only allow downward swipe to minimize
+            if (deltaY > 0) {
+                const maxTranslate = this.navigationPanel.offsetHeight - 40; // Keep handle visible
+                const translateY = Math.min(deltaY, maxTranslate);
+                this.navigationPanel.style.transform = `translateY(${translateY}px)`;
+            }
+        };
+        
+        const handleEnd = (e) => {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            this.navigationPanel.style.transition = 'transform 0.3s ease';
+            
+            const deltaY = currentY - startY;
+            const threshold = 80; // pixels to trigger minimize
+            
+            if (deltaY > threshold) {
+                this.minimizePanel();
+            } else {
+                this.maximizePanel();
+            }
+        };
+        
+        // Touch events
+        this.navigationPanel.addEventListener('touchstart', handleStart, { passive: false });
+        document.addEventListener('touchmove', handleMove, { passive: false });
+        document.addEventListener('touchend', handleEnd);
+        
+        // Mouse events for desktop testing
+        this.navigationPanel.addEventListener('mousedown', handleStart);
+        document.addEventListener('mousemove', handleMove);
+        document.addEventListener('mouseup', handleEnd);
+        
+        // Handle click to toggle
+        const handle = this.navigationPanel.querySelector('.navigation-handle');
+        if (handle) {
+            handle.addEventListener('click', () => {
+                if (this.isPanelMinimized) {
+                    this.maximizePanel();
+                } else {
+                    this.minimizePanel();
+                }
+            });
+        }
+    }
+    
+    /**
+     * Minimize navigation panel
+     */
+    minimizePanel() {
+        if (!this.navigationPanel) return;
+        
+        const maxTranslate = this.navigationPanel.offsetHeight - 40;
+        this.navigationPanel.style.transform = `translateY(${maxTranslate}px)`;
+        this.navigationPanel.classList.add('minimized');
+        this.isPanelMinimized = true;
+        
+        console.log('📱 Navigation panel minimized');
+    }
+    
+    /**
+     * Maximize navigation panel
+     */
+    maximizePanel() {
+        if (!this.navigationPanel) return;
+        
+        this.navigationPanel.style.transform = 'translateY(0)';
+        this.navigationPanel.classList.remove('minimized');
+        this.isPanelMinimized = false;
+        
+        console.log('📱 Navigation panel maximized');
     }
 }
 

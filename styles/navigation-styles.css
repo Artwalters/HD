@@ -1109,3 +1109,187 @@
         border-width: 2px;
     }
 }
+
+/* ==============================
+   SWIPEABLE PANEL STYLES
+   ============================== */
+
+/* Navigation Handle */
+.navigation-handle {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1001;
+    cursor: grab;
+    touch-action: pan-y;
+    width: 60px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px 15px 8px 8px;
+    transition: all 0.3s ease;
+}
+
+.navigation-handle:active {
+    cursor: grabbing;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.navigation-handle:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateX(-50%) translateY(-2px);
+}
+
+/* Handle Bar */
+.handle-bar {
+    width: 32px;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+    transition: all 0.2s ease;
+}
+
+.navigation-handle:hover .handle-bar {
+    background: rgba(0, 0, 0, 0.5);
+    width: 36px;
+}
+
+/* Minimized Panel State */
+.navigation-panel.minimized {
+    transform: translateY(calc(100% + 20px));
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navigation-panel.minimized .navigation-handle {
+    top: -45px;
+    height: 40px;
+    border-radius: 20px 20px 0 0;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(25px);
+    border-bottom: none;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.navigation-panel.minimized .navigation-handle .handle-bar {
+    transform: rotate(180deg);
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.navigation-panel.minimized .navigation-handle:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateX(-50%) translateY(-4px);
+}
+
+/* Maximized Panel State */
+.navigation-panel.maximized {
+    transform: translateY(0);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Panel Transitioning States */
+.navigation-panel.transitioning {
+    pointer-events: none;
+}
+
+/* Mobile Swipe Adjustments */
+@media (max-width: 768px) {
+    .navigation-handle {
+        width: 50px;
+        height: 25px;
+        top: -12px;
+    }
+    
+    .navigation-panel.minimized .navigation-handle {
+        top: -35px;
+        height: 35px;
+    }
+    
+    .handle-bar {
+        width: 28px;
+        height: 3px;
+    }
+    
+    .navigation-handle:hover .handle-bar {
+        width: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navigation-handle {
+        width: 45px;
+        height: 22px;
+        top: -10px;
+    }
+    
+    .navigation-panel.minimized .navigation-handle {
+        top: -30px;
+        height: 30px;
+    }
+    
+    .handle-bar {
+        width: 24px;
+        height: 3px;
+    }
+    
+    .navigation-handle:hover .handle-bar {
+        width: 26px;
+    }
+}
+
+/* Dark Theme Support for Swipe Handle */
+@media (prefers-color-scheme: dark) {
+    .navigation-handle {
+        background: rgba(0, 0, 0, 0.4);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .navigation-handle:hover {
+        background: rgba(0, 0, 0, 0.5);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .navigation-handle:active {
+        background: rgba(0, 0, 0, 0.6);
+    }
+    
+    .navigation-panel.minimized .navigation-handle {
+        background: rgba(0, 0, 0, 0.5);
+    }
+    
+    .navigation-panel.minimized .navigation-handle:hover {
+        background: rgba(0, 0, 0, 0.7);
+    }
+    
+    .handle-bar {
+        background: rgba(255, 255, 255, 0.4);
+    }
+    
+    .navigation-handle:hover .handle-bar {
+        background: rgba(255, 255, 255, 0.6);
+    }
+    
+    .navigation-panel.minimized .navigation-handle .handle-bar {
+        background: rgba(255, 255, 255, 0.5);
+    }
+}
+
+/* Accessibility Enhancements for Swipe */
+.navigation-handle:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Reduced Motion Support for Swipe */
+@media (prefers-reduced-motion: reduce) {
+    .navigation-panel.minimized,
+    .navigation-panel.maximized,
+    .navigation-handle {
+        transition: none;
+    }
+}

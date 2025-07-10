@@ -22,6 +22,7 @@ class LocationManager {
         this.compassElement = null;
         this.orientationCallbacks = [];
         this.hasHadInitialLocation = false;
+        this.lastOrientationUpdate = 0;
     }
 
     /**
@@ -414,21 +415,30 @@ class LocationManager {
     }
 
     /**
-     * Handle orientation change
+     * Handle orientation change with improved accuracy
      */
     handleOrientationChange(event) {
         if (!event.alpha && event.alpha !== 0) return;
         
-        // Get compass heading
+        // Get compass heading with better iOS/Android handling
         let heading = event.alpha;
         
-        // Adjust for webkitCompassHeading (iOS Safari)
-        if (event.webkitCompassHeading) {
+        // iOS Safari uses webkitCompassHeading (more accurate)
+        if (event.webkitCompassHeading !== undefined) {
             heading = event.webkitCompassHeading;
+        } else {
+            // Android/other browsers - adjust alpha
+            heading = (360 - event.alpha) % 360;
         }
         
-        // Convert to 0-360 range
-        heading = (360 - heading) % 360;
+        // Smooth heading updates to reduce jitter
+        if (this.heading !== null) {
+            const diff = Math.abs(heading - this.heading);
+            // Only update if significant change (reduce jitter)
+            if (diff < 5 && diff > 0) {
+                heading = this.heading + (heading - this.heading) * 0.3; // Smooth interpolation
+            }
+        }
         
         this.deviceOrientation = {
             alpha: event.alpha,
@@ -439,8 +449,14 @@ class LocationManager {
         };
         
         this.heading = heading;
-        this.updateCompass(heading);
-        this.updateUserLocationOrientation();
+        
+        // Throttle updates - only update every 200ms
+        const now = Date.now();
+        if (!this.lastOrientationUpdate || (now - this.lastOrientationUpdate) > 200) {
+            this.updateCompass(heading);
+            this.updateUserLocationOrientation();
+            this.lastOrientationUpdate = now;
+        }
         
         // Notify callbacks
         this.orientationCallbacks.forEach(callback => {
@@ -493,22 +509,22 @@ class LocationManager {
             source.setData(data);
         }
         
-        // Update direction arrow if it exists
-        const arrowSource = this.map.getSource('user-direction-arrow');
-        if (arrowSource && this.heading !== null) {
-            const arrowData = {
+        // Update user location pin with orientation
+        const pinSource = this.map.getSource('user-location-pin');
+        if (pinSource) {
+            const pinData = {
                 type: 'Feature',
                 geometry: {
                     type: 'Point',
                     coordinates: [this.userLocation.lng, this.userLocation.lat]
                 },
                 properties: {
-                    heading: this.heading
+                    heading: this.heading || 0
                 }
             };
             
-            arrowSource.setData(arrowData);
-            console.log(`🧭 Updated user orientation: ${this.heading}°`);
+            pinSource.setData(pinData);
+            console.log(`🧭 Updated user location and orientation: ${this.heading}°`);
         }
     }
 
@@ -649,55 +665,8 @@ class LocationManager {
             }
         });
 
-        // Add accuracy circle
-        this.map.addLayer({
-            id: accuracyLayerId,
-            type: 'circle',
-            source: sourceId,
-            paint: {
-                'circle-radius': {
-                    stops: [
-                        [0, 0],
-                        [20, this.userLocation.accuracy * 0.3] // Rough conversion
-                    ]
-                },
-                'circle-color': '#4B83F2',
-                'circle-opacity': 0.1,
-                'circle-stroke-color': '#4B83F2',
-                'circle-stroke-width': 1,
-                'circle-stroke-opacity': 0.3
-            }
-        });
-
-        // Add location dot
-        this.map.addLayer({
-            id: layerId,
-            type: 'circle',
-            source: sourceId,
-            paint: {
-                'circle-radius': 8,
-                'circle-color': '#4B83F2',
-                'circle-stroke-color': '#FFFFFF',
-                'circle-stroke-width': 2
-            }
-        });
-        
-        // Add direction indicator circle around user location
-        this.map.addLayer({
-            id: 'user-direction-indicator',
-            type: 'circle',
-            source: sourceId,
-            paint: {
-                'circle-radius': 12,
-                'circle-color': 'transparent',
-                'circle-stroke-color': '#4B83F2',
-                'circle-stroke-width': 2,
-                'circle-opacity': 0.8
-            }
-        });
-        
-        // Add simple direction arrow using a rotated triangle
-        this.map.addSource('user-direction-arrow', {
+        // Add simple user location arrow/pin (no circles)
+        this.map.addSource('user-location-pin', {
             type: 'geojson',
             data: {
                 type: 'Feature',
@@ -711,13 +680,14 @@ class LocationManager {
             }
         });
         
+        // Single pin/arrow that shows both location and orientation
         this.map.addLayer({
-            id: 'user-orientation-arrow',
+            id: 'user-location-pin',
             type: 'symbol',
-            source: 'user-direction-arrow',
+            source: 'user-location-pin',
             layout: {
-                'text-field': '▲', // Unicode triangle pointing up
-                'text-size': 16,
+                'text-field': '📍', // Location pin emoji
+                'text-size': 28,
                 'text-rotate': ['get', 'heading'],
                 'text-rotation-alignment': 'map',
                 'text-allow-overlap': true,
@@ -727,7 +697,7 @@ class LocationManager {
             paint: {
                 'text-color': '#4B83F2',
                 'text-halo-color': '#FFFFFF',
-                'text-halo-width': 1
+                'text-halo-width': 2
             }
         });
 
@@ -739,8 +709,8 @@ class LocationManager {
      * Verwijder location marker
      */
     removeLocationMarker() {
-        const layers = ['user-location-layer', 'user-location-accuracy', 'user-orientation-arrow', 'user-direction-indicator'];
-        const sources = ['user-location', 'user-direction-arrow'];
+        const layers = ['user-location-pin'];
+        const sources = ['user-location', 'user-location-pin'];
 
         layers.forEach(layerId => {
             if (this.map.getLayer(layerId)) {
