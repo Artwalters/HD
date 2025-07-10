@@ -1,0 +1,555 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.976482,
+          50.8853869
+        ]
+      },
+      "properties": {
+        "id": 1,
+        "name": "Romeins Museum Heerlen",
+        "category": "Cultuur",
+        "address": "Coriovallumstraat 9, 6411 CA Heerlen",
+        "description": "Ontdek de rijke Romeinse geschiedenis van Heerlen in dit prachtige museum met authentieke Romeinse thermen en moderne interactieve technologie.",
+        "phone": "045-560-2200",
+        "website": "www.hetromeinsmuseum.nl",
+        "icon": "🏛️",
+        "color": "#4B83F2",
+        "opening_hours": "Ma-Vr: 10:00-17:00, Za-Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9790535,
+          50.8861921
+        ]
+      },
+      "properties": {
+        "id": 2,
+        "name": "Nederlands Mijnmuseum",
+        "category": "Cultuur",
+        "address": "Doctor Poelsstraat 29, 6411 HG Heerlen",
+        "description": "Fascinerend museum over de rijke mijnbouwgeschiedenis van Limburg met authentieke voorwerpen en verhalen van mijnwerkers.",
+        "phone": "045-560-2200",
+        "website": "www.nederlandsmijnmuseum.nl",
+        "icon": "⛏️",
+        "color": "#4B83F2",
+        "opening_hours": "Di-Zo: 10:00-17:00, Ma: Gesloten"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9794255,
+          50.8876847
+        ]
+      },
+      "properties": {
+        "id": 3,
+        "name": "Glaspaleis - SCHUNCK",
+        "category": "Cultuur",
+        "address": "Bongerd 18, 6411 JM Heerlen",
+        "description": "Iconisch architectonisch monument met bibliotheek, kunstexposities, restaurant en prachtig dakterras in het hart van Heerlen.",
+        "phone": "045-577-2200",
+        "website": "www.schunck.nl",
+        "icon": "🏢",
+        "color": "#4B83F2",
+        "opening_hours": "Ma-Vr: 09:00-17:00, Za: 11:00-17:00, Zo: 09:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9811816,
+          50.8875127
+        ]
+      },
+      "properties": {
+        "id": 4,
+        "name": "Savelbergmuseum",
+        "category": "Cultuur",
+        "address": "Gasthuisstraat 2, 6411 KE Heerlen",
+        "description": "Historisch kloostercomplex met prachtige kapel, gebruikt voor concerten, tentoonstellingen en culturele evenementen.",
+        "phone": "045-511-1468",
+        "website": "www.savelbergklooster.nl",
+        "icon": "⛪",
+        "color": "#4B83F2",
+        "opening_hours": "Op afspraak en tijdens evenementen"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9774272,
+          50.886098
+        ]
+      },
+      "properties": {
+        "id": 5,
+        "name": "De Vondst: Centrum voor Archeologie in Limburg",
+        "category": "Cultuur",
+        "address": "Raadhuisplein 20, 6411 HK Heerlen",
+        "description": "Gratis toegankelijk centrum met informatie over archeologische vondsten in de regio. Kijk mee hoe archeologen werken in de kelder.",
+        "phone": "045-560-2200",
+        "website": "www.devondst.nl",
+        "icon": "🗿",
+        "color": "#4B83F2",
+        "opening_hours": "Di-Vr: 10:00-17:00, Za-Zo: 12:00-17:00, Ma: Gesloten"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.972972599999999,
+          50.8867528
+        ]
+      },
+      "properties": {
+        "id": 6,
+        "name": "PLT - Theater Heerlen",
+        "category": "Cultuur",
+        "address": "Burgemeester van Grunsvenplein 145, 6411 AS Heerlen",
+        "description": "Professioneel theater met gevarieerd programma van toneel, muziek, dans en cabaret in een moderne setting.",
+        "phone": "045-560-8900",
+        "website": "www.plt.nl",
+        "icon": "🎭",
+        "color": "#4B83F2",
+        "opening_hours": "Kassa: 1 uur voor voorstelling, reserveren online"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.972724299999999,
+          50.8867749
+        ]
+      },
+      "properties": {
+        "id": 7,
+        "name": "Limburgzaal Heerlen",
+        "category": "Cultuur",
+        "address": "Burgemeester van Grunsvenplein 145, 6411 AC Heerlen",
+        "description": "Concertzaal voor klassieke muziek, jazz en andere muziekoptredens in een intieme setting.",
+        "phone": "045-560-8900",
+        "website": "www.limburgzaal.nl",
+        "icon": "🎵",
+        "color": "#4B83F2",
+        "opening_hours": "Volgens programma, reserveren online"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9706,
+          50.8991
+        ]
+      },
+      "properties": {
+        "id": 8,
+        "name": "Cultuurhuis Heerlen",
+        "category": "Cultuur",
+        "address": "Sittarderweg 145, 6412 CD Heerlen",
+        "description": "Veelzijdig cultuurhuis met theaters, exposities, workshops en cursussen voor alle leeftijden.",
+        "phone": "045-560-7500",
+        "website": "www.cultuurhuis-heerlen.nl",
+        "icon": "🎨",
+        "color": "#4B83F2",
+        "opening_hours": "Ma-Za: 09:00-22:00, Zo: 14:00-22:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.978554399999999,
+          50.887166
+        ]
+      },
+      "properties": {
+        "id": 9,
+        "name": "Quatro Cinema",
+        "category": "Cultuur",
+        "address": "Geleenstraat 9, 6411 HP Heerlen",
+        "description": "Gezellige arthouse cinema met restaurant, specialiteit in flammkuchen. Kwaliteitsfilms in een intieme setting.",
+        "phone": "045-571-3030",
+        "website": "www.quatrocinema.nl",
+        "icon": "🎬",
+        "color": "#4B83F2",
+        "opening_hours": "Ma: 19:30-22:00, Di-Wo: 14:30-22:00, Do-Vr: 17:00-22:00, Za-Zo: 14:00-22:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.975516400000001,
+          50.8898355
+        ]
+      },
+      "properties": {
+        "id": 10,
+        "name": "Filmhuis de Spiegel",
+        "category": "Cultuur",
+        "address": "Stationsplein 5, 6411 NE Heerlen",
+        "description": "Filmhuis met arthouse films, documentaires en bijzondere cinema. Onderdeel van het Maankwartier.",
+        "phone": "045-571-4000",
+        "website": "www.filmhuisdespiegel.nl",
+        "icon": "🎞️",
+        "color": "#4B83F2",
+        "opening_hours": "Volgens filmschema, check website"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9809171,
+          50.888062
+        ]
+      },
+      "properties": {
+        "id": 11,
+        "name": "Poppodium Nieuwe Nor",
+        "category": "Cultuur",
+        "address": "Pancratiusstraat 30, 6411 KC Heerlen",
+        "description": "Intiem poppodium voor live muziek, van indie tot elektronische muziek. Bekend om uitstekende geluidskwaliteit.",
+        "phone": "045-400-9100",
+        "website": "www.nieuwenor.nl",
+        "icon": "🎸",
+        "color": "#4B83F2",
+        "opening_hours": "Volgens programma, check website"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.979327,
+          50.8878268
+        ]
+      },
+      "properties": {
+        "id": 12,
+        "name": "SCHUNCK Bibliotheek Heerlen",
+        "category": "Cultuur",
+        "address": "Glaspaleis, Bongerd 18, 6411 JM Heerlen",
+        "description": "Moderne bibliotheek in het iconische Glaspaleis met uitgebreide collectie en studieruimtes.",
+        "phone": "045-577-2200",
+        "website": "www.schunck.nl/bibliotheek",
+        "icon": "📚",
+        "color": "#4B83F2",
+        "opening_hours": "Ma-Vr: 10:00-20:00, Za: 10:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.975475299999999,
+          50.8881606
+        ]
+      },
+      "properties": {
+        "id": 13,
+        "name": "Galerie for Art",
+        "category": "Cultuur",
+        "address": "Honigmannstraat 45, 6411 LJ Heerlen",
+        "description": "Kunstgalerie met wisselende exposities van lokale en internationale kunstenaars.",
+        "phone": "045-571-8800",
+        "website": "www.galerieforart.nl",
+        "icon": "🖼️",
+        "color": "#4B83F2",
+        "opening_hours": "Di-Za: 11:00-17:00, Zo-Ma: Gesloten"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.977931799999999,
+          50.8858186
+        ]
+      },
+      "properties": {
+        "id": 14,
+        "name": "De Nieuwe Galerij",
+        "category": "Cultuur",
+        "address": "Raadhuisplein 19, 6411 ES Heerlen",
+        "description": "Kunstgalerie met moderne en hedendaagse kunst, regelmatig wisselende exposities.",
+        "phone": "045-571-9500",
+        "website": "www.denieuweegalerij.nl",
+        "icon": "🎨",
+        "color": "#4B83F2",
+        "opening_hours": "Wo-Za: 12:00-17:00, Zo-Di: Gesloten"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9785414,
+          50.8826227
+        ]
+      },
+      "properties": {
+        "id": 15,
+        "name": "Ap-Art Events",
+        "category": "Cultuur",
+        "address": "Benzenraderweg 8, 6411 ED Heerlen",
+        "description": "Evenementenbureau gespecialiseerd in kunst en cultuur evenementen, pop-up exposities en creatieve workshops.",
+        "phone": "045-571-7600",
+        "website": "www.ap-art.nl",
+        "icon": "🎪",
+        "color": "#4B83F2",
+        "opening_hours": "Ma-Vr: 09:00-17:00, weekend op afspraak"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.980827499999999,
+          50.8884834
+        ]
+      },
+      "properties": {
+        "id": 16,
+        "name": "Theaterwerkplaats Zie",
+        "category": "Cultuur",
+        "address": "Wilhelminaplein 25, 6411 KW Heerlen",
+        "description": "Experimentele theaterruimte voor jonge theatermakers en alternatieve voorstellingen.",
+        "phone": "045-571-8200",
+        "website": "www.theaterwerkplaatszie.nl",
+        "icon": "🎭",
+        "color": "#4B83F2",
+        "opening_hours": "Volgens programma, reserveren online"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9826504,
+          50.8856684
+        ]
+      },
+      "properties": {
+        "id": 17,
+        "name": "Kunstkring Henri Jonas",
+        "category": "Cultuur",
+        "address": "Mariabad 245, 6411 MH Heerlen",
+        "description": "Kunstvereniging met galerie, tentoonstellingen van leden en gastexposities. Cursussen en workshops.",
+        "phone": "045-571-9800",
+        "website": "www.kunstkringhenrijonas.nl",
+        "icon": "🎨",
+        "color": "#4B83F2",
+        "opening_hours": "Za-Zo: 14:00-17:00, doordeweeks op afspraak"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9713077,
+          50.8923192
+        ]
+      },
+      "properties": {
+        "id": 18,
+        "name": "Muziektheater Zuid",
+        "category": "Cultuur",
+        "address": "Kloosterweg 1, Lokaal 5, 6412 SB Heerlen",
+        "description": "Muziektheatergroep met eigen repetitieruimte, workshops en voorstellingen voor alle leeftijden.",
+        "phone": "045-571-6700",
+        "website": "www.muziektheaterzuid.nl",
+        "icon": "🎪",
+        "color": "#4B83F2",
+        "opening_hours": "Volgens programma en workshops"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9756145,
+          50.8863902
+        ]
+      },
+      "properties": {
+        "id": 19,
+        "name": "Monkey Theater",
+        "category": "Cultuur",
+        "address": "Geleenstraat 61, 6411 HR Heerlen",
+        "description": "Klein theater voor experimentele voorstellingen, stand-up comedy en cabaretoptredens.",
+        "phone": "045-571-5500",
+        "website": "www.monkeytheater.nl",
+        "icon": "🎭",
+        "color": "#4B83F2",
+        "opening_hours": "Volgens programma, reserveren online"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9783262,
+          50.8875902
+        ]
+      },
+      "properties": {
+        "id": 20,
+        "name": "Wonderland Burlesque",
+        "category": "Cultuur",
+        "address": "Saroleastraat 3, 6411 LR Heerlen",
+        "description": "Burlesque theater en school voor dans, theater en performance art. Workshops en shows.",
+        "phone": "045-571-4400",
+        "website": "www.wonderlandburlesque.nl",
+        "icon": "💃",
+        "color": "#4B83F2",
+        "opening_hours": "Volgens programma en workshops"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9807223,
+          50.8871289
+        ]
+      },
+      "properties": {
+        "id": 21,
+        "name": "Live Piano's Heerlen",
+        "category": "Cultuur",
+        "address": "Pancratiusstraat 4, 6411 KB Heerlen",
+        "description": "Restaurant met live piano muziek, optredens en open podium avonden voor muzikanten.",
+        "phone": "045-571-3300",
+        "website": "www.livepianosheerlen.nl",
+        "icon": "🎹",
+        "color": "#4B83F2",
+        "opening_hours": "Ma-Do: 18:00-24:00, Vr-Za: 18:00-02:00, Zo: 16:00-22:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9709378,
+          50.895592
+        ]
+      },
+      "properties": {
+        "id": 22,
+        "name": "Studio Het Podium",
+        "category": "Cultuur",
+        "address": "Huskensweg 17B, 6412 SB Heerlen",
+        "description": "Multifunctionele studio voor muziek, theater en dans. Verhuur van repetitieruimtes en podium.",
+        "phone": "045-571-6600",
+        "website": "www.studiohetpodium.nl",
+        "icon": "🎤",
+        "color": "#4B83F2",
+        "opening_hours": "Ma-Za: 10:00-22:00, Zo: 14:00-20:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9813977,
+          50.88488
+        ]
+      },
+      "properties": {
+        "id": 23,
+        "name": "Joods Oorlogsmonument Heerlen",
+        "category": "Cultuur",
+        "address": "Akerstraat 58-72, 6411 HC Heerlen",
+        "description": "Herdenkingsmonument ter nagedachtenis aan de Joodse gemeenschap van Heerlen tijdens WOII.",
+        "phone": "045-560-2200",
+        "website": "www.herinneringsheerlen.nl",
+        "icon": "🕊️",
+        "color": "#4B83F2",
+        "opening_hours": "Altijd toegankelijk"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9747847,
+          50.8866697
+        ]
+      },
+      "properties": {
+        "id": 24,
+        "name": "Cultura Nova",
+        "category": "Cultuur",
+        "address": "Burgemeester van Grunsvenplein 145, 6411 JJ Heerlen",
+        "description": "Culturele organisatie die hedendaagse kunst en cultuur programmeert in Zuid-Limburg.",
+        "phone": "045-571-7700",
+        "website": "www.culturanova.nl",
+        "icon": "🎭",
+        "color": "#4B83F2",
+        "opening_hours": "Ma-Vr: 09:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9748779,
+          50.8904797
+        ]
+      },
+      "properties": {
+        "id": 25,
+        "name": "Vibes Music Heerlen",
+        "category": "Cultuur",
+        "address": "Stationsplein 7, 6411 NZ Heerlen",
+        "description": "Muziekwinkel met instrumenten, apparatuur en muzieklessen. Onderdeel van het Maankwartier.",
+        "phone": "045-571-8900",
+        "website": "www.vibesmusic.nl",
+        "icon": "🎵",
+        "color": "#4B83F2",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00"
+      }
+    }
+  ]
+}

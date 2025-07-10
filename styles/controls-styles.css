@@ -1,0 +1,299 @@
+/* ==============================
+   CONTROLS STYLES - v1.0
+   ============================== */
+
+/* Controls Container */
+.custom-controls {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    font-family: var(--font-body);
+}
+
+/* Controls Wrapper */
+.controls-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Control Buttons */
+.control-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 16px;
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.control-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.control-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.control-btn:disabled:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+}
+
+/* Active state for compass button */
+.control-btn.active {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.control-btn.active::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    bottom: 2px;
+    width: 2px;
+    background: var(--color-primary);
+    border-radius: 1px;
+}
+
+/* Specific button styling */
+.zoom-in-btn svg {
+    stroke-width: 2.5;
+}
+
+.zoom-out-btn svg {
+    stroke-width: 2.5;
+}
+
+.compass-btn {
+    position: relative;
+}
+
+.compass-btn svg {
+    transform: rotate(var(--compass-rotation, 0deg));
+    transition: transform 0.3s ease;
+}
+
+.fullscreen-btn svg {
+    stroke-width: 2;
+}
+
+/* Animation effects */
+@keyframes controlsSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.custom-controls {
+    animation: controlsSlideIn 0.4s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .custom-controls {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .controls-wrapper {
+        gap: 6px;
+        padding: 6px;
+        border-radius: 10px;
+    }
+    
+    .control-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+    }
+    
+    .control-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .custom-controls {
+        bottom: 12px;
+        right: 12px;
+    }
+    
+    .controls-wrapper {
+        gap: 4px;
+        padding: 4px;
+        border-radius: 8px;
+    }
+    
+    .control-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 6px;
+    }
+    
+    .control-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+    .controls-wrapper {
+        background: rgba(0, 0, 0, 0.4);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .control-btn {
+        background: rgba(0, 0, 0, 0.2);
+        border-color: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .control-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .control-btn.active {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* Focus styles for accessibility */
+.control-btn:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Smooth transitions */
+.control-btn {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.control-btn:hover {
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Loading state */
+.control-btn.loading {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.control-btn.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin-top: -8px;
+    margin-left: -8px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Hide original Mapbox controls */
+.mapboxgl-ctrl-group {
+    display: none !important;
+}
+
+/* Special styling for different control types */
+.zoom-in-btn:hover {
+    background: rgba(76, 175, 80, 0.2);
+    border-color: rgba(76, 175, 80, 0.3);
+}
+
+.zoom-out-btn:hover {
+    background: rgba(255, 152, 0, 0.2);
+    border-color: rgba(255, 152, 0, 0.3);
+}
+
+.compass-btn:hover {
+    background: rgba(33, 150, 243, 0.2);
+    border-color: rgba(33, 150, 243, 0.3);
+}
+
+.fullscreen-btn:hover {
+    background: rgba(156, 39, 176, 0.2);
+    border-color: rgba(156, 39, 176, 0.3);
+}
+
+.location-btn:hover {
+    background: rgba(75, 131, 242, 0.2);
+    border-color: rgba(75, 131, 242, 0.3);
+}
+
+.location-btn.active {
+    background: rgba(75, 131, 242, 0.3);
+    border-color: rgba(75, 131, 242, 0.4);
+    box-shadow: 0 4px 16px rgba(75, 131, 242, 0.3);
+}
+
+.location-btn.error {
+    background: rgba(244, 67, 54, 0.2);
+    border-color: rgba(244, 67, 54, 0.3);
+}
+
+.location-btn.error:hover {
+    background: rgba(244, 67, 54, 0.3);
+    border-color: rgba(244, 67, 54, 0.4);
+}
+
+/* Pulse effect for active compass */
+.compass-btn.active {
+    animation: compassPulse 2s infinite;
+}
+
+@keyframes compassPulse {
+    0% { 
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+    50% { 
+        box-shadow: 0 4px 20px rgba(33, 150, 243, 0.4);
+    }
+    100% { 
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+}

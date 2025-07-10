@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heerlen Doen - Ontdek Heerlen</title>
+    <meta name="description" content="Ontdek de beste plekken in Heerlen - cultuur, horeca, mode en meer!">
+    
+    <!-- Mapbox GL JS -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet" />
+    
+    <!-- Adobe Fonts -->
+    <link rel="stylesheet" href="https://use.typekit.net/som4aiu.css">
+    
+    <!-- CSS Styling -->
+    <link rel="stylesheet" href="styles/variables.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="popup-styles.css">
+    <link rel="stylesheet" href="styles/filter-styles.css">
+    <link rel="stylesheet" href="styles/controls-styles.css">
+    <link rel="stylesheet" href="styles/navigation-styles.css">
+</head>
+<body>
+    <!-- Hoofdcontainer -->
+    <div id="map"></div>
+    
+    <!-- Performance & Configuratie -->
+    <script src="utils/performance.js"></script>
+    <script src="config.js"></script>
+    
+    <!-- Modules -->
+    <script src="modules/dataLoader.js?v=1.1"></script>
+    <script src="modules/markerManager.js?v=1.1"></script>
+    <script src="modules/popupManager.js?v=1.1"></script>
+    <script src="modules/filterManager.js?v=1.0"></script>
+    <script src="modules/controlsManager.js?v=1.0"></script>
+    <script src="modules/audioManager.js?v=1.0"></script>
+    <script src="modules/locationManager.js?v=1.0"></script>
+    <script src="modules/navigationManager.js?v=1.0"></script>
+    <script src="modules/appManager.js?v=1.1"></script>
+    
+    <!-- Demo script (verwijder in productie) -->
+    <script src="demo.js"></script>
+    
+    <!-- Legacy script voor backwards compatibility -->
+    <!-- <script src="script.js"></script> -->
+</body>
+</html>

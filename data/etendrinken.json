@@ -1,0 +1,885 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9805422,
+          50.8880507
+        ]
+      },
+      "properties": {
+        "id": 1,
+        "name": "High Noon",
+        "category": "Eten & Drinken",
+        "address": "Pancratiusplein 42, 6411 JZ Heerlen",
+        "description": "Western-style restaurant met uitstekende steaks, keurige service en gezellige sfeer. Bekend om hun Western Plate en Cowboy steak.",
+        "phone": "045-208-3358",
+        "website": "www.highnoon.nl",
+        "icon": "🤠",
+        "color": "#27AE60",
+        "opening_hours": "Di-Do: 15:00-21:00, Vr-Za: 15:00-21:30, Zo: 12:00-21:00, Ma: Gesloten"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.980112,
+          50.8881947
+        ]
+      },
+      "properties": {
+        "id": 2,
+        "name": "House of Steaks",
+        "category": "Eten & Drinken",
+        "address": "Pancratiusplein 37, 6411 JZ Heerlen",
+        "description": "Premium steakhouse met de beste vlees selectie en uitstekende service in een stijlvolle ambiance.",
+        "phone": "045-571-1234",
+        "website": "www.houseofsteaks.nl",
+        "icon": "🥩",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Do: 17:00-22:00, Vr-Za: 17:00-23:00, Zo: 16:00-21:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9791681,
+          50.8872023
+        ]
+      },
+      "properties": {
+        "id": 3,
+        "name": "Restobar G1",
+        "category": "Eten & Drinken",
+        "address": "Geleenstraat 1, 6411 HP Heerlen",
+        "description": "Trendy restaurant en bar met moderne keuken, cocktails en gezellige sfeer in het centrum van Heerlen.",
+        "phone": "045-571-5678",
+        "website": "www.restobarg1.nl",
+        "icon": "🍽️",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Do: 16:00-01:00, Vr-Za: 16:00-02:00, Zo: 14:00-24:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9795454,
+          50.8896787
+        ]
+      },
+      "properties": {
+        "id": 4,
+        "name": "Hauran مطعم حوران",
+        "category": "Eten & Drinken",
+        "address": "Willemstraat 29, 6411 KX Heerlen",
+        "description": "Authentiek Syrisch restaurant met traditionele gerechten, verse ingrediënten en warme Midden-Oosterse gastvrijheid.",
+        "phone": "045-571-5432",
+        "website": "www.hauran-restaurant.nl",
+        "icon": "🥙",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Zo: 12:00-23:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.980283,
+          50.88882
+        ]
+      },
+      "properties": {
+        "id": 5,
+        "name": "Grand Turquoise",
+        "category": "Eten & Drinken",
+        "address": "Wilhelminaplein 7, 6411 KV Heerlen",
+        "description": "Elegant restaurant met Turkse specialiteiten, uitstekende service en een mooie ambiance.",
+        "phone": "045-571-7890",
+        "website": "www.grandturquoise.nl",
+        "icon": "🍖",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Zo: 16:00-23:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9801208,
+          50.8882148
+        ]
+      },
+      "properties": {
+        "id": 6,
+        "name": "El Greco",
+        "category": "Eten & Drinken",
+        "address": "Pancratiusplein 39, 6411 JM Heerlen",
+        "description": "Grieks restaurant met authentieke gerechten en traditionele Griekse sfeer op het levendige Pancratiusplein.",
+        "phone": "045-571-3456",
+        "website": "www.elgreco-heerlen.nl",
+        "icon": "🇬🇷",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Zo: 17:00-23:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9798513,
+          50.8869968
+        ]
+      },
+      "properties": {
+        "id": 7,
+        "name": "Restaurant Smaak&Vermaak",
+        "category": "Eten & Drinken",
+        "address": "Pancratiusplein 54, 6411 JZ Heerlen",
+        "description": "Modern restaurant met internationale keuken, verse seizoensproducten en creatieve gerechten.",
+        "phone": "045-571-6789",
+        "website": "www.smaakvermaak.nl",
+        "icon": "🍴",
+        "color": "#27AE60",
+        "opening_hours": "Di-Zo: 17:00-22:00, Ma: Gesloten"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.981345,
+          50.886407
+        ]
+      },
+      "properties": {
+        "id": 8,
+        "name": "De Twee Gezusters",
+        "category": "Eten & Drinken",
+        "address": "Putgraaf 3, 6411 GT Heerlen",
+        "description": "Gezellig restaurant met Nederlandse en internationale keuken in een warme, uitnodigende sfeer.",
+        "phone": "045-571-2345",
+        "website": "www.detweeggezusters.nl",
+        "icon": "👯",
+        "color": "#27AE60",
+        "opening_hours": "Di-Zo: 12:00-22:00, Ma: Gesloten"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9788065,
+          50.8873721
+        ]
+      },
+      "properties": {
+        "id": 9,
+        "name": "Good People Heerlen",
+        "category": "Eten & Drinken",
+        "address": "Geleenstraat 10, 6411 HS Heerlen",
+        "description": "Trendy restaurant met verse, lokale ingrediënten en moderne twist op klassieke gerechten.",
+        "phone": "045-571-8901",
+        "website": "www.goodpeople-heerlen.nl",
+        "icon": "😊",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Zo: 12:00-22:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.978319,
+          50.8870886
+        ]
+      },
+      "properties": {
+        "id": 10,
+        "name": "Trattoria Da Peco",
+        "category": "Eten & Drinken",
+        "address": "Geleenstraat 17, 6411 HP Heerlen",
+        "description": "Authentiek Italiaans restaurant met verse pasta, pizza's en traditionele Italiaanse gerechten.",
+        "phone": "045-571-4567",
+        "website": "www.dapeco.nl",
+        "icon": "🍝",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Zo: 17:00-22:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9782473,
+          50.8872538
+        ]
+      },
+      "properties": {
+        "id": 11,
+        "name": "Ristorante Pizzeria Il Castello",
+        "category": "Eten & Drinken",
+        "address": "Geleenstraat 18, 6411 HS Heerlen",
+        "description": "Gezellige Italiaanse pizzeria met authentieke pizza's uit de steenoven en pasta gerechten.",
+        "phone": "045-571-7654",
+        "website": "www.ilcastello-heerlen.nl",
+        "icon": "🍕",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Zo: 16:00-23:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9768357,
+          50.8867697
+        ]
+      },
+      "properties": {
+        "id": 12,
+        "name": "Grieks Restaurant Nisos",
+        "category": "Eten & Drinken",
+        "address": "Geleenstraat 37, 6411 HR Heerlen",
+        "description": "Authentiek Grieks restaurant met traditionele gerechten, verse vis en vriendelijke bediening.",
+        "phone": "045-571-9876",
+        "website": "www.nisos-heerlen.nl",
+        "icon": "🐟",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Zo: 17:00-23:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9762172,
+          50.88968
+        ]
+      },
+      "properties": {
+        "id": 13,
+        "name": "The Story القصة",
+        "category": "Eten & Drinken",
+        "address": "Saroleastraat 69, 6411 LS Heerlen",
+        "description": "Midden-Oosters restaurant met verhalen achter elk gerecht, authentieke smaken en warme gastvrijheid.",
+        "phone": "045-571-3210",
+        "website": "www.thestory-heerlen.nl",
+        "icon": "📖",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Zo: 12:00-22:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9804108,
+          50.8862242
+        ]
+      },
+      "properties": {
+        "id": 14,
+        "name": "Taxim Restaurant",
+        "category": "Eten & Drinken",
+        "address": "Akerstraat 19a, 6411 GV Heerlen",
+        "description": "Turkse restaurant met verse hapjes, traditionele gerechten en vriendelijke service.",
+        "phone": "045-571-5432",
+        "website": "www.taxim-heerlen.nl",
+        "icon": "🥘",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Zo: 12:00-23:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9804154,
+          50.8887122
+        ]
+      },
+      "properties": {
+        "id": 15,
+        "name": "Toko Patja",
+        "category": "Eten & Drinken",
+        "address": "Wilhelminaplein 5, 6411 KV Heerlen",
+        "description": "Indonesische takeaway met authentieke gerechten, verse ingrediënten en huisgemaakte sambal.",
+        "phone": "045-571-6543",
+        "website": "www.tokopatja.nl",
+        "icon": "🍛",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Za: 16:00-22:00, Zo: 15:00-22:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.975854399999999,
+          50.8887787
+        ]
+      },
+      "properties": {
+        "id": 16,
+        "name": "Brasserie Goya",
+        "category": "Eten & Drinken",
+        "address": "Corio Center 34, 6411 LP Heerlen",
+        "description": "Moderne brasserie in het winkelcentrum met internationale keuken en casual dining.",
+        "phone": "045-571-7890",
+        "website": "www.brasserie-goya.nl",
+        "icon": "🍽️",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Za: 10:00-20:00, Zo: 12:00-18:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.977169099999999,
+          50.8892445
+        ]
+      },
+      "properties": {
+        "id": 17,
+        "name": "Grand Cafe",
+        "category": "Eten & Drinken",
+        "address": "Saroleastraat 52, 6411 LV Heerlen",
+        "description": "Klassiek grand cafe met uitgebreide kaart, van ontbijt tot diner, in het hart van de winkelstraat.",
+        "phone": "045-571-2468",
+        "website": "www.grandcafe-heerlen.nl",
+        "icon": "☕",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Zo: 09:00-22:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9802855,
+          50.8870569
+        ]
+      },
+      "properties": {
+        "id": 18,
+        "name": "Café Pelt",
+        "category": "Eten & Drinken",
+        "address": "Pancratiusplein 48, 6411 JZ Heerlen",
+        "description": "Gezellig café met terras op het Pancratiusplein, perfect voor een drankje en hapje in het hart van Heerlen.",
+        "phone": "045-571-2468",
+        "website": "www.cafepelt.nl",
+        "icon": "🍺",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Do: 11:00-01:00, Vr-Za: 11:00-02:00, Zo: 12:00-24:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.978845799999999,
+          50.8882258
+        ]
+      },
+      "properties": {
+        "id": 19,
+        "name": "Café Tess",
+        "category": "Eten & Drinken",
+        "address": "Bongerd 3, 6411 JL Heerlen",
+        "description": "Trendy café bar met goede cocktails, gezellige sfeer en vriendelijke bediening.",
+        "phone": "045-571-3690",
+        "website": "www.cafetess.nl",
+        "icon": "🍸",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Do: 16:00-01:00, Vr-Za: 16:00-02:00, Zo: 16:00-24:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9795228,
+          50.8889325
+        ]
+      },
+      "properties": {
+        "id": 20,
+        "name": "Café Bluff",
+        "category": "Eten & Drinken",
+        "address": "Dautzenbergstraat 10, 6411 LB Heerlen",
+        "description": "Sfeervolle kroeg met uitstekende bieren, gezellige sfeer en regelmatige live muziek.",
+        "phone": "045-571-4725",
+        "website": "www.cafebluff.nl",
+        "icon": "🎵",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Do: 16:00-01:00, Vr-Za: 16:00-02:00, Zo: 16:00-24:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9804119,
+          50.8870486
+        ]
+      },
+      "properties": {
+        "id": 21,
+        "name": "D'r Klinge",
+        "category": "Eten & Drinken",
+        "address": "Pancratiusplein 47, 6411 JZ Heerlen",
+        "description": "Traditioneel café met lokale sfeer, goed bier en vriendelijke bediening op het Pancratiusplein.",
+        "phone": "045-571-5836",
+        "website": "www.drklinge.nl",
+        "icon": "🍻",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Do: 11:00-01:00, Vr-Za: 11:00-02:00, Zo: 12:00-24:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9793831,
+          50.8870281
+        ]
+      },
+      "properties": {
+        "id": 22,
+        "name": "Café Bracke",
+        "category": "Eten & Drinken",
+        "address": "Pancratiusplein 1, 6411 JZ Heerlen",
+        "description": "Klassiek café met gezellige sfeer, goed eten en drinken op een toplocatie aan het plein.",
+        "phone": "045-571-6947",
+        "website": "www.cafebracke.nl",
+        "icon": "🥪",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Do: 10:00-01:00, Vr-Za: 10:00-02:00, Zo: 11:00-24:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9797714,
+          50.8869734
+        ]
+      },
+      "properties": {
+        "id": 23,
+        "name": "Grandcafe de Kromme Toeter",
+        "category": "Eten & Drinken",
+        "address": "Pancratiusplein 55, 6411 JZ Heerlen",
+        "description": "Gezellig grandcafe met uitgebreide kaart, terras en leuke sfeer voor jong en oud.",
+        "phone": "045-571-8052",
+        "website": "www.dekrommetoeter.nl",
+        "icon": "🎺",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Do: 10:00-01:00, Vr-Za: 10:00-02:00, Zo: 11:00-24:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.980332,
+          50.8872189
+        ]
+      },
+      "properties": {
+        "id": 24,
+        "name": "De Bank Heerlen",
+        "category": "Eten & Drinken",
+        "address": "Pancratiusplein 46, 6411 KB Heerlen",
+        "description": "Trendy bar in een voormalig bankgebouw, bekend om cocktails en stijlvolle ambiance.",
+        "phone": "045-571-9163",
+        "website": "www.debank-heerlen.nl",
+        "icon": "🏦",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Do: 17:00-01:00, Vr-Za: 17:00-02:00, Zo: 17:00-24:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.980189999999999,
+          50.88697
+        ]
+      },
+      "properties": {
+        "id": 25,
+        "name": "Cocktailbar Bolero",
+        "category": "Eten & Drinken",
+        "address": "Pancratiusplein 52, 6411 JZ Heerlen",
+        "description": "Sfeervolle cocktailbar met uitgebreide drankkaart, tapas en live muziek.",
+        "phone": "045-571-0274",
+        "website": "www.bolero-heerlen.nl",
+        "icon": "🍹",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Do: 17:00-01:00, Vr-Za: 17:00-02:00, Zo: 17:00-24:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9788324,
+          50.8871742
+        ]
+      },
+      "properties": {
+        "id": 26,
+        "name": "Dimi's Overloaded Lunchroom",
+        "category": "Eten & Drinken",
+        "address": "Geleenstraat 7, 6411 HP Heerlen",
+        "description": "Populaire lunchroom met verse sandwiches, salades en overloaded gerechten. Bekend om gambas en pulled pork.",
+        "phone": "06-47589945",
+        "website": "www.dimisoverloaded.nl",
+        "icon": "🥪",
+        "color": "#27AE60",
+        "opening_hours": "Di: 12:00-17:00, Wo-Za: 10:00-17:00, Zo: 12:00-17:00, Ma: Gesloten"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9795386,
+          50.886838
+        ]
+      },
+      "properties": {
+        "id": 27,
+        "name": "Thirty Four Coffee & More",
+        "category": "Eten & Drinken",
+        "address": "Akerstraat 6, 6411 HA Heerlen",
+        "description": "Trendy coffee shop met specialty coffee, verse sandwiches en gezellige sfeer.",
+        "phone": "045-571-1385",
+        "website": "www.thirtyfour-heerlen.nl",
+        "icon": "☕",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Vr: 08:00-17:00, Za: 09:00-17:00, Zo: 10:00-16:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.978452000000001,
+          50.8874368
+        ]
+      },
+      "properties": {
+        "id": 28,
+        "name": "Brunchbar Heerlen",
+        "category": "Eten & Drinken",
+        "address": "Saroleastraat 1B, 6411 LR Heerlen",
+        "description": "Trendy brunchbar met verse, gezonde gerechten, specialty coffee en gezellige sfeer voor ontbijt en lunch.",
+        "phone": "045-571-4681",
+        "website": "www.brunchbar-heerlen.nl",
+        "icon": "🥐",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Vr: 08:00-16:00, Za-Zo: 09:00-16:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9786734,
+          50.8873585
+        ]
+      },
+      "properties": {
+        "id": 29,
+        "name": "Het Duitse Bakkertje",
+        "category": "Eten & Drinken",
+        "address": "Saroleastraat 2, 6411 LT Heerlen",
+        "description": "Traditionele bakkerij met verse broodjes, gebak en Duitse specialiteiten.",
+        "phone": "045-571-2496",
+        "website": "www.hetduitsebakkertje.nl",
+        "icon": "🥖",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Za: 07:00-18:00, Zo: 08:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9790288,
+          50.8868403
+        ]
+      },
+      "properties": {
+        "id": 30,
+        "name": "Jansen & Janssen - Coffee & More",
+        "category": "Eten & Drinken",
+        "address": "Doctor Poelsstraat 15, 6411 HG Heerlen",
+        "description": "Bakkerij en coffee shop met verse broodjes, gebak en uitstekende koffie.",
+        "phone": "045-571-3607",
+        "website": "www.jansenjanssen.nl",
+        "icon": "🍰",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Za: 07:00-18:00, Zo: 08:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9765738,
+          50.8877146
+        ]
+      },
+      "properties": {
+        "id": 31,
+        "name": "Coffeelovers Heerlen",
+        "category": "Eten & Drinken",
+        "address": "Promenade 12, 6411 JK Heerlen",
+        "description": "Specialty coffee shop met verse gebrande koffie, thee en lichte maaltijden.",
+        "phone": "045-571-4718",
+        "website": "www.coffeelovers.nl",
+        "icon": "☕",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Za: 08:00-18:00, Zo: 10:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9762366,
+          50.8897852
+        ]
+      },
+      "properties": {
+        "id": 32,
+        "name": "Espresso Bar Aroma",
+        "category": "Eten & Drinken",
+        "address": "Saroleastraat 71, 6411 LS Heerlen",
+        "description": "Gezellige espresso bar met uitstekende koffie, verse sandwiches en vriendelijke service.",
+        "phone": "045-571-5829",
+        "website": "www.aroma-heerlen.nl",
+        "icon": "☕",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Vr: 07:00-17:00, Za: 08:00-17:00, Zo: 09:00-16:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.979345299999999,
+          50.8876031
+        ]
+      },
+      "properties": {
+        "id": 33,
+        "name": "Bagels & Beans",
+        "category": "Eten & Drinken",
+        "address": "Bongerd, Pancratiusplein 18, 6411 JM Heerlen",
+        "description": "Bekende keten met verse bagels, koffie en gezonde lunchopties in het Glaspaleis.",
+        "phone": "045-571-6940",
+        "website": "www.bagelsbeans.nl",
+        "icon": "🥯",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Za: 08:00-18:00, Zo: 09:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9769266,
+          50.8894202
+        ]
+      },
+      "properties": {
+        "id": 34,
+        "name": "Pat's Tosti Bar",
+        "category": "Eten & Drinken",
+        "address": "Saroleastraat 66, 6411 Heerlen",
+        "description": "Populaire tosti bar met verse, creatieve tosti's en vriendelijke service.",
+        "phone": "045-571-7051",
+        "website": "www.patstostibar.nl",
+        "icon": "🥪",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Za: 10:00-18:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9817861,
+          50.8878844
+        ]
+      },
+      "properties": {
+        "id": 35,
+        "name": "'t Duuvelke Heerlen",
+        "category": "Eten & Drinken",
+        "address": "Gasthuisstraat 11, 6411 KD Heerlen",
+        "description": "Gezellig restaurant met Nederlandse keuken, goede bieren en warme sfeer.",
+        "phone": "045-571-8162",
+        "website": "www.duuvelke-heerlen.nl",
+        "icon": "👹",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Do: 16:00-01:00, Vr-Za: 16:00-02:00, Zo: 16:00-24:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.981005199999999,
+          50.8879434
+        ]
+      },
+      "properties": {
+        "id": 36,
+        "name": "Café Nieuwe Nor",
+        "category": "Eten & Drinken",
+        "address": "Pancratiusstraat 30, 6411 KC Heerlen",
+        "description": "Café gelieerd aan poppodium Nieuwe Nor, perfecte plek voor een drankje voor of na concerten.",
+        "phone": "045-400-9100",
+        "website": "www.nieuwenor.nl",
+        "icon": "🎸",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Do: 20:00-01:00, Vr-Za: 20:00-02:00, Zo: 20:00-24:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9763682,
+          50.8899493
+        ]
+      },
+      "properties": {
+        "id": 37,
+        "name": "Stadscafé De Poort van Herle",
+        "category": "Eten & Drinken",
+        "address": "Stationstraat 22, 6411 NH Heerlen",
+        "description": "Traditioneel stadscafé met lokale sfeer, goed bier en gezellige stammgasten.",
+        "phone": "045-571-9273",
+        "website": "www.deportvanherle.nl",
+        "icon": "🚪",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Do: 11:00-01:00, Vr-Za: 11:00-02:00, Zo: 12:00-24:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9788727,
+          50.8882826
+        ]
+      },
+      "properties": {
+        "id": 38,
+        "name": "Café De Tapperij",
+        "category": "Eten & Drinken",
+        "address": "Bongerd 5, 6411 JL Heerlen",
+        "description": "Gezellig café met uitstekende bieren, vriendelijke sfeer en regelmatige activiteiten.",
+        "phone": "045-571-0384",
+        "website": "www.detapperij.nl",
+        "icon": "🍺",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Do: 16:00-01:00, Vr-Za: 16:00-02:00, Zo: 16:00-24:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.980766399999999,
+          50.8875605
+        ]
+      },
+      "properties": {
+        "id": 39,
+        "name": "Restaurant Alanya",
+        "category": "Eten & Drinken",
+        "address": "Pancratiusstraat 21, 6411 KC Heerlen",
+        "description": "Turkse restaurant met döner, pizza en grill gerechten. Halal geserveerd.",
+        "phone": "045-571-4495",
+        "website": "www.alanya-heerlen.nl",
+        "icon": "🌯",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Zo: 12:00-23:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.980563999999999,
+          50.887372
+        ]
+      },
+      "properties": {
+        "id": 40,
+        "name": "Mama Mia Pizzeria",
+        "category": "Eten & Drinken",
+        "address": "Pancratiusstraat 9, 6411 KB Heerlen",
+        "description": "Familiepizzeria met verse pizza's, pasta en Italiaanse specialiteiten.",
+        "phone": "045-571-5606",
+        "website": "www.mamamia-heerlen.nl",
+        "icon": "🍕",
+        "color": "#27AE60",
+        "opening_hours": "Ma-Zo: 16:00-23:00"
+      }
+    }
+  ]
+}

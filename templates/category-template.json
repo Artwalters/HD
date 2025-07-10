@@ -1,0 +1,24 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.979642, 50.887634]
+      },
+      "properties": {
+        "id": 1,
+        "name": "Voorbeeld Locatie",
+        "category": "NIEUWE_CATEGORIE",
+        "address": "Straatnaam 123, 6411 AB Heerlen",
+        "description": "Beschrijving van de locatie. Wat maakt deze plek bijzonder? Welke diensten/producten bieden zij?",
+        "phone": "045-123-4567",
+        "website": "www.voorbeeld.nl",
+        "icon": "🏢",
+        "color": "#FF6B6B",
+        "opening_hours": "Ma-Vr: 09:00-17:00, Za: 10:00-16:00, Zo: Gesloten"
+      }
+    }
+  ]
+}

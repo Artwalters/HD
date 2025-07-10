@@ -1,0 +1,775 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9767997,
+          50.888275
+        ]
+      },
+      "properties": {
+        "id": 1,
+        "name": "Maison Sonja Luxury Fashion",
+        "category": "Mode",
+        "address": "Dautzenbergstraat 34, 6411 LC Heerlen",
+        "description": "Exclusieve luxe fashion boutique met designer merken en persoonlijke styling service. Unieke collecties van topkwaliteit.",
+        "phone": "045-888-1528",
+        "website": "www.by-nicole.com",
+        "icon": "💎",
+        "color": "#9932CC",
+        "opening_hours": "Ma: 12:00-17:00, Di-Vr: 10:00-18:00, Za: 10:00-17:00, Zo: 13:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9780842,
+          50.8879675
+        ]
+      },
+      "properties": {
+        "id": 2,
+        "name": "H&M",
+        "category": "Mode",
+        "address": "Promenade 2, 6411 LR Heerlen",
+        "description": "Trendy modewinkel met betaalbare fashion voor dames, heren en kinderen. Laatste modetrends en duurzame collecties.",
+        "phone": "045-571-2345",
+        "website": "www.hm.com",
+        "icon": "👕",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.976661699999999,
+          50.8876991
+        ]
+      },
+      "properties": {
+        "id": 3,
+        "name": "Berden Mode, Wonen & Meer",
+        "category": "Mode",
+        "address": "Promenade 12, 6411 JK Heerlen",
+        "description": "Veelzijdige winkel met mode, wonen en meer. Van kleding tot interieur, alles onder één dak.",
+        "phone": "045-571-3456",
+        "website": "www.berden.nl",
+        "icon": "🏠",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9773751,
+          50.8878325
+        ]
+      },
+      "properties": {
+        "id": 4,
+        "name": "WE Fashion",
+        "category": "Mode",
+        "address": "Promenade 10, 6411 JK Heerlen",
+        "description": "Nederlandse modewinkel met casual en business kleding voor dames en heren. Kwalitatief en betaalbaar.",
+        "phone": "045-571-4567",
+        "website": "www.we-fashion.com",
+        "icon": "👔",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9786477,
+          50.8888633
+        ]
+      },
+      "properties": {
+        "id": 5,
+        "name": "Fashion Works Herenkleding",
+        "category": "Mode",
+        "address": "Dautzenbergstraat 18-A, 6411 LE Heerlen",
+        "description": "Gespecialiseerde herenmodezaak met zakelijke en casual kleding. Persoonlijke service en maatwerk.",
+        "phone": "045-571-5678",
+        "website": "www.fashionworks-heerlen.nl",
+        "icon": "🤵",
+        "color": "#9932CC",
+        "opening_hours": "Ma: 13:00-18:00, Di-Vr: 10:00-18:00, Za: 10:00-17:00, Zo: Gesloten"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9784389,
+          50.8886324
+        ]
+      },
+      "properties": {
+        "id": 6,
+        "name": "Dresscode Heerlen",
+        "category": "Mode",
+        "address": "Dautzenbergstraat 21, 6411 LA Heerlen",
+        "description": "Stijlvolle mode- en schoenenzaak met trendy kleding en accessoires voor de fashion-conscious shopper.",
+        "phone": "045-571-6789",
+        "website": "www.dresscode-heerlen.nl",
+        "icon": "👠",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.978478099999999,
+          50.8887607
+        ]
+      },
+      "properties": {
+        "id": 7,
+        "name": "YV-KE",
+        "category": "Mode",
+        "address": "Dautzenbergstraat 18c, 6411 LC Heerlen",
+        "description": "Trendy boutique met kleding en schoenen voor fashion-forward klanten. Unieke stukken en persoonlijke styling.",
+        "phone": "045-571-7890",
+        "website": "www.yv-ke.nl",
+        "icon": "👗",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.978786599999999,
+          50.8888475
+        ]
+      },
+      "properties": {
+        "id": 8,
+        "name": "Garbeau",
+        "category": "Mode",
+        "address": "Dautzenbergstraat 23, 6411 LE Heerlen",
+        "description": "Exclusieve damesmode boutique met hoogwaardige merken en persoonlijke service in een stijlvolle omgeving.",
+        "phone": "045-571-8901",
+        "website": "www.garbeau.nl",
+        "icon": "👚",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.977033100000001,
+          50.889352
+        ]
+      },
+      "properties": {
+        "id": 9,
+        "name": "ONLY",
+        "category": "Mode",
+        "address": "Saroleastraat 56-58, 6411 LV Heerlen",
+        "description": "Deense modewinkel met trendy dameskleding. Van casual tot party outfits, altijd de nieuwste trends.",
+        "phone": "045-571-9012",
+        "website": "www.only.com",
+        "icon": "💃",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9790035,
+          50.8872182
+        ]
+      },
+      "properties": {
+        "id": 10,
+        "name": "En Vogue Damesmode",
+        "category": "Mode",
+        "address": "Geleenstraat 3, 6411 HP Heerlen",
+        "description": "Gespecialiseerde damesmodezaak met elegante kleding en persoonlijke styling service. Kwaliteit en stijl centraal.",
+        "phone": "045-571-0123",
+        "website": "www.envogue-heerlen.nl",
+        "icon": "💄",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9832092,
+          50.8895337
+        ]
+      },
+      "properties": {
+        "id": 11,
+        "name": "Modehuis van den Berg",
+        "category": "Mode",
+        "address": "Klompstraat 49, 6411 KR Heerlen",
+        "description": "Traditioneel modehuis met klassieke en moderne kleding. Persoonlijke service en vakmanschap sinds generaties.",
+        "phone": "045-571-1234",
+        "website": "www.modehuisvandenberg.nl",
+        "icon": "🎩",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 09:00-18:00, Do: 09:00-21:00, Zo: Gesloten"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.976628799999999,
+          50.8891889
+        ]
+      },
+      "properties": {
+        "id": 12,
+        "name": "New Yorker",
+        "category": "Mode",
+        "address": "Corio Center 22, 6411 LS Heerlen",
+        "description": "Internationale modewinkel met trendy kleding voor jongeren. Streetwear, casual en party outfits.",
+        "phone": "045-571-2345",
+        "website": "www.newyorker.de",
+        "icon": "🗽",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9765738,
+          50.8877146
+        ]
+      },
+      "properties": {
+        "id": 13,
+        "name": "Purdey Mode",
+        "category": "Mode",
+        "address": "Promenade 12, 6411 JK Heerlen",
+        "description": "Exclusieve modeboutique met zorgvuldig geselecteerde merken en persoonlijke styling service.",
+        "phone": "045-571-3456",
+        "website": "www.purdey-mode.nl",
+        "icon": "✨",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.977385099999999,
+          50.8890079
+        ]
+      },
+      "properties": {
+        "id": 14,
+        "name": "Jeans Centre",
+        "category": "Mode",
+        "address": "Saroleastraat 44, 6411 LV Heerlen",
+        "description": "Specialist in jeans en casual wear. Grote collectie merken en maten voor dames en heren.",
+        "phone": "045-571-4567",
+        "website": "www.jeanscentre.nl",
+        "icon": "👖",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.975961499999999,
+          50.8871529
+        ]
+      },
+      "properties": {
+        "id": 15,
+        "name": "MS Mode",
+        "category": "Mode",
+        "address": "Promenade 131, 6411 JD Heerlen",
+        "description": "Damesmode voor de moderne vrouw. Betaalbare kleding in alle maten met focus op comfort en stijl.",
+        "phone": "045-571-5678",
+        "website": "www.msmode.nl",
+        "icon": "👩",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9778826,
+          50.8884734
+        ]
+      },
+      "properties": {
+        "id": 16,
+        "name": "Deems",
+        "category": "Mode",
+        "address": "Saroleastraat 26, 6411 LT Heerlen",
+        "description": "Modewinkel met eigentijdse kleding voor dames en heren. Goede prijs-kwaliteit verhouding.",
+        "phone": "045-571-6789",
+        "website": "www.deems.nl",
+        "icon": "👨",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9777179,
+          50.8878181
+        ]
+      },
+      "properties": {
+        "id": 17,
+        "name": "Mana Fashion",
+        "category": "Mode",
+        "address": "Promenade 8, 6411 JK Heerlen",
+        "description": "Trendy modezaak met diverse merken en stijlen. Van casual tot chic, voor elke gelegenheid.",
+        "phone": "045-571-7890",
+        "website": "www.mana-fashion.nl",
+        "icon": "🌟",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.977092600000001,
+          50.8877506
+        ]
+      },
+      "properties": {
+        "id": 18,
+        "name": "Op de Promenade Outlet",
+        "category": "Mode",
+        "address": "Promenade 10A, 6411 JK Heerlen",
+        "description": "Outlet met merkkleding tegen gereduceerde prijzen. Wisselende collecties en seizoensaanbiedingen.",
+        "phone": "045-571-8901",
+        "website": "www.promenade-outlet.nl",
+        "icon": "🏷️",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9760982,
+          50.8893596
+        ]
+      },
+      "properties": {
+        "id": 19,
+        "name": "Norah",
+        "category": "Mode",
+        "address": "Corio Center 16, 6411 LS Heerlen",
+        "description": "Modewinkel met eigentijdse kleding voor de moderne vrouw. Betaalbare mode in een breed scala.",
+        "phone": "045-571-9012",
+        "website": "www.norah.nl",
+        "icon": "💫",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.978929099999999,
+          50.8875948
+        ]
+      },
+      "properties": {
+        "id": 20,
+        "name": "TK Maxx",
+        "category": "Mode",
+        "address": "Bongerd 4, 6411 JM Heerlen",
+        "description": "Department store met merkkleding, schoenen en accessoires tegen lage prijzen. Altijd wisselende collecties.",
+        "phone": "045-571-0123",
+        "website": "www.tkmaxx.nl",
+        "icon": "🛍️",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9771844,
+          50.8865911
+        ]
+      },
+      "properties": {
+        "id": 21,
+        "name": "Harry Maas Modeschoenen",
+        "category": "Mode",
+        "address": "Raadhuisstraat 24, 6411 HN Heerlen",
+        "description": "Gespecialiseerde schoenenzaak met modeschoenen voor dames en heren. Kwaliteit en comfort centraal.",
+        "phone": "045-571-1234",
+        "website": "www.harrymaas.nl",
+        "icon": "👟",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9765203,
+          50.889484
+        ]
+      },
+      "properties": {
+        "id": 22,
+        "name": "Foot Locker",
+        "category": "Mode",
+        "address": "Saroleastraat 57, 6411 LS Heerlen",
+        "description": "Internationale sneaker store met de nieuwste sportwear en streetwear. Exclusieve releases en limited editions.",
+        "phone": "045-571-2345",
+        "website": "www.footlocker.nl",
+        "icon": "👟",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.976576499999999,
+          50.8896936
+        ]
+      },
+      "properties": {
+        "id": 23,
+        "name": "Jollie Kinderkleding",
+        "category": "Mode",
+        "address": "Saroleastraat 78, 6411 LW Heerlen",
+        "description": "Gespecialiseerde kinderkleding winkel met trendy en praktische kleding voor baby's tot tieners.",
+        "phone": "045-571-3456",
+        "website": "www.jollie-kinderkleding.nl",
+        "icon": "👶",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9789181,
+          50.8872097
+        ]
+      },
+      "properties": {
+        "id": 24,
+        "name": "Strictly for Men",
+        "category": "Mode",
+        "address": "Geleenstraat 5, 6411 HP Heerlen",
+        "description": "Exclusieve herenmodezaak met zakelijke en casual kleding. Persoonlijke service en styling advies.",
+        "phone": "045-571-4567",
+        "website": "www.strictlyformen.nl",
+        "icon": "🤵",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9773384,
+          50.8871132
+        ]
+      },
+      "properties": {
+        "id": 25,
+        "name": "Pieters Dortu",
+        "category": "Mode",
+        "address": "Geleenstraat 34, 6411 HS Heerlen",
+        "description": "Traditionele kledingzaak met klassieke en moderne mode. Persoonlijke service en vakmanschap.",
+        "phone": "045-571-5678",
+        "website": "www.pietersdortu.nl",
+        "icon": "👨‍💼",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9763851,
+          50.8880586
+        ]
+      },
+      "properties": {
+        "id": 26,
+        "name": "Roomers",
+        "category": "Mode",
+        "address": "Dautzenbergstraat 44, 6411 LC Heerlen",
+        "description": "Trendy modezaak met internationale merken en eigentijdse kleding voor fashion-conscious shoppers.",
+        "phone": "045-571-6789",
+        "website": "www.roomers.nl",
+        "icon": "🏠",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.978373599999999,
+          50.8885898
+        ]
+      },
+      "properties": {
+        "id": 27,
+        "name": "Outlaw",
+        "category": "Mode",
+        "address": "Dautzenbergstraat 23, 6411 LA Heerlen",
+        "description": "Edgy modezaak met alternatieve mode, streetwear en unieke stukken voor individuen die opvallen.",
+        "phone": "045-571-7890",
+        "website": "www.outlaw-fashion.nl",
+        "icon": "🦹",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9785384,
+          50.8886319
+        ]
+      },
+      "properties": {
+        "id": 28,
+        "name": "Capolino",
+        "category": "Mode",
+        "address": "Dautzenbergstraat 19, 6411 LA Heerlen",
+        "description": "Italiaanse mode boutique met elegante kleding en accessoires. Stijl en kwaliteit in Italiaanse traditie.",
+        "phone": "045-571-8901",
+        "website": "www.capolino.nl",
+        "icon": "🇮🇹",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9697059,
+          50.8858002
+        ]
+      },
+      "properties": {
+        "id": 29,
+        "name": "TESS MODE",
+        "category": "Mode",
+        "address": "Homeruspassage 4, 6411 BC Heerlen",
+        "description": "Modewinkel met diverse merken en stijlen. Eigentijdse kleding voor verschillende gelegenheden.",
+        "phone": "045-571-9012",
+        "website": "www.tessmode.nl",
+        "icon": "🛍️",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9788499,
+          50.8885479
+        ]
+      },
+      "properties": {
+        "id": 30,
+        "name": "FLY Conceptstore",
+        "category": "Mode",
+        "address": "Oranje Nassaustraat 5A, 6411 LD Heerlen",
+        "description": "Unieke conceptstore met vintage kleding, kunstzinnige items en magische sfeer. Regelmatig creatieve events.",
+        "phone": "06-29940971",
+        "website": "www.instagram.com/flyconceptstore",
+        "icon": "🦋",
+        "color": "#9932CC",
+        "opening_hours": "Do-Vr: 10:00-18:00, Za: 10:00-17:00, Zo-Wo: Gesloten"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9782686,
+          50.889654
+        ]
+      },
+      "properties": {
+        "id": 31,
+        "name": "Geluk van Toen",
+        "category": "Mode",
+        "address": "Oranje Nassaustraat 45, 6411 LE Heerlen",
+        "description": "Vintage en retro winkel met unieke kleding en accessoires uit vervlogen tijden. Nostalgie en stijl.",
+        "phone": "045-571-0123",
+        "website": "www.gelukventoen.nl",
+        "icon": "🕰️",
+        "color": "#9932CC",
+        "opening_hours": "Do-Za: 11:00-17:00, Zo-Wo: Gesloten"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9816604,
+          50.884619
+        ]
+      },
+      "properties": {
+        "id": 32,
+        "name": "Winkel Van Sinkel",
+        "category": "Mode",
+        "address": "Akerstraat 74, 6411 HC Heerlen",
+        "description": "Gevarieerde winkel met vintage kleding, curiosa en bijzondere items. Altijd wat leuks te vinden.",
+        "phone": "045-571-1234",
+        "website": "www.winkelvansinkel.nl",
+        "icon": "🎭",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-17:00, Zo: 12:00-16:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9563504,
+          50.9168258
+        ]
+      },
+      "properties": {
+        "id": 33,
+        "name": "Sams Boutique",
+        "category": "Mode",
+        "address": "Corneliusplein 57, 6413 EX Heerlen",
+        "description": "Gezellige boutique met unieke kleding en woonaccessoires. Persoonlijke service en bijzondere vondsten.",
+        "phone": "045-571-2345",
+        "website": "www.samsboutique.nl",
+        "icon": "💝",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9555677,
+          50.9157119
+        ]
+      },
+      "properties": {
+        "id": 34,
+        "name": "Happy Screamers",
+        "category": "Mode",
+        "address": "Wannerstraat 21-23, 6413 EV Heerlen",
+        "description": "Alternatieve mode- en schoenenzaak met gothic, punk en metal kleding. Voor de rebelse fashionista.",
+        "phone": "045-571-3456",
+        "website": "www.happyscreamers.nl",
+        "icon": "🖤",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.968333299999999,
+          50.9055556
+        ]
+      },
+      "properties": {
+        "id": 35,
+        "name": "Hendriks Mode",
+        "category": "Mode",
+        "address": "Schelsberg 88, 6413 AG Heerlen",
+        "description": "Familiebedrijf met mode, schoenen en woonaccessoires. Tradities van vakmanschap en persoonlijke service.",
+        "phone": "045-571-4567",
+        "website": "www.hendriksmode.nl",
+        "icon": "👨‍👩‍👧‍👦",
+        "color": "#9932CC",
+        "opening_hours": "Ma-Za: 09:00-18:00, Do: 09:00-21:00, Zo: 12:00-17:00"
+      }
+    }
+  ]
+}

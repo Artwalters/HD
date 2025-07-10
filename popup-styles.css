@@ -1,0 +1,547 @@
+/* ==============================
+ * CORE LAYOUT & MAPBOX CONTROLS  
+ * ============================== */
+
+/* Hide Mapbox branding */
+.mapboxgl-ctrl-logo,
+.mapboxgl-ctrl-attrib {
+  display: none !important;
+}
+
+/* Hide zoom controls */
+.mapboxgl-ctrl-top-right .mapboxgl-ctrl-zoom {
+  display: none !important;
+}
+
+/* Control group styling with enhanced frosted glass effect */
+.mapboxgl-ctrl-group {
+  background: var(--color-background) !important;
+  border: 1.5px solid var(--color-text) !important;
+  border-radius: var(--radius-2xl) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glass effect for buttons inside control group */
+.mapboxgl-ctrl-group button {
+  background: var(--glass-background);
+  box-shadow: none !important;
+  border: none;
+  color: var(--color-text);
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.mapboxgl-ctrl-group:not(:empty) {
+  box-shadow: none !important;
+}
+
+.mapboxgl-ctrl-group button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+/* Control positioning */
+.mapboxgl-ctrl-top-right {
+  margin-top: 12em;
+  margin-right: 4rem;
+}
+
+.mapboxgl-ctrl-bottom-right {
+  margin-bottom: 3rem !important;
+  margin-right: 4rem;
+}
+
+/* Responsive adjustments for controls */
+@media screen and (max-width: 991px) {
+  .mapboxgl-ctrl-top-right,
+  .mapboxgl-ctrl-bottom-right {
+    margin-right: 3rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mapboxgl-ctrl-top-right {
+    margin-right: 2rem;
+    margin-top: 8rem;
+  }
+  .mapboxgl-ctrl-bottom-right{
+    margin-right: 1.5rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .mapboxgl-ctrl-top-right {
+    margin-right: 1.5rem;
+    margin-top: 8rem;
+  }
+  .mapboxgl-ctrl-bottom-right{
+    margin-right: 1.5rem;
+  }
+}
+
+/* ==============================
+ * POPUP STYLES & ANIMATIONS
+ * ============================== */
+
+.mapboxgl-popup-content {
+  padding: 0 !important;
+  border-radius: 20px !important;
+  overflow: visible !important;
+  width: 480px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform-style: preserve-3d !important;
+  perspective: 1000px;
+}
+
+/* Hide popup tips */
+.mapboxgl-popup-tip {
+  display: none;
+}
+
+/* Popup flip animation */
+.popup-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.popup-wrapper.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.popup-side {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  color: white;
+}
+
+.popup-front {
+  transform: rotateY(0deg);
+}
+
+.popup-back {
+  transform: rotateY(180deg);
+}
+
+.content-wrapper {
+  padding: 40px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+/* Popup typography */
+.popup-title {
+  font-family: "astronef-std-super-cond", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+  font-size: 4.5em;
+  line-height: 0.75em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 1.75em;
+}
+
+.popup-title.details {
+  font-size: 3em;
+  text-align: left;
+  margin-top: 0.7em;
+}
+
+.popup-background-image {
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 37%;
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: -2;
+}
+
+.popup-border-overlay {
+  position: absolute;
+  top: 3rem;
+  left: 0;
+  width: 100%;
+  height: 37%;
+  z-index: -1;
+}
+
+#paint0_linear_3248_5 {
+  transition: y1 0.5s ease, y2 0.5s ease;
+}
+
+/* Popup description */
+.popup-description {
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 4em;
+  margin-top: 1em;
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: 18em;
+  text-align: center;
+  padding-right: 15px;
+  margin-right: -15px;
+  -webkit-overflow-scrolling: touch;
+  pointer-events: auto !important;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  cursor: grab;
+  color: white;
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+}
+
+.popup-description:active {
+  cursor: grabbing;
+}
+
+.popup-descriptionv2 {
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-top: 1em;
+  color: white;
+}
+
+.popup-descriptionv2 p {
+  margin-bottom: 0.5em;
+}
+
+.popup-descriptionv2 strong {
+  font-weight: bold;
+}
+
+.popup-descriptionv2 a {
+  color: white;
+  text-decoration: underline;
+}
+
+p {
+  color: white;
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Scrollbar styling for popup description */
+.popup-description::-webkit-scrollbar {
+  width: 5px;
+  background-color: transparent;
+}
+
+.popup-description::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.popup-description::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+/* ==============================
+ * POPUP BUTTONS
+ * ============================== */
+
+.button-base {
+  position: absolute;
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.4);
+  backdrop-filter: blur(5px);
+  color: rgb(255, 255, 255);
+  padding: 10px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  z-index: 10;
+  font-family: 'Arial', sans-serif;
+}
+
+.button-base:hover {
+  background: rgba(255,255,255,0.25);
+  transform: scale(1.01);
+}
+
+.impressie-button {
+  bottom: 30px;
+  right: 30px;
+}
+
+.more-info-button,
+.terug-button {
+  bottom: 30px;
+  left: 30px;
+}
+
+.close-button {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 20;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  transition: transform 0.3s ease;
+  border: none;
+}
+
+.close-button:hover {
+  transform: translateX(-50%) rotate(180deg) scale(1.1);
+}
+
+/* X for close button */
+.close-button::before,
+.close-button::after {
+  content: '';
+  position: absolute;
+  background-color: white;
+  width: 12px;
+  height: 2px;
+  border-radius: 15px;
+  transition: transform 0.3s ease;
+  top: 50%;
+  left: 50%;
+}
+
+.close-button::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.close-button::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* ==============================
+ * MOBILE ADAPTATIONS
+ * ============================== */
+
+/* Tablet styles */
+@media screen and (max-width: 1024px) {
+  .mapboxgl-popup-content {
+    width: 420px !important;
+  }
+  
+  .popup-title {
+    font-size: 3.8em;
+  }
+  
+  .popup-title.details {
+    font-size: 2.6em;
+  }
+  
+  .content-wrapper {
+    padding: 30px;
+  }
+  
+  .popup-back .content-wrapper {
+    padding: 30px;
+  }
+}
+
+/* Mobile styles */
+@media screen and (max-width: 767px) {
+  .mapboxgl-popup-content {
+    width: 350px !important;
+  }
+
+  .popup-title {
+    margin-top: 2.5em;
+    font-size: 3.2em !important;
+  }
+  
+  .popup-title.details {
+    font-size: 2.2em !important;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .popup-description {
+    font-size: 14px;
+    max-height: 14em;
+    margin-top: .75em;
+    margin-bottom: 4em;
+  }
+  
+  .popup-descriptionv2 {
+    font-size: 14px;
+  }
+
+  .content-wrapper {
+    padding: 30px;
+  }
+  
+  .popup-back .content-wrapper {
+    padding: 30px;
+  }
+
+  .button-base {
+    border-radius: 59px;
+    padding: 8px 18px;
+    font-size: 14px;
+  }
+}
+
+/* Extra small mobile */
+@media screen and (max-width: 480px) {
+  .mapboxgl-popup-content {
+    width: 320px !important;
+  }
+
+  .popup-title {
+    font-size: 2.8em !important;
+  }
+  
+  .popup-title.details {
+    font-size: 2em !important;
+  }
+  
+  p {
+    font-size: 12px;
+  }
+  
+  .popup-description {
+    font-size: 12px;
+    max-height: 12em;
+  }
+  
+  .popup-descriptionv2 {
+    font-size: 12px;
+  }
+
+  .content-wrapper {
+    padding: 25px;
+  }
+  
+  .popup-back .content-wrapper {
+    padding: 25px;
+  }
+
+  .button-base {
+    padding: 6px 16px;
+    font-size: 12px;
+  }
+}
+
+/* ==============================
+ * DETAILS CARD SPECIFIC STYLING
+ * ============================== */
+
+.popup-back .content-wrapper {
+  padding: 40px;
+  color: white;
+  height: 100%;
+}
+
+.info-content {
+  margin-top: 0.5em;
+}
+
+.social-icons {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.social-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  text-decoration: none;
+}
+
+.social-icons a:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.social-icons svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Navigation Actions */
+.popup-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.navigate-button {
+  background: rgba(75, 131, 242, 0.9);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.navigate-button:hover {
+  background: rgba(75, 131, 242, 1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(75, 131, 242, 0.3);
+}
+  filter: none;
+}
+
+/* Specifiek voor Instagram & Facebook: VULLEN MET WIT */
+.social-icons a[aria-label="Instagram"] svg,
+.social-icons a[aria-label="Facebook"] svg {
+  fill: white;
+  stroke: none;
+}
+
+/* Specifiek voor Website: WITTE OUTLINE, GEEN VULLING */
+.social-icons a[aria-label="Website"] svg {
+  fill: none;
+  stroke: white;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Specifiek voor Telefoon: WITTE OUTLINE */
+.social-icons a[aria-label="Bellen"] svg {
+  fill: none;
+  stroke: white;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
