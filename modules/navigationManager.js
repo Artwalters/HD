@@ -292,12 +292,8 @@ class NavigationManager {
             }
             
             // Add zoom out/in animation when starting navigation
+            // Camera following will be started after animation completes
             this.startNavigationWithZoomAnimation();
-            
-            // Start camera following only during navigation
-            if (this.isFollowingUser) {
-                this.startCameraFollowing();
-            }
 
             console.log(`🧭 Route berekend naar ${destinationName}:`, this.currentRoute);
             return this.currentRoute;
@@ -812,16 +808,16 @@ class NavigationManager {
             this.currentRoute.destination.lat, this.currentRoute.destination.lng
         );
         
-        // Adjust duration based on distance - longer distances get faster animations
-        let zoomOutDuration = 800;
-        let zoomInDuration = 1200;
+        // Much faster animations for better UX
+        let zoomOutDuration = 300;
+        let zoomInDuration = 400;
         
         if (distance > 5000) { // More than 5km
-            zoomOutDuration = 400;
-            zoomInDuration = 600;
+            zoomOutDuration = 150;
+            zoomInDuration = 200;
         } else if (distance > 2000) { // More than 2km
-            zoomOutDuration = 600;
-            zoomInDuration = 900;
+            zoomOutDuration = 200;
+            zoomInDuration = 300;
         }
         
         console.log(`🎬 Starting navigation animation (distance: ${Math.round(distance)}m, durations: ${zoomOutDuration}/${zoomInDuration}ms)`);
@@ -845,7 +841,16 @@ class NavigationManager {
                 duration: zoomInDuration,
                 essential: true
             });
-        }, zoomOutDuration + 200); // Small delay between animations
+            
+            // Start camera following AFTER zoom animation completes
+            setTimeout(() => {
+                if (this.isFollowingUser && this.isNavigating) {
+                    console.log('📹 Starting camera following after zoom animation');
+                    this.startCameraFollowing();
+                }
+            }, zoomInDuration + 100);
+            
+        }, zoomOutDuration + 50); // Very short delay between animations
     }
 
     /**
@@ -863,20 +868,26 @@ class NavigationManager {
             // Only follow camera during active navigation
             if (!this.isFollowingUser || !this.isNavigating) {
                 console.log('📹 Stopping camera following');
+                if (this.cameraFollowAnimationId) {
+                    clearInterval(this.cameraFollowAnimationId);
+                    this.cameraFollowAnimationId = null;
+                }
                 return;
             }
             
             const userLocation = this.locationManager.getUserLocation();
             if (userLocation) {
+                // Use smooth easeTo for camera following
                 this.map.easeTo({
                     center: [userLocation.lng, userLocation.lat],
                     duration: 1000,
                     essential: true
                 });
             }
-            
-            this.cameraFollowAnimationId = requestAnimationFrame(updateCamera);
         };
+        
+        // Use interval with much longer intervals to avoid conflicts
+        this.cameraFollowAnimationId = setInterval(updateCamera, 5000); // Update every 5 seconds only
         
         updateCamera();
     }
@@ -889,7 +900,7 @@ class NavigationManager {
         
         this.map.easeTo({
             center: [location.lng, location.lat],
-            duration: 500,
+            duration: 200,
             essential: true
         });
     }
@@ -904,7 +915,7 @@ class NavigationManager {
             this.startCameraFollowing();
         } else {
             if (this.cameraFollowAnimationId) {
-                cancelAnimationFrame(this.cameraFollowAnimationId);
+                clearInterval(this.cameraFollowAnimationId);
                 this.cameraFollowAnimationId = null;
             }
         }
@@ -1428,7 +1439,7 @@ class NavigationManager {
         
         // Stop camera following immediately
         if (this.cameraFollowAnimationId) {
-            cancelAnimationFrame(this.cameraFollowAnimationId);
+            clearInterval(this.cameraFollowAnimationId);
             this.cameraFollowAnimationId = null;
         }
         

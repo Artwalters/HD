@@ -35,8 +35,8 @@
   --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   
   /* TYPOGRAFIE */
-  --font-heading: "astronef-std-super-cond", sans-serif;
-  --font-body: 'Arial', sans-serif;
+  --font-heading: "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
   
   /* FONT SIZES */
   --font-size-xs: 12px;

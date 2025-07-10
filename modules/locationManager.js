@@ -92,103 +92,21 @@ class LocationManager {
     }
 
     /**
-     * Creëert compass control
+     * Creëert compass control (disabled - not working properly)
      */
     createCompassControl() {
-        // Forceer altijd compass creation voor testing
-        console.log('🧭 Creating compass control...');
-        
-        const compassContainer = document.createElement('div');
-        compassContainer.className = 'compass-control';
-        compassContainer.style.cssText = `
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            pointer-events: auto;
-        `;
-        
-        compassContainer.innerHTML = `
-            <div class="compass" style="
-                position: relative;
-                width: 60px;
-                height: 60px;
-                background: rgba(255, 255, 255, 0.9);
-                border: 2px solid rgba(0, 0, 0, 0.2);
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            ">
-                <div class="compass-needle" id="compass-needle" style="
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    transition: transform 0.5s ease;
-                ">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M12 2l3 10-3 2-3-2z" fill="#ff0000"/>
-                        <path d="M12 22l-3-10 3-2 3 2z" fill="#ffffff" stroke="#000" stroke-width="1"/>
-                    </svg>
-                </div>
-                <div class="compass-direction" id="compass-direction" style="
-                    position: absolute;
-                    bottom: -25px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    font-size: 12px;
-                    font-weight: 600;
-                    color: rgba(0, 0, 0, 0.8);
-                    background: rgba(255, 255, 255, 0.9);
-                    padding: 2px 6px;
-                    border-radius: 6px;
-                    border: 1px solid rgba(0, 0, 0, 0.2);
-                ">N</div>
-            </div>
-        `;
-        
-        // Add to map container
-        const mapContainer = document.getElementById('map');
-        if (mapContainer) {
-            mapContainer.appendChild(compassContainer);
-            console.log('✅ Compass added to map container');
-        } else {
-            console.error('❌ Map container not found');
-            return;
-        }
-        
-        this.compassElement = compassContainer;
-        
-        // Test compass immediately
-        setTimeout(() => {
-            this.testCompass();
-        }, 1000);
+        // Compass disabled due to poor performance and accuracy issues
+        console.log('🧭 Compass control disabled (not working properly)');
+        this.compassElement = null;
+        return;
     }
     
     /**
-     * Test compass functionality
+     * Test compass functionality (disabled)
      */
     testCompass() {
-        console.log('🗺️ Testing compass...');
-        if (this.compassElement) {
-            console.log('✅ Compass element exists');
-            this.updateCompass(45); // Test with 45 degrees
-            
-            // Animate through directions for testing
-            let testAngle = 0;
-            const testInterval = setInterval(() => {
-                this.updateCompass(testAngle);
-                testAngle += 45;
-                if (testAngle >= 360) {
-                    clearInterval(testInterval);
-                    this.updateCompass(0); // Reset to north
-                }
-            }, 500);
-        } else {
-            console.error('❌ Compass element not found');
-        }
+        // Compass testing disabled
+        return;
     }
 
     /**
@@ -396,7 +314,7 @@ class LocationManager {
             };
             
             this.heading = simulatedHeading;
-            this.updateCompass(simulatedHeading);
+            // this.updateCompass(simulatedHeading); // Disabled - compass removed
             this.updateUserLocationOrientation();
             
             // Notify callbacks
@@ -453,7 +371,7 @@ class LocationManager {
         // Throttle updates - only update every 200ms
         const now = Date.now();
         if (!this.lastOrientationUpdate || (now - this.lastOrientationUpdate) > 200) {
-            this.updateCompass(heading);
+            // this.updateCompass(heading); // Disabled - compass removed
             this.updateUserLocationOrientation();
             this.lastOrientationUpdate = now;
         }
@@ -465,23 +383,11 @@ class LocationManager {
     }
 
     /**
-     * Update compass display
+     * Update compass display (disabled)
      */
     updateCompass(heading) {
-        if (!this.compassElement) return;
-        
-        const needle = this.compassElement.querySelector('#compass-needle');
-        const direction = this.compassElement.querySelector('#compass-direction');
-        
-        if (needle) {
-            needle.style.transform = `rotate(${heading}deg)`;
-        }
-        
-        if (direction) {
-            const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
-            const index = Math.round(heading / 45) % 8;
-            direction.textContent = directions[index];
-        }
+        // Compass disabled - no updates needed
+        return;
     }
 
     /**
@@ -680,6 +586,10 @@ class LocationManager {
             }
         });
         
+        // Responsive pin size based on screen width
+        const isMobile = window.innerWidth <= 768;
+        const pinSize = isMobile ? 32 : 28; // Slightly larger on mobile for better visibility
+        
         // Single pin/arrow that shows both location and orientation
         this.map.addLayer({
             id: 'user-location-pin',
@@ -687,7 +597,7 @@ class LocationManager {
             source: 'user-location-pin',
             layout: {
                 'text-field': '📍', // Location pin emoji
-                'text-size': 28,
+                'text-size': pinSize,
                 'text-rotate': ['get', 'heading'],
                 'text-rotation-alignment': 'map',
                 'text-allow-overlap': true,
@@ -697,12 +607,11 @@ class LocationManager {
             paint: {
                 'text-color': '#4B83F2',
                 'text-halo-color': '#FFFFFF',
-                'text-halo-width': 2
+                'text-halo-width': isMobile ? 3 : 2 // Stronger halo on mobile
             }
         });
 
-        // Add pulsing animation
-        this.addPulsingAnimation(layerId);
+        // No pulsing animation - clean simple pin
     }
 
     /**
@@ -726,28 +635,11 @@ class LocationManager {
     }
 
     /**
-     * Voeg pulsing animatie toe
+     * Voeg pulsing animatie toe (disabled)
      */
     addPulsingAnimation(layerId) {
-        let opacity = 1;
-        let direction = -1;
-
-        const animate = () => {
-            opacity += direction * 0.02;
-            
-            if (opacity <= 0.3) {
-                direction = 1;
-            } else if (opacity >= 1) {
-                direction = -1;
-            }
-
-            if (this.map.getLayer(layerId)) {
-                this.map.setPaintProperty(layerId, 'circle-opacity', opacity);
-                requestAnimationFrame(animate);
-            }
-        };
-
-        animate();
+        // Pulsing animation disabled for cleaner UI
+        return;
     }
 
     /**

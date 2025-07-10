@@ -141,18 +141,18 @@
 
 /* Popup typography */
 .popup-title {
-  font-family: "astronef-std-super-cond", sans-serif;
-  font-weight: 200;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
   font-style: normal;
-  font-size: 4.5em;
-  line-height: 0.75em;
-  text-transform: uppercase;
+  font-size: 2.5em;
+  line-height: 1.1em;
+  text-transform: none;
   text-align: center;
-  margin-top: 1.75em;
+  margin-top: 1.2em;
 }
 
 .popup-title.details {
-  font-size: 3em;
+  font-size: 1.8em;
   text-align: left;
   margin-top: 0.7em;
 }
@@ -184,7 +184,7 @@
 
 /* Popup description */
 .popup-description {
-  font-family: 'Arial', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 16px;
   line-height: 1.5;
   margin-bottom: 4em;
@@ -212,7 +212,7 @@
 }
 
 .popup-descriptionv2 {
-  font-family: 'Arial', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 16px;
   line-height: 1.5;
   margin-top: 1em;
@@ -234,7 +234,7 @@
 
 p {
   color: white;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 16px;
   line-height: 1.5;
 }
@@ -272,7 +272,7 @@ p {
   font-size: 16px;
   transition: all 0.3s ease;
   z-index: 10;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .button-base:hover {
@@ -349,11 +349,11 @@ p {
   }
   
   .popup-title {
-    font-size: 3.8em;
+    font-size: 2.2em;
   }
   
   .popup-title.details {
-    font-size: 2.6em;
+    font-size: 1.6em;
   }
   
   .content-wrapper {
@@ -372,12 +372,12 @@ p {
   }
 
   .popup-title {
-    margin-top: 2.5em;
-    font-size: 3.2em !important;
+    margin-top: 1.5em;
+    font-size: 2em !important;
   }
   
   .popup-title.details {
-    font-size: 2.2em !important;
+    font-size: 1.4em !important;
   }
 
   p {

@@ -228,80 +228,145 @@
 @media (max-width: 768px) {
     .filter-container {
         top: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 95%;
+        left: 10px;
+        right: 10px;
+        transform: none;
+        width: auto;
         max-width: none;
     }
     
     .filter-wrapper {
         width: 100%;
+        border-radius: 12px;
     }
     
     .filter-buttons {
-        padding: 12px;
-        gap: 8px;
+        padding: 10px;
+        gap: 6px;
+        /* Enable horizontal scrolling on mobile */
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        /* Add padding to scroll area */
+        padding-right: 15px;
     }
     
     .filter-btn {
-        padding: 10px 14px;
-        font-size: 13px;
+        padding: 8px 12px;
+        font-size: 12px;
+        border-radius: 10px;
+        /* Ensure buttons don't shrink too much */
+        min-width: auto;
+        flex-shrink: 0;
+    }
+    
+    .filter-icon {
+        font-size: 14px;
+        width: 16px;
+        height: 16px;
+    }
+    
+    .filter-label {
+        font-size: 12px;
+        /* Hide labels on very small screens to save space */
+        display: none;
     }
     
     .filter-count {
-        font-size: 11px;
-        padding: 1px 6px;
-        margin-right: 12px;
+        font-size: 10px;
+        padding: 1px 4px;
+        margin-right: 8px;
+        min-width: 16px;
     }
     
     .filter-btn.active::after {
-        font-size: 9px;
-        right: 6px;
+        font-size: 8px;
+        right: 4px;
+    }
+    
+    /* Show only icons on mobile for space efficiency */
+    .filter-btn {
+        gap: 4px;
+        padding: 8px 10px;
+        justify-content: center;
     }
 }
 
 @media (max-width: 480px) {
     .filter-container {
         top: 8px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 98%;
+        left: 8px;
+        right: 8px;
+        transform: none;
+        width: auto;
     }
     
     .filter-wrapper {
-        border-radius: 12px;
+        border-radius: 10px;
     }
     
     .filter-buttons {
         padding: 8px;
-        gap: 6px;
+        gap: 4px;
+        /* Better scrolling on small screens */
+        scroll-snap-type: x mandatory;
     }
     
     .filter-btn {
-        padding: 8px 12px;
-        border-radius: 10px;
-        font-size: 12px;
+        padding: 6px 8px;
+        border-radius: 8px;
+        font-size: 11px;
+        /* Snap to position when scrolling */
+        scroll-snap-align: start;
+        /* Minimum touch target size */
+        min-height: 32px;
+        min-width: 40px;
     }
     
     .filter-icon {
-        font-size: 14px;
-        width: 18px;
-        height: 18px;
+        font-size: 12px;
+        width: 14px;
+        height: 14px;
     }
     
     .filter-label {
-        font-size: 12px;
+        /* Keep labels hidden on small screens */
+        display: none;
     }
     
     .filter-count {
-        font-size: 10px;
-        padding: 1px 5px;
-        margin-right: 10px;
+        font-size: 9px;
+        padding: 1px 3px;
+        margin-right: 6px;
+        min-width: 14px;
     }
     
     .filter-btn.active::after {
-        font-size: 8px;
-        right: 4px;
+        font-size: 7px;
+        right: 3px;
+    }
+    
+    /* Add scroll indicators */
+    .filter-buttons::before,
+    .filter-buttons::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 15px;
+        pointer-events: none;
+        z-index: 1;
+    }
+    
+    .filter-buttons::before {
+        left: 0;
+        background: linear-gradient(to right, rgba(255,255,255,0.1), transparent);
+    }
+    
+    .filter-buttons::after {
+        right: 0;
+        background: linear-gradient(to left, rgba(255,255,255,0.1), transparent);
     }
 }
 
