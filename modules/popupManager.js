@@ -524,19 +524,42 @@ class PopupManager {
                 throw new Error('Navigation manager niet beschikbaar');
             }
             
+            // Check if location is available or start tracking
             if (!app.locationManager || !app.locationManager.hasUserLocation()) {
-                alert('Eerst locatie toestemming geven om te kunnen navigeren');
-                app.locationManager?.handleLocationClick();
-                return;
+                console.log('🔍 Gebruikerslocatie niet beschikbaar, starten location tracking...');
+                
+                // Start location tracking
+                try {
+                    await app.locationManager.handleLocationClick();
+                    
+                    // Wait a moment for location to be found
+                    let attempts = 0;
+                    while (!app.locationManager.hasUserLocation() && attempts < 10) {
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                        attempts++;
+                    }
+                    
+                    if (!app.locationManager.hasUserLocation()) {
+                        alert('Kan je locatie niet vinden. Controleer of locatie toegang is toegestaan.');
+                        return;
+                    }
+                } catch (locationError) {
+                    alert('Locatie toegang is vereist voor navigatie');
+                    return;
+                }
             }
             
-            // Start navigation
+            console.log(`🧭 Starting navigation to ${properties.name}...`);
+            
+            // Start navigation immediately
             const success = await app.navigationManager.navigateToLocation(properties);
             
             if (success) {
                 // Close popup after starting navigation
                 this.closeActivePopup();
-                console.log(`🧭 Navigatie gestart naar ${properties.name}`);
+                console.log(`✅ Navigatie gestart naar ${properties.name}`);
+            } else {
+                alert('Kon geen route berekenen naar deze locatie');
             }
             
         } catch (error) {

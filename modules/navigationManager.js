@@ -280,6 +280,11 @@ class NavigationManager {
                     destination: destinationName
                 });
             }
+            
+            // Start camera following only during navigation
+            if (this.isFollowingUser) {
+                this.startCameraFollowing();
+            }
 
             console.log(`🧭 Route berekend naar ${destinationName}:`, this.currentRoute);
             return this.currentRoute;
@@ -466,10 +471,9 @@ class NavigationManager {
         this.speedHistory = [];
         this.averageSpeed = 0;
         
-        // Start camera following
-        if (this.isFollowingUser) {
-            this.startCameraFollowing();
-        }
+        // Camera following will be started after navigation begins
+        // Reset following state
+        this.isFollowingUser = true; // Default to following during navigation
     }
 
     /**
@@ -708,10 +712,19 @@ class NavigationManager {
      * Start camera following
      */
     startCameraFollowing() {
-        if (!this.locationManager.hasUserLocation()) return;
+        if (!this.locationManager.hasUserLocation() || !this.isNavigating) {
+            console.log('🔍 Cannot start camera following: no location or not navigating');
+            return;
+        }
+        
+        console.log('📹 Starting camera following during navigation');
         
         const updateCamera = () => {
-            if (!this.isFollowingUser || !this.isNavigating) return;
+            // Only follow camera during active navigation
+            if (!this.isFollowingUser || !this.isNavigating) {
+                console.log('📹 Stopping camera following');
+                return;
+            }
             
             const userLocation = this.locationManager.getUserLocation();
             if (userLocation) {
@@ -1264,14 +1277,19 @@ class NavigationManager {
      * Stop navigation
      */
     stopNavigation() {
+        console.log('🛑 Stopping navigation and camera following');
+        
         this.isNavigating = false;
         this.currentRoute = null;
         
-        // Stop camera following
+        // Stop camera following immediately
         if (this.cameraFollowAnimationId) {
             cancelAnimationFrame(this.cameraFollowAnimationId);
             this.cameraFollowAnimationId = null;
         }
+        
+        // Reset camera following state
+        this.isFollowingUser = true; // Reset for next navigation
         
         // Stop audio
         if (this.audioManager) {

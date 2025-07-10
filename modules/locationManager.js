@@ -527,7 +527,14 @@ class LocationManager {
         this.isTracking = true;
         this.updateLocationButton('active');
         this.updateLocationMarker();
-        this.flyToUserLocation();
+        
+        // Only fly to user location if not during navigation
+        const navigationManager = window.HeerlenApp?.navigationManager;
+        if (!navigationManager?.isNavigationActive()) {
+            this.flyToUserLocation();
+        } else {
+            console.log('📍 Location found but not flying to position (navigation active)');
+        }
         
         // Dispatch custom event for other modules
         document.dispatchEvent(new CustomEvent('userLocationUpdate', {
