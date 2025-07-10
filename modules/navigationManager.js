@@ -787,20 +787,8 @@ class NavigationManager {
         const instructionKey = `${this.currentStepIndex}-${distance || 'now'}`;
         if (this.lastAnnouncedStep === instructionKey) return;
         
-        // Debug: Log the step details to understand what we're working with
-        console.log('🗣️ Announcing instruction:', {
-            stepIndex: this.currentStepIndex,
-            maneuverType: step.maneuver.type,
-            maneuverModifier: step.maneuver.modifier,
-            originalInstruction: step.maneuver.instruction,
-            stepName: step.name,
-            distance: distance
-        });
-        
         // Use the same localized instruction for audio as visual
         const localizedInstruction = this.instructionTranslator.generateLocalizedInstruction(step, distance);
-        
-        console.log('🗣️ Generated localized instruction:', localizedInstruction);
         
         // Create instruction object for audio manager
         const instructionData = {

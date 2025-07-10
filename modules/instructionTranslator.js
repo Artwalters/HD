@@ -82,16 +82,6 @@ class InstructionTranslator {
         const streetName = this.extractStreetName(step);
         const baseInstruction = this.translateManeuver(maneuver);
         
-        // Debug logging
-        console.log('🔧 InstructionTranslator debug:', {
-            maneuverType: maneuver.type,
-            maneuverModifier: maneuver.modifier,
-            streetName: streetName,
-            baseInstruction: baseInstruction,
-            distance: distance,
-            originalInstruction: maneuver.instruction
-        });
-        
         // Create complete instruction
         let instruction = '';
         
@@ -118,8 +108,6 @@ class InstructionTranslator {
                 instruction += ` naar ${streetName}`;
             }
         }
-        
-        console.log('🎤 Final instruction:', instruction);
         return instruction;
     }
     
@@ -181,8 +169,8 @@ class InstructionTranslator {
             return translation;
         }
         
-        // Log unknown maneuver types for debugging
-        console.warn('⚠️ Unknown maneuver type:', maneuverType, maneuver);
+        // Log unknown maneuver types for future improvement
+        console.warn('⚠️ Unknown maneuver type:', maneuverType, 'using default instruction');
         return this.maneuverTranslations.default;
     }
     
