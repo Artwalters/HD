@@ -7,6 +7,7 @@ class InstructionTranslator {
         // Mapbox maneuver types to Dutch translations
         this.maneuverTranslations = {
             // Turn maneuvers
+            'turn': 'ga',
             'turn-right': 'rechtsaf',
             'turn-left': 'linksaf',
             'turn-slight-right': 'iets rechtsaf',
@@ -14,19 +15,29 @@ class InstructionTranslator {
             'turn-sharp-right': 'scherp rechtsaf',
             'turn-sharp-left': 'scherp linksaf',
             
-            // Continue/straight
-            'continue': 'rechtdoor',
+            // Continue/straight - more variations
+            'continue': 'blijf rechtdoor',
             'straight': 'rechtdoor',
+            'proceed': 'ga verder',
+            'keep': 'houd aan',
+            
+            // New/depart
+            'new': 'vertrek',
+            'depart': 'vertrek',
+            'start': 'start',
             
             // Roundabout
             'roundabout-right': 'rotonde rechtsaf',
             'roundabout-left': 'rotonde linksaf',
             'roundabout-straight': 'rotonde rechtdoor',
-            'roundabout': 'de rotonde',
+            'roundabout': 'neem de rotonde',
+            'rotary': 'neem de rotonde',
             
             // Merge/fork
+            'merge': 'voeg in',
             'merge-right': 'voeg rechts in',
             'merge-left': 'voeg links in',
+            'fork': 'splitsen',
             'fork-right': 'rechts aanhouden',
             'fork-left': 'links aanhouden',
             
@@ -39,6 +50,12 @@ class InstructionTranslator {
             // Arrival
             'arrive': 'aangekomen',
             'destination': 'bestemming',
+            
+            // End of road
+            'end-of-road': 'einde van de weg',
+            
+            // Use/take
+            'use': 'neem',
             
             // Default
             'default': 'volg de route'
@@ -64,6 +81,16 @@ class InstructionTranslator {
         const maneuver = step.maneuver;
         const streetName = this.extractStreetName(step);
         const baseInstruction = this.translateManeuver(maneuver);
+        
+        // Debug logging
+        console.log('🔧 InstructionTranslator debug:', {
+            maneuverType: maneuver.type,
+            maneuverModifier: maneuver.modifier,
+            streetName: streetName,
+            baseInstruction: baseInstruction,
+            distance: distance,
+            originalInstruction: maneuver.instruction
+        });
         
         // Create complete instruction
         let instruction = '';
@@ -92,6 +119,7 @@ class InstructionTranslator {
             }
         }
         
+        console.log('🎤 Final instruction:', instruction);
         return instruction;
     }
     
@@ -105,11 +133,37 @@ class InstructionTranslator {
         
         let maneuverType = maneuver.type;
         
-        // Handle compound maneuver types
+        // Handle compound maneuver types first
         if (maneuver.modifier) {
             const compound = `${maneuverType}-${maneuver.modifier}`;
             if (this.maneuverTranslations[compound]) {
                 return this.maneuverTranslations[compound];
+            }
+            
+            // If no compound match, try to build instruction from parts
+            const baseTranslation = this.maneuverTranslations[maneuverType];
+            const modifier = maneuver.modifier;
+            
+            if (baseTranslation && modifier) {
+                // Map common modifiers
+                const modifierMap = {
+                    'left': 'links',
+                    'right': 'rechts',
+                    'straight': 'rechtdoor',
+                    'slight left': 'iets links',
+                    'slight right': 'iets rechts',
+                    'sharp left': 'scherp links',
+                    'sharp right': 'scherp rechts'
+                };
+                
+                const dutchModifier = modifierMap[modifier];
+                if (dutchModifier) {
+                    if (maneuverType === 'turn') {
+                        return `ga ${dutchModifier}`;
+                    } else {
+                        return `${baseTranslation} ${dutchModifier}`;
+                    }
+                }
             }
         }
         
@@ -122,7 +176,14 @@ class InstructionTranslator {
         }
         
         // Use base maneuver type
-        return this.maneuverTranslations[maneuverType] || this.maneuverTranslations.default;
+        const translation = this.maneuverTranslations[maneuverType];
+        if (translation) {
+            return translation;
+        }
+        
+        // Log unknown maneuver types for debugging
+        console.warn('⚠️ Unknown maneuver type:', maneuverType, maneuver);
+        return this.maneuverTranslations.default;
     }
     
     /**
