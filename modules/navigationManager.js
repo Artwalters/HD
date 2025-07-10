@@ -478,7 +478,21 @@ class NavigationManager {
         this.isOffRoute = false;
         this.positionHistory = [];
         this.speedHistory = [];
-        this.averageSpeed = 0;
+        
+        // Set realistic initial speed based on routing profile
+        switch (this.routingProfile) {
+            case 'walking':
+                this.averageSpeed = 5; // 5 km/h
+                break;
+            case 'cycling':
+                this.averageSpeed = 15; // 15 km/h
+                break;
+            case 'driving':
+                this.averageSpeed = 30; // 30 km/h (urban driving)
+                break;
+            default:
+                this.averageSpeed = 5; // Default to walking
+        }
         this.lastProgressIndex = 0;
         this.lastRecalculationTime = 0;
         this.consecutiveOffRouteCount = 0;
@@ -566,7 +580,16 @@ class NavigationManager {
         }
         
         if (totalTime > 0) {
-            this.averageSpeed = (totalDistance / totalTime) * 3.6; // km/h
+            const calculatedSpeed = (totalDistance / totalTime) * 3.6; // km/h
+            
+            // Filter out unrealistic speeds (stationary or impossibly fast)
+            if (calculatedSpeed >= 0.5 && calculatedSpeed <= 200) {
+                this.averageSpeed = calculatedSpeed;
+            } else if (calculatedSpeed < 0.5) {
+                // Very slow or stationary - keep previous speed or set to minimum
+                this.averageSpeed = Math.max(this.averageSpeed, 1.0);
+            }
+            // If speed > 200 km/h, ignore this calculation (GPS glitch)
         }
     }
 
@@ -953,13 +976,47 @@ class NavigationManager {
             progressBar.style.width = `${this.routeProgress}%`;
         }
         
-        if (etaElement && this.averageSpeed > 0) {
-            const etaMinutes = (this.remainingDistance / 1000) / (this.averageSpeed / 60);
-            etaElement.textContent = this.formatDuration(etaMinutes * 60);
+        if (etaElement) {
+            let etaSeconds;
+            
+            // Use realistic speed calculation with fallbacks
+            if (this.averageSpeed > 0.5 && this.averageSpeed < 200) {
+                // Use calculated speed (only if reasonable: 0.5-200 km/h)
+                etaSeconds = (this.remainingDistance / 1000) / this.averageSpeed * 3600; // hours to seconds
+            } else {
+                // Fallback to route duration proportional to remaining distance
+                const totalDistance = this.currentRoute?.distance || this.remainingDistance;
+                const totalDuration = this.currentRoute?.duration || 0; // seconds
+                
+                if (totalDistance > 0 && totalDuration > 0) {
+                    etaSeconds = (this.remainingDistance / totalDistance) * totalDuration;
+                } else {
+                    // Final fallback: assume walking speed (5 km/h)
+                    etaSeconds = (this.remainingDistance / 1000) / 5 * 3600;
+                }
+            }
+            
+            // Cap ETA to reasonable values (max 24 hours)
+            etaSeconds = Math.min(etaSeconds, 24 * 3600);
+            
+            // Debug log for ETA calculation issues
+            if (etaSeconds > 7200) { // More than 2 hours
+                console.warn('⚠️ Large ETA detected:', {
+                    etaSeconds,
+                    averageSpeed: this.averageSpeed,
+                    remainingDistance: this.remainingDistance,
+                    routeDistance: this.currentRoute?.distance,
+                    routeDuration: this.currentRoute?.duration
+                });
+            }
+            
+            etaElement.textContent = this.formatDuration(etaSeconds);
         }
         
         if (speedElement) {
-            speedElement.textContent = `${Math.round(this.averageSpeed)} km/h`;
+            // Display speed with reasonable bounds
+            const displaySpeed = Math.max(0, Math.min(200, Math.round(this.averageSpeed)));
+            speedElement.textContent = `${displaySpeed} km/h`;
         }
         
         if (distanceElement) {
