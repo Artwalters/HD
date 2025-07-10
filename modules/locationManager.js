@@ -451,6 +451,11 @@ class LocationManager {
         this.updateLocationButton('active');
         this.updateLocationMarker();
         
+        // Start orientation tracking if not already started
+        if (!this.isOrientationTracking) {
+            this.setupOrientationListeners();
+        }
+        
         // Only fly to user location once when first found, never during navigation
         const navigationManager = window.HeerlenApp?.navigationManager;
         const isFirstLocation = !this.hasHadInitialLocation;
@@ -586,19 +591,19 @@ class LocationManager {
             }
         });
         
-        // Responsive pin size based on screen width
+        // Responsive arrow size based on screen width
         const isMobile = window.innerWidth <= 768;
-        const pinSize = isMobile ? 32 : 28; // Slightly larger on mobile for better visibility
+        const arrowSize = isMobile ? 36 : 32; // Larger arrow for better visibility
         
-        // Single pin/arrow that shows both location and orientation
+        // User location arrow that shows both location and orientation
         // Add layer on top of all other layers to ensure visibility during navigation
         const layerConfig = {
             id: 'user-location-pin',
             type: 'symbol',
             source: 'user-location-pin',
             layout: {
-                'text-field': '📍', // Location pin emoji
-                'text-size': pinSize,
+                'text-field': '↑', // Arrow pointing up (north), will rotate based on heading
+                'text-size': arrowSize,
                 'text-rotate': ['get', 'heading'],
                 'text-rotation-alignment': 'map',
                 'text-allow-overlap': true,
@@ -608,9 +613,18 @@ class LocationManager {
             paint: {
                 'text-color': '#4B83F2',
                 'text-halo-color': '#FFFFFF',
-                'text-halo-width': isMobile ? 3 : 2 // Stronger halo on mobile
+                'text-halo-width': isMobile ? 4 : 3 // Stronger halo on mobile for arrow
             }
         };
+        
+        console.log('📍 Creating user location arrow with heading:', this.heading || 0, 'degrees');
+        
+        // Debug: Log the layer config to see what's being set
+        console.log('📍 Layer config:', {
+            textField: layerConfig.layout['text-field'],
+            textRotate: layerConfig.layout['text-rotate'],
+            heading: this.heading
+        });
         
         // Add layer on top of route layers to ensure user pin is always visible
         try {
