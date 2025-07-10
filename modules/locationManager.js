@@ -599,11 +599,11 @@ class LocationManager {
                         ],
                         base: 2
                     },
-                    'circle-color': '#4285F4',
-                    'circle-opacity': 0.15,
-                    'circle-stroke-width': 1,
-                    'circle-stroke-color': '#4285F4',
-                    'circle-stroke-opacity': 0.3
+                    'circle-color': '#1a73e8',
+                    'circle-opacity': 0.1,
+                    'circle-stroke-width': 0.5,
+                    'circle-stroke-color': '#1a73e8',
+                    'circle-stroke-opacity': 0.2
                 }
             });
         }
@@ -623,9 +623,9 @@ class LocationManager {
             }
         });
         
-        // Responsive arrow size based on screen width
+        // Responsive dot size based on screen width (smaller like Google Maps)
         const isMobile = window.innerWidth <= 768;
-        const arrowSize = isMobile ? 40 : 36; // Larger arrow for better visibility
+        const dotSize = isMobile ? 24 : 20; // Much smaller like real Google Maps
         
         // Create Google Maps style blue dot
         const googleMapsDotSvg = this.createDirectionalDotSvg(this.heading || 0);
@@ -635,11 +635,11 @@ class LocationManager {
             const img = new Image();
             img.onload = () => {
                 this.map.addImage('navigation-arrow', img, { sdf: false });
-                this.addNavigationArrowLayer(arrowSize);
+                this.addNavigationArrowLayer(dotSize);
             };
             img.src = googleMapsDotSvg;
         } else {
-            this.addNavigationArrowLayer(arrowSize);
+            this.addNavigationArrowLayer(dotSize);
         }
     }
     
@@ -647,31 +647,16 @@ class LocationManager {
      * Create directional dot SVG with gradient based on heading
      */
     createDirectionalDotSvg(heading) {
-        // Calculate gradient position based on heading (0° = North)
-        const radians = (heading - 90) * Math.PI / 180; // -90 to make 0° point up
-        const centerX = 0.5;
-        const centerY = 0.5;
-        const offset = 0.3; // How far off-center the gradient highlight should be
-        
-        const gradientX = centerX + Math.cos(radians) * offset;
-        const gradientY = centerY + Math.sin(radians) * offset;
-        
+        // Simple Google Maps style blue dot - no gradient needed
         return `data:image/svg+xml;base64,${btoa(`
-            <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-                        <feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.2"/>
+                        <feDropShadow dx="0" dy="1" stdDeviation="1" flood-opacity="0.25"/>
                     </filter>
-                    <radialGradient id="directionGradient" cx="${gradientX}" cy="${gradientY}" r="0.8">
-                        <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.6" />
-                        <stop offset="30%" style="stop-color:#4285F4;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#1565C0;stop-opacity:1" />
-                    </radialGradient>
                 </defs>
-                <!-- Main blue circle with directional gradient -->
-                <circle cx="24" cy="24" r="14" fill="url(#directionGradient)" stroke="#FFFFFF" stroke-width="2" filter="url(#shadow)"/>
-                <!-- Small center dot -->
-                <circle cx="24" cy="24" r="1.5" fill="#FFFFFF" opacity="0.9"/>
+                <!-- Main blue circle exactly like Google Maps -->
+                <circle cx="16" cy="16" r="9" fill="#1a73e8" stroke="#FFFFFF" stroke-width="3" filter="url(#shadow)"/>
             </svg>
         `)}`;
     }
@@ -679,15 +664,14 @@ class LocationManager {
     /**
      * Add navigation arrow layer to map
      */
-    addNavigationArrowLayer(arrowSize) {
+    addNavigationArrowLayer(dotSize) {
         const layerConfig = {
             id: 'user-location-pin',
             type: 'symbol',
             source: 'user-location-pin',
             layout: {
                 'icon-image': 'navigation-arrow',
-                'icon-size': arrowSize / 48, // Scale based on original SVG size (48x48)
-                // No rotation needed - gradient indicates direction
+                'icon-size': dotSize / 32, // Scale based on original SVG size (32x32)
                 'icon-allow-overlap': true,
                 'icon-ignore-placement': true,
                 'icon-anchor': 'center'
