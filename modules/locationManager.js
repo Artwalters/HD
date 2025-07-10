@@ -21,6 +21,7 @@ class LocationManager {
         this.isOrientationTracking = false;
         this.compassElement = null;
         this.orientationCallbacks = [];
+        this.hasHadInitialLocation = false;
     }
 
     /**
@@ -528,12 +529,16 @@ class LocationManager {
         this.updateLocationButton('active');
         this.updateLocationMarker();
         
-        // Only fly to user location if not during navigation
+        // Only fly to user location once when first found, never during navigation
         const navigationManager = window.HeerlenApp?.navigationManager;
-        if (!navigationManager?.isNavigationActive()) {
+        const isFirstLocation = !this.hasHadInitialLocation;
+        
+        if (!navigationManager?.isNavigationActive() && isFirstLocation) {
             this.flyToUserLocation();
+            this.hasHadInitialLocation = true;
+            console.log('📍 Initial location found, flying to position');
         } else {
-            console.log('📍 Location found but not flying to position (navigation active)');
+            console.log('📍 Location updated but not moving camera (navigation active or already positioned)');
         }
         
         // Dispatch custom event for other modules

@@ -29,6 +29,10 @@ class NavigationManager {
         this.offRouteThreshold = 50; // meters
         this.isOffRoute = false;
         this.cameraFollowAnimationId = null;
+        this.lastRecalculationTime = 0;
+        this.recalculationCooldown = 30000; // 30 seconds between recalculations
+        this.consecutiveOffRouteCount = 0;
+        this.offRouteConfirmationThreshold = 3; // Need 3 consecutive off-route readings
         
         // Progress tracking
         this.positionHistory = [];
@@ -470,6 +474,9 @@ class NavigationManager {
         this.positionHistory = [];
         this.speedHistory = [];
         this.averageSpeed = 0;
+        this.lastProgressIndex = 0;
+        this.lastRecalculationTime = 0;
+        this.consecutiveOffRouteCount = 0;
         
         // Camera following will be started after navigation begins
         // Reset following state
@@ -482,6 +489,16 @@ class NavigationManager {
     handleLocationUpdate(location) {
         if (!this.currentRoute) return;
 
+        // Only update every few seconds to reduce jumpiness
+        const now = Date.now();
+        if (this.lastUserPosition && (now - this.lastUserPosition.timestamp) < 2000) {
+            // Still update camera and basic tracking
+            if (this.isFollowingUser) {
+                this.updateCameraPosition(location);
+            }
+            return;
+        }
+
         this.updatePositionHistory(location);
         this.calculateProgress(location);
         this.checkRouteDeviation(location);
@@ -492,7 +509,11 @@ class NavigationManager {
             this.updateCameraPosition(location);
         }
         
-        this.lastUserPosition = location;
+        // Store with timestamp
+        this.lastUserPosition = {
+            ...location,
+            timestamp: now
+        };
     }
 
     /**
@@ -545,7 +566,7 @@ class NavigationManager {
     }
 
     /**
-     * Bereken route progress
+     * Bereken route progress met verbeterde logica
      */
     calculateProgress(location) {
         if (!this.currentRoute || !location) return;
@@ -554,8 +575,12 @@ class NavigationManager {
         let closestPointIndex = 0;
         let minDistance = Infinity;
         
-        // Vind dichtste punt op route
-        routeCoordinates.forEach((coord, index) => {
+        // Zoek alleen vooruit vanaf huidige positie om springen tegen te gaan
+        const searchStart = Math.max(0, this.getLastKnownProgressIndex() - 5);
+        const searchEnd = Math.min(routeCoordinates.length, searchStart + 50);
+        
+        for (let i = searchStart; i < searchEnd; i++) {
+            const coord = routeCoordinates[i];
             const distance = this.calculateDistance(
                 location.lat, location.lng,
                 coord[1], coord[0]
@@ -563,18 +588,37 @@ class NavigationManager {
             
             if (distance < minDistance) {
                 minDistance = distance;
-                closestPointIndex = index;
+                closestPointIndex = i;
             }
-        });
+        }
+        
+        // Voorkom springen terug - alleen vooruitgaan
+        const lastProgressIndex = this.getLastKnownProgressIndex();
+        if (closestPointIndex < lastProgressIndex) {
+            closestPointIndex = lastProgressIndex;
+        }
         
         // Bereken voortgang als percentage
-        this.routeProgress = (closestPointIndex / routeCoordinates.length) * 100;
+        const newProgress = (closestPointIndex / routeCoordinates.length) * 100;
         
-        // Update completed route
-        this.updateCompletedRoute(closestPointIndex);
-        
-        // Bereken resterende afstand
-        this.calculateRemainingDistance(closestPointIndex);
+        // Smooth progress updates - alleen significante wijzigingen
+        if (Math.abs(newProgress - this.routeProgress) > 1) {
+            this.routeProgress = newProgress;
+            this.lastProgressIndex = closestPointIndex;
+            
+            // Update completed route
+            this.updateCompletedRoute(closestPointIndex);
+            
+            // Bereken resterende afstand
+            this.calculateRemainingDistance(closestPointIndex);
+        }
+    }
+    
+    /**
+     * Get last known progress index
+     */
+    getLastKnownProgressIndex() {
+        return this.lastProgressIndex || 0;
     }
 
     /**
@@ -621,33 +665,66 @@ class NavigationManager {
     }
 
     /**
-     * Check route deviation
+     * Check route deviation with improved logic
      */
     checkRouteDeviation(location) {
         if (!this.currentRoute) return;
         
+        const now = Date.now();
+        
+        // Don't check too frequently
+        if (now - this.lastRecalculationTime < 10000) { // 10 second minimum between checks
+            return;
+        }
+        
         const routeCoordinates = this.currentRoute.geometry.coordinates;
         let minDistanceToRoute = Infinity;
         
-        routeCoordinates.forEach(coord => {
+        // Check distance to route, but be smarter about it
+        // Only check coordinates around our current progress
+        const startIndex = Math.max(0, Math.floor(this.routeProgress / 100 * routeCoordinates.length) - 10);
+        const endIndex = Math.min(routeCoordinates.length, startIndex + 20);
+        
+        for (let i = startIndex; i < endIndex; i++) {
+            const coord = routeCoordinates[i];
             const distance = this.calculateDistance(
                 location.lat, location.lng,
                 coord[1], coord[0]
             );
             
             minDistanceToRoute = Math.min(minDistanceToRoute, distance);
-        });
+        }
         
-        if (minDistanceToRoute > this.offRouteThreshold && !this.isOffRoute) {
-            this.isOffRoute = true;
-            if (this.audioManager) {
-                this.audioManager.announceNavigation({ type: 'off-route' });
+        // Use consecutive readings to confirm off-route
+        if (minDistanceToRoute > this.offRouteThreshold) {
+            this.consecutiveOffRouteCount++;
+            console.log(`🔍 Off route reading ${this.consecutiveOffRouteCount}/${this.offRouteConfirmationThreshold} (${Math.round(minDistanceToRoute)}m from route)`);
+            
+            // Only recalculate after multiple consecutive off-route readings
+            if (this.consecutiveOffRouteCount >= this.offRouteConfirmationThreshold && !this.isOffRoute) {
+                // Additional check: only recalculate if enough time has passed
+                if (now - this.lastRecalculationTime > this.recalculationCooldown) {
+                    this.isOffRoute = true;
+                    this.lastRecalculationTime = now;
+                    
+                    if (this.audioManager) {
+                        this.audioManager.announceNavigation({ type: 'off-route' });
+                    }
+                    
+                    console.log(`⚠️ User confirmed off route (${Math.round(minDistanceToRoute)}m), recalculating...`);
+                    this.recalculateRoute();
+                } else {
+                    const waitTime = Math.round((this.recalculationCooldown - (now - this.lastRecalculationTime)) / 1000);
+                    console.log(`⏱️ Off route but waiting ${waitTime}s before recalculation`);
+                }
             }
-            console.log('⚠️ User off route, recalculating...');
-            this.recalculateRoute();
-        } else if (minDistanceToRoute <= this.offRouteThreshold && this.isOffRoute) {
+        } else {
+            // Back on route - reset counters
+            if (this.consecutiveOffRouteCount > 0) {
+                console.log('✅ Back on route');
+            }
+            this.consecutiveOffRouteCount = 0;
             this.isOffRoute = false;
-            console.log('✅ User back on route');
         }
     }
 
