@@ -45,6 +45,9 @@ class NavigationManager {
         this.positionHistory = [];
         this.speedHistory = [];
         this.maxHistoryLength = 10;
+        
+        // Store original route for Google Maps-style shortening
+        this.originalRouteCoordinates = null;
     }
 
     /**
@@ -89,41 +92,7 @@ class NavigationManager {
             }
         });
 
-        // Add completed route layer (traveled part)
-        this.map.addSource('route-completed', {
-            type: 'geojson',
-            data: {
-                type: 'Feature',
-                properties: {},
-                geometry: {
-                    type: 'LineString',
-                    coordinates: []
-                }
-            }
-        });
-
-        this.map.addLayer({
-            id: 'route-completed',
-            type: 'line',
-            source: 'route-completed',
-            layout: {
-                'line-join': 'round',
-                'line-cap': 'round'
-            },
-            paint: {
-                'line-color': '#888888',
-                'line-width': [
-                    'interpolate',
-                    ['linear'],
-                    ['zoom'],
-                    8, 2,
-                    12, 4,
-                    16, 6,
-                    20, 10
-                ],
-                'line-opacity': 0.7
-            }
-        });
+        // Route layer will be dynamically updated to show only remaining route (Google Maps style)
 
         // Add route background layer (wider, darker)
         this.map.addLayer({
@@ -389,6 +358,9 @@ class NavigationManager {
 
         // Gebruik de volledige route geometrie met alle stappen
         const routeGeoJSON = this.createDetailedRouteGeometry();
+        
+        // Store original coordinates for Google Maps-style route shortening
+        this.originalRouteCoordinates = routeGeoJSON.geometry.coordinates;
 
         this.map.getSource('route').setData(routeGeoJSON);
 
@@ -433,9 +405,10 @@ class NavigationManager {
      * Voeg start en end markers toe
      */
     addRouteMarkers() {
-        if (!this.currentRoute) return;
+        if (!this.currentRoute || !this.originalRouteCoordinates) return;
 
-        const coordinates = this.currentRoute.geometry.coordinates;
+        // Use original coordinates to ensure markers stay at correct positions
+        const coordinates = this.originalRouteCoordinates;
         const endCoord = coordinates[coordinates.length - 1];
 
         const markersData = {
@@ -590,9 +563,10 @@ class NavigationManager {
      * Bereken route progress met verbeterde logica
      */
     calculateProgress(location) {
-        if (!this.currentRoute || !location) return;
+        if (!this.currentRoute || !location || !this.originalRouteCoordinates) return;
         
-        const routeCoordinates = this.currentRoute.geometry.coordinates;
+        // Use original coordinates for accurate progress calculation
+        const routeCoordinates = this.originalRouteCoordinates;
         let closestPointIndex = 0;
         let minDistance = Infinity;
         
@@ -627,8 +601,8 @@ class NavigationManager {
             this.routeProgress = newProgress;
             this.lastProgressIndex = closestPointIndex;
             
-            // Update completed route
-            this.updateCompletedRoute(closestPointIndex);
+            // Update route to show only remaining path (Google Maps style)
+            this.updateRemainingRoute(closestPointIndex);
             
             // Bereken resterende afstand
             this.calculateRemainingDistance(closestPointIndex);
@@ -643,33 +617,47 @@ class NavigationManager {
     }
 
     /**
-     * Update completed route visualization
+     * Update route to show only remaining path (Google Maps style)
      */
-    updateCompletedRoute(progressIndex) {
-        if (!this.currentRoute) return;
+    updateRemainingRoute(progressIndex) {
+        if (!this.currentRoute || !this.originalRouteCoordinates) return;
         
-        const routeCoordinates = this.currentRoute.geometry.coordinates;
-        const completedCoordinates = routeCoordinates.slice(0, progressIndex + 1);
+        // Use original coordinates to maintain accuracy
+        const routeCoordinates = this.originalRouteCoordinates;
         
-        const completedRoute = {
+        // Keep from current position to end (route gets shorter)
+        const remainingCoordinates = routeCoordinates.slice(progressIndex);
+        
+        // Ensure we have at least 2 points for a valid line
+        if (remainingCoordinates.length < 2) {
+            console.log('📍 Route nearly complete, keeping minimal route');
+            return;
+        }
+        
+        const remainingRoute = {
             type: 'Feature',
             properties: {},
             geometry: {
                 type: 'LineString',
-                coordinates: completedCoordinates
+                coordinates: remainingCoordinates
             }
         };
         
-        this.map.getSource('route-completed').setData(completedRoute);
+        // Update main route to show only remaining path
+        this.map.getSource('route').setData(remainingRoute);
+        
+        const percentComplete = Math.round((progressIndex / routeCoordinates.length) * 100);
+        console.log(`🗺️ Route ${percentComplete}% complete: ${remainingCoordinates.length} points remaining`);
     }
 
     /**
      * Bereken resterende afstand
      */
     calculateRemainingDistance(progressIndex) {
-        if (!this.currentRoute) return;
+        if (!this.currentRoute || !this.originalRouteCoordinates) return;
         
-        const routeCoordinates = this.currentRoute.geometry.coordinates;
+        // Use original coordinates for accurate distance calculation
+        const routeCoordinates = this.originalRouteCoordinates;
         let remainingDistance = 0;
         
         for (let i = progressIndex; i < routeCoordinates.length - 1; i++) {
@@ -689,7 +677,7 @@ class NavigationManager {
      * Check route deviation with improved logic
      */
     checkRouteDeviation(location) {
-        if (!this.currentRoute) return;
+        if (!this.currentRoute || !this.originalRouteCoordinates) return;
         
         const now = Date.now();
         
@@ -698,7 +686,8 @@ class NavigationManager {
             return;
         }
         
-        const routeCoordinates = this.currentRoute.geometry.coordinates;
+        // Use original coordinates for deviation check
+        const routeCoordinates = this.originalRouteCoordinates;
         let minDistanceToRoute = Infinity;
         
         // Check distance to route, but be smarter about it
@@ -1018,9 +1007,10 @@ class NavigationManager {
      * Fit map naar route
      */
     fitMapToRoute() {
-        if (!this.currentRoute) return;
+        if (!this.currentRoute || !this.originalRouteCoordinates) return;
 
-        const coordinates = this.currentRoute.geometry.coordinates;
+        // Use original coordinates to fit the entire route
+        const coordinates = this.originalRouteCoordinates;
         const bounds = new mapboxgl.LngLatBounds();
 
         coordinates.forEach(coord => bounds.extend(coord));
@@ -1512,15 +1502,7 @@ class NavigationManager {
             }
         });
         
-        // Clear completed route
-        this.map.getSource('route-completed').setData({
-            type: 'Feature',
-            properties: {},
-            geometry: {
-                type: 'LineString',
-                coordinates: []
-            }
-        });
+        // Route will be dynamically reset during next navigation
 
         // Clear route markers
         this.map.getSource('route-markers').setData({
@@ -1602,7 +1584,7 @@ class NavigationManager {
         }
         
         // Remove route layers
-        const layersToRemove = ['route-completed', 'route-background', 'route', 'route-arrows', 'route-start', 'route-end'];
+        const layersToRemove = ['route-background', 'route', 'route-arrows', 'route-start', 'route-end'];
         layersToRemove.forEach(layerId => {
             if (this.map.getLayer(layerId)) {
                 this.map.removeLayer(layerId);
@@ -1613,9 +1595,7 @@ class NavigationManager {
         if (this.map.getSource('route')) {
             this.map.removeSource('route');
         }
-        if (this.map.getSource('route-completed')) {
-            this.map.removeSource('route-completed');
-        }
+        // Route-completed source removed - using dynamic route updates instead
         if (this.map.getSource('route-markers')) {
             this.map.removeSource('route-markers');
         }
