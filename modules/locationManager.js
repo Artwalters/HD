@@ -561,7 +561,7 @@ class LocationManager {
         // Remove existing layers
         this.removeLocationMarker();
 
-        // Add user location source
+        // Add user location source for accuracy circle
         this.map.addSource(sourceId, {
             type: 'geojson',
             data: {
@@ -575,8 +575,31 @@ class LocationManager {
                 }
             }
         });
+        
+        // Add accuracy circle (light blue transparent circle like Google Maps)
+        if (this.userLocation.accuracy > 0) {
+            this.map.addLayer({
+                id: accuracyLayerId,
+                type: 'circle',
+                source: sourceId,
+                paint: {
+                    'circle-radius': {
+                        stops: [
+                            [0, 0],
+                            [20, this.metersToPixelsAtMaxZoom(this.userLocation.accuracy, this.userLocation.lat)]
+                        ],
+                        base: 2
+                    },
+                    'circle-color': '#4285F4',
+                    'circle-opacity': 0.15,
+                    'circle-stroke-width': 1,
+                    'circle-stroke-color': '#4285F4',
+                    'circle-stroke-opacity': 0.3
+                }
+            });
+        }
 
-        // Add simple user location arrow/pin (no circles)
+        // Add user location pin source
         this.map.addSource('user-location-pin', {
             type: 'geojson',
             data: {
@@ -593,38 +616,65 @@ class LocationManager {
         
         // Responsive arrow size based on screen width
         const isMobile = window.innerWidth <= 768;
-        const arrowSize = isMobile ? 36 : 32; // Larger arrow for better visibility
+        const arrowSize = isMobile ? 40 : 36; // Larger arrow for better visibility
         
-        // User location arrow that shows both location and orientation
-        // Add layer on top of all other layers to ensure visibility during navigation
+        // Create Google Maps style navigation arrow with SVG
+        const navigationArrowSvg = `data:image/svg+xml;base64,${btoa(`
+            <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.3"/>
+                    </filter>
+                    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#4285F4;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#1976D2;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <!-- Blue circle background with gradient -->
+                <circle cx="24" cy="24" r="18" fill="url(#blueGradient)" stroke="#FFFFFF" stroke-width="3" filter="url(#shadow)"/>
+                <!-- White directional arrow -->
+                <path d="M24 10 L30 26 L24 22 L18 26 Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1" stroke-linejoin="round"/>
+                <!-- Center dot -->
+                <circle cx="24" cy="24" r="3" fill="#FFFFFF" opacity="0.9"/>
+            </svg>
+        `)}`;
+        
+        // Add navigation arrow image to map
+        if (!this.map.hasImage('navigation-arrow')) {
+            const img = new Image();
+            img.onload = () => {
+                this.map.addImage('navigation-arrow', img, { sdf: false });
+                this.addNavigationArrowLayer(arrowSize);
+            };
+            img.src = navigationArrowSvg;
+        } else {
+            this.addNavigationArrowLayer(arrowSize);
+        }
+    }
+    
+    /**
+     * Add navigation arrow layer to map
+     */
+    addNavigationArrowLayer(arrowSize) {
         const layerConfig = {
             id: 'user-location-pin',
             type: 'symbol',
             source: 'user-location-pin',
             layout: {
-                'text-field': '↑', // Arrow pointing up (north), will rotate based on heading
-                'text-size': arrowSize,
-                'text-rotate': ['get', 'heading'],
-                'text-rotation-alignment': 'map',
-                'text-allow-overlap': true,
-                'text-ignore-placement': true,
-                'text-anchor': 'center'
+                'icon-image': 'navigation-arrow',
+                'icon-size': arrowSize / 48, // Scale based on original SVG size (48x48)
+                'icon-rotate': ['get', 'heading'],
+                'icon-rotation-alignment': 'map',
+                'icon-allow-overlap': true,
+                'icon-ignore-placement': true,
+                'icon-anchor': 'center'
             },
             paint: {
-                'text-color': '#4B83F2',
-                'text-halo-color': '#FFFFFF',
-                'text-halo-width': isMobile ? 4 : 3 // Stronger halo on mobile for arrow
+                'icon-opacity': 1.0
             }
         };
         
-        console.log('📍 Creating user location arrow with heading:', this.heading || 0, 'degrees');
-        
-        // Debug: Log the layer config to see what's being set
-        console.log('📍 Layer config:', {
-            textField: layerConfig.layout['text-field'],
-            textRotate: layerConfig.layout['text-rotate'],
-            heading: this.heading
-        });
+        console.log('📍 Creating Google Maps style navigation arrow with heading:', this.heading || 0, 'degrees');
         
         // Add layer on top of route layers to ensure user pin is always visible
         try {
@@ -638,15 +688,24 @@ class LocationManager {
             // Fallback: just add the layer normally
             this.map.addLayer(layerConfig);
         }
-
-        // No pulsing animation - clean simple pin
     }
 
+    /**
+     * Convert meters to pixels at max zoom for circle radius
+     */
+    metersToPixelsAtMaxZoom(meters, latitude) {
+        const mapboxTileSize = 512; // Mapbox GL JS tile size
+        const worldSize = mapboxTileSize * Math.pow(2, 20); // World size at zoom 20
+        const latRad = latitude * Math.PI / 180;
+        const metersPerPixel = Math.cos(latRad) * 2 * Math.PI * 6371000 / worldSize;
+        return meters / metersPerPixel;
+    }
+    
     /**
      * Verwijder location marker
      */
     removeLocationMarker() {
-        const layers = ['user-location-pin'];
+        const layers = ['user-location-accuracy', 'user-location-pin'];
         const sources = ['user-location', 'user-location-pin'];
 
         layers.forEach(layerId => {
