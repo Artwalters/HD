@@ -135,8 +135,19 @@ button,
     touch-action: manipulation;
 }
 
-/* Allow text selection in scrollable content areas */
-.instructions-list,
+/* Allow text selection and scrolling in content areas */
+.instructions-list {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    
+    /* Allow scrolling but prevent horizontal drag */
+    touch-action: pan-y;
+    overflow-y: auto;
+    pointer-events: auto;
+}
+
 .popup-content p,
 .popup-content .category-tag,
 .navigation-instructions {

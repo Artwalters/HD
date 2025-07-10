@@ -1273,6 +1273,9 @@ class NavigationManager {
             this.toggleCameraFollowing();
             this.updateCameraButton();
         });
+        
+        // Setup swipe gestures for panel minimize/maximize
+        this.setupSwipeGestures();
     }
 
     /**
@@ -1622,26 +1625,42 @@ class NavigationManager {
     }
     
     /**
-     * Setup swipe gestures for panel minimize/maximize
+     * Setup swipe gestures for panel minimize/maximize - ONLY on handle
      */
     setupSwipeGestures() {
         if (!this.navigationPanel) return;
         
+        const handle = this.navigationPanel.querySelector('.navigation-handle');
+        if (!handle) return;
+        
         let startY = 0;
         let currentY = 0;
         let isDragging = false;
+        let dragStartedOnHandle = false;
         
         const handleStart = (e) => {
+            // Only start dragging if the event started on the handle
+            if (!e.target.closest('.navigation-handle')) {
+                return;
+            }
+            
+            dragStartedOnHandle = true;
             startY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
             currentY = startY;
             isDragging = true;
             this.navigationPanel.style.transition = 'none';
+            
+            // Prevent default to stop any other drag behaviors
+            e.preventDefault();
+            e.stopPropagation();
         };
         
         const handleMove = (e) => {
-            if (!isDragging) return;
+            if (!isDragging || !dragStartedOnHandle) return;
             
             e.preventDefault();
+            e.stopPropagation();
+            
             currentY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
             const deltaY = currentY - startY;
             
@@ -1654,13 +1673,14 @@ class NavigationManager {
         };
         
         const handleEnd = (e) => {
-            if (!isDragging) return;
+            if (!isDragging || !dragStartedOnHandle) return;
             
             isDragging = false;
+            dragStartedOnHandle = false;
             this.navigationPanel.style.transition = 'transform 0.3s ease';
             
             const deltaY = currentY - startY;
-            const threshold = 80; // pixels to trigger minimize
+            const threshold = 60; // Reduced threshold for easier swiping
             
             if (deltaY > threshold) {
                 this.minimizePanel();
@@ -1669,27 +1689,30 @@ class NavigationManager {
             }
         };
         
-        // Touch events
-        this.navigationPanel.addEventListener('touchstart', handleStart, { passive: false });
+        // Touch events - attach to handle only
+        handle.addEventListener('touchstart', handleStart, { passive: false });
         document.addEventListener('touchmove', handleMove, { passive: false });
         document.addEventListener('touchend', handleEnd);
         
-        // Mouse events for desktop testing
-        this.navigationPanel.addEventListener('mousedown', handleStart);
+        // Mouse events for desktop testing - attach to handle only
+        handle.addEventListener('mousedown', handleStart);
         document.addEventListener('mousemove', handleMove);
         document.addEventListener('mouseup', handleEnd);
         
-        // Handle click to toggle
-        const handle = this.navigationPanel.querySelector('.navigation-handle');
-        if (handle) {
-            handle.addEventListener('click', () => {
+        // Handle click to toggle - simple click without drag
+        handle.addEventListener('click', (e) => {
+            // Only toggle if there was no significant drag
+            const timeSinceStart = Date.now() - (this.dragStartTime || 0);
+            if (timeSinceStart < 200 && !isDragging) { // Quick click, no drag
                 if (this.isPanelMinimized) {
                     this.maximizePanel();
                 } else {
                     this.minimizePanel();
                 }
-            });
-        }
+            }
+        });
+        
+        console.log('✅ Swipe gestures setup - handle only');
     }
     
     /**

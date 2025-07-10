@@ -14,6 +14,19 @@
     max-height: 60vh; /* Reduced from 70vh */
     overflow: hidden;
     animation: navigationSlideIn 0.4s ease-out;
+    
+    /* Prevent dragging and text selection */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -moz-user-drag: none;
+    user-drag: none;
+    -webkit-touch-callout: none;
+    
+    /* Allow only vertical pan for swipe gestures */
+    touch-action: pan-y;
 }
 
 /* Compact mode for smaller screens */
@@ -23,7 +36,7 @@
     }
 }
 
-/* Navigation Content */
+/* Navigation Content - prevent all dragging except handle */
 .navigation-content {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
@@ -31,6 +44,20 @@
     border-radius: 16px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
     overflow: hidden;
+    
+    /* Prevent any dragging on content */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -moz-user-drag: none;
+    user-drag: none;
+    -webkit-touch-callout: none;
+    
+    /* Prevent touch actions that cause dragging */
+    touch-action: none;
+    pointer-events: auto;
 }
 
 /* Navigation Header */
@@ -1114,7 +1141,7 @@
    SWIPEABLE PANEL STYLES
    ============================== */
 
-/* Navigation Handle */
+/* Navigation Handle - ONLY interactive element for swiping */
 .navigation-handle {
     position: absolute;
     top: -15px;
@@ -1133,6 +1160,18 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 15px 15px 8px 8px;
     transition: all 0.3s ease;
+    
+    /* Override drag prevention for the handle only */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -moz-user-drag: none;
+    user-drag: none;
+    
+    /* Ensure handle is always interactive */
+    pointer-events: auto;
 }
 
 .navigation-handle:active {
