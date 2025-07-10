@@ -163,8 +163,8 @@ window.HeerlenConfig = {
     // UI INSTELLINGEN
     ui: {
         fonts: {
-            heading: '"astronef-std-super-cond", sans-serif',
-            body: 'Arial, sans-serif'
+            heading: '"Inter", sans-serif',
+            body: '"Inter", Arial, sans-serif'
         },
         responsive: {
             tablet: 1024,

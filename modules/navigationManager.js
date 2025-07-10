@@ -8,6 +8,7 @@ class NavigationManager {
         this.config = config;
         this.locationManager = locationManager;
         this.audioManager = audioManager;
+        this.instructionTranslator = new InstructionTranslator();
         this.currentRoute = null;
         this.routeLayer = null;
         this.navigationPanel = null;
@@ -786,21 +787,18 @@ class NavigationManager {
         const instructionKey = `${this.currentStepIndex}-${distance || 'now'}`;
         if (this.lastAnnouncedStep === instructionKey) return;
         
-        const maneuverType = step.maneuver.type;
-        let instructionType = 'continue';
+        // Use the same localized instruction for audio as visual
+        const localizedInstruction = this.instructionTranslator.generateLocalizedInstruction(step, distance);
         
-        if (maneuverType.includes('turn-right') || maneuverType.includes('bear-right')) {
-            instructionType = 'turn-right';
-        } else if (maneuverType.includes('turn-left') || maneuverType.includes('bear-left')) {
-            instructionType = 'turn-left';
-        } else if (maneuverType === 'arrive') {
-            instructionType = 'arrive';
-        }
+        // Create instruction object for audio manager
+        const instructionData = {
+            type: 'localized',
+            text: localizedInstruction,
+            maneuver: step.maneuver.type,
+            destination: step.maneuver.type === 'arrive' ? this.currentRoute.destination.name : null
+        };
         
-        this.audioManager.announceNavigation({
-            type: instructionType,
-            destination: instructionType === 'arrive' ? this.currentRoute.destination.name : null
-        }, distance);
+        this.audioManager.announceNavigation(instructionData, distance);
         
         this.lastAnnouncedStep = instructionKey;
     }
@@ -1146,7 +1144,8 @@ class NavigationManager {
      * Genereer stap HTML
      */
     generateStepHTML(step, index) {
-        const instruction = step.maneuver.instruction;
+        // Use localized instruction instead of raw Mapbox instruction
+        const localizedInstruction = this.instructionTranslator.generateLocalizedInstruction(step);
         const distance = this.formatDistance(step.distance);
         const icon = this.getManeuverIcon(step.maneuver.type);
 
@@ -1154,7 +1153,7 @@ class NavigationManager {
             <div class="instruction-step">
                 <div class="step-icon">${icon}</div>
                 <div class="step-content">
-                    <div class="step-instruction">${instruction}</div>
+                    <div class="step-instruction">${localizedInstruction}</div>
                     <div class="step-distance">${distance}</div>
                 </div>
             </div>

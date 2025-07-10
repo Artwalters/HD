@@ -197,6 +197,10 @@ class AudioManager {
         let message = '';
 
         switch (instruction.type) {
+            case 'localized':
+                // Use the pre-translated instruction text directly
+                message = instruction.text || 'Volg de route';
+                break;
             case 'start':
                 message = `Navigatie gestart naar ${instruction.destination}`;
                 break;
