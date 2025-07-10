@@ -47,6 +47,45 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* Compass Button Specific Styles */
+.compass-btn {
+    position: relative;
+    overflow: visible;
+}
+
+.compass-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.compass-indicator svg {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+}
+
+/* Compass button states */
+.compass-btn.active {
+    background: rgba(75, 131, 242, 0.2);
+    border-color: rgba(75, 131, 242, 0.4);
+    color: rgba(75, 131, 242, 0.9);
+    box-shadow: 0 0 12px rgba(75, 131, 242, 0.3);
+}
+
+.compass-btn.active:hover {
+    background: rgba(75, 131, 242, 0.3);
+    border-color: rgba(75, 131, 242, 0.5);
+}
+
+/* Hidden state when pointing north */
+.compass-btn.hidden {
+    opacity: 0.3;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
 .control-btn:active {
     transform: translateY(0);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -143,6 +182,12 @@
         width: 18px;
         height: 18px;
     }
+    
+    /* Compass button mobile adjustments */
+    .compass-btn .compass-indicator svg {
+        width: 18px;
+        height: 18px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -164,6 +209,12 @@
     }
     
     .control-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+    
+    /* Compass button small mobile adjustments */
+    .compass-btn .compass-indicator svg {
         width: 16px;
         height: 16px;
     }

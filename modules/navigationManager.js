@@ -435,20 +435,12 @@ class NavigationManager {
         if (!this.currentRoute) return;
 
         const coordinates = this.currentRoute.geometry.coordinates;
-        const startCoord = coordinates[0];
         const endCoord = coordinates[coordinates.length - 1];
 
         const markersData = {
             type: 'FeatureCollection',
             features: [
-                {
-                    type: 'Feature',
-                    properties: { type: 'start' },
-                    geometry: {
-                        type: 'Point',
-                        coordinates: startCoord
-                    }
-                },
+                // Don't add start marker - user location pin already shows start position
                 {
                     type: 'Feature',
                     properties: { type: 'end' },

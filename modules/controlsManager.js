@@ -74,12 +74,14 @@ class ControlsManager {
                     </svg>
                 </button>
                 
-                <button class="control-btn compass-btn" data-action="reset-bearing" title="Reset kompas">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 2L8 7h8l-4-5z"></path>
-                        <path d="M12 22l4-5H8l4 5z"></path>
-                        <circle cx="12" cy="12" r="2"></circle>
-                    </svg>
+                <button class="control-btn compass-btn" data-action="reset-bearing" title="Reset naar het noorden">
+                    <div class="compass-indicator">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="9" stroke-width="1.5"></circle>
+                            <path d="M12 3 L14 8 L12 7 L10 8 Z" fill="currentColor"></path>
+                            <text x="12" y="7" text-anchor="middle" font-size="6" font-weight="bold" fill="currentColor">N</text>
+                        </svg>
+                    </div>
                 </button>
                 
                 <button class="control-btn fullscreen-btn" data-action="fullscreen" title="Volledig scherm">
@@ -177,16 +179,42 @@ class ControlsManager {
     }
 
     /**
-     * Reset bearing (kompas)
+     * Reset bearing (kompas) - Google Maps style
      */
     resetBearing() {
         this.map.easeTo({
             bearing: 0,
             pitch: 45,
-            duration: 500
+            duration: 600
         });
         
-        console.log('🧭 Kompas gereset');
+        console.log('🧭 Kompas gereset naar het noorden');
+    }
+    
+    /**
+     * Update compass indicator met huidige bearing (Google Maps style)
+     */
+    updateCompassIndicator() {
+        const compassIndicator = this.controlsElement?.querySelector('.compass-indicator svg');
+        const compassBtn = this.controlsElement?.querySelector('.compass-btn');
+        
+        if (!compassIndicator || !compassBtn) return;
+        
+        const currentBearing = this.map.getBearing();
+        
+        // Rotate compass to show current map orientation (opposite direction)
+        compassIndicator.style.transform = `rotate(${-currentBearing}deg)`;
+        
+        // Show/hide compass button based on bearing (Google Maps behavior)
+        if (Math.abs(currentBearing) < 1) {
+            // Hide when pointing north
+            compassBtn.classList.add('hidden');
+            compassBtn.classList.remove('active');
+        } else {
+            // Show and highlight when rotated
+            compassBtn.classList.remove('hidden');
+            compassBtn.classList.add('active');
+        }
     }
 
     /**
@@ -217,12 +245,8 @@ class ControlsManager {
         zoomInBtn.disabled = currentZoom >= this.map.getMaxZoom();
         zoomOutBtn.disabled = currentZoom <= this.map.getMinZoom();
         
-        // Update compass button (highlight when bearing is not 0)
-        if (Math.abs(currentBearing) > 1) {
-            compassBtn.classList.add('active');
-        } else {
-            compassBtn.classList.remove('active');
-        }
+        // Update compass button and indicator
+        this.updateCompassIndicator();
     }
 
     /**

@@ -591,7 +591,8 @@ class LocationManager {
         const pinSize = isMobile ? 32 : 28; // Slightly larger on mobile for better visibility
         
         // Single pin/arrow that shows both location and orientation
-        this.map.addLayer({
+        // Add layer on top of all other layers to ensure visibility during navigation
+        const layerConfig = {
             id: 'user-location-pin',
             type: 'symbol',
             source: 'user-location-pin',
@@ -609,7 +610,20 @@ class LocationManager {
                 'text-halo-color': '#FFFFFF',
                 'text-halo-width': isMobile ? 3 : 2 // Stronger halo on mobile
             }
-        });
+        };
+        
+        // Add layer on top of route layers to ensure user pin is always visible
+        try {
+            // Try to place before route end marker, otherwise add normally
+            if (this.map.getLayer('route-end')) {
+                this.map.addLayer(layerConfig, 'route-end');
+            } else {
+                this.map.addLayer(layerConfig);
+            }
+        } catch (error) {
+            // Fallback: just add the layer normally
+            this.map.addLayer(layerConfig);
+        }
 
         // No pulsing animation - clean simple pin
     }
