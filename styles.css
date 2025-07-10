@@ -3,6 +3,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* Prevent text selection and dragging on all UI elements */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    /* Prevent touch actions that could interfere with UI */
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -89,4 +97,98 @@ body {
 .popup-content button:hover {
     transform: translateY(-1px);
     box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+}
+
+/* ==============================
+   PREVENT UI ELEMENT DRAGGING
+   ============================== */
+
+/* Prevent dragging on all UI elements but allow scrolling in specific containers */
+.custom-controls,
+.filter-container,
+.navigation-panel,
+.mapboxgl-popup,
+.mapboxgl-popup-content,
+button,
+.nav-btn,
+.control-btn,
+.filter-btn {
+    /* Prevent text selection */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
+    /* Prevent touch actions that cause dragging */
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    
+    /* Prevent image/element dragging */
+    -webkit-user-drag: none;
+    -moz-user-drag: none;
+    user-drag: none;
+    
+    /* Prevent context menu on long press */
+    -webkit-touch-callout: none;
+    
+    /* Additional touch handling */
+    touch-action: manipulation;
+}
+
+/* Allow text selection in scrollable content areas */
+.instructions-list,
+.popup-content p,
+.popup-content .category-tag,
+.navigation-instructions {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+/* Specifically prevent dragging on images and icons */
+img,
+svg,
+.marker-icon,
+.step-icon {
+    -webkit-user-drag: none;
+    -moz-user-drag: none;
+    user-drag: none;
+    pointer-events: none; /* Icons should not be directly interactive */
+}
+
+/* Allow pointer events on interactive parent elements */
+button img,
+button svg,
+.control-btn svg,
+.nav-btn svg,
+.filter-btn svg {
+    pointer-events: none; /* Icon is not interactive, parent button is */
+}
+
+/* Ensure buttons remain clickable */
+button,
+.control-btn,
+.nav-btn,
+.filter-btn {
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+/* Prevent accidental text selection during quick taps */
+.custom-controls *,
+.filter-container *,
+.navigation-panel * {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Special handling for swipeable navigation panel */
+.navigation-panel {
+    /* Allow vertical touch actions for swiping */
+    touch-action: pan-y;
+}
+
+/* Ensure map remains interactive */
+#map {
+    touch-action: none; /* Let Mapbox handle all touch interactions */
 }
