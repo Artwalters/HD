@@ -25,12 +25,8 @@
 }
 
 .info-panel.open.expanded {
-  /* Fallback for browsers that don't support dvh */
-  height: 100vh;
-  max-height: 100vh;
-  /* Modern browsers with dynamic viewport support */
-  height: 100dvh;
-  max-height: 100dvh;
+  height: 90vh;
+  max-height: 90vh;
 }
 
 .info-panel.dragging {
