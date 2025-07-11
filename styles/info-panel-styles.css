@@ -1,0 +1,216 @@
+/* ==============================
+ * INFO PANEL STYLES
+ * ============================== */
+
+.info-panel {
+  position: fixed;
+  background: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 20px 20px 0 0;
+  z-index: 1000;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  
+  /* Mobile first - bottom panel */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70vh;
+  max-height: 600px;
+}
+
+.info-panel.open {
+  transform: translateY(0);
+}
+
+.info-panel.expanded {
+  height: 95vh;
+  max-height: none;
+}
+
+.info-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: inherit;
+  position: relative;
+}
+
+.info-panel-header::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+@media screen and (min-width: 768px) {
+  .info-panel-header::before {
+    display: none;
+  }
+}
+
+.info-panel-title {
+  font-family: "astronef-std-super-cond", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+  font-size: 1.8em;
+  text-transform: uppercase;
+  margin: 0;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.info-panel-close {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+}
+
+.info-panel-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.info-panel-content {
+  padding: 24px;
+  overflow-y: auto;
+  height: calc(100% - 80px);
+}
+
+.info-panel-photo {
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  background-image: url('../pictures/catcute.png');
+}
+
+.info-panel-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-panel-section {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  backdrop-filter: blur(10px);
+}
+
+.info-panel-section h3 {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 1.1em;
+  margin: 0 0 8px 0;
+  color: white;
+}
+
+.info-panel-section p {
+  font-family: "Inter", sans-serif;
+  font-size: 0.9em;
+  line-height: 1.5;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.info-panel-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-panel-contact a {
+  color: white;
+  text-decoration: none;
+  font-family: "Inter", sans-serif;
+  font-size: 0.9em;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-panel-contact a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(4px);
+}
+
+/* Desktop styles */
+@media screen and (min-width: 768px) {
+  .info-panel {
+    /* Side panel on desktop */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    width: 400px;
+    max-width: 30vw;
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+    transform: translateX(100%);
+  }
+  
+  .info-panel.open {
+    transform: translateX(0);
+  }
+  
+  .info-panel-photo {
+    height: 250px;
+  }
+  
+  .info-panel-title {
+    font-size: 2em;
+  }
+  
+  .info-panel-content {
+    height: calc(100% - 85px);
+  }
+}
+
+/* Large desktop */
+@media screen and (min-width: 1200px) {
+  .info-panel {
+    width: 450px;
+    max-width: 35vw;
+  }
+  
+  .info-panel-photo {
+    height: 280px;
+  }
+}
+
+/* Ensure panel doesn't interfere with map controls */
+@media screen and (min-width: 768px) {
+  .info-panel.open ~ #map .mapboxgl-ctrl-top-right {
+    margin-right: calc(450px + 4rem);
+  }
+  
+  .info-panel.open ~ #map .mapboxgl-ctrl-bottom-right {
+    margin-right: calc(450px + 4rem);
+  }
+}

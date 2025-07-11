@@ -25,6 +25,9 @@ class PopupManager {
         // Setup click-outside to close
         this.setupClickOutsideClose();
         
+        // Setup info panel global events
+        this.setupInfoPanelEvents();
+        
         this.isInitialized = true;
         console.log('✅ Popup manager geïnitialiseerd');
     }
@@ -49,6 +52,28 @@ class PopupManager {
             });
             if (features.length === 0) {
                 this.closeActivePopup();
+            }
+        });
+    }
+
+    /**
+     * Setup info panel global events
+     */
+    setupInfoPanelEvents() {
+        // Close info panel with escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.closeInfoPanel();
+            }
+        });
+
+        // Close info panel when clicking outside on desktop
+        document.addEventListener('click', (e) => {
+            const infoPanel = document.getElementById('info-panel');
+            if (infoPanel.classList.contains('open') && 
+                !infoPanel.contains(e.target) && 
+                !e.target.closest('.popup-wrapper')) {
+                this.closeInfoPanel();
             }
         });
     }
@@ -190,6 +215,7 @@ class PopupManager {
             <div class="popup-wrapper">
                 <button class="close-button" aria-label="Close popup"></button>
                 <div class="popup-side popup-front">
+                    <div class="popup-background-photo" style="background-image: url('./pictures/catcute.png')"></div>
                     ${this.generateGradientSVG(properties)}
                     <div class="content-wrapper">
                         <div class="popup-title">${properties.name}</div>
@@ -204,17 +230,9 @@ class PopupManager {
                 </div>
                 
                 <div class="popup-side popup-back">
+                    <div class="popup-background-photo" style="background-image: url('./pictures/catcute.png')"></div>
                     <div class="content-wrapper">
                         <div class="popup-title details">${properties.name}</div>
-                        ${this.generateSocialIcons(properties)}
-                        <div class="info-content">
-                            <div class="popup-descriptionv2">
-                                <p><strong>Adres:</strong> ${properties.address}</p>
-                                ${properties.opening_hours ? `<p><strong>Openingstijden:</strong> ${properties.opening_hours}</p>` : ''}
-                                ${properties.phone ? `<p><strong>Telefoon:</strong> ${properties.phone}</p>` : ''}
-                                ${properties.website ? `<p><strong>Website:</strong> <a href="${properties.website}" target="_blank">${properties.website}</a></p>` : ''}
-                            </div>
-                        </div>
                         <button class="more-info-button button-base">Terug</button>
                     </div>
                 </div>
@@ -232,7 +250,7 @@ class PopupManager {
         
         return `
             <svg class="popup-border-overlay" viewBox="0 0 365 252" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                <path d="M0 227.13V240.82C0 246.99 5 252 11.18 252H19.2C25.38 252 30.38 246.99 30.38 240.82C30.38 246.99 35.4 252 41.56 252H49.6C55.75 252 60.75 247.01 60.76 240.85C60.79 247.01 65.79 252 71.94 252H79.98C86.15 252 91.16 246.99 91.16 240.82C91.16 246.99 96.16 252 102.34 252H110.36C116.53 252 121.53 247.01 121.54 240.84C121.55 247.01 126.55 252 132.72 252H140.74C146.35 252 150.99 247.87 151.79 242.48C152.6 247.87 157.24 252 162.85 252H170.87C177.04 252 182.04 247 182.05 240.84C182.06 247 187.06 252 193.23 252H201.25C207.03 252 211.78 247.62 212.36 242C212.95 247.62 217.7 252 223.48 252H231.5C237.68 252 242.68 246.99 242.68 240.82C242.68 246.99 247.69 252 253.86 252H261.89C268.05 252 273.05 247.01 273.06 240.85C273.08 247.01 278.08 252 284.24 252H292.27C298.44 252 303.45 246.99 303.45 240.82C303.45 246.99 308.46 252 314.63 252H322.66C328.82 252 333.82 247.01 333.83 240.84C333.85 247.01 338.85 252 345.01 252H353.04C359.21 252 364.22 246.99 364.22 240.82V227.13C364.22 220.95 359.21 215.95 353.04 215.95C359.21 215.95 364.22 210.94 364.22 204.77V191.07C364.22 184.9 359.21 179.89 353.04 179.89C359.21 179.89 364.22 174.89 364.22 168.71V155.02C364.22 149.52 360.25 144.96 355.02 144.03C360.25 143.09 364.22 138.53 364.22 133.03V119.34C364.22 113.17 359.22 108.17 353.06 108.16C359.22 108.16 364.22 103.15 364.22 96.98V83.29C364.22 77.11 359.21 72.11 353.04 72.11C359.21 72.11 364.22 67.1 364.22 60.93V47.23C364.22 41.06 359.21 36.05 353.04 36.05C359.21 36.05 364.22 31.05 364.22 24.87V11.18C364.22 5.01 359.21 0 353.04 0H345.01C338.85 0 333.85 4.99 333.83 11.16C333.82 4.99 328.82 0 322.66 0H314.63C308.46 0 303.45 5.01 303.45 11.18C303.45 5.01 298.44 0 292.27 0H284.24C278.08 0 273.08 4.99 273.06 11.16C273.05 4.99 268.05 0 261.89 0H253.86C247.69 0 242.68 5.01 242.68 11.18C242.68 5.01 237.68 0 231.5 0H223.48C217.7 0 212.95 4.38 212.36 10C211.78 4.38 207.03 0 201.25 0H193.23C187.06 0 182.06 5 182.05 11.16C182.04 5 177.04 0 170.87 0H162.85C157.24 0 152.6 4.13 151.79 9.52C150.99 4.13 146.35 0 140.74 0H132.72C126.55 0 121.55 4.99 121.54 11.16C121.53 4.99 116.53 0 110.36 0H102.34C96.16 0 91.16 5.01 91.16 11.18C91.16 5.01 86.15 0 79.98 0H71.94C65.79 0 60.79 4.99 60.76 11.16C60.75 4.99 55.75 0 49.6 0H41.56C35.4 0 30.38 5.01 30.38 11.18C30.38 5.01 25.38 0 19.2 0H11.18C5 0 0 5.01 0 11.18V24.87C0 31.05 5 36.05 11.18 36.05C5 36.05 0 41.06 0 47.23V60.93C0 67.1 5 72.11 11.18 72.11C5 72.11 0 77.11 0 83.29V96.98C0 103.15 4.99 108.15 11.16 108.16C4.99 108.17 0 113.17 0 119.34V133.03C0 138.53 3.97 143.09 9.19 144.03C3.97 144.96 0 149.52 0 155.02V168.71C0 174.89 5 179.89 11.18 179.89C5 179.89 0 184.9 0 191.07V204.77C0 210.94 5 215.95 11.18 215.95C5 215.95 0 220.95 0 227.13Z" fill="url(#paint0_linear_3248_5)"/>
+                <rect width="100%" height="100%" fill="url(#paint0_linear_3248_5)"/>
                 <defs>
                     <linearGradient id="paint0_linear_3248_5" x1="50%" y1="0" x2="50%" y2="100%" gradientUnits="objectBoundingBox">
                         <stop offset="0" stop-color="${color}" stop-opacity="0" />
@@ -457,11 +475,32 @@ class PopupManager {
      * @param {Object} properties - Feature properties
      */
     setupFlipInteraction(popupElement, popupWrapper, properties) {
-        // Handle info button click (flip card)
+        // Handle info button click - check if it's front or back
         popupElement.querySelectorAll(".more-info-button").forEach(button => {
             button.addEventListener("click", () => {
-                popupWrapper.classList.toggle("is-flipped");
+                const isOnFront = button.closest('.popup-front');
+                if (isOnFront) {
+                    // Front button - open info panel
+                    this.openInfoPanel(properties);
+                } else {
+                    // Back button - flip back to front
+                    popupWrapper.classList.remove("is-flipped");
+                }
             });
+        });
+        
+        // Handle card click (flip card) - but avoid buttons
+        popupWrapper.addEventListener("click", (e) => {
+            // Don't flip if clicking on buttons or interactive elements
+            if (e.target.tagName === 'BUTTON' || 
+                e.target.tagName === 'A' ||
+                e.target.closest('button') || 
+                e.target.closest('a')) {
+                return;
+            }
+            
+            // Flip the card
+            popupWrapper.classList.toggle("is-flipped");
         });
         
         // Handle navigate button click
@@ -575,10 +614,121 @@ class PopupManager {
     }
 
     /**
+     * Open info panel with business details
+     * @param {Object} properties - Feature properties
+     */
+    openInfoPanel(properties) {
+        const infoPanel = document.getElementById('info-panel');
+        const title = infoPanel.querySelector('.info-panel-title');
+        const description = infoPanel.querySelector('.info-panel-description');
+        const contact = infoPanel.querySelector('.info-panel-contact');
+        const hours = infoPanel.querySelector('.info-panel-hours');
+        
+        // Set content
+        title.textContent = properties.name;
+        description.textContent = properties.description || 'Geen beschrijving beschikbaar';
+        hours.textContent = properties.opening_hours || 'Openingstijden onbekend';
+        
+        // Set contact info
+        contact.innerHTML = '';
+        if (properties.phone) {
+            contact.innerHTML += `<a href="tel:${properties.phone}">📞 ${properties.phone}</a>`;
+        }
+        if (properties.website) {
+            contact.innerHTML += `<a href="${properties.website}" target="_blank">🌐 Website</a>`;
+        }
+        if (properties.address) {
+            contact.innerHTML += `<a href="https://maps.google.com/?q=${encodeURIComponent(properties.address)}" target="_blank">📍 ${properties.address}</a>`;
+        }
+        
+        // Set theme color
+        const color = properties.color || this.config.theme.primary;
+        infoPanel.style.background = `linear-gradient(135deg, ${color} 0%, ${this.darkenColor(color, 20)} 100%)`;
+        
+        // Setup close button
+        const closeButton = infoPanel.querySelector('.info-panel-close');
+        const closeHandler = () => {
+            this.closeInfoPanel();
+            closeButton.removeEventListener('click', closeHandler);
+        };
+        closeButton.addEventListener('click', closeHandler);
+        
+        // Show panel
+        infoPanel.classList.add('open');
+        
+        // Setup scroll expansion on mobile
+        this.setupScrollExpansion(infoPanel);
+        
+        console.log(`📋 Info panel geopend voor ${properties.name}`);
+    }
+
+    /**
+     * Setup scroll expansion for mobile info panel
+     * @param {Element} infoPanel - Info panel element
+     */
+    setupScrollExpansion(infoPanel) {
+        // Only on mobile devices
+        if (window.innerWidth >= 768) return;
+        
+        const content = infoPanel.querySelector('.info-panel-content');
+        let scrollThreshold = 50; // Scroll threshold in pixels
+        
+        const handleScroll = () => {
+            if (content.scrollTop > scrollThreshold) {
+                infoPanel.classList.add('expanded');
+            } else {
+                infoPanel.classList.remove('expanded');
+            }
+        };
+        
+        // Add scroll event listener
+        content.addEventListener('scroll', handleScroll);
+        
+        // Store reference to remove listener later
+        infoPanel._scrollHandler = handleScroll;
+        infoPanel._scrollElement = content;
+    }
+
+    /**
+     * Close info panel
+     */
+    closeInfoPanel() {
+        const infoPanel = document.getElementById('info-panel');
+        
+        // Remove scroll event listener if it exists
+        if (infoPanel._scrollHandler && infoPanel._scrollElement) {
+            infoPanel._scrollElement.removeEventListener('scroll', infoPanel._scrollHandler);
+            delete infoPanel._scrollHandler;
+            delete infoPanel._scrollElement;
+        }
+        
+        infoPanel.classList.remove('open', 'expanded');
+        console.log('📋 Info panel gesloten');
+    }
+
+    /**
+     * Darken a color by a percentage
+     * @param {string} color - Hex color
+     * @param {number} percent - Percentage to darken
+     * @returns {string} Darkened color
+     */
+    darkenColor(color, percent) {
+        const num = parseInt(color.replace('#', ''), 16);
+        const amt = Math.round(2.55 * percent);
+        const R = (num >> 16) - amt;
+        const G = (num >> 8 & 0x00FF) - amt;
+        const B = (num & 0x0000FF) - amt;
+        return '#' + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 + 
+                     (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 + 
+                     (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
+    }
+
+    /**
      * Cleanup popup manager
      */
     destroy() {
         this.closeActivePopup();
+        this.closeInfoPanel();
         this.isInitialized = false;
         console.log('🗑️ Popup manager vernietigd');
     }
