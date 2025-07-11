@@ -47,6 +47,18 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* Mask Toggle Button */
+.mask-toggle-btn.active {
+    background: rgba(75, 131, 242, 0.2);
+    border-color: rgba(75, 131, 242, 0.4);
+    color: rgba(75, 131, 242, 0.9);
+}
+
+.mask-toggle-btn.active:hover {
+    background: rgba(75, 131, 242, 0.3);
+    border-color: rgba(75, 131, 242, 0.5);
+}
+
 /* Compass Button Specific Styles */
 .compass-btn {
     position: relative;

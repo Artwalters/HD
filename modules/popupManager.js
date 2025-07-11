@@ -699,6 +699,11 @@ class PopupManager {
             // Simple trigger - any scroll expands it
             if (content.scrollTop > 5) {
                 infoPanel.classList.add('expanded');
+                // Ensure mobile doesn't go outside viewport
+                if (window.innerWidth <= 767) {
+                    infoPanel.style.height = `${window.innerHeight}px`;
+                    infoPanel.style.maxHeight = `${window.innerHeight}px`;
+                }
                 isExpanded = true;
                 // Remove scroll listener after expanding
                 content.removeEventListener('scroll', handleScroll);
@@ -838,6 +843,11 @@ class PopupManager {
             } else {
                 // Above 60% - snap to expanded
                 infoPanel.classList.add('expanded');
+                // Ensure mobile doesn't go outside viewport
+                if (window.innerWidth <= 767) {
+                    infoPanel.style.height = `${window.innerHeight}px`;
+                    infoPanel.style.maxHeight = `${window.innerHeight}px`;
+                }
                 // Remove scroll listener since it's already expanded
                 if (infoPanel._scrollHandler && infoPanel._scrollElement) {
                     infoPanel._scrollElement.removeEventListener('scroll', infoPanel._scrollHandler);
