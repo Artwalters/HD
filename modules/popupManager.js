@@ -667,26 +667,79 @@ class PopupManager {
      * @param {Element} infoPanel - Info panel element
      */
     setupScrollExpansion(infoPanel) {
+        // Clean up any existing scroll handler first
+        this.cleanupScrollExpansion(infoPanel);
+        
         // Only on mobile devices
-        if (window.innerWidth >= 768) return;
+        if (window.innerWidth >= 768) {
+            // Remove expanded class on desktop
+            infoPanel.classList.remove('expanded');
+            return;
+        }
         
         const content = infoPanel.querySelector('.info-panel-content');
-        let scrollThreshold = 50; // Scroll threshold in pixels
+        let scrollThreshold = 20; // Scroll threshold in pixels
+        let isExpanded = false;
         
         const handleScroll = () => {
-            if (content.scrollTop > scrollThreshold) {
+            // Double check we're still on mobile
+            if (window.innerWidth >= 768) return;
+            
+            const shouldExpand = content.scrollTop > scrollThreshold;
+            
+            if (shouldExpand && !isExpanded) {
                 infoPanel.classList.add('expanded');
-            } else {
+                isExpanded = true;
+            } else if (!shouldExpand && isExpanded) {
                 infoPanel.classList.remove('expanded');
+                isExpanded = false;
             }
         };
         
-        // Add scroll event listener
-        content.addEventListener('scroll', handleScroll);
+        // Add scroll event listener with passive option for better performance
+        content.addEventListener('scroll', handleScroll, { passive: true });
         
         // Store reference to remove listener later
         infoPanel._scrollHandler = handleScroll;
         infoPanel._scrollElement = content;
+        infoPanel._isExpanded = isExpanded;
+        
+        // Add resize listener to handle viewport changes
+        const handleResize = () => {
+            if (window.innerWidth >= 768) {
+                // Desktop - remove expanded class and cleanup
+                infoPanel.classList.remove('expanded');
+                this.cleanupScrollExpansion(infoPanel);
+            } else {
+                // Mobile - ensure scroll handler is active
+                if (!infoPanel._scrollHandler) {
+                    this.setupScrollExpansion(infoPanel);
+                }
+            }
+        };
+        
+        window.addEventListener('resize', handleResize);
+        infoPanel._resizeHandler = handleResize;
+    }
+
+    /**
+     * Clean up scroll expansion listeners
+     * @param {Element} infoPanel - Info panel element
+     */
+    cleanupScrollExpansion(infoPanel) {
+        // Remove scroll event listener if it exists
+        if (infoPanel._scrollHandler && infoPanel._scrollElement) {
+            infoPanel._scrollElement.removeEventListener('scroll', infoPanel._scrollHandler);
+            delete infoPanel._scrollHandler;
+            delete infoPanel._scrollElement;
+            delete infoPanel._isExpanded;
+        }
+        
+        // Remove resize listener if it exists
+        if (infoPanel._resizeHandler) {
+            window.removeEventListener('resize', infoPanel._resizeHandler);
+            delete infoPanel._resizeHandler;
+        }
     }
 
     /**
@@ -695,12 +748,8 @@ class PopupManager {
     closeInfoPanel() {
         const infoPanel = document.getElementById('info-panel');
         
-        // Remove scroll event listener if it exists
-        if (infoPanel._scrollHandler && infoPanel._scrollElement) {
-            infoPanel._scrollElement.removeEventListener('scroll', infoPanel._scrollHandler);
-            delete infoPanel._scrollHandler;
-            delete infoPanel._scrollElement;
-        }
+        // Clean up all listeners
+        this.cleanupScrollExpansion(infoPanel);
         
         infoPanel.classList.remove('open', 'expanded');
         console.log('📋 Info panel gesloten');
