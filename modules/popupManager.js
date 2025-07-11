@@ -623,6 +623,7 @@ class PopupManager {
         const description = infoPanel.querySelector('.info-panel-description');
         const contact = infoPanel.querySelector('.info-panel-contact');
         const hours = infoPanel.querySelector('.info-panel-hours');
+        const suggestions = infoPanel.querySelector('.info-panel-suggestions');
         
         // Set content
         title.textContent = properties.name;
@@ -644,6 +645,9 @@ class PopupManager {
         // Set theme color
         const color = properties.color || this.config.theme.primary;
         infoPanel.style.background = `linear-gradient(135deg, ${color} 0%, ${this.darkenColor(color, 20)} 100%)`;
+        
+        // Populate suggestions
+        this.populateSuggestions(suggestions, properties);
         
         // Setup close button
         const closeButton = infoPanel.querySelector('.info-panel-close');
@@ -776,20 +780,28 @@ class PopupManager {
                 // Calculate new height based on drag
                 let currentHeight;
                 if (isExpanded) {
-                    // Starting from 100vh
-                    currentHeight = window.innerHeight + deltaY;
+                    // Starting from 100vh - subtract deltaY for natural movement
+                    currentHeight = window.innerHeight - deltaY;
                 } else {
-                    // Starting from 40vh
+                    // Starting from 40vh - subtract deltaY for natural movement
                     currentHeight = window.innerHeight * 0.4 - deltaY;
                 }
                 
-                // Clamp height between 40vh and 100vh
-                const minHeight = window.innerHeight * 0.4;
+                // Allow dragging below minimum for close gesture
+                const minHeight = deltaY > 0 ? 0 : window.innerHeight * 0.4;
                 const maxHeight = window.innerHeight;
                 currentHeight = Math.max(minHeight, Math.min(maxHeight, currentHeight));
                 
                 // Apply height directly for smooth content reflow
                 infoPanel.style.height = `${currentHeight}px`;
+                
+                // Add opacity effect when dragging down close to closing
+                if (currentHeight < window.innerHeight * 0.3) {
+                    const opacity = currentHeight / (window.innerHeight * 0.3);
+                    infoPanel.style.opacity = Math.max(0.5, opacity);
+                } else {
+                    infoPanel.style.opacity = '';
+                }
             });
             
             // Prevent scrolling while dragging
@@ -807,34 +819,28 @@ class PopupManager {
             infoPanel.classList.remove('dragging');
             infoPanel.style.transition = '';
             infoPanel.style.height = ''; // Reset inline height
+            infoPanel.style.opacity = ''; // Reset opacity
             
-            if (isExpanded) {
-                // From expanded state
-                if (deltaY > closeThreshold) {
-                    // Large drag - close completely
-                    if (deltaY > closeThreshold * 2) {
-                        this.closeInfoPanel();
-                    } 
-                    // Small drag - go to middle state
-                    else {
-                        infoPanel.classList.remove('expanded');
-                        // Re-enable scroll expansion
-                        this.setupScrollExpansion(infoPanel);
-                    }
-                }
+            // Get final panel height
+            const panelRect = infoPanel.getBoundingClientRect();
+            const finalHeight = panelRect.height;
+            const viewportHeight = window.innerHeight;
+            
+            // Determine state based on final position
+            if (finalHeight < viewportHeight * 0.2) {
+                // Dragged very low - close it
+                this.closeInfoPanel();
+            } else if (finalHeight < viewportHeight * 0.6) {
+                // Between 20% and 60% - snap to middle state
+                infoPanel.classList.remove('expanded');
+                // Re-enable scroll expansion
+                this.setupScrollExpansion(infoPanel);
             } else {
-                // From middle state (40vh)
-                if (deltaY > closeThreshold) {
-                    // Drag down - close panel
-                    this.closeInfoPanel();
-                } 
-                else if (deltaY < -expandThreshold) {
-                    // Drag up - expand it
-                    infoPanel.classList.add('expanded');
-                    // Remove scroll listener since it's already expanded
-                    if (infoPanel._scrollHandler && infoPanel._scrollElement) {
-                        infoPanel._scrollElement.removeEventListener('scroll', infoPanel._scrollHandler);
-                    }
+                // Above 60% - snap to expanded
+                infoPanel.classList.add('expanded');
+                // Remove scroll listener since it's already expanded
+                if (infoPanel._scrollHandler && infoPanel._scrollElement) {
+                    infoPanel._scrollElement.removeEventListener('scroll', infoPanel._scrollHandler);
                 }
             }
             
@@ -927,6 +933,94 @@ class PopupManager {
         
         infoPanel.classList.remove('open', 'expanded');
         console.log('📋 Info panel gesloten');
+    }
+
+    /**
+     * Populate suggestions section with similar businesses
+     * @param {Element} suggestionsContainer - Suggestions container element
+     * @param {Object} currentProperties - Current business properties
+     */
+    populateSuggestions(suggestionsContainer, currentProperties) {
+        // Clear existing suggestions
+        suggestionsContainer.innerHTML = '';
+        
+        // Get all businesses from the same category
+        const app = window.HeerlenApp;
+        if (!app || !app.dataLoader || !app.dataLoader.allData) return;
+        
+        const allBusinesses = app.dataLoader.allData.features;
+        const sameCategoryBusinesses = allBusinesses.filter(feature => 
+            feature.properties.category === currentProperties.category &&
+            feature.properties.id !== currentProperties.id
+        );
+        
+        // Shuffle and take up to 3 suggestions
+        const shuffled = sameCategoryBusinesses.sort(() => 0.5 - Math.random());
+        const suggestions = shuffled.slice(0, 3);
+        
+        // Create suggestion cards
+        suggestions.forEach(feature => {
+            const props = feature.properties;
+            // Add coordinates from geometry
+            props.lng = feature.geometry.coordinates[0];
+            props.lat = feature.geometry.coordinates[1];
+            
+            const card = document.createElement('div');
+            card.className = 'suggestion-card';
+            card.innerHTML = `
+                <div class="suggestion-icon">${props.icon}</div>
+                <div class="suggestion-info">
+                    <div class="suggestion-name">${props.name}</div>
+                    <div class="suggestion-address">${props.address || 'Geen adres'}</div>
+                </div>
+            `;
+            
+            // Add click handler
+            card.addEventListener('click', () => {
+                this.handleSuggestionClick(props);
+            });
+            
+            suggestionsContainer.appendChild(card);
+        });
+        
+        // Show message if no suggestions
+        if (suggestions.length === 0) {
+            suggestionsContainer.innerHTML = '<p style="opacity: 0.8; font-size: 0.9em;">Geen andere locaties in deze categorie gevonden.</p>';
+        }
+    }
+
+    /**
+     * Handle click on suggestion card
+     * @param {Object} properties - Business properties
+     */
+    handleSuggestionClick(properties) {
+        // Close info panel
+        this.closeInfoPanel();
+        
+        // Fly to the suggested location
+        this.map.flyTo({
+            center: [properties.lng, properties.lat],
+            zoom: 17,
+            duration: 1000
+        });
+        
+        // Wait for fly animation to complete, then open popup
+        setTimeout(() => {
+            // Create click event at the marker location
+            const point = this.map.project([properties.lng, properties.lat]);
+            const features = this.map.queryRenderedFeatures(point, {
+                layers: ['business-markers']
+            });
+            
+            // Find the matching feature and trigger click
+            const matchingFeature = features.find(f => f.properties.id === properties.id);
+            if (matchingFeature) {
+                this.handleMarkerClick({
+                    features: [matchingFeature],
+                    lngLat: { lng: properties.lng, lat: properties.lat }
+                });
+            }
+        }, 1100);
     }
 
     /**
