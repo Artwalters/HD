@@ -142,39 +142,6 @@ class NavigationManager {
             }
         });
 
-        // Add route direction arrows
-        this.map.addLayer({
-            id: 'route-arrows',
-            type: 'symbol',
-            source: 'route',
-            layout: {
-                'symbol-placement': 'line',
-                'symbol-spacing': [
-                    'interpolate',
-                    ['linear'],
-                    ['zoom'],
-                    10, 200,
-                    15, 100,
-                    18, 50
-                ],
-                'icon-image': 'arrow',
-                'icon-size': [
-                    'interpolate',
-                    ['linear'],
-                    ['zoom'],
-                    10, 0.3,
-                    15, 0.5,
-                    18, 0.7
-                ],
-                'icon-rotation-alignment': 'map',
-                'icon-allow-overlap': true,
-                'icon-ignore-placement': true
-            },
-            paint: {
-                'icon-color': '#ffffff',
-                'icon-opacity': 0.8
-            }
-        });
 
         // Add start/end markers source
         this.map.addSource('route-markers', {
@@ -1053,10 +1020,8 @@ class NavigationManager {
 
         return `
             <div class="navigation-content">
-                <!-- Swipe handle for minimizing panel -->
-                <div class="navigation-handle">
-                    <div class="handle-bar"></div>
-                </div>
+                <!-- Swipe handle for panel control -->
+                <div class="navigation-handle"></div>
                 <div class="navigation-header">
                     <div class="navigation-info">
                         <h3>${route.destination.name}</h3>
@@ -1584,7 +1549,7 @@ class NavigationManager {
         }
         
         // Remove route layers
-        const layersToRemove = ['route-background', 'route', 'route-arrows', 'route-start', 'route-end'];
+        const layersToRemove = ['route-background', 'route', 'route-start', 'route-end'];
         layersToRemove.forEach(layerId => {
             if (this.map.getLayer(layerId)) {
                 this.map.removeLayer(layerId);
@@ -1605,6 +1570,28 @@ class NavigationManager {
     }
     
     /**
+     * Update panel states based on screen size
+     */
+    updatePanelStates() {
+        const isMobile = window.innerWidth <= 768;
+        const headerHeight = 80; // Just show title + handle
+        const mediumHeight = isMobile ? 
+            window.innerHeight * 0.6 : // 60% of screen on mobile
+            window.innerHeight * 0.5;   // 50% of screen on desktop
+        
+        this.panelStates = {
+            // State 1: Minimaal - alleen titel zichtbaar
+            collapsed: window.innerHeight - headerHeight,
+            // State 2: Medium - route beschrijving zichtbaar en scrollbaar
+            halfExpanded: mediumHeight,
+            // State 3: Maximaal - bijna volledig scherm
+            expanded: window.innerHeight * 0.05
+        };
+        
+        console.log('📱 Panel magnetic snap positions:', this.panelStates);
+    }
+
+    /**
      * Setup swipe gestures for panel minimize/maximize - ONLY on handle
      */
     setupSwipeGestures() {
@@ -1617,6 +1604,29 @@ class NavigationManager {
         let currentY = 0;
         let isDragging = false;
         let dragStartedOnHandle = false;
+        let initialPanelPosition = 0;
+        
+        // Panel states - calculate dynamically
+        this.updatePanelStates();
+        
+        // Set initial state immediately without transition
+        this.currentPanelState = 'collapsed';
+        this.navigationPanel.style.transition = 'none';
+        this.navigationPanel.style.transform = `translateY(${this.panelStates.collapsed}px)`;
+        
+        // Re-enable transition after initial positioning
+        setTimeout(() => {
+            this.navigationPanel.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        }, 100);
+        
+        // Update panel states on resize
+        window.addEventListener('resize', () => {
+            this.updatePanelStates();
+            // Re-apply current state with new dimensions
+            if (this.currentPanelState) {
+                this.navigationPanel.style.transform = `translateY(${this.panelStates[this.currentPanelState]}px)`;
+            }
+        });
         
         const handleStart = (e) => {
             // Only start dragging if the event started on the handle
@@ -1625,10 +1635,19 @@ class NavigationManager {
             }
             
             dragStartedOnHandle = true;
-            startY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
-            currentY = startY;
+            const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+            
+            // Get current panel position
+            const currentTransform = this.navigationPanel.style.transform;
+            initialPanelPosition = parseFloat(currentTransform.match(/translateY\(([-\d.]+)px\)/)?.[1] || this.panelStates.collapsed);
+            
+            startY = clientY;
+            currentY = clientY;
             isDragging = true;
             this.navigationPanel.style.transition = 'none';
+            
+            // Store time for click detection
+            this.dragStartTime = Date.now();
             
             // Prevent default to stop any other drag behaviors
             e.preventDefault();
@@ -1644,12 +1663,14 @@ class NavigationManager {
             currentY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
             const deltaY = currentY - startY;
             
-            // Only allow downward swipe to minimize
-            if (deltaY > 0) {
-                const maxTranslate = this.navigationPanel.offsetHeight - 40; // Keep handle visible
-                const translateY = Math.min(deltaY, maxTranslate);
-                this.navigationPanel.style.transform = `translateY(${translateY}px)`;
-            }
+            // Calculate new position
+            let newPosition = initialPanelPosition + deltaY;
+            
+            // Clamp to bounds
+            newPosition = Math.max(this.panelStates.expanded, Math.min(newPosition, this.panelStates.collapsed));
+            
+            // Apply position
+            this.navigationPanel.style.transform = `translateY(${newPosition}px)`;
         };
         
         const handleEnd = (e) => {
@@ -1657,16 +1678,55 @@ class NavigationManager {
             
             isDragging = false;
             dragStartedOnHandle = false;
-            this.navigationPanel.style.transition = 'transform 0.3s ease';
+            this.navigationPanel.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
             
             const deltaY = currentY - startY;
-            const threshold = 60; // Reduced threshold for easier swiping
+            const velocity = Math.abs(deltaY) / (Date.now() - this.dragStartTime);
             
-            if (deltaY > threshold) {
-                this.minimizePanel();
+            // Get current position
+            const currentTransform = this.navigationPanel.style.transform;
+            const currentPosition = parseFloat(currentTransform.match(/translateY\(([-\d.]+)px\)/)?.[1] || this.panelStates.collapsed);
+            
+            // Determine target state based on position and velocity - MAGNETIC SNAPPING
+            let targetState = 'collapsed';
+            
+            if (velocity > 0.3) {
+                // High velocity - snap to direction of movement
+                if (deltaY < 0) {
+                    // Swiping up
+                    if (this.currentPanelState === 'collapsed') {
+                        targetState = 'halfExpanded';
+                    } else {
+                        targetState = 'expanded';
+                    }
+                } else {
+                    // Swiping down
+                    if (this.currentPanelState === 'expanded') {
+                        targetState = 'halfExpanded';
+                    } else {
+                        targetState = 'collapsed';
+                    }
+                }
             } else {
-                this.maximizePanel();
+                // Low velocity - snap to nearest state with magnetic zones
+                const distanceToCollapsed = Math.abs(currentPosition - this.panelStates.collapsed);
+                const distanceToHalf = Math.abs(currentPosition - this.panelStates.halfExpanded);
+                const distanceToExpanded = Math.abs(currentPosition - this.panelStates.expanded);
+                
+                // Find closest state
+                const minDistance = Math.min(distanceToCollapsed, distanceToHalf, distanceToExpanded);
+                
+                if (minDistance === distanceToExpanded) {
+                    targetState = 'expanded';
+                } else if (minDistance === distanceToHalf) {
+                    targetState = 'halfExpanded';
+                } else {
+                    targetState = 'collapsed';
+                }
             }
+            
+            // Apply target state
+            this.setPanelState(targetState);
         };
         
         // Touch events - attach to handle only
@@ -1696,30 +1756,46 @@ class NavigationManager {
     }
     
     /**
-     * Minimize navigation panel
+     * Set panel state (collapsed, halfExpanded, expanded)
      */
-    minimizePanel() {
-        if (!this.navigationPanel) return;
+    setPanelState(state) {
+        if (!this.navigationPanel || !this.panelStates) return;
         
-        const maxTranslate = this.navigationPanel.offsetHeight - 40;
-        this.navigationPanel.style.transform = `translateY(${maxTranslate}px)`;
-        this.navigationPanel.classList.add('minimized');
-        this.isPanelMinimized = true;
+        const targetPosition = this.panelStates[state];
         
-        console.log('📱 Navigation panel minimized');
+        // Add magnetic snap transition
+        this.navigationPanel.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        this.navigationPanel.style.transform = `translateY(${targetPosition}px)`;
+        
+        // Update classes
+        this.navigationPanel.classList.remove('collapsed', 'half-expanded', 'expanded');
+        this.navigationPanel.classList.add(state.replace('halfExpanded', 'half-expanded'));
+        
+        this.currentPanelState = state;
+        this.isPanelMinimized = state === 'collapsed';
+        
+        console.log(`📱 Navigation panel magnetically snapped to ${state} (${targetPosition}px)`);
     }
     
     /**
-     * Maximize navigation panel
+     * Legacy support - minimize panel
+     */
+    minimizePanel() {
+        this.setPanelState('collapsed');
+    }
+    
+    /**
+     * Legacy support - maximize panel (to medium state)
      */
     maximizePanel() {
-        if (!this.navigationPanel) return;
-        
-        this.navigationPanel.style.transform = 'translateY(0)';
-        this.navigationPanel.classList.remove('minimized');
-        this.isPanelMinimized = false;
-        
-        console.log('📱 Navigation panel maximized');
+        this.setPanelState('halfExpanded');
+    }
+    
+    /**
+     * Expand panel to full size
+     */
+    expandPanel() {
+        this.setPanelState('expanded');
     }
 }
 

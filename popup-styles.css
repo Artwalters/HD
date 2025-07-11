@@ -285,8 +285,25 @@ p {
   right: 30px;
 }
 
-.more-info-button,
-.terug-button {
+.popup-front .popup-actions {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  right: 30px;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.popup-front .more-info-button,
+.popup-front .navigate-button {
+  position: static;
+  padding: 10px 25px;
+  flex: 1;
+}
+
+.popup-back .more-info-button {
+  position: absolute;
   bottom: 30px;
   left: 30px;
 }
@@ -500,11 +517,6 @@ p {
 }
 
 /* Navigation Actions */
-.popup-actions {
-  display: flex;
-  gap: 12px;
-  margin-top: 20px;
-}
 
 .navigate-button {
   background: rgba(75, 131, 242, 0.9);

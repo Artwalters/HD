@@ -196,7 +196,10 @@ class PopupManager {
                         <div class="fade-top"></div> 
                         <div class="popup-description">${properties.description}</div>
                         <div class="fade-bottom"></div>
-                        <button class="more-info-button button-base">Meer info</button>
+                        <div class="popup-actions">
+                            <button class="navigate-button button-base">Navigeer</button>
+                            <button class="more-info-button button-base">Meer info</button>
+                        </div>
                     </div>
                 </div>
                 
@@ -212,10 +215,7 @@ class PopupManager {
                                 ${properties.website ? `<p><strong>Website:</strong> <a href="${properties.website}" target="_blank">${properties.website}</a></p>` : ''}
                             </div>
                         </div>
-                        <div class="popup-actions">
-                            <button class="navigate-button button-base">Navigeer</button>
-                            <button class="more-info-button button-base">Terug</button>
-                        </div>
+                        <button class="more-info-button button-base">Terug</button>
                     </div>
                 </div>
             </div>
@@ -317,21 +317,27 @@ class PopupManager {
         
         // Animate gradient stops
         const animateGradient = (newY1, newY2) => {
-            const startY1 = parseFloat(gradient.y1.baseVal.value);
-            const startY2 = parseFloat(gradient.y2.baseVal.value);
-            const startTime = Date.now();
-            
-            function step() {
-                const progress = Math.min((Date.now() - startTime) / 800, 1);
-                gradient.y1.baseVal.value = startY1 + (newY1 - startY1) * progress;
-                gradient.y2.baseVal.value = startY2 + (newY2 - startY2) * progress;
+            try {
+                const startY1 = gradient.getAttribute('y1') ? parseFloat(gradient.getAttribute('y1').replace('%', '')) : 0;
+                const startY2 = gradient.getAttribute('y2') ? parseFloat(gradient.getAttribute('y2').replace('%', '')) : 100;
+                const startTime = Date.now();
                 
-                if (progress < 1) {
-                    requestAnimationFrame(step);
+                function step() {
+                    const progress = Math.min((Date.now() - startTime) / 800, 1);
+                    const currentY1 = startY1 + (newY1 - startY1) * progress;
+                    const currentY2 = startY2 + (newY2 - startY2) * progress;
+                    gradient.setAttribute('y1', currentY1 + '%');
+                    gradient.setAttribute('y2', currentY2 + '%');
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    }
                 }
+                
+                requestAnimationFrame(step);
+            } catch (error) {
+                console.warn('Gradient animation error:', error);
             }
-            
-            requestAnimationFrame(step);
         };
         
         // Set up hover effect on gradient

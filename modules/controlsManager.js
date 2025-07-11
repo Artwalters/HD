@@ -84,11 +84,6 @@ class ControlsManager {
                     </div>
                 </button>
                 
-                <button class="control-btn fullscreen-btn" data-action="fullscreen" title="Volledig scherm">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M8 3H5a2 2 0 0 0-2 2v3m18-5v3a2 2 0 0 1-2 2h-3m0 8h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3"></path>
-                    </svg>
-                </button>
             </div>
         `;
     }
@@ -118,10 +113,6 @@ class ControlsManager {
                 case 'R':
                     this.resetBearing();
                     break;
-                case 'f':
-                case 'F':
-                    this.toggleFullscreen();
-                    break;
             }
         });
     }
@@ -141,9 +132,6 @@ class ControlsManager {
                 break;
             case 'reset-bearing':
                 this.resetBearing();
-                break;
-            case 'fullscreen':
-                this.toggleFullscreen();
                 break;
         }
     }
@@ -217,18 +205,6 @@ class ControlsManager {
         }
     }
 
-    /**
-     * Toggle fullscreen
-     */
-    toggleFullscreen() {
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen().catch(err => {
-                console.warn('Fullscreen not supported:', err);
-            });
-        } else {
-            document.exitFullscreen();
-        }
-    }
 
     /**
      * Update controls state

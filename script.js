@@ -43,12 +43,11 @@ const map = new mapboxgl.Map({
 
 // Add map controls
 map.addControl(new mapboxgl.NavigationControl());
-map.addControl(new mapboxgl.FullscreenControl());
 
 // Load businesses data
 async function loadBusinessData() {
     try {
-        const response = await fetch('./businesses.json');
+        const response = await fetch('./data/businesses.json');
         businessesGeoJSON = await response.json();
         console.log('Loaded', businessesGeoJSON.features.length, 'businesses');
         return businessesGeoJSON;

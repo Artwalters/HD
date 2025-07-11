@@ -181,7 +181,10 @@ class AudioManager {
 
         utterance.onerror = (event) => {
             this.isSpeaking = false;
-            console.error('❌ Speech error:', event.error);
+            // Only log errors that aren't interruptions
+            if (event.error !== 'interrupted') {
+                console.error('❌ Speech error:', event.error);
+            }
             instruction.reject(new Error(event.error));
             this.processQueue();
         };
@@ -299,9 +302,14 @@ class AudioManager {
      * Stop alle speech
      */
     stopSpeaking() {
-        speechSynthesis.cancel();
-        this.clearQueue();
-        this.isSpeaking = false;
+        try {
+            speechSynthesis.cancel();
+            this.clearQueue();
+            this.isSpeaking = false;
+        } catch (error) {
+            // Silently handle any errors during speech cancellation
+            this.isSpeaking = false;
+        }
     }
 
     /**
@@ -309,7 +317,7 @@ class AudioManager {
      */
     clearQueue() {
         this.speechQueue.forEach(instruction => {
-            instruction.reject(new Error('Speech cancelled'));
+            instruction.reject && instruction.reject(new Error('Speech cancelled'));
         });
         this.speechQueue = [];
     }
