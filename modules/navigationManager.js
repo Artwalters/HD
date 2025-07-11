@@ -1443,6 +1443,9 @@ class NavigationManager {
     stopNavigation() {
         console.log('🛑 Stopping navigation and camera following');
         
+        // Store destination before clearing route
+        const destination = this.currentRoute?.destination;
+        
         this.isNavigating = false;
         this.currentRoute = null;
         
@@ -1477,6 +1480,19 @@ class NavigationManager {
             type: 'FeatureCollection',
             features: []
         });
+
+        // Fly back to destination if available
+        if (destination) {
+            console.log(`🎯 Flying back to destination: ${destination.name}`);
+            this.map.flyTo({
+                center: [destination.lng, destination.lat],
+                zoom: 17,
+                pitch: 0,
+                bearing: 0,
+                duration: 1000,
+                essential: true
+            });
+        }
 
         // Hide navigation panel
         this.hideNavigationPanel();
