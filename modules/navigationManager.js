@@ -35,11 +35,12 @@ class NavigationManager {
         this.consecutiveOffRouteCount = 0;
         this.offRouteConfirmationThreshold = 3; // Need 3 consecutive off-route readings
         
-        // Panel state management
-        this.isPanelMinimized = false;
+        // Bottom sheet state management
+        this.panelState = 'collapsed'; // collapsed, partial, expanded
         this.swipeStartY = 0;
         this.swipeCurrentY = 0;
-        this.swipeThreshold = 50; // pixels to trigger minimize/maximize
+        this.swipeThreshold = 50; // pixels to trigger state change
+        this.isDragging = false;
         
         // Progress tracking
         this.positionHistory = [];
@@ -1020,8 +1021,10 @@ class NavigationManager {
 
         return `
             <div class="navigation-content">
-                <!-- Swipe handle for panel control -->
-                <div class="navigation-handle"></div>
+                <!-- Swipe handle for minimizing panel -->
+                <div class="navigation-handle">
+                    <div class="handle-bar"></div>
+                </div>
                 <div class="navigation-header">
                     <div class="navigation-info">
                         <h3>${route.destination.name}</h3>
@@ -1573,26 +1576,12 @@ class NavigationManager {
      * Update panel states based on screen size
      */
     updatePanelStates() {
-        const isMobile = window.innerWidth <= 768;
-        const headerHeight = 80; // Just show title + handle
-        const mediumHeight = isMobile ? 
-            window.innerHeight * 0.6 : // 60% of screen on mobile
-            window.innerHeight * 0.5;   // 50% of screen on desktop
-        
-        this.panelStates = {
-            // State 1: Minimaal - alleen titel zichtbaar
-            collapsed: window.innerHeight - headerHeight,
-            // State 2: Medium - route beschrijving zichtbaar en scrollbaar
-            halfExpanded: mediumHeight,
-            // State 3: Maximaal - bijna volledig scherm
-            expanded: window.innerHeight * 0.05
-        };
-        
-        console.log('📱 Panel magnetic snap positions:', this.panelStates);
+        // Simple minimize/maximize states - back to original behavior
+        this.isPanelMinimized = false;
     }
 
     /**
-     * Setup swipe gestures for panel minimize/maximize - ONLY on handle
+     * Setup swipe gestures for bottom sheet
      */
     setupSwipeGestures() {
         if (!this.navigationPanel) return;
@@ -1603,59 +1592,21 @@ class NavigationManager {
         let startY = 0;
         let currentY = 0;
         let isDragging = false;
-        let dragStartedOnHandle = false;
-        let initialPanelPosition = 0;
-        
-        // Panel states - calculate dynamically
-        this.updatePanelStates();
-        
-        // Set initial state immediately without transition
-        this.currentPanelState = 'collapsed';
-        this.navigationPanel.style.transition = 'none';
-        this.navigationPanel.style.transform = `translateY(${this.panelStates.collapsed}px)`;
-        
-        // Re-enable transition after initial positioning
-        setTimeout(() => {
-            this.navigationPanel.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-        }, 100);
-        
-        // Update panel states on resize
-        window.addEventListener('resize', () => {
-            this.updatePanelStates();
-            // Re-apply current state with new dimensions
-            if (this.currentPanelState) {
-                this.navigationPanel.style.transform = `translateY(${this.panelStates[this.currentPanelState]}px)`;
-            }
-        });
+        let startTime = 0;
         
         const handleStart = (e) => {
-            // Only start dragging if the event started on the handle
-            if (!e.target.closest('.navigation-handle')) {
-                return;
-            }
-            
-            dragStartedOnHandle = true;
-            const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
-            
-            // Get current panel position
-            const currentTransform = this.navigationPanel.style.transform;
-            initialPanelPosition = parseFloat(currentTransform.match(/translateY\(([-\d.]+)px\)/)?.[1] || this.panelStates.collapsed);
-            
-            startY = clientY;
-            currentY = clientY;
+            startY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+            currentY = startY;
             isDragging = true;
+            startTime = Date.now();
             this.navigationPanel.style.transition = 'none';
             
-            // Store time for click detection
-            this.dragStartTime = Date.now();
-            
-            // Prevent default to stop any other drag behaviors
             e.preventDefault();
             e.stopPropagation();
         };
         
         const handleMove = (e) => {
-            if (!isDragging || !dragStartedOnHandle) return;
+            if (!isDragging) return;
             
             e.preventDefault();
             e.stopPropagation();
@@ -1663,139 +1614,126 @@ class NavigationManager {
             currentY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
             const deltaY = currentY - startY;
             
-            // Calculate new position
-            let newPosition = initialPanelPosition + deltaY;
+            // Calculate current transform based on panel state and delta
+            let currentTransform = 0;
+            switch (this.panelState) {
+                case 'collapsed':
+                    currentTransform = this.navigationPanel.offsetHeight - 120;
+                    break;
+                case 'partial':
+                    currentTransform = this.navigationPanel.offsetHeight - 300;
+                    break;
+                case 'expanded':
+                    currentTransform = 0;
+                    break;
+            }
             
-            // Clamp to bounds
-            newPosition = Math.max(this.panelStates.expanded, Math.min(newPosition, this.panelStates.collapsed));
-            
-            // Apply position
-            this.navigationPanel.style.transform = `translateY(${newPosition}px)`;
+            // Apply drag transform
+            const newTransform = Math.max(0, Math.min(this.navigationPanel.offsetHeight - 120, currentTransform + deltaY));
+            this.navigationPanel.style.transform = `translateY(${newTransform}px)`;
         };
         
         const handleEnd = (e) => {
-            if (!isDragging || !dragStartedOnHandle) return;
+            if (!isDragging) return;
             
             isDragging = false;
-            dragStartedOnHandle = false;
-            this.navigationPanel.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            this.navigationPanel.style.transition = 'transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)';
             
             const deltaY = currentY - startY;
-            const velocity = Math.abs(deltaY) / (Date.now() - this.dragStartTime);
+            const velocity = Math.abs(deltaY) / (Date.now() - startTime);
             
-            // Get current position
-            const currentTransform = this.navigationPanel.style.transform;
-            const currentPosition = parseFloat(currentTransform.match(/translateY\(([-\d.]+)px\)/)?.[1] || this.panelStates.collapsed);
-            
-            // Determine target state based on position and velocity - MAGNETIC SNAPPING
-            let targetState = 'collapsed';
-            
-            if (velocity > 0.3) {
-                // High velocity - snap to direction of movement
-                if (deltaY < 0) {
-                    // Swiping up
-                    if (this.currentPanelState === 'collapsed') {
-                        targetState = 'halfExpanded';
-                    } else {
-                        targetState = 'expanded';
-                    }
+            // Determine new state based on direction and velocity
+            if (velocity > 0.5) {
+                // Fast swipe
+                if (deltaY > 0) {
+                    // Swipe down
+                    this.setPanelState(this.panelState === 'expanded' ? 'partial' : 'collapsed');
                 } else {
-                    // Swiping down
-                    if (this.currentPanelState === 'expanded') {
-                        targetState = 'halfExpanded';
-                    } else {
-                        targetState = 'collapsed';
-                    }
+                    // Swipe up
+                    this.setPanelState(this.panelState === 'collapsed' ? 'partial' : 'expanded');
                 }
             } else {
-                // Low velocity - snap to nearest state with magnetic zones
-                const distanceToCollapsed = Math.abs(currentPosition - this.panelStates.collapsed);
-                const distanceToHalf = Math.abs(currentPosition - this.panelStates.halfExpanded);
-                const distanceToExpanded = Math.abs(currentPosition - this.panelStates.expanded);
-                
-                // Find closest state
-                const minDistance = Math.min(distanceToCollapsed, distanceToHalf, distanceToExpanded);
-                
-                if (minDistance === distanceToExpanded) {
-                    targetState = 'expanded';
-                } else if (minDistance === distanceToHalf) {
-                    targetState = 'halfExpanded';
+                // Slow drag - determine by distance
+                if (Math.abs(deltaY) > 100) {
+                    if (deltaY > 0) {
+                        // Drag down
+                        this.setPanelState(this.panelState === 'expanded' ? 'partial' : 'collapsed');
+                    } else {
+                        // Drag up
+                        this.setPanelState(this.panelState === 'collapsed' ? 'partial' : 'expanded');
+                    }
                 } else {
-                    targetState = 'collapsed';
+                    // Snap back to current state
+                    this.setPanelState(this.panelState);
                 }
             }
-            
-            // Apply target state
-            this.setPanelState(targetState);
         };
         
-        // Touch events - attach to handle only
+        // Touch events
         handle.addEventListener('touchstart', handleStart, { passive: false });
         document.addEventListener('touchmove', handleMove, { passive: false });
         document.addEventListener('touchend', handleEnd);
         
-        // Mouse events for desktop testing - attach to handle only
+        // Mouse events
         handle.addEventListener('mousedown', handleStart);
         document.addEventListener('mousemove', handleMove);
         document.addEventListener('mouseup', handleEnd);
         
-        // Handle click to toggle - simple click without drag
+        // Handle click to toggle states
         handle.addEventListener('click', (e) => {
-            // Only toggle if there was no significant drag
-            const timeSinceStart = Date.now() - (this.dragStartTime || 0);
-            if (timeSinceStart < 200 && !isDragging) { // Quick click, no drag
-                if (this.isPanelMinimized) {
-                    this.maximizePanel();
-                } else {
-                    this.minimizePanel();
-                }
+            if (!isDragging && Date.now() - startTime < 200) {
+                this.togglePanelState();
             }
         });
         
-        console.log('✅ Swipe gestures setup - handle only');
+        console.log('✅ Bottom sheet swipe gestures setup');
     }
     
     /**
-     * Set panel state (collapsed, halfExpanded, expanded)
-     */
-    setPanelState(state) {
-        if (!this.navigationPanel || !this.panelStates) return;
-        
-        const targetPosition = this.panelStates[state];
-        
-        // Add magnetic snap transition
-        this.navigationPanel.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        this.navigationPanel.style.transform = `translateY(${targetPosition}px)`;
-        
-        // Update classes
-        this.navigationPanel.classList.remove('collapsed', 'half-expanded', 'expanded');
-        this.navigationPanel.classList.add(state.replace('halfExpanded', 'half-expanded'));
-        
-        this.currentPanelState = state;
-        this.isPanelMinimized = state === 'collapsed';
-        
-        console.log(`📱 Navigation panel magnetically snapped to ${state} (${targetPosition}px)`);
-    }
-    
-    /**
-     * Legacy support - minimize panel
+     * Minimize navigation panel
      */
     minimizePanel() {
         this.setPanelState('collapsed');
     }
     
     /**
-     * Legacy support - maximize panel (to medium state)
+     * Maximize navigation panel
      */
     maximizePanel() {
-        this.setPanelState('halfExpanded');
+        this.setPanelState('expanded');
     }
     
     /**
-     * Expand panel to full size
+     * Set bottom sheet state
      */
-    expandPanel() {
-        this.setPanelState('expanded');
+    setPanelState(state) {
+        if (!this.navigationPanel) return;
+        
+        // Remove all state classes
+        this.navigationPanel.classList.remove('collapsed', 'partial', 'expanded');
+        
+        // Add new state class
+        this.navigationPanel.classList.add(state);
+        this.panelState = state;
+        
+        console.log(`📱 Navigation panel set to ${state}`);
+    }
+    
+    /**
+     * Toggle panel state
+     */
+    togglePanelState() {
+        switch (this.panelState) {
+            case 'collapsed':
+                this.setPanelState('partial');
+                break;
+            case 'partial':
+                this.setPanelState('expanded');
+                break;
+            case 'expanded':
+                this.setPanelState('collapsed');
+                break;
+        }
     }
 }
 

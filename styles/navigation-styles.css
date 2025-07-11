@@ -2,7 +2,7 @@
    NAVIGATION STYLES - v1.0
    ============================== */
 
-/* Navigation Panel - Google Maps Style */
+/* Navigation Panel - Google Maps style bottom sheet */
 .navigation-panel {
     position: fixed;
     bottom: 0;
@@ -10,61 +10,71 @@
     right: 0;
     z-index: 1005;
     font-family: var(--font-body);
-    height: 100vh;
-    /* Initial transform will be set by JavaScript */
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 85vh;
+    min-height: 120px;
+    transform: translateY(calc(100% - 120px));
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
     
-    /* Prevent dragging and text selection */
+    /* Prevent text selection but allow touch */
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    -webkit-user-drag: none;
-    -moz-user-drag: none;
-    user-drag: none;
     -webkit-touch-callout: none;
     
-    /* Allow only vertical pan for swipe gestures */
+    /* Allow vertical pan for swipe gestures */
     touch-action: pan-y;
 }
 
-/* Panel States - will be overridden by JavaScript */
+/* Panel states for bottom sheet */
 .navigation-panel.collapsed {
-    /* JavaScript will set the transform */
+    transform: translateY(calc(100% - 120px));
 }
 
-.navigation-panel.half-expanded {
-    /* JavaScript will set the transform */
+.navigation-panel.partial {
+    transform: translateY(calc(100% - 300px));
 }
 
 .navigation-panel.expanded {
-    /* JavaScript will set the transform */
+    transform: translateY(0);
 }
 
-/* Navigation Content - Google Maps Style */
+/* Navigation Content - Bottom sheet styling */
 .navigation-content {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
-    border-radius: 16px 16px 0 0;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px 20px 0 0;
     box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.15);
     height: 100%;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     
-    /* Prevent any dragging on content */
+    /* Prevent text selection but allow interactions */
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    -webkit-user-drag: none;
-    -moz-user-drag: none;
-    user-drag: none;
     -webkit-touch-callout: none;
     
-    /* Prevent touch actions that cause dragging */
-    touch-action: none;
+    /* Allow normal touch interactions */
+    touch-action: auto;
     pointer-events: auto;
+}
+
+/* Bottom sheet handle */
+.navigation-handle {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+    cursor: pointer;
+    z-index: 10;
 }
 
 /* Navigation Header */
@@ -72,9 +82,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 20px;
-    background: rgba(255, 255, 255, 0.05);
+    padding: 28px 20px 16px;
+    background: transparent;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
 }
 
 .navigation-info h3 {
@@ -103,6 +114,14 @@
 
 .navigation-stats .stat svg {
     opacity: 0.8;
+}
+
+/* Navigation Body - Scrollable content */
+.navigation-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 20px 20px;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Navigation Actions */
@@ -191,14 +210,13 @@
     border-radius: 4px;
 }
 
-/* Instructions List - Dynamic Height */
+/* Instructions List */
 .instructions-list {
-    flex: 1;
+    max-height: 40vh;
     overflow-y: auto;
     padding: 0 20px 16px;
     display: block;
     transition: all 0.3s ease;
-    min-height: 0;
 }
 
 .instructions-list::-webkit-scrollbar {
@@ -265,21 +283,31 @@
     font-weight: 500;
 }
 
-/* Animation for navigation panel - disabled for Google Maps style */
+/* Animation for navigation panel */
 @keyframes navigationSlideIn {
     from {
         opacity: 0;
+        transform: translateX(-20px) translateY(20px);
     }
     to {
         opacity: 1;
+        transform: translateX(0) translateY(0);
     }
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    /* Panel positioning handled by JavaScript for Google Maps style */
+    .navigation-panel {
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        max-width: none;
+        min-width: auto;
+        max-height: 40vh;
+    }
+    
     .navigation-header {
-        padding: 8px 12px; /* Reduced padding */
+        padding: 8px 12px;
     }
     
     .navigation-info h3 {
@@ -1139,19 +1167,24 @@
    SWIPEABLE PANEL STYLES
    ============================== */
 
-/* Navigation Handle - Google Maps Style */
+/* Navigation Handle */
 .navigation-handle {
     position: absolute;
-    top: 8px;
+    top: -15px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1010;
     cursor: grab;
     touch-action: pan-y;
-    width: 40px;
-    height: 4px;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 2px;
+    width: 60px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px 15px 8px 8px;
     transition: all 0.3s ease;
     
     /* Override drag prevention for the handle only */
@@ -1165,46 +1198,56 @@
     
     /* Ensure handle is always interactive */
     pointer-events: auto;
-    
-    /* Larger touch area for easier grabbing */
-    padding: 12px;
-    margin: -12px;
 }
 
 .navigation-handle:active {
     cursor: grabbing;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .navigation-handle:hover {
-    background: rgba(0, 0, 0, 0.4);
-    width: 44px;
-}
-
-/* Minimized Panel State */
-.navigation-panel.minimized {
-    /* Don't use CSS transform here - let JavaScript handle position */
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.navigation-panel.minimized .navigation-handle {
-    top: -30px;
-    height: 25px;
-    border-radius: 15px 15px 0 0;
     background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(25px);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateX(-50%) translateY(-2px);
+}
+
+/* Handle Bar */
+.handle-bar {
+    width: 32px;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+    transition: all 0.2s ease;
+}
+
+.navigation-handle:hover .handle-bar {
+    background: rgba(0, 0, 0, 0.5);
+    width: 36px;
+}
+
+/* Bottom sheet states */
+.navigation-panel.collapsed .navigation-body {
+    display: none;
+}
+
+.navigation-panel.collapsed .navigation-header {
+    padding: 28px 20px 16px;
     border-bottom: none;
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
 }
 
-.navigation-panel.minimized .navigation-handle .handle-bar {
-    transform: rotate(180deg);
-    background: rgba(0, 0, 0, 0.4);
+.navigation-panel.collapsed .navigation-stats {
+    display: none;
 }
 
-.navigation-panel.minimized .navigation-handle:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: translateX(-50%) translateY(-4px);
+/* Partial state - show some content */
+.navigation-panel.partial .navigation-body {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Expanded state - full content */
+.navigation-panel.expanded .navigation-body {
+    max-height: none;
 }
 
 /* Maximized Panel State */
@@ -1218,26 +1261,34 @@
     pointer-events: none;
 }
 
-/* Mobile Swipe Adjustments */
+/* Mobile optimizations */
 @media (max-width: 768px) {
+    .navigation-panel {
+        max-height: 90vh;
+        min-height: 100px;
+        transform: translateY(calc(100% - 100px));
+    }
+    
+    .navigation-panel.collapsed {
+        transform: translateY(calc(100% - 100px));
+    }
+    
+    .navigation-panel.partial {
+        transform: translateY(calc(100% - 250px));
+    }
+    
     .navigation-handle {
-        width: 50px;
-        height: 25px;
-        top: -12px;
+        width: 40px;
+        height: 4px;
+        top: 10px;
     }
     
-    .navigation-panel.minimized .navigation-handle {
-        top: -35px;
-        height: 35px;
+    .navigation-header {
+        padding: 24px 16px 12px;
     }
     
-    .handle-bar {
-        width: 28px;
-        height: 3px;
-    }
-    
-    .navigation-handle:hover .handle-bar {
-        width: 30px;
+    .navigation-body {
+        padding: 0 16px 16px;
     }
 }
 
@@ -1249,8 +1300,8 @@
     }
     
     .navigation-panel.minimized .navigation-handle {
-        top: -30px;
-        height: 30px;
+         top: -10px;
+        height: 35px;
     }
     
     .handle-bar {
