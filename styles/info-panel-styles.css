@@ -26,36 +26,7 @@
 
 .info-panel.open.expanded {
   height: 100vh;
-  max-height: none;
-}
-
-/* Mobile specific expanded state - stay within viewport */
-@media screen and (max-width: 767px) {
-  .info-panel.open.expanded {
-    height: calc(100vh - env(safe-area-inset-top, 0px)) !important;
-    max-height: calc(100vh - env(safe-area-inset-top, 0px));
-    top: env(safe-area-inset-top, 0px);
-  }
-  
-  /* Ensure mobile panel never goes outside viewport during drag */
-  .info-panel {
-    max-height: 100vh !important;
-  }
-  
-  /* Better mobile viewport handling */
-  .info-panel.open.expanded {
-    /* Use dvh (dynamic viewport height) if supported, fallback to vh */
-    height: 100dvh !important;
-    max-height: 100dvh;
-  }
-  
-  /* Fallback for browsers without dvh support */
-  @supports not (height: 100dvh) {
-    .info-panel.open.expanded {
-      height: 100vh !important;
-      max-height: 100vh;
-    }
-  }
+  max-height: 100vh;
 }
 
 .info-panel.dragging {
