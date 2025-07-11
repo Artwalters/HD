@@ -748,11 +748,9 @@ class PopupManager {
         let rafId = null;
         
         const handleTouchStart = (e) => {
-            // Allow dragging from header anytime
+            // Only allow dragging from header
             const isHeader = e.target.closest('.info-panel-header');
-            
-            // For content area, only allow when at top
-            if (!isHeader && content.scrollTop > 5) return;
+            if (!isHeader) return;
             
             startY = e.touches[0].clientY;
             isDragging = true;
@@ -855,23 +853,17 @@ class PopupManager {
             }
         };
         
-        // Add touch event listeners
+        // Add touch event listeners - only on header
         header.addEventListener('touchstart', handleTouchStart, { passive: true });
         header.addEventListener('touchmove', handleTouchMove, { passive: false });
         header.addEventListener('touchend', handleTouchEnd);
-        
-        // Also allow dragging from top of content area
-        content.addEventListener('touchstart', handleTouchStart, { passive: true });
-        content.addEventListener('touchmove', handleTouchMove, { passive: false });
-        content.addEventListener('touchend', handleTouchEnd);
         
         // Store references for cleanup
         infoPanel._dragHandlers = {
             start: handleTouchStart,
             move: handleTouchMove,
             end: handleTouchEnd,
-            header: header,
-            content: content
+            header: header
         };
     }
 
@@ -881,15 +873,11 @@ class PopupManager {
      */
     cleanupDragHandlers(infoPanel) {
         if (infoPanel._dragHandlers) {
-            const { start, move, end, header, content } = infoPanel._dragHandlers;
+            const { start, move, end, header } = infoPanel._dragHandlers;
             
             header.removeEventListener('touchstart', start);
             header.removeEventListener('touchmove', move);
             header.removeEventListener('touchend', end);
-            
-            content.removeEventListener('touchstart', start);
-            content.removeEventListener('touchmove', move);
-            content.removeEventListener('touchend', end);
             
             delete infoPanel._dragHandlers;
         }
