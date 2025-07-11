@@ -103,7 +103,7 @@ class PerformanceManager {
         if (performance.memory) {
             const checkMemory = () => {
                 const memory = performance.memory;
-                if (memory.usedJSHeapSize > 200 * 1024 * 1024) { // 200MB
+                if (memory.usedJSHeapSize > 300 * 1024 * 1024) { // 300MB
                     console.warn('⚠️ High memory usage detected:', {
                         used: Math.round(memory.usedJSHeapSize / 1024 / 1024) + 'MB',
                         limit: Math.round(memory.jsHeapSizeLimit / 1024 / 1024) + 'MB'

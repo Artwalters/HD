@@ -634,7 +634,10 @@ class LocationManager {
         if (!this.map.hasImage('navigation-arrow')) {
             const img = new Image();
             img.onload = () => {
-                this.map.addImage('navigation-arrow', img, { sdf: false });
+                // Check if image already exists before adding
+                if (!this.map.hasImage('navigation-arrow')) {
+                    this.map.addImage('navigation-arrow', img, { sdf: false });
+                }
                 this.addNavigationArrowLayer(dotSize);
             };
             img.src = googleMapsDotSvg;
@@ -682,6 +685,11 @@ class LocationManager {
         };
         
         console.log('📍 Creating Google Maps style navigation arrow with heading:', this.heading || 0, 'degrees');
+        
+        // Check if layer already exists before adding
+        if (this.map.getLayer('user-location-pin')) {
+            this.map.removeLayer('user-location-pin');
+        }
         
         // Add layer on top of route layers to ensure user pin is always visible
         try {

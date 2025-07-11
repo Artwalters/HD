@@ -53,6 +53,13 @@ class InstructionTranslator {
             
             // End of road
             'end-of-road': 'einde van de weg',
+            'end of road': 'einde van de weg',
+            
+            // Additional maneuver types found in logs
+            'new name': 'straat wijzigt van naam',
+            'off ramp': 'neem de afrit',
+            'on ramp': 'ga de oprit op',
+            'notification': 'let op',
             
             // Use/take
             'use': 'neem',

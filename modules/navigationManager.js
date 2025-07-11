@@ -185,7 +185,7 @@ class NavigationManager {
     /**
      * Bereken route naar bestemming
      */
-    async calculateRoute(destinationLat, destinationLng, destinationName) {
+    async calculateRoute(destinationLat, destinationLng, destinationName, destinationColor = '#4B83F2') {
         if (!this.locationManager.hasUserLocation()) {
             throw new Error('Gebruikerslocatie is niet beschikbaar');
         }
@@ -206,7 +206,8 @@ class NavigationManager {
                 destination: {
                     name: destinationName,
                     lat: destinationLat,
-                    lng: destinationLng
+                    lng: destinationLng,
+                    color: destinationColor
                 },
                 origin: {
                     lat: userLocation.lat,
@@ -999,8 +1000,12 @@ class NavigationManager {
 
         // Create navigation panel
         this.navigationPanel = document.createElement('div');
-        this.navigationPanel.className = 'navigation-panel';
+        this.navigationPanel.className = 'navigation-panel open';
         this.navigationPanel.innerHTML = this.generateNavigationHTML();
+
+        // Set the background color based on destination
+        const color = this.currentRoute.destination.color || '#4B83F2';
+        this.navigationPanel.style.background = color;
 
         // Add to map container
         const mapContainer = document.getElementById('map');
@@ -1008,10 +1013,13 @@ class NavigationManager {
 
         // Setup event listeners
         this.setupNavigationListeners();
+        
+        // Setup drag functionality like info panel
+        this.setupDragFunctionality();
     }
 
     /**
-     * Genereer navigation HTML
+     * Genereer navigation HTML - exact zoals info panel
      */
     generateNavigationHTML() {
         const route = this.currentRoute;
@@ -1020,78 +1028,72 @@ class NavigationManager {
         const steps = route.legs[0].steps;
 
         return `
-            <div class="navigation-content">
-                <!-- Swipe handle for minimizing panel -->
-                <div class="navigation-handle">
-                    <div class="handle-bar"></div>
+            <div class="info-panel-header">
+                <div class="header-main">
+                    <h1 class="info-panel-title">${route.destination.name}</h1>
+                    <div class="header-stats">
+                        <span class="remaining-distance">${distance}</span> • 
+                        <span class="navigation-eta">${duration}</span>
+                    </div>
                 </div>
-                <div class="navigation-header">
-                    <div class="navigation-info">
-                        <h3>${route.destination.name}</h3>
+                <button class="info-panel-close" aria-label="Close navigation">×</button>
+            </div>
+            <div class="info-panel-content">
+                <div class="info-panel-details">
+                    <div class="info-panel-section">
+                        <h3>Route informatie</h3>
                         <div class="navigation-stats">
-                            <span class="stat remaining-distance">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                                ${distance}
-                            </span>
-                            <span class="stat navigation-eta">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <polyline points="12,6 12,12 16,14"></polyline>
-                                </svg>
-                                ${duration}
-                            </span>
-                            <span class="stat navigation-speed">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                                    <path d="M12 17h.01"></path>
-                                </svg>
-                                0 km/h
-                            </span>
+                            <div class="stat-item">
+                                <strong>Afstand:</strong> <span class="remaining-distance">${distance}</span>
+                            </div>
+                            <div class="stat-item">
+                                <strong>Tijd:</strong> <span class="navigation-eta">${duration}</span>
+                            </div>
+                            <div class="stat-item">
+                                <strong>Snelheid:</strong> <span class="navigation-speed">0 km/h</span>
+                            </div>
                         </div>
                         <div class="route-progress">
                             <div class="route-progress-bar" style="width: 0%"></div>
                         </div>
                     </div>
-                    <div class="navigation-actions">
-                        <button class="nav-btn audio-btn ${this.audioManager?.getStatus().enabled ? 'active' : ''}" title="Audio feedback">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                            </svg>
-                        </button>
-                        <button class="nav-btn camera-btn ${this.isFollowingUser ? 'active' : ''}" title="Camera volgen">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                                <circle cx="12" cy="13" r="4"></circle>
-                            </svg>
-                        </button>
-                        <button class="nav-btn profile-btn" title="Vervoerswijze: ${this.getProfileName()}" data-profile="${this.routingProfile}">
-                            ${this.getProfileIcon()}
-                        </button>
-                        <button class="nav-btn close-btn" title="Sluiten">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="18" y1="6" x2="6" y2="18"></line>
-                                <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg>
-                        </button>
+                    
+                    <div class="info-panel-section">
+                        <h3>Navigatie opties</h3>
+                        <div class="navigation-controls">
+                            <button class="control-option audio-btn ${this.audioManager?.getStatus().enabled ? 'active' : ''}" title="Audio feedback">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                                </svg>
+                                <span>Audio feedback</span>
+                            </button>
+                            <button class="control-option camera-btn ${this.isFollowingUser ? 'active' : ''}" title="Camera volgen">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                                    <circle cx="12" cy="13" r="4"></circle>
+                                </svg>
+                                <span>Camera volgen</span>
+                            </button>
+                            <button class="control-option profile-btn" title="Vervoerswijze: ${this.getProfileName()}" data-profile="${this.routingProfile}">
+                                ${this.getProfileIcon()}
+                                <span>${this.getProfileName()}</span>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="navigation-instructions">
-                    <div class="instructions-header">
-                        <h4>Routebeschrijving</h4>
-                        <button class="toggle-instructions">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="6,9 12,15 18,9"></polyline>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="instructions-list">
-                        ${steps.map((step, index) => this.generateStepHTML(step, index)).join('')}
+                    
+                    <div class="info-panel-section">
+                        <div class="instructions-header">
+                            <h3>Routebeschrijving</h3>
+                            <button class="toggle-instructions">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6,9 12,15 18,9"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="instructions-list">
+                            ${steps.map((step, index) => this.generateStepHTML(step, index)).join('')}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1202,10 +1204,91 @@ class NavigationManager {
     }
 
     /**
+     * Setup drag functionality voor navigation panel
+     */
+    setupDragFunctionality() {
+        const panel = this.navigationPanel;
+        const header = panel.querySelector('.info-panel-header');
+        
+        let startY = 0;
+        let startHeight = 0;
+        let isDragging = false;
+        
+        const startDrag = (e) => {
+            isDragging = true;
+            startY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+            startHeight = panel.offsetHeight;
+            panel.classList.add('dragging');
+        };
+        
+        const onDrag = (e) => {
+            if (!isDragging) return;
+            
+            const currentY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+            const deltaY = startY - currentY;
+            // Minimale hoogte is 120px zodat header altijd zichtbaar blijft
+            const newHeight = Math.max(120, Math.min(window.innerHeight * 0.85, startHeight + deltaY));
+            
+            panel.style.height = `${newHeight}px`;
+            
+            // Update states tijdens drag
+            if (newHeight <= 140) {
+                panel.classList.add('collapsed');
+                panel.classList.remove('expanded');
+            } else if (newHeight > window.innerHeight * 0.6) {
+                panel.classList.add('expanded');
+                panel.classList.remove('collapsed');
+            } else {
+                panel.classList.remove('expanded', 'collapsed');
+            }
+        };
+        
+        const endDrag = () => {
+            try {
+                if (!isDragging) return;
+                isDragging = false;
+                panel.classList.remove('dragging');
+                
+                // Snap to positions - maar nooit helemaal sluiten
+                const height = panel.offsetHeight;
+                const vh = window.innerHeight;
+                
+                if (height < vh * 0.15) {
+                    // Minimaal zichtbaar - toon alleen header gebied
+                    panel.style.height = '120px';
+                    panel.classList.remove('expanded');
+                    panel.classList.add('collapsed');
+                } else if (height > vh * 0.6) {
+                    // Expand to full
+                    panel.style.height = '85vh';
+                    panel.classList.add('expanded');
+                    panel.classList.remove('collapsed');
+                } else {
+                    // Default height
+                    panel.style.height = '40vh';
+                    panel.classList.remove('expanded', 'collapsed');
+                }
+            } catch (error) {
+                console.error('Error in drag end:', error);
+            }
+        };
+        
+        // Touch events
+        header.addEventListener('touchstart', startDrag, { passive: true });
+        document.addEventListener('touchmove', onDrag, { passive: true });
+        document.addEventListener('touchend', endDrag);
+        
+        // Mouse events
+        header.addEventListener('mousedown', startDrag);
+        document.addEventListener('mousemove', onDrag);
+        document.addEventListener('mouseup', endDrag);
+    }
+
+    /**
      * Setup navigation event listeners
      */
     setupNavigationListeners() {
-        const closeBtn = this.navigationPanel.querySelector('.close-btn');
+        const closeBtn = this.navigationPanel.querySelector('.info-panel-close');
         const profileBtn = this.navigationPanel.querySelector('.profile-btn');
         const toggleBtn = this.navigationPanel.querySelector('.toggle-instructions');
         const audioBtn = this.navigationPanel.querySelector('.audio-btn');
@@ -1340,7 +1423,7 @@ class NavigationManager {
         try {
             const destination = this.currentRoute.destination;
             console.log(`🔄 Herberekenen route voor ${this.getProfileName()}...`);
-            await this.calculateRoute(destination.lat, destination.lng, destination.name);
+            await this.calculateRoute(destination.lat, destination.lng, destination.name, destination.color);
             
             // Update profile button appearance
             this.updateProfileButton();
@@ -1533,8 +1616,11 @@ class NavigationManager {
         
         console.log('📍 Navigeren naar:', { name, lat, lng });
         
+        // Get color from properties if available
+        const color = properties.color || '#4B83F2';
+        
         try {
-            await this.calculateRoute(lat, lng, name);
+            await this.calculateRoute(lat, lng, name, color);
             return true;
         } catch (error) {
             console.error('❌ Navigatie fout:', error);

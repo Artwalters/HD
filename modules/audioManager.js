@@ -184,8 +184,11 @@ class AudioManager {
             // Only log errors that aren't interruptions
             if (event.error !== 'interrupted') {
                 console.error('❌ Speech error:', event.error);
+                instruction.reject(new Error(event.error));
+            } else {
+                // Handle interruption gracefully
+                instruction.resolve();
             }
-            instruction.reject(new Error(event.error));
             this.processQueue();
         };
 
