@@ -659,6 +659,9 @@ class PopupManager {
         // Setup scroll expansion on mobile
         this.setupScrollExpansion(infoPanel);
         
+        // Setup drag to close on mobile
+        this.setupDragToClose(infoPanel);
+        
         console.log(`📋 Info panel geopend voor ${properties.name}`);
     }
 
@@ -678,21 +681,21 @@ class PopupManager {
         }
         
         const content = infoPanel.querySelector('.info-panel-content');
-        let scrollThreshold = 20; // Scroll threshold in pixels
         let isExpanded = false;
         
         const handleScroll = () => {
             // Double check we're still on mobile
             if (window.innerWidth >= 768) return;
             
-            const shouldExpand = content.scrollTop > scrollThreshold;
+            // If already expanded, do nothing
+            if (isExpanded) return;
             
-            if (shouldExpand && !isExpanded) {
+            // Simple trigger - any scroll expands it
+            if (content.scrollTop > 5) {
                 infoPanel.classList.add('expanded');
                 isExpanded = true;
-            } else if (!shouldExpand && isExpanded) {
-                infoPanel.classList.remove('expanded');
-                isExpanded = false;
+                // Remove scroll listener after expanding
+                content.removeEventListener('scroll', handleScroll);
             }
         };
         
@@ -723,6 +726,170 @@ class PopupManager {
     }
 
     /**
+     * Setup drag to close functionality for mobile
+     * @param {Element} infoPanel - Info panel element
+     */
+    setupDragToClose(infoPanel) {
+        // Only on mobile devices
+        if (window.innerWidth >= 768) return;
+        
+        const header = infoPanel.querySelector('.info-panel-header');
+        const content = infoPanel.querySelector('.info-panel-content');
+        
+        let startY = 0;
+        let currentY = 0;
+        let isDragging = false;
+        let closeThreshold = 100; // Minimum drag distance to close
+        let expandThreshold = 50; // Minimum drag distance to expand
+        let rafId = null;
+        
+        const handleTouchStart = (e) => {
+            // Allow dragging from header anytime
+            const isHeader = e.target.closest('.info-panel-header');
+            
+            // For content area, only allow when at top
+            if (!isHeader && content.scrollTop > 5) return;
+            
+            startY = e.touches[0].clientY;
+            isDragging = true;
+            
+            // Add dragging styles
+            infoPanel.style.transition = 'none';
+            infoPanel.classList.add('dragging');
+        };
+        
+        const handleTouchMove = (e) => {
+            if (!isDragging) return;
+            
+            currentY = e.touches[0].clientY;
+            
+            // Cancel previous animation frame
+            if (rafId) {
+                cancelAnimationFrame(rafId);
+            }
+            
+            // Use requestAnimationFrame for smooth updates
+            rafId = requestAnimationFrame(() => {
+                const deltaY = currentY - startY;
+                const isExpanded = infoPanel.classList.contains('expanded');
+                
+                // Calculate new height based on drag
+                let currentHeight;
+                if (isExpanded) {
+                    // Starting from 100vh
+                    currentHeight = window.innerHeight + deltaY;
+                } else {
+                    // Starting from 40vh
+                    currentHeight = window.innerHeight * 0.4 - deltaY;
+                }
+                
+                // Clamp height between 40vh and 100vh
+                const minHeight = window.innerHeight * 0.4;
+                const maxHeight = window.innerHeight;
+                currentHeight = Math.max(minHeight, Math.min(maxHeight, currentHeight));
+                
+                // Apply height directly for smooth content reflow
+                infoPanel.style.height = `${currentHeight}px`;
+            });
+            
+            // Prevent scrolling while dragging
+            e.preventDefault();
+        };
+        
+        const handleTouchEnd = () => {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            const deltaY = currentY - startY;
+            const isExpanded = infoPanel.classList.contains('expanded');
+            
+            // Remove dragging styles
+            infoPanel.classList.remove('dragging');
+            infoPanel.style.transition = '';
+            infoPanel.style.height = ''; // Reset inline height
+            
+            if (isExpanded) {
+                // From expanded state
+                if (deltaY > closeThreshold) {
+                    // Large drag - close completely
+                    if (deltaY > closeThreshold * 2) {
+                        this.closeInfoPanel();
+                    } 
+                    // Small drag - go to middle state
+                    else {
+                        infoPanel.classList.remove('expanded');
+                        // Re-enable scroll expansion
+                        this.setupScrollExpansion(infoPanel);
+                    }
+                }
+            } else {
+                // From middle state (40vh)
+                if (deltaY > closeThreshold) {
+                    // Drag down - close panel
+                    this.closeInfoPanel();
+                } 
+                else if (deltaY < -expandThreshold) {
+                    // Drag up - expand it
+                    infoPanel.classList.add('expanded');
+                    // Remove scroll listener since it's already expanded
+                    if (infoPanel._scrollHandler && infoPanel._scrollElement) {
+                        infoPanel._scrollElement.removeEventListener('scroll', infoPanel._scrollHandler);
+                    }
+                }
+            }
+            
+            // Reset values
+            startY = 0;
+            currentY = 0;
+            
+            // Cancel any pending animation frame
+            if (rafId) {
+                cancelAnimationFrame(rafId);
+                rafId = null;
+            }
+        };
+        
+        // Add touch event listeners
+        header.addEventListener('touchstart', handleTouchStart, { passive: true });
+        header.addEventListener('touchmove', handleTouchMove, { passive: false });
+        header.addEventListener('touchend', handleTouchEnd);
+        
+        // Also allow dragging from top of content area
+        content.addEventListener('touchstart', handleTouchStart, { passive: true });
+        content.addEventListener('touchmove', handleTouchMove, { passive: false });
+        content.addEventListener('touchend', handleTouchEnd);
+        
+        // Store references for cleanup
+        infoPanel._dragHandlers = {
+            start: handleTouchStart,
+            move: handleTouchMove,
+            end: handleTouchEnd,
+            header: header,
+            content: content
+        };
+    }
+
+    /**
+     * Clean up drag handlers
+     * @param {Element} infoPanel - Info panel element
+     */
+    cleanupDragHandlers(infoPanel) {
+        if (infoPanel._dragHandlers) {
+            const { start, move, end, header, content } = infoPanel._dragHandlers;
+            
+            header.removeEventListener('touchstart', start);
+            header.removeEventListener('touchmove', move);
+            header.removeEventListener('touchend', end);
+            
+            content.removeEventListener('touchstart', start);
+            content.removeEventListener('touchmove', move);
+            content.removeEventListener('touchend', end);
+            
+            delete infoPanel._dragHandlers;
+        }
+    }
+
+    /**
      * Clean up scroll expansion listeners
      * @param {Element} infoPanel - Info panel element
      */
@@ -747,9 +914,16 @@ class PopupManager {
      */
     closeInfoPanel() {
         const infoPanel = document.getElementById('info-panel');
+        const content = infoPanel.querySelector('.info-panel-content');
+        
+        // Reset scroll position
+        if (content) {
+            content.scrollTop = 0;
+        }
         
         // Clean up all listeners
         this.cleanupScrollExpansion(infoPanel);
+        this.cleanupDragHandlers(infoPanel);
         
         infoPanel.classList.remove('open', 'expanded');
         console.log('📋 Info panel gesloten');
