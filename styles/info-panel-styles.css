@@ -257,15 +257,15 @@
   .info-panel {
     /* Side panel on desktop */
     top: 0;
-    right: 0;
+    left: 0;
     bottom: 0;
-    left: auto;
-    width: 400px;
-    max-width: 30vw;
+    right: auto;
+    width: 500px;
+    max-width: 40vw;
     height: 100vh;
     max-height: none;
     border-radius: 0;
-    transform: translateX(100%);
+    transform: translateX(-100%);
   }
   
   .info-panel.open {
@@ -275,43 +275,105 @@
   /* Prevent expanded state from affecting desktop */
   .info-panel.open.expanded {
     height: 100vh;
-    width: 400px;
-    max-width: 30vw;
+    width: 500px;
+    max-width: 40vw;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .info-panel-photo {
-    height: 250px;
+    height: 300px;
   }
   
   .info-panel-title {
-    font-size: 2em;
+    font-size: 2.4em;
   }
   
   .info-panel-content {
     height: calc(100% - 85px);
+    padding: 32px;
+  }
+  
+  .info-panel-section {
+    padding: 20px;
+  }
+  
+  .info-panel-section h3 {
+    font-size: 1.3em;
+    margin-bottom: 12px;
+  }
+  
+  .info-panel-section p {
+    font-size: 1em;
+    line-height: 1.6;
+  }
+  
+  .suggestion-card {
+    padding: 20px;
+  }
+  
+  .suggestion-name {
+    font-size: 1.1em;
+  }
+  
+  .suggestion-address {
+    font-size: 0.95em;
   }
 }
 
 /* Large desktop */
 @media screen and (min-width: 1200px) {
   .info-panel {
-    width: 450px;
-    max-width: 35vw;
+    width: 600px;
+    max-width: 45vw;
+  }
+  
+  .info-panel.open.expanded {
+    width: 600px;
+    max-width: 45vw;
   }
   
   .info-panel-photo {
-    height: 280px;
+    height: 350px;
+  }
+  
+  .info-panel-title {
+    font-size: 2.8em;
+  }
+  
+  .info-panel-content {
+    padding: 40px;
+  }
+  
+  .info-panel-section {
+    padding: 24px;
+  }
+  
+  .info-panel-section h3 {
+    font-size: 1.4em;
+  }
+  
+  .info-panel-section p {
+    font-size: 1.1em;
   }
 }
 
 /* Ensure panel doesn't interfere with map controls */
 @media screen and (min-width: 768px) {
-  .info-panel.open ~ #map .mapboxgl-ctrl-top-right {
-    margin-right: calc(450px + 4rem);
+  .info-panel.open ~ #map .mapboxgl-ctrl-top-left {
+    margin-left: calc(500px + 4rem);
   }
   
-  .info-panel.open ~ #map .mapboxgl-ctrl-bottom-right {
-    margin-right: calc(450px + 4rem);
+  .info-panel.open ~ #map .mapboxgl-ctrl-bottom-left {
+    margin-left: calc(500px + 4rem);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .info-panel.open ~ #map .mapboxgl-ctrl-top-left {
+    margin-left: calc(600px + 4rem);
+  }
+  
+  .info-panel.open ~ #map .mapboxgl-ctrl-bottom-left {
+    margin-left: calc(600px + 4rem);
   }
 }

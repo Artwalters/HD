@@ -60,43 +60,104 @@ body {
     max-width: 300px;
 }
 
-.popup-content h3 {
-    color: #333;
-    margin-bottom: 0.5rem;
-    font-size: 1.3rem;
+
+
+
+/* ==============================
+   APPLE-STYLE SCROLLBARS
+   ============================== */
+
+/* Global scrollbar styling */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
 }
 
-.popup-content .category {
-    color: #667eea;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    font-size: 0.9rem;
+/* Webkit browsers (Chrome, Safari, Edge) */
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
 }
 
-.popup-content .address,
-.popup-content .description,
-.popup-content .phone {
-    margin-bottom: 0.75rem;
-    font-size: 0.9rem;
-    color: #666;
+*::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
 }
 
-.popup-content button {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 100%;
-    margin-top: 0.5rem;
+*::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+    transition: background-color 0.2s ease;
 }
 
-.popup-content button:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+*::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+    background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb:active {
+    background: rgba(0, 0, 0, 0.4);
+    background-clip: content-box;
+}
+
+/* Hide scrollbar when not scrolling (Apple-like behavior) */
+.filter-buttons::-webkit-scrollbar,
+.instructions-list::-webkit-scrollbar,
+.popup-description::-webkit-scrollbar,
+.info-panel-content::-webkit-scrollbar,
+.navigation-body::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.filter-buttons::-webkit-scrollbar-thumb,
+.instructions-list::-webkit-scrollbar-thumb,
+.popup-description::-webkit-scrollbar-thumb,
+.info-panel-content::-webkit-scrollbar-thumb,
+.navigation-body::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.5s ease;
+}
+
+.filter-buttons:hover::-webkit-scrollbar-thumb,
+.instructions-list:hover::-webkit-scrollbar-thumb,
+.popup-description:hover::-webkit-scrollbar-thumb,
+.info-panel-content:hover::-webkit-scrollbar-thumb,
+.navigation-body:hover::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Overlay scrollbars for a more native feel */
+.filter-buttons,
+.instructions-list,
+.popup-description,
+.info-panel-content,
+.navigation-body {
+    overflow: overlay;
+}
+
+/* Dark mode scrollbars */
+@media (prefers-color-scheme: dark) {
+    * {
+        scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    }
+    
+    *::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        background-clip: content-box;
+    }
+    
+    *::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.3);
+        background-clip: content-box;
+    }
+    
+    *::-webkit-scrollbar-thumb:active {
+        background: rgba(255, 255, 255, 0.4);
+        background-clip: content-box;
+    }
 }
 
 /* ==============================

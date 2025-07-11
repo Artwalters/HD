@@ -191,11 +191,13 @@ class PopupManager {
                 }
                 
                 .fade-bottom {
-                    background: linear-gradient(to top, ${color} 0%, ${color}00 100%);
+                    background: ${color};
+                    opacity: 0.8;
                 }
                 
                 .fade-top {
-                    background: linear-gradient(to bottom, ${color} 0%, ${color}00 100%);
+                    background: ${color};
+                    opacity: 0.8;
                 }
                 
                 .close-button {
@@ -644,7 +646,7 @@ class PopupManager {
         
         // Set theme color
         const color = properties.color || this.config.theme.primary;
-        infoPanel.style.background = `linear-gradient(135deg, ${color} 0%, ${this.darkenColor(color, 20)} 100%)`;
+        infoPanel.style.background = color;
         
         // Populate suggestions
         this.populateSuggestions(suggestions, properties);

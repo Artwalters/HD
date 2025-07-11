@@ -151,6 +151,7 @@
   margin-top: 1.2em;
 }
 
+
 .popup-title.details {
   font-family: "astronef-std-super-cond", sans-serif;
   font-weight: 200;
@@ -215,27 +216,6 @@
   cursor: grabbing;
 }
 
-.popup-descriptionv2 {
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  margin-top: 1em;
-  color: white;
-}
-
-.popup-descriptionv2 p {
-  margin-bottom: 0.5em;
-}
-
-.popup-descriptionv2 strong {
-  font-weight: bold;
-}
-
-.popup-descriptionv2 a {
-  color: white;
-  text-decoration: underline;
-}
-
 p {
   color: white;
   font-family: 'Inter', sans-serif;
@@ -243,22 +223,6 @@ p {
   line-height: 1.5;
 }
 
-/* Scrollbar styling for popup description */
-.popup-description::-webkit-scrollbar {
-  width: 5px;
-  background-color: transparent;
-}
-
-.popup-description::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.5);
-}
-
-.popup-description::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.4);
-  border-radius: 10px;
-  background-color: transparent;
-}
 
 /* ==============================
  * POPUP BUTTONS
@@ -284,10 +248,6 @@ p {
   transform: scale(1.01);
 }
 
-.impressie-button {
-  bottom: 30px;
-  right: 30px;
-}
 
 .popup-front .popup-actions {
   position: absolute;

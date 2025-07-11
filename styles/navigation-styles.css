@@ -219,23 +219,6 @@
     transition: all 0.3s ease;
 }
 
-.instructions-list::-webkit-scrollbar {
-    width: 4px;
-}
-
-.instructions-list::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 2px;
-}
-
-.instructions-list::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 2px;
-}
-
-.instructions-list::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.3);
-}
 
 /* Instruction Steps */
 .instruction-step {
@@ -525,17 +508,6 @@
         border-bottom-color: rgba(255, 255, 255, 0.05);
     }
     
-    .instructions-list::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.05);
-    }
-    
-    .instructions-list::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.2);
-    }
-    
-    .instructions-list::-webkit-scrollbar-thumb:hover {
-        background: rgba(255, 255, 255, 0.3);
-    }
 }
 
 /* Focus styles for accessibility */
@@ -844,7 +816,7 @@
 
 .route-progress-bar {
     height: 100%;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    background: var(--color-primary);
     border-radius: 2px;
     transition: width 0.5s ease;
     box-shadow: 0 0 8px rgba(75, 131, 242, 0.4);
@@ -911,71 +883,6 @@
     color: rgba(33, 150, 243, 0.8) !important;
 }
 
-/* ==============================
-   COMPASS CONTROL STYLES
-   ============================== */
-
-/* Compass Control Container */
-.compass-control {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-    pointer-events: none;
-}
-
-/* Compass */
-.compass {
-    position: relative;
-    width: 60px;
-    height: 60px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
-}
-
-.compass:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.3);
-    transform: scale(1.05);
-}
-
-/* Compass Needle */
-.compass-needle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: center;
-}
-
-.compass-needle svg {
-    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
-}
-
-/* Compass Direction */
-.compass-direction {
-    position: absolute;
-    bottom: -25px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 12px;
-    font-weight: 600;
-    color: rgba(0, 0, 0, 0.8);
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    padding: 2px 6px;
-    border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    font-family: var(--font-heading);
-}
 
 /* ==============================
    LOCATION MARKER ENHANCEMENTS
@@ -1018,97 +925,12 @@
     100% { transform: rotate(360deg); }
 }
 
-/* ==============================
-   RESPONSIVE COMPASS
-   ============================== */
-
-@media (max-width: 768px) {
-    .compass-control {
-        top: 15px;
-        right: 15px;
-    }
-    
-    .compass {
-        width: 50px;
-        height: 50px;
-    }
-    
-    .compass-needle svg {
-        width: 20px;
-        height: 20px;
-    }
-    
-    .compass-direction {
-        bottom: -20px;
-        font-size: 10px;
-        padding: 1px 4px;
-    }
-    
-    .navigation-stats {
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-    }
-    
-    .navigation-stats .stat:last-child {
-        grid-column: 1 / -1;
-    }
-}
-
-@media (max-width: 480px) {
-    .compass-control {
-        top: 12px;
-        right: 12px;
-    }
-    
-    .compass {
-        width: 45px;
-        height: 45px;
-    }
-    
-    .compass-needle svg {
-        width: 18px;
-        height: 18px;
-    }
-    
-    .compass-direction {
-        bottom: -18px;
-        font-size: 9px;
-    }
-    
-    .navigation-stats {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 6px;
-    }
-    
-    .navigation-stats .stat {
-        flex: 1;
-        font-size: 11px;
-    }
-}
 
 /* ==============================
    DARK THEME ENHANCEMENTS
    ============================== */
 
 @media (prefers-color-scheme: dark) {
-    .compass {
-        background: rgba(0, 0, 0, 0.4);
-        border-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    .compass:hover {
-        background: rgba(0, 0, 0, 0.5);
-        border-color: rgba(255, 255, 255, 0.2);
-    }
-    
-    .compass-direction {
-        color: rgba(255, 255, 255, 0.8);
-        background: rgba(0, 0, 0, 0.4);
-        border-color: rgba(255, 255, 255, 0.1);
-    }
-    
     .navigation-stats .stat {
         background: rgba(0, 0, 0, 0.2);
     }
@@ -1131,7 +953,6 @@
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-    .compass-needle,
     .route-progress-bar,
     .nav-btn,
     .location-btn {
@@ -1146,18 +967,6 @@
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-    .compass {
-        border-width: 3px;
-        border-color: rgba(0, 0, 0, 0.8);
-        background: rgba(255, 255, 255, 0.9);
-    }
-    
-    .compass-direction {
-        color: rgba(0, 0, 0, 1);
-        background: rgba(255, 255, 255, 0.9);
-        border-color: rgba(0, 0, 0, 0.8);
-    }
-    
     .nav-btn {
         border-width: 2px;
     }
@@ -1250,11 +1059,6 @@
     max-height: none;
 }
 
-/* Maximized Panel State */
-.navigation-panel.maximized {
-    transform: translateY(0);
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
 /* Panel Transitioning States */
 .navigation-panel.transitioning {
@@ -1299,10 +1103,6 @@
         top: -10px;
     }
     
-    .navigation-panel.minimized .navigation-handle {
-         top: -10px;
-        height: 35px;
-    }
     
     .handle-bar {
         width: 24px;
@@ -1330,13 +1130,6 @@
         background: rgba(0, 0, 0, 0.6);
     }
     
-    .navigation-panel.minimized .navigation-handle {
-        background: rgba(0, 0, 0, 0.5);
-    }
-    
-    .navigation-panel.minimized .navigation-handle:hover {
-        background: rgba(0, 0, 0, 0.7);
-    }
     
     .handle-bar {
         background: rgba(255, 255, 255, 0.4);
@@ -1346,9 +1139,6 @@
         background: rgba(255, 255, 255, 0.6);
     }
     
-    .navigation-panel.minimized .navigation-handle .handle-bar {
-        background: rgba(255, 255, 255, 0.5);
-    }
 }
 
 /* Accessibility Enhancements for Swipe */
@@ -1357,11 +1147,3 @@
     outline-offset: 2px;
 }
 
-/* Reduced Motion Support for Swipe */
-@media (prefers-reduced-motion: reduce) {
-    .navigation-panel.minimized,
-    .navigation-panel.maximized,
-    .navigation-handle {
-        transition: none;
-    }
-}

@@ -23,10 +23,6 @@
   --popup-shadow: rgba(0, 0, 0, 0.15);
   --popup-overlay: rgba(0, 0, 0, 0.5);
   
-  /* GRADIENT KLEUREN */
-  --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, #764ba2 100%);
-  --gradient-secondary: linear-gradient(135deg, var(--color-secondary) 0%, #56ab2f 100%);
-  --gradient-accent: linear-gradient(135deg, var(--color-accent) 0%, #c44569 100%);
   
   /* GLASMORFISME EFFECTEN */
   --glass-background: rgba(255, 255, 255, 0.2);

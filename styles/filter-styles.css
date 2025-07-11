@@ -26,44 +26,6 @@
     width: 100%;
 }
 
-/* Filter Header */
-.filter-header {
-    display: none;
-}
-
-.filter-header h3 {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 600;
-    color: rgba(0, 0, 0, 0.8);
-    font-family: var(--font-heading);
-}
-
-.filter-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
-    border-radius: 6px;
-    color: rgba(0, 0, 0, 0.6);
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.filter-toggle:hover {
-    background: rgba(255, 255, 255, 0.2);
-    color: rgba(0, 0, 0, 0.8);
-}
-
-.filter-toggle svg {
-    transition: transform 0.3s ease;
-}
-
-.filter-open .filter-toggle svg {
-    transform: rotate(180deg);
-}
 
 /* Filter Content */
 .filter-content {
@@ -84,24 +46,6 @@
     scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
 }
 
-/* Custom scrollbar for webkit browsers */
-.filter-buttons::-webkit-scrollbar {
-    height: 6px;
-}
-
-.filter-buttons::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-}
-
-.filter-buttons::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 3px;
-}
-
-.filter-buttons::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.5);
-}
 
 /* Filter Buttons */
 .filter-btn {
@@ -361,12 +305,29 @@
     
     .filter-buttons::before {
         left: 0;
-        background: linear-gradient(to right, rgba(255,255,255,0.1), transparent);
+        background: rgba(255,255,255,0.1);
+        opacity: 0.8;
     }
     
     .filter-buttons::after {
         right: 0;
-        background: linear-gradient(to left, rgba(255,255,255,0.1), transparent);
+        background: rgba(255,255,255,0.1);
+        opacity: 0.8;
+    }
+}
+
+/* Adjust filter position when info panel is open on desktop */
+@media screen and (min-width: 768px) {
+    .info-panel.open ~ #map .filter-container {
+        left: calc(50% + 250px);
+        transform: translateX(-50%);
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .info-panel.open ~ #map .filter-container {
+        left: calc(50% + 300px);
+        transform: translateX(-50%);
     }
 }
 
@@ -429,27 +390,3 @@
     scroll-behavior: smooth;
 }
 
-/* Loading state */
-.filter-btn.loading {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-.filter-btn.loading::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    width: 12px;
-    height: 12px;
-    margin-top: -6px;
-    border: 2px solid transparent;
-    border-top: 2px solid currentColor;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
