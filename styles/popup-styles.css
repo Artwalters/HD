@@ -121,6 +121,7 @@
   height: 100%;
   backface-visibility: hidden;
   color: white;
+  background-color: var(--popup-color, var(--color-primary));
 }
 
 .popup-front {
@@ -277,7 +278,7 @@ p {
   top: -18px;
   left: 50%;
   transform: translateX(-50%);
-  background: #333;
+  background: var(--popup-color, #333);
   border-radius: 50%;
   width: 24px;
   height: 24px;
@@ -295,6 +296,17 @@ p {
 
 .close-button:hover {
   transform: translateX(-50%) rotate(180deg) scale(1.1);
+}
+
+/* Fade effects */
+.fade-bottom {
+  background: var(--popup-color, var(--color-primary));
+  opacity: 0.8;
+}
+
+.fade-top {
+  background: var(--popup-color, var(--color-primary));
+  opacity: 0.8;
 }
 
 /* X for close button */
