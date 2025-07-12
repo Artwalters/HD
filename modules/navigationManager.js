@@ -1012,6 +1012,11 @@ class NavigationManager {
         const mapContainer = document.getElementById('map');
         mapContainer.appendChild(this.navigationPanel);
 
+        // Debug: Check if navigation panel was created and is visible
+        console.log('🔧 Navigation panel created:', this.navigationPanel);
+        console.log('🔧 Navigation panel HTML preview:', this.navigationPanel.innerHTML.substring(0, 200) + '...');
+        console.log('🔧 Navigation panel in DOM:', document.body.contains(this.navigationPanel));
+
         // Setup event listeners
         this.setupNavigationListeners();
         
@@ -1061,7 +1066,20 @@ class NavigationManager {
                 drivingActive: this.routingProfile === 'driving' ? 'active' : ''
             };
 
-            return this.templateLoader.renderAdvanced(template, data);
+            console.log('🔧 Navigation template data:', {
+                stepsCount: data.stepsCount,
+                hasSteps: data.hasSteps,
+                stepsHtmlLength: data.stepsHtml?.length,
+                routingProfile: this.routingProfile,
+                walkingActive: data.walkingActive,
+                cyclingActive: data.cyclingActive,
+                drivingActive: data.drivingActive
+            });
+
+            const renderedHtml = this.templateLoader.renderAdvanced(template, data);
+            console.log('🔧 Rendered navigation HTML length:', renderedHtml.length);
+            
+            return renderedHtml;
         } catch (error) {
             console.error('Error generating navigation HTML:', error);
             // Fallback
