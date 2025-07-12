@@ -537,6 +537,29 @@ class PopupManager {
      * @param {Object} properties - Feature properties
      */
     openInfoPanel(properties) {
+        // Check if mobile - close popup first with animation
+        const isMobile = window.innerWidth <= this.config.ui.responsive.mobile;
+        
+        if (isMobile && this.activePopup) {
+            console.log('📱 Mobile detected - closing popup before opening info panel');
+            this.closeActivePopup();
+            
+            // Wait for popup close animation to complete before opening info panel
+            setTimeout(() => {
+                this.showInfoPanel(properties);
+            }, 400); // Match popup close animation duration
+            return;
+        }
+        
+        // Desktop: open info panel immediately
+        this.showInfoPanel(properties);
+    }
+
+    /**
+     * Show info panel with business details
+     * @param {Object} properties - Feature properties
+     */
+    showInfoPanel(properties) {
         const infoPanel = document.getElementById('info-panel');
         const title = infoPanel.querySelector('.info-panel-title');
         const description = infoPanel.querySelector('.info-panel-description');
