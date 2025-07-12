@@ -25,19 +25,6 @@
     
     <div class="popup-side popup-back">
         <div class="popup-background-photo" style="background-image: url('./pictures/catcute.png')"></div>
-        <div class="content-wrapper">
-            <div class="popup-title details">{{name}}</div>
-            <div class="info-section">
-                {{if address}}<div class="info-item"><strong>Adres:</strong> {{address}}</div>{{endif}}
-                {{if phone}}<div class="info-item"><strong>Telefoon:</strong> {{phone}}</div>{{endif}}
-                {{if website}}<div class="info-item"><strong>Website:</strong> <a href="{{website}}" target="_blank">Bezoek website</a></div>{{endif}}
-                {{if openingHours}}<div class="info-item"><strong>Openingstijden:</strong> {{openingHours}}</div>{{endif}}
-            </div>
-            <div class="social-icons">
-                {{if website}}<a href="{{website}}" target="_blank" class="social-icon">🌐</a>{{endif}}
-                {{if phone}}<a href="tel:{{phone}}" class="social-icon">📞</a>{{endif}}
-            </div>
-            <button class="more-info-button button-base">Terug</button>
-        </div>
+        <button class="more-info-button button-base">Terug</button>
     </div>
 </div>
