@@ -72,7 +72,7 @@ class PopupManager {
         // Close info panel when clicking outside on desktop
         document.addEventListener('click', (e) => {
             const infoPanel = document.getElementById('info-panel');
-            if (infoPanel.classList.contains('open') && 
+            if (infoPanel && infoPanel.classList.contains('open') && 
                 !infoPanel.contains(e.target) && 
                 !e.target.closest('.popup-wrapper')) {
                 this.closeInfoPanel();
@@ -610,7 +610,7 @@ class PopupManager {
             // Create and insert panel
             const infoPanel = document.createElement('div');
             infoPanel.id = 'info-panel';
-            infoPanel.className = 'info-panel';
+            infoPanel.className = 'info-panel'; // Start without 'open' class for animation
             infoPanel.innerHTML = renderedHtml;
 
             // Set theme color
@@ -623,8 +623,12 @@ class PopupManager {
             // Setup event listeners
             this.setupInfoPanelListeners(infoPanel, properties);
 
-            // Show panel
-            infoPanel.classList.add('open');
+            // Show panel with animation delay
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    infoPanel.classList.add('open');
+                });
+            });
 
             console.log(`📋 Info panel geopend voor ${properties.name}`);
         } catch (error) {
@@ -964,18 +968,22 @@ class PopupManager {
      */
     closeInfoPanel() {
         const infoPanel = document.getElementById('info-panel');
-        const content = infoPanel.querySelector('.info-panel-content');
-        
-        // Reset scroll position
-        if (content) {
-            content.scrollTop = 0;
-        }
+        if (!infoPanel) return;
         
         // Clean up all listeners
         this.cleanupScrollExpansion(infoPanel);
         this.cleanupDragHandlers(infoPanel);
         
+        // Animate close then remove
         infoPanel.classList.remove('open', 'expanded');
+        
+        // Remove panel after animation completes
+        setTimeout(() => {
+            if (infoPanel.parentNode) {
+                infoPanel.remove();
+            }
+        }, 300); // Match CSS transition duration
+        
         console.log('📋 Info panel gesloten');
     }
 
