@@ -56,7 +56,14 @@ class TemplateLoader {
         // Eerst conditionele blokken verwerken
         template = this.processConditionals(template, data);
         
-        // Dan normale placeholders vervangen
+        // Dan unescaped placeholders vervangen (triple braces)
+        template = template.replace(/\{\{\{([^}]+)\}\}\}/g, (match, expression) => {
+            const trimmed = expression.trim();
+            const value = this.getNestedProperty(data, trimmed);
+            return value !== undefined ? String(value) : '';
+        });
+        
+        // Dan normale placeholders vervangen (escaped)
         return template.replace(/\{\{([^}]+)\}\}/g, (match, expression) => {
             const trimmed = expression.trim();
             

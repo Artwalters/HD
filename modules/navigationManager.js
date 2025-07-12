@@ -1012,9 +1012,6 @@ class NavigationManager {
         const mapContainer = document.getElementById('map');
         mapContainer.appendChild(this.navigationPanel);
 
-        // Populate navigation steps
-        await this.populateNavigationSteps();
-
         // Setup event listeners
         this.setupNavigationListeners();
         
@@ -1033,6 +1030,23 @@ class NavigationManager {
             const duration = this.formatDuration(route.duration);
             const steps = route.legs[0].steps;
 
+            // Generate steps HTML synchronously using old method for now
+            const stepsHtml = steps.map((step, index) => {
+                const localizedInstruction = this.instructionTranslator.generateLocalizedInstruction(step);
+                const stepDistance = this.formatDistance(step.distance);
+                const icon = this.getManeuverIcon(step.maneuver.type);
+                
+                return `
+                    <div class="instruction-step" data-step="${index}">
+                        <div class="step-icon">${icon}</div>
+                        <div class="step-content">
+                            <div class="step-instruction">${localizedInstruction}</div>
+                            <div class="step-distance">${stepDistance}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
             const data = {
                 destinationName: route.destination.name,
                 distance: distance,
@@ -1041,12 +1055,13 @@ class NavigationManager {
                 cameraActive: this.isFollowingUser ? 'active' : '',
                 stepsCount: steps.length,
                 hasSteps: steps.length > 0,
+                stepsHtml: stepsHtml,
                 walkingActive: this.routingProfile === 'walking' ? 'active' : '',
                 cyclingActive: this.routingProfile === 'cycling' ? 'active' : '',
                 drivingActive: this.routingProfile === 'driving' ? 'active' : ''
             };
 
-            return this.templateLoader.render(template, data);
+            return this.templateLoader.renderAdvanced(template, data);
         } catch (error) {
             console.error('Error generating navigation HTML:', error);
             // Fallback
@@ -1292,10 +1307,12 @@ class NavigationManager {
         }
 
         // Setup profile buttons (voor transportmodus)
-        profileBtns.forEach(btn => {
+        profileBtns.forEach((btn, index) => {
             if (btn) {
+                console.log(`🔧 Setting up profile button ${index}:`, btn.dataset.profile);
                 btn.addEventListener('click', () => {
                     const profile = btn.dataset.profile;
+                    console.log(`🚦 Profile button clicked: ${profile}`);
                     if (profile) {
                         this.changeProfile(profile);
                     } else {
