@@ -537,22 +537,32 @@ class PopupManager {
      * @param {Object} properties - Feature properties
      */
     openInfoPanel(properties) {
-        // Check if mobile - close popup first with animation
-        const isMobile = window.innerWidth <= this.config.ui.responsive.mobile;
-        
-        if (isMobile && this.activePopup) {
-            console.log('📱 Mobile detected - closing popup before opening info panel');
-            this.closeActivePopup();
+        try {
+            // Check if mobile - close popup first with animation
+            const mobileBreakpoint = this.config?.ui?.responsive?.mobile || 767;
+            const isMobile = window.innerWidth <= mobileBreakpoint;
             
-            // Wait for popup close animation to complete before opening info panel
-            setTimeout(() => {
-                this.showInfoPanel(properties);
-            }, 400); // Match popup close animation duration
-            return;
+            console.log(`📱 Screen width: ${window.innerWidth}px, breakpoint: ${mobileBreakpoint}px, isMobile: ${isMobile}`);
+            
+            if (isMobile && this.activePopup) {
+                console.log('📱 Mobile detected - closing popup before opening info panel');
+                this.closeActivePopup();
+                
+                // Wait for popup close animation to complete before opening info panel
+                setTimeout(() => {
+                    this.showInfoPanel(properties);
+                }, 400); // Match popup close animation duration
+                return;
+            }
+            
+            // Desktop: open info panel immediately
+            console.log('💻 Desktop detected - opening info panel immediately');
+            this.showInfoPanel(properties);
+        } catch (error) {
+            console.error('❌ Error in openInfoPanel:', error);
+            // Fallback: try to open info panel anyway
+            this.showInfoPanel(properties);
         }
-        
-        // Desktop: open info panel immediately
-        this.showInfoPanel(properties);
     }
 
     /**
