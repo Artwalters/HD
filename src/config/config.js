@@ -155,9 +155,9 @@ window.HeerlenConfig = {
 
     // DATA BRONNEN
     dataSources: {
-        "Cultuur": "./data/cultuur.json",
-        "Eten & Drinken": "./data/etendrinken.json", 
-        "Mode": "./data/mode.json"
+        "Cultuur": "./src/data/cultuur.json",
+        "Eten & Drinken": "./src/data/horeca.json", 
+        "Mode": "./src/data/mode.json"
     },
 
     // UI INSTELLINGEN

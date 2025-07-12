@@ -20,7 +20,7 @@ class TemplateLoader {
         }
 
         try {
-            const response = await fetch(`${this.baseUrl}templates/${templatePath}`);
+            const response = await fetch(`${this.baseUrl}src/templates/${templatePath}`);
             if (!response.ok) {
                 throw new Error(`Failed to load template: ${templatePath}`);
             }

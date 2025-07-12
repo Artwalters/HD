@@ -3,12 +3,11 @@
 // ==============================
 
 class NavigationManager {
-    constructor(map, config, locationManager, audioManager) {
+    constructor(map, config, locationManager) {
         this.map = map;
         this.config = config;
         this.locationManager = locationManager;
-        this.audioManager = audioManager;
-        this.instructionTranslator = new InstructionTranslator();
+        // InstructionTranslator verwijderd - niet meer nodig
         this.templateLoader = templateLoader;
         this.currentRoute = null;
         this.routeLayer = null;
@@ -223,13 +222,7 @@ class NavigationManager {
             await this.showNavigationPanel();
             this.isNavigating = true;
 
-            // Audio announcement
-            if (this.audioManager) {
-                this.audioManager.announceNavigation({
-                    type: 'start',
-                    destination: destinationName
-                });
-            }
+            // Audio announcements verwijderd
             
             // Add zoom out/in animation when starting navigation
             // Camera following will be started after animation completes
@@ -687,9 +680,7 @@ class NavigationManager {
                     this.isOffRoute = true;
                     this.lastRecalculationTime = now;
                     
-                    if (this.audioManager) {
-                        this.audioManager.announceNavigation({ type: 'off-route' });
-                    }
+                    // Audio off-route announcement verwijderd
                     
                     console.log(`⚠️ User confirmed off route (${Math.round(minDistanceToRoute)}m), recalculating...`);
                     this.recalculateRoute();
@@ -727,40 +718,12 @@ class NavigationManager {
         );
         
         // Announce at 200m, 100m, and at maneuver
-        if (distanceToManeuver <= 200 && distanceToManeuver > 100) {
-            this.announceInstruction(currentStep, 200);
-        } else if (distanceToManeuver <= 100 && distanceToManeuver > 50) {
-            this.announceInstruction(currentStep, 100);
-        } else if (distanceToManeuver <= 20) {
-            this.announceInstruction(currentStep);
+        // Audio instructies verwijderd - alleen visuele navigatie
+        if (distanceToManeuver <= 20) {
             this.currentStepIndex++;
         }
     }
 
-    /**
-     * Announce navigation instruction
-     */
-    announceInstruction(step, distance = null) {
-        if (!this.audioManager) return;
-        
-        const instructionKey = `${this.currentStepIndex}-${distance || 'now'}`;
-        if (this.lastAnnouncedStep === instructionKey) return;
-        
-        // Use the same localized instruction for audio as visual
-        const localizedInstruction = this.instructionTranslator.generateLocalizedInstruction(step, distance);
-        
-        // Create instruction object for audio manager
-        const instructionData = {
-            type: 'localized',
-            text: localizedInstruction,
-            maneuver: step.maneuver.type,
-            destination: step.maneuver.type === 'arrive' ? this.currentRoute.destination.name : null
-        };
-        
-        this.audioManager.announceNavigation(instructionData, distance);
-        
-        this.lastAnnouncedStep = instructionKey;
-    }
 
     /**
      * Start navigation with zoom out/in animation
@@ -1012,13 +975,12 @@ class NavigationManager {
         const mapContainer = document.getElementById('map');
         mapContainer.appendChild(this.navigationPanel);
 
-        // Debug: Check if navigation panel was created and is visible
-        console.log('🔧 Navigation panel created:', this.navigationPanel);
-        console.log('🔧 Navigation panel HTML preview:', this.navigationPanel.innerHTML.substring(0, 200) + '...');
-        console.log('🔧 Navigation panel in DOM:', document.body.contains(this.navigationPanel));
-
-        // Setup event listeners
-        this.setupNavigationListeners();
+        // Setup event listeners after DOM is ready
+        setTimeout(() => {
+            this.setupNavigationListeners();
+            this.updateProfileButtons();
+            this.updateCameraButton();
+        }, 50);
         
         // Setup drag functionality like info panel
         this.setupDragFunctionality();
@@ -1035,49 +997,20 @@ class NavigationManager {
             const duration = this.formatDuration(route.duration);
             const steps = route.legs[0].steps;
 
-            // Generate steps HTML synchronously using old method for now
-            const stepsHtml = steps.map((step, index) => {
-                const localizedInstruction = this.instructionTranslator.generateLocalizedInstruction(step);
-                const stepDistance = this.formatDistance(step.distance);
-                const icon = this.getManeuverIcon(step.maneuver.type);
-                
-                return `
-                    <div class="instruction-step" data-step="${index}">
-                        <div class="step-icon">${icon}</div>
-                        <div class="step-content">
-                            <div class="step-instruction">${localizedInstruction}</div>
-                            <div class="step-distance">${stepDistance}</div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+            // Route steps zijn nu verwijderd - alleen basic navigatie
 
             const data = {
                 destinationName: route.destination.name,
                 distance: distance,
                 duration: duration,
-                audioActive: this.audioManager?.getStatus().enabled ? 'active' : '',
                 cameraActive: this.isFollowingUser ? 'active' : '',
-                stepsCount: steps.length,
-                hasSteps: steps.length > 0,
-                stepsHtml: stepsHtml,
                 walkingActive: this.routingProfile === 'walking' ? 'active' : '',
                 cyclingActive: this.routingProfile === 'cycling' ? 'active' : '',
                 drivingActive: this.routingProfile === 'driving' ? 'active' : ''
             };
 
-            console.log('🔧 Navigation template data:', {
-                stepsCount: data.stepsCount,
-                hasSteps: data.hasSteps,
-                stepsHtmlLength: data.stepsHtml?.length,
-                routingProfile: this.routingProfile,
-                walkingActive: data.walkingActive,
-                cyclingActive: data.cyclingActive,
-                drivingActive: data.drivingActive
-            });
 
             const renderedHtml = this.templateLoader.renderAdvanced(template, data);
-            console.log('🔧 Rendered navigation HTML length:', renderedHtml.length);
             
             return renderedHtml;
         } catch (error) {
@@ -1087,52 +1020,6 @@ class NavigationManager {
         }
     }
 
-    /**
-     * Populeer navigation steps in het panel
-     */
-    async populateNavigationSteps() {
-        const instructionsList = this.navigationPanel.querySelector('.instructions-list');
-        if (!instructionsList || !this.currentRoute) return;
-
-        const steps = this.currentRoute.legs[0].steps;
-        const stepsHtml = [];
-
-        for (let i = 0; i < steps.length; i++) {
-            const stepHtml = await this.generateStepHTML(steps[i], i);
-            stepsHtml.push(stepHtml);
-        }
-
-        instructionsList.innerHTML = stepsHtml.join('');
-    }
-
-    /**
-     * Genereer stap HTML
-     */
-    async generateStepHTML(step, index) {
-        try {
-            const template = await this.templateLoader.loadTemplate('navigation-step.html');
-            const localizedInstruction = this.instructionTranslator.generateLocalizedInstruction(step);
-            const distance = this.formatDistance(step.distance);
-            const icon = this.getManeuverIcon(step.maneuver.type);
-            const duration = step.duration ? this.formatDuration(step.duration) : '';
-
-            const data = {
-                stepIndex: index,
-                icon: icon,
-                instruction: localizedInstruction,
-                distance: distance,
-                duration: duration
-            };
-
-            return this.templateLoader.render(template, data);
-        } catch (error) {
-            console.error('Error generating step HTML:', error);
-            // Fallback
-            const localizedInstruction = this.instructionTranslator.generateLocalizedInstruction(step);
-            const distance = this.formatDistance(step.distance);
-            return `<div class="step-item"><div class="step-instruction">${localizedInstruction}</div><div class="step-distance">${distance}</div></div>`;
-        }
-    }
 
     /**
      * Krijg profiel icon
@@ -1304,65 +1191,40 @@ class NavigationManager {
     setupNavigationListeners() {
         const closeBtn = this.navigationPanel.querySelector('.info-panel-close');
         const profileBtns = this.navigationPanel.querySelectorAll('.profile-btn');
-        const toggleBtn = this.navigationPanel.querySelector('.toggle-instructions');
-        const audioBtn = this.navigationPanel.querySelector('.audio-btn');
         const cameraBtn = this.navigationPanel.querySelector('.camera-btn');
+        const recenterBtn = this.navigationPanel.querySelector('.recenter-btn');
 
-        // Debug logging
-        console.log('🔧 Navigation panel DOM elements found:');
-        console.log('- closeBtn:', closeBtn);
-        console.log('- profileBtns:', profileBtns.length);
-        console.log('- toggleBtn:', toggleBtn);
-        console.log('- audioBtn:', audioBtn);
-        console.log('- cameraBtn:', cameraBtn);
 
         if (closeBtn) {
             closeBtn.addEventListener('click', () => {
                 this.stopNavigation();
             });
-        } else {
-            console.error('❌ closeBtn not found in navigation panel');
         }
 
         // Setup profile buttons (voor transportmodus)
         profileBtns.forEach((btn, index) => {
             if (btn) {
-                console.log(`🔧 Setting up profile button ${index}:`, btn.dataset.profile);
                 btn.addEventListener('click', () => {
                     const profile = btn.dataset.profile;
-                    console.log(`🚦 Profile button clicked: ${profile}`);
                     if (profile) {
                         this.changeProfile(profile);
-                    } else {
-                        this.showProfileSelector();
+                        this.updateProfileButtons();
                     }
                 });
             }
         });
 
-        if (toggleBtn) {
-            toggleBtn.addEventListener('click', () => {
-                this.toggleInstructions();
-            });
-        } else {
-            console.warn('⚠️ toggleBtn not found in navigation panel');
-        }
-        
-        if (audioBtn) {
-            audioBtn.addEventListener('click', () => {
-                this.toggleAudio();
-            });
-        } else {
-            console.warn('⚠️ audioBtn not found in navigation panel');
-        }
-        
         if (cameraBtn) {
             cameraBtn.addEventListener('click', () => {
                 this.toggleCameraFollowing();
                 this.updateCameraButton();
             });
-        } else {
-            console.warn('⚠️ cameraBtn not found in navigation panel');
+        }
+        
+        if (recenterBtn) {
+            recenterBtn.addEventListener('click', () => {
+                this.recenterMap();
+            });
         }
         
         // Setup swipe gestures for panel minimize/maximize
@@ -1522,18 +1384,19 @@ class NavigationManager {
     }
 
     /**
-     * Toggle instructions
+     * Recenter map to user location
      */
-    toggleInstructions() {
-        const instructionsList = this.navigationPanel.querySelector('.instructions-list');
-        const toggleBtn = this.navigationPanel.querySelector('.toggle-instructions');
-        
-        if (instructionsList.style.display === 'none') {
-            instructionsList.style.display = 'block';
-            toggleBtn.style.transform = 'rotate(0deg)';
+    recenterMap() {
+        if (this.locationManager && this.locationManager.currentLocation) {
+            const location = this.locationManager.currentLocation;
+            this.map.flyTo({
+                center: [location.longitude, location.latitude],
+                zoom: 16,
+                duration: 1000
+            });
+            console.log('🎯 Map recentered to user location');
         } else {
-            instructionsList.style.display = 'none';
-            toggleBtn.style.transform = 'rotate(-90deg)';
+            console.warn('⚠️ Cannot recenter: no current location available');
         }
     }
 
@@ -1547,37 +1410,6 @@ class NavigationManager {
         }
     }
 
-    /**
-     * Toggle audio feedback
-     */
-    toggleAudio() {
-        if (!this.audioManager) return;
-        
-        const isEnabled = this.audioManager.toggleAudio();
-        this.updateAudioButton(isEnabled);
-        
-        if (isEnabled) {
-            this.audioManager.speak('Audio feedback ingeschakeld', 'urgent', true);
-        }
-    }
-    
-    /**
-     * Update audio button appearance
-     */
-    updateAudioButton(enabled = null) {
-        const audioBtn = this.navigationPanel?.querySelector('.audio-btn');
-        if (!audioBtn) return;
-        
-        const isEnabled = enabled !== null ? enabled : this.audioManager?.getStatus().enabled;
-        
-        if (isEnabled) {
-            audioBtn.classList.add('active');
-            audioBtn.title = 'Audio uitschakelen';
-        } else {
-            audioBtn.classList.remove('active');
-            audioBtn.title = 'Audio inschakelen';
-        }
-    }
     
     /**
      * Update camera button appearance
@@ -1593,6 +1425,23 @@ class NavigationManager {
             cameraBtn.classList.remove('active');
             cameraBtn.title = 'Camera volgen inschakelen';
         }
+    }
+
+    /**
+     * Update profile button active states
+     */
+    updateProfileButtons() {
+        const profileBtns = this.navigationPanel?.querySelectorAll('.profile-btn');
+        if (!profileBtns) return;
+        
+        profileBtns.forEach(btn => {
+            const profile = btn.dataset.profile;
+            if (profile === this.routingProfile) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
     }
 
     /**
@@ -1616,10 +1465,7 @@ class NavigationManager {
         // Reset camera following state
         this.isFollowingUser = true; // Reset for next navigation
         
-        // Stop audio
-        if (this.audioManager) {
-            this.audioManager.stopSpeaking();
-        }
+        // Audio stops verwijderd
         
         // Clear route from map
         this.map.getSource('route').setData({

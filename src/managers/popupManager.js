@@ -3,9 +3,10 @@
 // ==============================
 
 class PopupManager {
-    constructor(map, config) {
+    constructor(map, config, dataLoader) {
         this.map = map;
         this.config = config;
+        this.dataLoader = dataLoader;
         this.activePopup = null;
         this.isInitialized = false;
         this.templateLoader = templateLoader;
@@ -566,59 +567,162 @@ class PopupManager {
     }
 
     /**
-     * Show info panel with business details
+     * Show info panel with business details using template
      * @param {Object} properties - Feature properties
      */
-    showInfoPanel(properties) {
-        const infoPanel = document.getElementById('info-panel');
-        const title = infoPanel.querySelector('.info-panel-title');
-        const description = infoPanel.querySelector('.info-panel-description');
-        const contact = infoPanel.querySelector('.info-panel-contact');
-        const hours = infoPanel.querySelector('.info-panel-hours');
-        const suggestions = infoPanel.querySelector('.info-panel-suggestions');
-        
-        // Set content
-        title.textContent = properties.name;
-        description.textContent = properties.description || 'Geen beschrijving beschikbaar';
-        hours.textContent = properties.opening_hours || 'Openingstijden onbekend';
-        
-        // Set contact info
-        contact.innerHTML = '';
-        if (properties.phone) {
-            contact.innerHTML += `<a href="tel:${properties.phone}">📞 ${properties.phone}</a>`;
+    async showInfoPanel(properties) {
+        // Remove existing panel if it exists
+        const existingPanel = document.getElementById('info-panel');
+        if (existingPanel) {
+            existingPanel.remove();
         }
-        if (properties.website) {
-            contact.innerHTML += `<a href="${properties.website}" target="_blank">🌐 Website</a>`;
+
+        try {
+            // Generate suggestions
+            const suggestions = await this.generateSuggestions(properties);
+            const suggestionsHtml = suggestions.map(suggestion => 
+                `<a href="#" class="suggestion-card" data-id="${suggestion.id}">
+                    <div class="suggestion-icon">${suggestion.icon}</div>
+                    <div class="suggestion-info">
+                        <div class="suggestion-name">${suggestion.name}</div>
+                        <div class="suggestion-address">${suggestion.address}</div>
+                    </div>
+                </a>`
+            ).join('');
+
+            // Prepare template data
+            const templateData = {
+                name: properties.name,
+                description: properties.description || 'Geen beschrijving beschikbaar',
+                photo: properties.photo || './assets/images/catcute.png',
+                address: properties.address,
+                phone: properties.phone,
+                website: properties.website,
+                opening_hours: properties.opening_hours,
+                hasSuggestions: suggestions.length > 0,
+                suggestionsHtml: suggestionsHtml
+            };
+
+            // Load and render template
+            const template = await this.templateLoader.loadTemplate('info-panel.html');
+            const renderedHtml = this.templateLoader.renderAdvanced(template, templateData);
+
+            // Create and insert panel
+            const infoPanel = document.createElement('div');
+            infoPanel.id = 'info-panel';
+            infoPanel.className = 'info-panel';
+            infoPanel.innerHTML = renderedHtml;
+
+            // Set theme color
+            const color = properties.color || this.config.theme.primary;
+            infoPanel.style.background = color;
+
+            // Add to DOM
+            document.body.appendChild(infoPanel);
+
+            // Setup event listeners
+            this.setupInfoPanelListeners(infoPanel, properties);
+
+            // Show panel
+            infoPanel.classList.add('open');
+
+            console.log(`📋 Info panel geopend voor ${properties.name}`);
+        } catch (error) {
+            console.error('Error showing info panel:', error);
         }
-        if (properties.address) {
-            contact.innerHTML += `<a href="https://maps.google.com/?q=${encodeURIComponent(properties.address)}" target="_blank">📍 ${properties.address}</a>`;
-        }
-        
-        // Set theme color
-        const color = properties.color || this.config.theme.primary;
-        infoPanel.style.background = color;
-        
-        // Populate suggestions
-        this.populateSuggestions(suggestions, properties);
-        
+    }
+
+    /**
+     * Setup event listeners for info panel
+     * @param {Element} infoPanel - Info panel element
+     * @param {Object} properties - Feature properties
+     */
+    setupInfoPanelListeners(infoPanel, properties) {
         // Setup close button
         const closeButton = infoPanel.querySelector('.info-panel-close');
-        const closeHandler = () => {
-            this.closeInfoPanel();
-            closeButton.removeEventListener('click', closeHandler);
-        };
-        closeButton.addEventListener('click', closeHandler);
-        
-        // Show panel
-        infoPanel.classList.add('open');
-        
+        if (closeButton) {
+            const closeHandler = () => {
+                this.closeInfoPanel();
+                closeButton.removeEventListener('click', closeHandler);
+            };
+            closeButton.addEventListener('click', closeHandler);
+        }
+
+        // Setup suggestion clicks
+        const suggestionCards = infoPanel.querySelectorAll('.suggestion-card');
+        suggestionCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.preventDefault();
+                const suggestionId = parseInt(card.dataset.id);
+                this.handleSuggestionClick(suggestionId);
+            });
+        });
+
         // Setup scroll expansion on mobile
         this.setupScrollExpansion(infoPanel);
         
         // Setup drag to close on mobile
         this.setupDragToClose(infoPanel);
-        
-        console.log(`📋 Info panel geopend voor ${properties.name}`);
+    }
+
+    /**
+     * Generate suggestions for current location
+     * @param {Object} currentProperties - Current feature properties
+     * @returns {Promise<Array>} Array of suggestion objects
+     */
+    async generateSuggestions(currentProperties) {
+        try {
+            const allData = await this.dataLoader.loadAllData();
+            const suggestions = [];
+            
+            // Find suggestions from same category first
+            Object.values(allData).forEach(categoryData => {
+                if (categoryData.features) {
+                    categoryData.features.forEach(feature => {
+                        const props = feature.properties;
+                        if (props.id !== currentProperties.id && 
+                            props.category === currentProperties.category && 
+                            suggestions.length < 3) {
+                            suggestions.push({
+                                id: props.id,
+                                name: props.name,
+                                address: props.address,
+                                icon: props.icon || '📍',
+                                category: props.category
+                            });
+                        }
+                    });
+                }
+            });
+            
+            // Fill remaining slots with other categories if needed
+            if (suggestions.length < 3) {
+                Object.values(allData).forEach(categoryData => {
+                    if (categoryData.features) {
+                        categoryData.features.forEach(feature => {
+                            const props = feature.properties;
+                            if (props.id !== currentProperties.id && 
+                                props.category !== currentProperties.category &&
+                                suggestions.length < 3 &&
+                                !suggestions.find(s => s.id === props.id)) {
+                                suggestions.push({
+                                    id: props.id,
+                                    name: props.name,
+                                    address: props.address,
+                                    icon: props.icon || '📍',
+                                    category: props.category
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+            
+            return suggestions;
+        } catch (error) {
+            console.error('Error generating suggestions:', error);
+            return [];
+        }
     }
 
     /**

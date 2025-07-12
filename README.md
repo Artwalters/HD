@@ -1,196 +1,130 @@
-# 🗺️ Heerlen Doen - Interactieve Stadskaart
+# HeerlenDoen 📍
 
-Een moderne, schaalbare web applicatie voor het ontdekken van Heerlen met 3D Mapbox kaarten, dynamische popups en modulaire architectuur.
-
-## ✨ Features
-
-- 🗺️ **3D Mapbox Kaarten** met moderne styling
-- 🎯 **Interactieve Markers** met categorieën (Cultuur, Horeca, Mode)
-- 🎨 **Dynamische Popups** met flip animaties en scrollable content
-- 📱 **Responsive Design** voor alle apparaten
-- 🔧 **Modulaire Architectuur** voor eenvoudige uitbreiding
-- ⚙️ **Configureerbare Styling** via CSS variabelen
-- 📊 **Data Management** per categorie
-
-## 🚀 Quick Start
-
-```bash
-# 1. Clone het project
-git clone [repository-url]
-cd HeerlenDoen2
-
-# 2. Start een lokale server
-python -m http.server 8000
-# of
-npx serve .
-
-# 3. Open in browser
-open http://localhost:8000
-```
+Een interactieve webapplicatie voor het ontdekken van cultuur, horeca en mode in Heerlen.
 
 ## 📁 Project Structuur
 
 ```
 HeerlenDoen2/
-├── 📄 index.html              # Hoofdpagina
-├── ⚙️ config.js               # Centrale configuratie
-├── 📊 data/                   # Data per categorie
-├── 🧩 modules/                # JavaScript modules
-├── 🎨 styles/                 # CSS bestanden
-├── 📝 templates/              # Templates voor nieuwe content
-└── 📚 CONFIGURATIE_HANDLEIDING.md
+├── src/                      # Hoofdbroncode directory
+│   ├── components/           # Herbruikbare UI componenten (toekomstig)
+│   ├── managers/            # Business logic managers
+│   │   ├── appManager.js    # Hoofd applicatie manager
+│   │   ├── markerManager.js # Kaart markers beheer
+│   │   ├── popupManager.js  # Popup functionaliteit
+│   │   ├── filterManager.js # Filter en zoek functionaliteit  
+│   │   ├── controlsManager.js # UI controls
+│   │   ├── locationManager.js # GPS en locatie services
+│   │   └── navigationManager.js # Route navigatie
+│   ├── data/                # Data bestanden
+│   │   ├── cultuur.json     # Culturele locaties
+│   │   ├── horeca.json      # Restaurants en cafés
+│   │   └── mode.json        # Mode en shopping
+│   ├── templates/           # HTML templates
+│   │   ├── popup.html       # Popup template
+│   │   └── navigation.html  # Navigatie panel template
+│   ├── styles/              # CSS styling
+│   │   ├── main.css         # Hoofd styling
+│   │   ├── variables.css    # CSS variabelen
+│   │   ├── popup-styles.css # Popup styling
+│   │   ├── navigation-styles.css # Navigatie styling
+│   │   ├── filter-styles.css # Filter styling
+│   │   ├── controls-styles.css # Controls styling
+│   │   └── info-panel-styles.css # Info panel styling
+│   ├── utils/               # Utility functies
+│   │   ├── dataLoader.js    # Data loading en caching
+│   │   ├── templateLoader.js # Template loading systeem
+│   │   ├── performance.js   # Performance monitoring
+│   │   ├── demo.js          # Demo functionaliteit
+│   │   └── splitData.js     # Data processing tools
+│   └── config/              # Configuratie bestanden
+│       └── config.js        # Hoofd configuratie
+├── assets/                  # Statische bestanden
+│   └── images/              # Afbeeldingen
+│       ├── catcute.png      # Placeholder afbeelding
+│       └── image.png        # Extra afbeelding
+├── docs/                    # Documentatie
+│   ├── README.md            # Dit bestand
+│   ├── CLAUDE.md            # AI development instructies
+│   └── CONFIGURATIE_HANDLEIDING.md # Setup handleiding
+└── index.html               # Hoofd HTML bestand
 ```
 
-## 🎯 Snel Aanpassen
+## 🚀 Snelle Start
 
-### Kleuren Wijzigen
+1. **Lokaal openen:**
+   ```bash
+   # Open de map in een lokale server
+   python -m http.server 8000
+   # Of gebruik Live Server in VS Code
+   ```
 
-```javascript
-// In config.js
-theme: {
-    primary: "#jouw-kleur",
-    secondary: "#jouw-kleur"
-}
-```
+2. **Open in browser:**
+   ```
+   http://localhost:8000
+   ```
 
-### Nieuwe Categorie Toevoegen
+## 🎯 Kernfunctionaliteiten
 
-```javascript
-// 1. Maak data/nieuwe-categorie.json
-// 2. Voeg toe aan config.js:
-categories: {
-    "Nieuwe Categorie": {
-        color: "#FF6B6B",
-        iconMap: {"🏢": "N"},
-        defaultIcon: "N"
-    }
-}
-```
+- **Interactieve kaart** met Mapbox GL JS
+- **Categoriefiltering** (Cultuur, Horeca, Mode)
+- **GPS navigatie** met route berekening
+- **Responsive design** voor mobile en desktop
+- **Template systeem** voor modulaire UI
+- **Performance monitoring** en optimalisatie
 
-### Data Toevoegen
+## 🔧 Technische Stack
 
+- **Frontend:** Vanilla JavaScript (ES6+)
+- **Kaarten:** Mapbox GL JS
+- **Styling:** CSS3 met CSS Custom Properties
+- **Data:** GeoJSON formaat
+- **Templates:** Eigen template systeem
+- **Performance:** Real-time FPS monitoring
+
+## 📱 Browser Ondersteuning
+
+- Chrome 80+
+- Firefox 75+
+- Safari 13+
+- Edge 80+
+
+## 🛠️ Development
+
+Voor development instructies, zie [CONFIGURATIE_HANDLEIDING.md](docs/CONFIGURATIE_HANDLEIDING.md)
+
+## 📝 Naamgevingsconventies
+
+- **Bestanden:** camelCase (bijv. `appManager.js`)
+- **CSS classes:** kebab-case (bijv. `.popup-container`)
+- **Variabelen:** camelCase (bijv. `isNavigating`)
+- **Constanten:** UPPER_SNAKE_CASE (bijv. `DEFAULT_ZOOM`)
+
+## 🔄 Data Formaat
+
+Alle data bestanden gebruiken GeoJSON formaat:
 ```json
-// In data/categorie.json
 {
   "type": "FeatureCollection",
   "features": [
     {
       "type": "Feature",
       "geometry": {
-        "type": "Point", 
-        "coordinates": [5.979642, 50.887634]
+        "type": "Point",
+        "coordinates": [longitude, latitude]
       },
       "properties": {
-        "name": "Nieuwe Locatie",
-        "category": "Categorie",
-        "address": "Adres",
-        "description": "Beschrijving",
-        "color": "#FF6B6B"
+        "id": 1,
+        "name": "Locatie Naam",
+        "category": "Cultuur",
+        "description": "Beschrijving...",
+        "color": "#4B83F2"
       }
     }
   ]
 }
 ```
 
-## 🛠️ Development API
-
-```javascript
-// Filteren
-HeerlenApp.filterByCategory("Cultuur");
-
-// Zoeken
-HeerlenApp.search("museum");
-
-// Thema wijzigen
-HeerlenApp.updateTheme({primary: "#FF6B6B"});
-
-// Statistieken
-console.log(HeerlenApp.getStats());
-```
-
-## 🎨 Styling
-
-Het project gebruikt CSS variabelen voor consistente styling:
-
-```css
-:root {
-    --color-primary: #4B83F2;
-    --color-secondary: #27AE60;
-    --font-heading: "astronef-std-super-cond", sans-serif;
-}
-```
-
-## 📊 Data Categorieën
-
-- **Cultuur** (25 locaties) - Musea, theaters, bibliotheken
-- **Eten & Drinken** (40 locaties) - Restaurants, cafés, bars
-- **Mode** (35 locaties) - Winkels, boetieksen, fashion
-
-## 🔧 Modules
-
-- **AppManager** - Hoofdmodule voor app management
-- **DataLoader** - Data loading en caching
-- **MarkerManager** - Marker beheer en filtering
-- **PopupManager** - Popup functionaliteit
-
-## 📱 Responsive Design
-
-- **Desktop**: Grote popups, volledige functionaliteit
-- **Tablet**: Aangepaste sizing en layout
-- **Mobile**: Touch-optimized controls en compacte popups
-
-## 🎯 Features
-
-### Popups
-- Flip animaties tussen voor- en achterkant
-- Scrollable content voor lange beschrijvingen
-- Sociale media links (website, telefoon)
-- Responsive sizing per apparaat
-
-### Markers
-- Categorie-specifieke kleuren
-- Zoom-responsive sizing
-- Icon mapping (emoji → letters)
-- Hover effects
-
-### Map
-- 3D buildings styling
-- Custom Mapbox style
-- Auto-close popups bij navigatie
-- Touch/mouse scroll support
-
-## 🌟 Uitbreidingen
-
-Het project is ontworpen voor eenvoudige uitbreiding:
-
-- ✅ Nieuwe categorieën toevoegen
-- ✅ Styling aanpassen
-- ✅ Data management per categorie
-- ✅ Modulaire code structuur
-- ✅ API voor programmatische controle
-
-## 📚 Documentatie
-
-Zie `CONFIGURATIE_HANDLEIDING.md` voor gedetailleerde instructies over:
-- Configuratie opties
-- Nieuwe categorieën toevoegen
-- Data management
-- Styling aanpassingen
-- Development API
-- Troubleshooting
-
-## 🤝 Bijdragen
-
-1. Fork het project
-2. Maak een feature branch
-3. Commit je wijzigingen
-4. Push naar je branch
-5. Open een Pull Request
-
-## 📄 License
-
-Dit project is beschikbaar onder de MIT License.
-
 ---
 
-**Gemaakt voor de stad Heerlen** 🏛️✨
+**Ontwikkeld met ❤️ voor de stad Heerlen**

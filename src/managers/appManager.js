@@ -13,7 +13,7 @@ class AppManager {
         this.controlsManager = null;
         this.locationManager = null;
         this.navigationManager = null;
-        this.audioManager = null;
+        // AudioManager verwijderd
         this.isInitialized = false;
     }
 
@@ -47,8 +47,7 @@ class AppManager {
             // 6. Initialiseer controls manager
             this.initializeControlsManager();
             
-            // 7. Initialiseer audio manager
-            this.initializeAudioManager();
+            // 7. Audio manager verwijderd
             
             // 8. Initialiseer location manager
             this.initializeLocationManager();
@@ -214,7 +213,7 @@ class AppManager {
      * Initialiseert popup manager
      */
     initializePopupManager() {
-        this.popupManager = new PopupManager(this.map, this.config);
+        this.popupManager = new PopupManager(this.map, this.config, this.dataLoader);
         this.popupManager.initialize();
         console.log('✅ Popup manager geïnitialiseerd');
     }
@@ -238,12 +237,8 @@ class AppManager {
     }
 
     /**
-     * Initialiseert audio manager
+     * Audio manager verwijderd - niet meer gebruikt
      */
-    initializeAudioManager() {
-        this.audioManager = new AudioManager(this.config);
-        console.log('🔊 Audio Manager geïnitialiseerd');
-    }
 
     /**
      * Initialiseert location manager
@@ -258,7 +253,7 @@ class AppManager {
      * Initialiseert navigation manager
      */
     initializeNavigationManager() {
-        this.navigationManager = new NavigationManager(this.map, this.config, this.locationManager, this.audioManager);
+        this.navigationManager = new NavigationManager(this.map, this.config, this.locationManager);
         this.navigationManager.initialize();
         console.log('✅ Navigation manager geïnitialiseerd');
     }
@@ -491,9 +486,7 @@ class AppManager {
             this.navigationManager.destroy();
         }
         
-        if (this.audioManager) {
-            this.audioManager.destroy();
-        }
+        // AudioManager verwijderd
         
         if (this.markerManager) {
             this.markerManager.cleanup();
