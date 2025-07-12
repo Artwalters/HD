@@ -1,5 +1,5 @@
 // ==============================
-// NAVIGATION MANAGER MODULE - v1.0
+// NAVIGATION MANAGER MODULE - v1.1
 // ==============================
 
 class NavigationManager {
@@ -9,6 +9,7 @@ class NavigationManager {
         this.locationManager = locationManager;
         this.audioManager = audioManager;
         this.instructionTranslator = new InstructionTranslator();
+        this.templateLoader = templateLoader;
         this.currentRoute = null;
         this.routeLayer = null;
         this.navigationPanel = null;
@@ -219,7 +220,7 @@ class NavigationManager {
             this.initializeNavigationState();
             
             this.displayRoute();
-            this.showNavigationPanel();
+            await this.showNavigationPanel();
             this.isNavigating = true;
 
             // Audio announcement
@@ -992,7 +993,7 @@ class NavigationManager {
     /**
      * Toon navigation panel
      */
-    showNavigationPanel() {
+    async showNavigationPanel() {
         if (!this.currentRoute) return;
 
         // Remove existing panel
@@ -1001,7 +1002,7 @@ class NavigationManager {
         // Create navigation panel
         this.navigationPanel = document.createElement('div');
         this.navigationPanel.className = 'navigation-panel open';
-        this.navigationPanel.innerHTML = this.generateNavigationHTML();
+        this.navigationPanel.innerHTML = await this.generateNavigationHTML();
 
         // Set the background color based on destination
         const color = this.currentRoute.destination.color || '#4B83F2';
@@ -1010,6 +1011,9 @@ class NavigationManager {
         // Add to map container
         const mapContainer = document.getElementById('map');
         mapContainer.appendChild(this.navigationPanel);
+
+        // Populate navigation steps
+        await this.populateNavigationSteps();
 
         // Setup event listeners
         this.setupNavigationListeners();
@@ -1021,103 +1025,80 @@ class NavigationManager {
     /**
      * Genereer navigation HTML - exact zoals info panel
      */
-    generateNavigationHTML() {
-        const route = this.currentRoute;
-        const distance = this.formatDistance(route.distance);
-        const duration = this.formatDuration(route.duration);
-        const steps = route.legs[0].steps;
+    async generateNavigationHTML() {
+        try {
+            const template = await this.templateLoader.loadTemplate('navigation.html');
+            const route = this.currentRoute;
+            const distance = this.formatDistance(route.distance);
+            const duration = this.formatDuration(route.duration);
+            const steps = route.legs[0].steps;
 
-        return `
-            <div class="info-panel-header">
-                <div class="header-main">
-                    <h1 class="info-panel-title">${route.destination.name}</h1>
-                    <div class="header-stats">
-                        <span class="remaining-distance">${distance}</span> • 
-                        <span class="navigation-eta">${duration}</span>
-                    </div>
-                </div>
-                <button class="info-panel-close" aria-label="Close navigation">×</button>
-            </div>
-            <div class="info-panel-content">
-                <div class="info-panel-details">
-                    <div class="info-panel-section">
-                        <h3>Route informatie</h3>
-                        <div class="navigation-stats">
-                            <div class="stat-item">
-                                <strong>Afstand:</strong> <span class="remaining-distance">${distance}</span>
-                            </div>
-                            <div class="stat-item">
-                                <strong>Tijd:</strong> <span class="navigation-eta">${duration}</span>
-                            </div>
-                            <div class="stat-item">
-                                <strong>Snelheid:</strong> <span class="navigation-speed">0 km/h</span>
-                            </div>
-                        </div>
-                        <div class="route-progress">
-                            <div class="route-progress-bar" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="info-panel-section">
-                        <h3>Navigatie opties</h3>
-                        <div class="navigation-controls">
-                            <button class="control-option audio-btn ${this.audioManager?.getStatus().enabled ? 'active' : ''}" title="Audio feedback">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                                </svg>
-                                <span>Audio feedback</span>
-                            </button>
-                            <button class="control-option camera-btn ${this.isFollowingUser ? 'active' : ''}" title="Camera volgen">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                                    <circle cx="12" cy="13" r="4"></circle>
-                                </svg>
-                                <span>Camera volgen</span>
-                            </button>
-                            <button class="control-option profile-btn" title="Vervoerswijze: ${this.getProfileName()}" data-profile="${this.routingProfile}">
-                                ${this.getProfileIcon()}
-                                <span>${this.getProfileName()}</span>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="info-panel-section">
-                        <div class="instructions-header">
-                            <h3>Routebeschrijving</h3>
-                            <button class="toggle-instructions">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="6,9 12,15 18,9"></polyline>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="instructions-list">
-                            ${steps.map((step, index) => this.generateStepHTML(step, index)).join('')}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
+            const data = {
+                destinationName: route.destination.name,
+                distance: distance,
+                duration: duration,
+                audioActive: this.audioManager?.getStatus().enabled ? 'active' : '',
+                cameraActive: this.isFollowingUser ? 'active' : '',
+                stepsCount: steps.length,
+                hasSteps: steps.length > 0,
+                walkingActive: this.routingProfile === 'walking' ? 'active' : '',
+                cyclingActive: this.routingProfile === 'cycling' ? 'active' : '',
+                drivingActive: this.routingProfile === 'driving' ? 'active' : ''
+            };
+
+            return this.templateLoader.render(template, data);
+        } catch (error) {
+            console.error('Error generating navigation HTML:', error);
+            // Fallback
+            return `<div class="info-panel-header"><h1>Navigatie</h1></div>`;
+        }
+    }
+
+    /**
+     * Populeer navigation steps in het panel
+     */
+    async populateNavigationSteps() {
+        const instructionsList = this.navigationPanel.querySelector('.instructions-list');
+        if (!instructionsList || !this.currentRoute) return;
+
+        const steps = this.currentRoute.legs[0].steps;
+        const stepsHtml = [];
+
+        for (let i = 0; i < steps.length; i++) {
+            const stepHtml = await this.generateStepHTML(steps[i], i);
+            stepsHtml.push(stepHtml);
+        }
+
+        instructionsList.innerHTML = stepsHtml.join('');
     }
 
     /**
      * Genereer stap HTML
      */
-    generateStepHTML(step, index) {
-        // Use localized instruction instead of raw Mapbox instruction
-        const localizedInstruction = this.instructionTranslator.generateLocalizedInstruction(step);
-        const distance = this.formatDistance(step.distance);
-        const icon = this.getManeuverIcon(step.maneuver.type);
+    async generateStepHTML(step, index) {
+        try {
+            const template = await this.templateLoader.loadTemplate('navigation-step.html');
+            const localizedInstruction = this.instructionTranslator.generateLocalizedInstruction(step);
+            const distance = this.formatDistance(step.distance);
+            const icon = this.getManeuverIcon(step.maneuver.type);
+            const duration = step.duration ? this.formatDuration(step.duration) : '';
 
-        return `
-            <div class="instruction-step">
-                <div class="step-icon">${icon}</div>
-                <div class="step-content">
-                    <div class="step-instruction">${localizedInstruction}</div>
-                    <div class="step-distance">${distance}</div>
-                </div>
-            </div>
-        `;
+            const data = {
+                stepIndex: index,
+                icon: icon,
+                instruction: localizedInstruction,
+                distance: distance,
+                duration: duration
+            };
+
+            return this.templateLoader.render(template, data);
+        } catch (error) {
+            console.error('Error generating step HTML:', error);
+            // Fallback
+            const localizedInstruction = this.instructionTranslator.generateLocalizedInstruction(step);
+            const distance = this.formatDistance(step.distance);
+            return `<div class="step-item"><div class="step-instruction">${localizedInstruction}</div><div class="step-distance">${distance}</div></div>`;
+        }
     }
 
     /**
@@ -1289,34 +1270,93 @@ class NavigationManager {
      */
     setupNavigationListeners() {
         const closeBtn = this.navigationPanel.querySelector('.info-panel-close');
-        const profileBtn = this.navigationPanel.querySelector('.profile-btn');
+        const profileBtns = this.navigationPanel.querySelectorAll('.profile-btn');
         const toggleBtn = this.navigationPanel.querySelector('.toggle-instructions');
         const audioBtn = this.navigationPanel.querySelector('.audio-btn');
         const cameraBtn = this.navigationPanel.querySelector('.camera-btn');
 
-        closeBtn.addEventListener('click', () => {
-            this.stopNavigation();
+        // Debug logging
+        console.log('🔧 Navigation panel DOM elements found:');
+        console.log('- closeBtn:', closeBtn);
+        console.log('- profileBtns:', profileBtns.length);
+        console.log('- toggleBtn:', toggleBtn);
+        console.log('- audioBtn:', audioBtn);
+        console.log('- cameraBtn:', cameraBtn);
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                this.stopNavigation();
+            });
+        } else {
+            console.error('❌ closeBtn not found in navigation panel');
+        }
+
+        // Setup profile buttons (voor transportmodus)
+        profileBtns.forEach(btn => {
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    const profile = btn.dataset.profile;
+                    if (profile) {
+                        this.changeProfile(profile);
+                    } else {
+                        this.showProfileSelector();
+                    }
+                });
+            }
         });
 
-        profileBtn.addEventListener('click', () => {
-            this.showProfileSelector();
-        });
-
-        toggleBtn.addEventListener('click', () => {
-            this.toggleInstructions();
-        });
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                this.toggleInstructions();
+            });
+        } else {
+            console.warn('⚠️ toggleBtn not found in navigation panel');
+        }
         
-        audioBtn?.addEventListener('click', () => {
-            this.toggleAudio();
-        });
+        if (audioBtn) {
+            audioBtn.addEventListener('click', () => {
+                this.toggleAudio();
+            });
+        } else {
+            console.warn('⚠️ audioBtn not found in navigation panel');
+        }
         
-        cameraBtn?.addEventListener('click', () => {
-            this.toggleCameraFollowing();
-            this.updateCameraButton();
-        });
+        if (cameraBtn) {
+            cameraBtn.addEventListener('click', () => {
+                this.toggleCameraFollowing();
+                this.updateCameraButton();
+            });
+        } else {
+            console.warn('⚠️ cameraBtn not found in navigation panel');
+        }
         
         // Setup swipe gestures for panel minimize/maximize
         this.setupSwipeGestures();
+    }
+
+    /**
+     * Verander transport profiel direct
+     * @param {string} profile - walking, cycling, driving
+     */
+    async changeProfile(profile) {
+        if (this.routingProfile === profile) return;
+        
+        console.log(`🚦 Changing profile from ${this.routingProfile} to ${profile}`);
+        this.routingProfile = profile;
+        
+        // Herbereken route met nieuw profiel
+        if (this.currentRoute && this.currentRoute.destination) {
+            try {
+                await this.calculateRoute(
+                    this.currentRoute.destination.lat,
+                    this.currentRoute.destination.lng,
+                    this.currentRoute.destination.name,
+                    this.currentRoute.destination.color
+                );
+            } catch (error) {
+                console.error('Error recalculating route with new profile:', error);
+            }
+        }
     }
 
     /**

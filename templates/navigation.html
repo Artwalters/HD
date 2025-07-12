@@ -1,0 +1,104 @@
+<div class="info-panel-header">
+    <div class="header-main">
+        <h1 class="info-panel-title">{{destinationName}}</h1>
+        <div class="header-stats">
+            <span class="remaining-distance">{{distance}}</span> • 
+            <span class="navigation-eta">{{duration}}</span>
+        </div>
+    </div>
+    <button class="info-panel-close" aria-label="Close navigation">×</button>
+</div>
+<div class="info-panel-content">
+    <div class="info-panel-details">
+        <div class="info-panel-section">
+            <h3>Route informatie</h3>
+            <div class="navigation-stats">
+                <div class="stat-item">
+                    <strong>Afstand:</strong> <span class="remaining-distance">{{distance}}</span>
+                </div>
+                <div class="stat-item">
+                    <strong>Tijd:</strong> <span class="navigation-eta">{{duration}}</span>
+                </div>
+                <div class="stat-item">
+                    <strong>Snelheid:</strong> <span class="navigation-speed">0 km/h</span>
+                </div>
+            </div>
+            <div class="route-progress">
+                <div class="route-progress-bar" style="width: 0%"></div>
+            </div>
+        </div>
+        
+        <div class="info-panel-section">
+            <h3>Navigatie opties</h3>
+            <div class="navigation-controls">
+                <button class="control-option audio-btn {{audioActive}}" title="Audio feedback">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                    <span>Audio feedback</span>
+                </button>
+                <button class="control-option camera-btn {{cameraActive}}" title="Camera volgen">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                        <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                    <span>Camera volgen</span>
+                </button>
+                <button class="control-option recenter-btn" title="Hercentreer kaart">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <span>Hercentreer</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="info-panel-section">
+            <div class="instructions-header">
+                <h3>Routebeschrijving</h3>
+                <button class="toggle-instructions">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6,9 12,15 18,9"></polyline>
+                    </svg>
+                </button>
+            </div>
+            <div class="instructions-list">
+                {{if hasSteps}}
+                <!-- Steps will be dynamically populated -->
+                {{endif}}
+            </div>
+        </div>
+        
+        <div class="info-panel-section">
+            <h3>Transportmodus</h3>
+            <div class="navigation-controls">
+                <button class="control-option profile-btn {{walkingActive}}" data-profile="walking" title="Lopen">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M13 2v6h6l-6 6v6l-6-6h6V2z"></path>
+                    </svg>
+                    <span>Lopen</span>
+                </button>
+                <button class="control-option profile-btn {{cyclingActive}}" data-profile="cycling" title="Fietsen">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="18.5" cy="17.5" r="3.5"></circle>
+                        <circle cx="5.5" cy="17.5" r="3.5"></circle>
+                        <circle cx="15" cy="5" r="1"></circle>
+                        <path d="M12 17.5V14l-3-3 4-3 2 3h2"></path>
+                    </svg>
+                    <span>Fietsen</span>
+                </button>
+                <button class="control-option profile-btn {{drivingActive}}" data-profile="driving" title="Auto">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18.4 9H5.6L3.5 11.1C2.7 11.3 2 12.1 2 13v3c0 .6.4 1 1 1h2"></path>
+                        <circle cx="7" cy="17" r="2"></circle>
+                        <path d="M9 17h6"></path>
+                        <circle cx="17" cy="17" r="2"></circle>
+                    </svg>
+                    <span>Auto</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

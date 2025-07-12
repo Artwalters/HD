@@ -1,5 +1,5 @@
 // ==============================
-// POPUP MANAGER MODULE - v1.1
+// POPUP MANAGER MODULE - v1.2
 // ==============================
 
 class PopupManager {
@@ -8,6 +8,7 @@ class PopupManager {
         this.config = config;
         this.activePopup = null;
         this.isInitialized = false;
+        this.templateLoader = templateLoader;
     }
 
     /**
@@ -116,7 +117,7 @@ class PopupManager {
         }
 
         // Create and show new popup
-        this.createPopup(coordinates, properties);
+        await this.createPopup(coordinates, properties);
     }
 
     /**
@@ -140,7 +141,7 @@ class PopupManager {
      * @param {Array} coordinates - Lng/Lat coordinaten
      * @param {Object} properties - Feature properties
      */
-    createPopup(coordinates, properties) {
+    async createPopup(coordinates, properties) {
         const popup = new mapboxgl.Popup({
             offset: this.config.popup.offset,
             className: "custom-popup",
@@ -151,7 +152,7 @@ class PopupManager {
         });
 
         // Generate popup content
-        const { styles, html } = this.createPopupContent(properties);
+        const { styles, html } = await this.createPopupContent(properties);
         
         popup.setLngLat(coordinates)
              .setHTML(`${styles}${html}`)
@@ -166,11 +167,11 @@ class PopupManager {
     /**
      * Creëert popup content HTML en CSS
      * @param {Object} properties - Feature properties
-     * @returns {Object} {styles, html}
+     * @returns {Promise<Object>} {styles, html}
      */
-    createPopupContent(properties) {
+    async createPopupContent(properties) {
         const styles = this.generatePopupStyles(properties);
-        const html = this.generatePopupHTML(properties);
+        const html = await this.generatePopupHTML(properties);
         
         return { styles, html };
     }
@@ -210,91 +211,34 @@ class PopupManager {
     /**
      * Genereert popup HTML
      * @param {Object} properties - Feature properties
-     * @returns {string} HTML content
+     * @returns {Promise<string>} HTML content
      */
-    generatePopupHTML(properties) {
-        return `
-            <div class="popup-wrapper">
-                <button class="close-button" aria-label="Close popup"></button>
-                <div class="popup-side popup-front">
-                    <div class="popup-background-photo" style="background-image: url('./pictures/catcute.png')"></div>
-                    ${this.generateGradientSVG(properties)}
-                    <div class="content-wrapper">
-                        <div class="popup-title">${properties.name}</div>
-                        <div class="fade-top"></div> 
-                        <div class="popup-description">${properties.description}</div>
-                        <div class="fade-bottom"></div>
-                        <div class="popup-actions">
-                            <button class="navigate-button button-base">Navigeer</button>
-                            <button class="more-info-button button-base">Meer info</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="popup-side popup-back">
-                    <div class="popup-background-photo" style="background-image: url('./pictures/catcute.png')"></div>
-                    <div class="content-wrapper">
-                        <div class="popup-title details">${properties.name}</div>
-                        <button class="more-info-button button-base">Terug</button>
-                    </div>
-                </div>
-            </div>
-        `;
+    async generatePopupHTML(properties) {
+        try {
+            const template = await this.templateLoader.loadTemplate('popup.html');
+            
+            // Genereer unieke ID voor gradient
+            const id = `popup_${Date.now()}`;
+            
+            const data = {
+                id: id,
+                name: properties.name || '',
+                description: properties.description || '',
+                color: properties.color || this.config.theme.primary,
+                address: properties.address || '',
+                phone: properties.phone || '',
+                website: properties.website || '',
+                openingHours: properties.openingHours || ''
+            };
+            
+            return this.templateLoader.renderAdvanced(template, data);
+        } catch (error) {
+            console.error('Error generating popup HTML:', error);
+            // Fallback naar simpele HTML bij fout
+            return `<div class="popup-wrapper"><div class="popup-title">${properties.name}</div></div>`;
+        }
     }
 
-    /**
-     * Genereert gradient SVG
-     * @param {Object} properties - Feature properties
-     * @returns {string} SVG HTML
-     */
-    generateGradientSVG(properties) {
-        const color = properties.color || this.config.theme.primary;
-        
-        return `
-            <svg class="popup-border-overlay" viewBox="0 0 365 252" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                <rect width="100%" height="100%" fill="url(#paint0_linear_3248_5)"/>
-                <defs>
-                    <linearGradient id="paint0_linear_3248_5" x1="50%" y1="0" x2="50%" y2="100%" gradientUnits="objectBoundingBox">
-                        <stop offset="0" stop-color="${color}" stop-opacity="0" />
-                        <stop offset="0.3" stop-color="${color}" stop-opacity="1" />
-                    </linearGradient>
-                </defs>
-            </svg>
-        `;
-    }
-
-    /**
-     * Genereert social media icons
-     * @param {Object} properties - Feature properties
-     * @returns {string} Social icons HTML
-     */
-    generateSocialIcons(properties) {
-        let icons = '';
-        
-        if (properties.website) {
-            icons += `
-                <a href="${properties.website}" target="_blank" aria-label="Website" title="Website">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="2" y1="12" x2="22" y2="12"></line>
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                    </svg>
-                </a>
-            `;
-        }
-        
-        if (properties.phone) {
-            icons += `
-                <a href="tel:${properties.phone}" aria-label="Bellen" title="Bellen">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                    </svg>
-                </a>
-            `;
-        }
-        
-        return icons ? `<div class="social-icons">${icons}</div>` : '';
-    }
 
     /**
      * Setup popup interacties (scroll, flip, close, etc.)
