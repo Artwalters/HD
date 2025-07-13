@@ -13,6 +13,7 @@ class AppManager {
         this.controlsManager = null;
         this.locationManager = null;
         this.navigationManager = null;
+        this.likesManager = null;
         // AudioManager verwijderd
         this.isInitialized = false;
     }
@@ -55,10 +56,17 @@ class AppManager {
             // 9. Initialiseer navigation manager
             this.initializeNavigationManager();
             
-            // 10. Laad en toon data
+            // 10. Initialiseer likes manager
+            this.initializeLikesManager();
+            
+            // 11. Laad en toon data
             await this.loadAndDisplayData();
             
             this.isInitialized = true;
+            
+            // Maak app globaal beschikbaar voor andere managers
+            window.app = this;
+            
             console.log('✅ Heerlen Doen succesvol geïnitialiseerd!');
             
             // Toon statistieken
@@ -259,6 +267,61 @@ class AppManager {
     }
 
     /**
+     * Initialiseert likes manager
+     */
+    initializeLikesManager() {
+        this.likesManager = new LikesManager();
+        this.likesManager.initialize();
+        
+        // Setup callback voor likes changes
+        this.likesManager.addCallback((locationId, isLiked) => {
+            this.onLikeChanged(locationId, isLiked);
+        });
+        
+        console.log('✅ Likes manager geïnitialiseerd');
+    }
+
+    /**
+     * Handler voor like changes
+     */
+    onLikeChanged(locationId, isLiked) {
+        // Update marker hearts only
+        if (this.markerManager) {
+            this.markerManager.updateLikedStatus(this.likesManager.likes);
+        }
+        
+        // Let individual buttons handle their own updates
+        console.log(`🔄 Updated markers for location ${locationId}: ${isLiked ? 'liked' : 'unliked'}`);
+    }
+
+    /**
+     * Updates all like buttons across different UI components
+     */
+    updateAllLikeButtons(locationId, isLiked) {
+        console.log(`🔄 Updating all like buttons for location ${locationId} to ${isLiked ? 'liked' : 'unliked'}`);
+        
+        // Find ALL buttons with this location ID
+        const allButtons = document.querySelectorAll(`[data-location-id="${locationId}"]`);
+        console.log(`🔍 Found ${allButtons.length} buttons with location ID ${locationId}`);
+        
+        allButtons.forEach(button => {
+            if (button.classList.contains('like-button') || button.classList.contains('info-panel-like')) {
+                const wasLiked = button.classList.contains('liked');
+                button.classList.toggle('liked', isLiked);
+                
+                const componentType = button.classList.contains('info-panel-like') ? 'info-panel' : 'popup';
+                console.log(`🔄 Updated ${componentType} like button for ${locationId}: ${wasLiked} → ${isLiked}`);
+            }
+        });
+        
+        // Double check with more specific selectors
+        const popupButtons = document.querySelectorAll('.like-button');
+        const infoPanelButtons = document.querySelectorAll('.info-panel-like');
+        console.log(`🔍 Total buttons found: ${popupButtons.length} popup, ${infoPanelButtons.length} info-panel`);
+    }
+
+
+    /**
      * Laadt en toont alle data
      */
     async loadAndDisplayData() {
@@ -266,8 +329,15 @@ class AppManager {
             // Laad alle data
             const allData = await this.dataLoader.loadAllData();
             
+            // Set liked status op data
+            if (this.likesManager) {
+                allData.features.forEach(feature => {
+                    feature.properties.liked = this.likesManager.isLiked(feature.properties.id);
+                });
+            }
+            
             // Initialiseer markers met data
-            this.markerManager.initialize(allData);
+            await this.markerManager.initialize(allData);
             
             // Update filter data
             if (this.filterManager) {
@@ -515,14 +585,5 @@ class AppManager {
     }
 }
 
-// Maak globale instance beschikbaar
-window.HeerlenApp = new AppManager();
-
-// Auto-initialiseer wanneer DOM klaar is
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        window.HeerlenApp.initialize();
-    });
-} else {
-    window.HeerlenApp.initialize();
-}
+// Export voor gebruik in andere modules
+window.AppManager = AppManager;

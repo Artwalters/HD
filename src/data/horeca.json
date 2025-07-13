@@ -18,7 +18,7 @@
         "description": "Western-style restaurant met uitstekende steaks, keurige service en gezellige sfeer. Bekend om hun Western Plate en Cowboy steak.",
         "phone": "045-208-3358",
         "website": "www.highnoon.nl",
-        "icon": "🤠",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Di-Do: 15:00-21:00, Vr-Za: 15:00-21:30, Zo: 12:00-21:00, Ma: Gesloten"
       }
@@ -40,7 +40,7 @@
         "description": "Premium steakhouse met de beste vlees selectie en uitstekende service in een stijlvolle ambiance.",
         "phone": "045-571-1234",
         "website": "www.houseofsteaks.nl",
-        "icon": "🥩",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Do: 17:00-22:00, Vr-Za: 17:00-23:00, Zo: 16:00-21:00"
       }
@@ -62,7 +62,7 @@
         "description": "Trendy restaurant en bar met moderne keuken, cocktails en gezellige sfeer in het centrum van Heerlen.",
         "phone": "045-571-5678",
         "website": "www.restobarg1.nl",
-        "icon": "🍽️",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Do: 16:00-01:00, Vr-Za: 16:00-02:00, Zo: 14:00-24:00"
       }
@@ -84,7 +84,7 @@
         "description": "Authentiek Syrisch restaurant met traditionele gerechten, verse ingrediënten en warme Midden-Oosterse gastvrijheid.",
         "phone": "045-571-5432",
         "website": "www.hauran-restaurant.nl",
-        "icon": "🥙",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Zo: 12:00-23:00"
       }
@@ -106,7 +106,7 @@
         "description": "Elegant restaurant met Turkse specialiteiten, uitstekende service en een mooie ambiance.",
         "phone": "045-571-7890",
         "website": "www.grandturquoise.nl",
-        "icon": "🍖",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Zo: 16:00-23:00"
       }
@@ -128,7 +128,7 @@
         "description": "Grieks restaurant met authentieke gerechten en traditionele Griekse sfeer op het levendige Pancratiusplein.",
         "phone": "045-571-3456",
         "website": "www.elgreco-heerlen.nl",
-        "icon": "🇬🇷",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Zo: 17:00-23:00"
       }
@@ -150,7 +150,7 @@
         "description": "Modern restaurant met internationale keuken, verse seizoensproducten en creatieve gerechten.",
         "phone": "045-571-6789",
         "website": "www.smaakvermaak.nl",
-        "icon": "🍴",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Di-Zo: 17:00-22:00, Ma: Gesloten"
       }
@@ -172,7 +172,7 @@
         "description": "Gezellig restaurant met Nederlandse en internationale keuken in een warme, uitnodigende sfeer.",
         "phone": "045-571-2345",
         "website": "www.detweeggezusters.nl",
-        "icon": "👯",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Di-Zo: 12:00-22:00, Ma: Gesloten"
       }
@@ -194,7 +194,7 @@
         "description": "Trendy restaurant met verse, lokale ingrediënten en moderne twist op klassieke gerechten.",
         "phone": "045-571-8901",
         "website": "www.goodpeople-heerlen.nl",
-        "icon": "😊",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Zo: 12:00-22:00"
       }
@@ -216,7 +216,7 @@
         "description": "Authentiek Italiaans restaurant met verse pasta, pizza's en traditionele Italiaanse gerechten.",
         "phone": "045-571-4567",
         "website": "www.dapeco.nl",
-        "icon": "🍝",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Zo: 17:00-22:00"
       }
@@ -238,7 +238,7 @@
         "description": "Gezellige Italiaanse pizzeria met authentieke pizza's uit de steenoven en pasta gerechten.",
         "phone": "045-571-7654",
         "website": "www.ilcastello-heerlen.nl",
-        "icon": "🍕",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Zo: 16:00-23:00"
       }
@@ -260,7 +260,7 @@
         "description": "Authentiek Grieks restaurant met traditionele gerechten, verse vis en vriendelijke bediening.",
         "phone": "045-571-9876",
         "website": "www.nisos-heerlen.nl",
-        "icon": "🐟",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Zo: 17:00-23:00"
       }
@@ -282,7 +282,7 @@
         "description": "Midden-Oosters restaurant met verhalen achter elk gerecht, authentieke smaken en warme gastvrijheid.",
         "phone": "045-571-3210",
         "website": "www.thestory-heerlen.nl",
-        "icon": "📖",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Zo: 12:00-22:00"
       }
@@ -304,7 +304,7 @@
         "description": "Turkse restaurant met verse hapjes, traditionele gerechten en vriendelijke service.",
         "phone": "045-571-5432",
         "website": "www.taxim-heerlen.nl",
-        "icon": "🥘",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Zo: 12:00-23:00"
       }
@@ -326,7 +326,7 @@
         "description": "Indonesische takeaway met authentieke gerechten, verse ingrediënten en huisgemaakte sambal.",
         "phone": "045-571-6543",
         "website": "www.tokopatja.nl",
-        "icon": "🍛",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Za: 16:00-22:00, Zo: 15:00-22:00"
       }
@@ -348,7 +348,7 @@
         "description": "Moderne brasserie in het winkelcentrum met internationale keuken en casual dining.",
         "phone": "045-571-7890",
         "website": "www.brasserie-goya.nl",
-        "icon": "🍽️",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Za: 10:00-20:00, Zo: 12:00-18:00"
       }
@@ -370,7 +370,7 @@
         "description": "Klassiek grand cafe met uitgebreide kaart, van ontbijt tot diner, in het hart van de winkelstraat.",
         "phone": "045-571-2468",
         "website": "www.grandcafe-heerlen.nl",
-        "icon": "☕",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Zo: 09:00-22:00"
       }
@@ -392,7 +392,7 @@
         "description": "Gezellig café met terras op het Pancratiusplein, perfect voor een drankje en hapje in het hart van Heerlen.",
         "phone": "045-571-2468",
         "website": "www.cafepelt.nl",
-        "icon": "🍺",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Do: 11:00-01:00, Vr-Za: 11:00-02:00, Zo: 12:00-24:00"
       }
@@ -414,7 +414,7 @@
         "description": "Trendy café bar met goede cocktails, gezellige sfeer en vriendelijke bediening.",
         "phone": "045-571-3690",
         "website": "www.cafetess.nl",
-        "icon": "🍸",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Do: 16:00-01:00, Vr-Za: 16:00-02:00, Zo: 16:00-24:00"
       }
@@ -436,7 +436,7 @@
         "description": "Sfeervolle kroeg met uitstekende bieren, gezellige sfeer en regelmatige live muziek.",
         "phone": "045-571-4725",
         "website": "www.cafebluff.nl",
-        "icon": "🎵",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Do: 16:00-01:00, Vr-Za: 16:00-02:00, Zo: 16:00-24:00"
       }
@@ -458,7 +458,7 @@
         "description": "Traditioneel café met lokale sfeer, goed bier en vriendelijke bediening op het Pancratiusplein.",
         "phone": "045-571-5836",
         "website": "www.drklinge.nl",
-        "icon": "🍻",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Do: 11:00-01:00, Vr-Za: 11:00-02:00, Zo: 12:00-24:00"
       }
@@ -480,7 +480,7 @@
         "description": "Klassiek café met gezellige sfeer, goed eten en drinken op een toplocatie aan het plein.",
         "phone": "045-571-6947",
         "website": "www.cafebracke.nl",
-        "icon": "🥪",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Do: 10:00-01:00, Vr-Za: 10:00-02:00, Zo: 11:00-24:00"
       }
@@ -502,7 +502,7 @@
         "description": "Gezellig grandcafe met uitgebreide kaart, terras en leuke sfeer voor jong en oud.",
         "phone": "045-571-8052",
         "website": "www.dekrommetoeter.nl",
-        "icon": "🎺",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Do: 10:00-01:00, Vr-Za: 10:00-02:00, Zo: 11:00-24:00"
       }
@@ -524,7 +524,7 @@
         "description": "Trendy bar in een voormalig bankgebouw, bekend om cocktails en stijlvolle ambiance.",
         "phone": "045-571-9163",
         "website": "www.debank-heerlen.nl",
-        "icon": "🏦",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Do: 17:00-01:00, Vr-Za: 17:00-02:00, Zo: 17:00-24:00"
       }
@@ -546,7 +546,7 @@
         "description": "Sfeervolle cocktailbar met uitgebreide drankkaart, tapas en live muziek.",
         "phone": "045-571-0274",
         "website": "www.bolero-heerlen.nl",
-        "icon": "🍹",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Do: 17:00-01:00, Vr-Za: 17:00-02:00, Zo: 17:00-24:00"
       }
@@ -568,7 +568,7 @@
         "description": "Populaire lunchroom met verse sandwiches, salades en overloaded gerechten. Bekend om gambas en pulled pork.",
         "phone": "06-47589945",
         "website": "www.dimisoverloaded.nl",
-        "icon": "🥪",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Di: 12:00-17:00, Wo-Za: 10:00-17:00, Zo: 12:00-17:00, Ma: Gesloten"
       }
@@ -590,7 +590,7 @@
         "description": "Trendy coffee shop met specialty coffee, verse sandwiches en gezellige sfeer.",
         "phone": "045-571-1385",
         "website": "www.thirtyfour-heerlen.nl",
-        "icon": "☕",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Vr: 08:00-17:00, Za: 09:00-17:00, Zo: 10:00-16:00"
       }
@@ -612,7 +612,7 @@
         "description": "Trendy brunchbar met verse, gezonde gerechten, specialty coffee en gezellige sfeer voor ontbijt en lunch.",
         "phone": "045-571-4681",
         "website": "www.brunchbar-heerlen.nl",
-        "icon": "🥐",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Vr: 08:00-16:00, Za-Zo: 09:00-16:00"
       }
@@ -634,7 +634,7 @@
         "description": "Traditionele bakkerij met verse broodjes, gebak en Duitse specialiteiten.",
         "phone": "045-571-2496",
         "website": "www.hetduitsebakkertje.nl",
-        "icon": "🥖",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Za: 07:00-18:00, Zo: 08:00-17:00"
       }
@@ -656,7 +656,7 @@
         "description": "Bakkerij en coffee shop met verse broodjes, gebak en uitstekende koffie.",
         "phone": "045-571-3607",
         "website": "www.jansenjanssen.nl",
-        "icon": "🍰",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Za: 07:00-18:00, Zo: 08:00-17:00"
       }
@@ -678,7 +678,7 @@
         "description": "Specialty coffee shop met verse gebrande koffie, thee en lichte maaltijden.",
         "phone": "045-571-4718",
         "website": "www.coffeelovers.nl",
-        "icon": "☕",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Za: 08:00-18:00, Zo: 10:00-17:00"
       }
@@ -700,7 +700,7 @@
         "description": "Gezellige espresso bar met uitstekende koffie, verse sandwiches en vriendelijke service.",
         "phone": "045-571-5829",
         "website": "www.aroma-heerlen.nl",
-        "icon": "☕",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Vr: 07:00-17:00, Za: 08:00-17:00, Zo: 09:00-16:00"
       }
@@ -722,7 +722,7 @@
         "description": "Bekende keten met verse bagels, koffie en gezonde lunchopties in het Glaspaleis.",
         "phone": "045-571-6940",
         "website": "www.bagelsbeans.nl",
-        "icon": "🥯",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Za: 08:00-18:00, Zo: 09:00-17:00"
       }
@@ -744,7 +744,7 @@
         "description": "Populaire tosti bar met verse, creatieve tosti's en vriendelijke service.",
         "phone": "045-571-7051",
         "website": "www.patstostibar.nl",
-        "icon": "🥪",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Za: 10:00-18:00, Zo: 12:00-17:00"
       }
@@ -766,7 +766,7 @@
         "description": "Gezellig restaurant met Nederlandse keuken, goede bieren en warme sfeer.",
         "phone": "045-571-8162",
         "website": "www.duuvelke-heerlen.nl",
-        "icon": "👹",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Do: 16:00-01:00, Vr-Za: 16:00-02:00, Zo: 16:00-24:00"
       }
@@ -788,7 +788,7 @@
         "description": "Café gelieerd aan poppodium Nieuwe Nor, perfecte plek voor een drankje voor of na concerten.",
         "phone": "045-400-9100",
         "website": "www.nieuwenor.nl",
-        "icon": "🎸",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Do: 20:00-01:00, Vr-Za: 20:00-02:00, Zo: 20:00-24:00"
       }
@@ -810,7 +810,7 @@
         "description": "Traditioneel stadscafé met lokale sfeer, goed bier en gezellige stammgasten.",
         "phone": "045-571-9273",
         "website": "www.deportvanherle.nl",
-        "icon": "🚪",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Do: 11:00-01:00, Vr-Za: 11:00-02:00, Zo: 12:00-24:00"
       }
@@ -832,7 +832,7 @@
         "description": "Gezellig café met uitstekende bieren, vriendelijke sfeer en regelmatige activiteiten.",
         "phone": "045-571-0384",
         "website": "www.detapperij.nl",
-        "icon": "🍺",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Do: 16:00-01:00, Vr-Za: 16:00-02:00, Zo: 16:00-24:00"
       }
@@ -854,7 +854,7 @@
         "description": "Turkse restaurant met döner, pizza en grill gerechten. Halal geserveerd.",
         "phone": "045-571-4495",
         "website": "www.alanya-heerlen.nl",
-        "icon": "🌯",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Zo: 12:00-23:00"
       }
@@ -876,7 +876,7 @@
         "description": "Familiepizzeria met verse pizza's, pasta en Italiaanse specialiteiten.",
         "phone": "045-571-5606",
         "website": "www.mamamia-heerlen.nl",
-        "icon": "🍕",
+        "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
         "opening_hours": "Ma-Zo: 16:00-23:00"
       }

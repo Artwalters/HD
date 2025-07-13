@@ -9,6 +9,7 @@ class MarkerManager {
         this.sourceId = 'businesses';
         this.markersLayerId = 'business-markers';
         this.labelsLayerId = 'business-labels';
+        this.heartsLayerId = 'business-hearts';
         this.isInitialized = false;
     }
 
@@ -16,7 +17,7 @@ class MarkerManager {
      * Initialiseert markers op de kaart
      * @param {Object} data - GeoJSON data
      */
-    initialize(data) {
+    async initialize(data) {
         if (!data || !data.features) {
             console.warn('⚠️ Geen geldige data voor markers');
             return;
@@ -24,6 +25,9 @@ class MarkerManager {
 
         // Verwijder bestaande layers en sources
         this.cleanup();
+
+        // Laad PNG iconen als images
+        await this.loadMarkerIcons();
 
         // Voeg data source toe
         this.map.addSource(this.sourceId, {
@@ -34,8 +38,11 @@ class MarkerManager {
         // Voeg marker circles layer toe
         this.addMarkersLayer();
         
-        // Voeg text labels layer toe
-        this.addLabelsLayer();
+        // Voeg icon labels layer toe
+        this.addIconsLayer();
+        
+        // Voeg hearts layer toe voor liked markers
+        this.addHeartsLayer();
         
         // Setup event listeners
         this.setupEventListeners();
@@ -57,10 +64,10 @@ class MarkerManager {
                     'interpolate',
                     ['linear'],
                     ['zoom'],
-                    this.config.markerZoom.min, 2.4,
-                    this.config.markerZoom.small, 4,
-                    this.config.markerZoom.medium, 5.6,
-                    this.config.markerZoom.large, 7.2
+                    this.config.markerZoom.min, 3.456,
+                    this.config.markerZoom.small, 5.76,
+                    this.config.markerZoom.medium, 8.064,
+                    this.config.markerZoom.large, 10.368
                 ],
                 'circle-color': ['get', 'color'],
                 'circle-stroke-width': 2,
@@ -71,54 +78,121 @@ class MarkerManager {
     }
 
     /**
-     * Voegt text labels layer toe
+     * Voegt icon labels layer toe
      */
-    addLabelsLayer() {
+    addIconsLayer() {
         this.map.addLayer({
             id: this.labelsLayerId,
             type: 'symbol',
             source: this.sourceId,
             layout: {
-                'text-field': this.createIconExpression(),
-                'text-size': [
+                'icon-image': this.createIconImageExpression(),
+                'icon-size': [
                     'interpolate',
                     ['linear'],
                     ['zoom'],
-                    this.config.markerZoom.min, 6.4,
-                    this.config.markerZoom.small, 9.6,
-                    this.config.markerZoom.medium, 12.8,
-                    this.config.markerZoom.large, 16
+                    this.config.markerZoom.min, 0.0648,
+                    this.config.markerZoom.small, 0.108,
+                    this.config.markerZoom.medium, 0.1512,
+                    this.config.markerZoom.large, 0.1944
                 ],
-                'text-anchor': 'center',
-                'text-allow-overlap': true,
-                'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold']
-            },
-            paint: {
-                'text-color': '#ffffff'
+                'icon-anchor': 'center',
+                'icon-allow-overlap': true
             }
         });
     }
 
     /**
-     * Creëert expressie voor icon mapping
-     * @returns {Array} Mapbox expression voor icon mapping
+     * Voegt hearts layer toe voor liked markers
      */
-    createIconExpression() {
+    addHeartsLayer() {
+        this.map.addLayer({
+            id: this.heartsLayerId,
+            type: 'symbol',
+            source: this.sourceId,
+            layout: {
+                'text-field': '❤️',
+                'text-size': [
+                    'interpolate',
+                    ['linear'],
+                    ['zoom'],
+                    this.config.markerZoom.min, 8,
+                    this.config.markerZoom.small, 12,
+                    this.config.markerZoom.medium, 14,
+                    this.config.markerZoom.large, 16
+                ],
+                'text-anchor': 'center',
+                'text-offset': [1.2, -1.2],
+                'text-allow-overlap': true,
+                'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold']
+            },
+            filter: ['==', ['get', 'liked'], true] // Alleen tonen als liked
+        });
+    }
+
+    /**
+     * Laadt PNG iconen als Mapbox images
+     */
+    async loadMarkerIcons() {
+        const iconPaths = [
+            { name: 'cultuur-icon', path: './assets/icons_map/Cultuur.png' },
+            { name: 'horeca-icon', path: './assets/icons_map/horeca.png' },
+            { name: 'winkelen-icon', path: './assets/icons_map/Winkelen.png' },
+            { name: 'bezienswaardighedene-icon', path: './assets/icons_map/Bezienwaardigheden.png' }
+        ];
+
+        for (const iconData of iconPaths) {
+            try {
+                const image = await this.loadImage(iconData.path);
+                if (!this.map.hasImage(iconData.name)) {
+                    this.map.addImage(iconData.name, image);
+                }
+            } catch (error) {
+                console.warn(`⚠️ Kon icon niet laden: ${iconData.path}`, error);
+            }
+        }
+    }
+
+    /**
+     * Helper functie om image te laden
+     */
+    loadImage(src) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = () => resolve(img);
+            img.onerror = reject;
+            img.src = src;
+        });
+    }
+
+    /**
+     * Creëert expressie voor icon image mapping
+     * @returns {Array} Mapbox expression voor icon image mapping
+     */
+    createIconImageExpression() {
         const expression = ['case'];
         
-        // Voeg alle categorie mappings toe
-        Object.entries(this.config.categories).forEach(([category, categoryConfig]) => {
-            // Voor elke categorie, map de icons
-            Object.entries(categoryConfig.iconMap).forEach(([emoji, letter]) => {
-                expression.push(
-                    ['==', ['get', 'icon'], emoji],
-                    letter
-                );
-            });
-        });
+        // Map PNG paths naar icon names
+        expression.push(
+            ['==', ['get', 'icon'], 'assets/icons_map/Cultuur.png'],
+            'cultuur-icon'
+        );
+        expression.push(
+            ['==', ['get', 'icon'], 'assets/icons_map/horeca.png'],
+            'horeca-icon'
+        );
+        expression.push(
+            ['==', ['get', 'icon'], 'assets/icons_map/Winkelen.png'],
+            'winkelen-icon'
+        );
+        expression.push(
+            ['==', ['get', 'icon'], 'assets/icons_map/Bezienwaardigheden.png'],
+            'bezienswaardighedene-icon'
+        );
         
-        // Default fallback
-        expression.push('•'); // Default icon
+        // Default fallback - gebruik eerste icon als backup
+        expression.push('cultuur-icon');
         
         return expression;
     }
@@ -141,9 +215,9 @@ class MarkerManager {
      * Update markers met nieuwe data
      * @param {Object} data - Nieuwe GeoJSON data
      */
-    updateData(data) {
+    async updateData(data) {
         if (!this.isInitialized) {
-            this.initialize(data);
+            await this.initialize(data);
             return;
         }
 
@@ -168,6 +242,16 @@ class MarkerManager {
         this.map.setFilter(this.markersLayerId, filter);
         this.map.setFilter(this.labelsLayerId, filter);
         
+        // Hearts layer heeft gecombineerde filter: liked EN category
+        const heartsFilter = category ? 
+            ['all', 
+                ['==', ['get', 'liked'], true],
+                ['==', ['get', 'category'], category]
+            ] : 
+            ['==', ['get', 'liked'], true];
+            
+        this.map.setFilter(this.heartsLayerId, heartsFilter);
+        
         console.log(`🔍 Markers gefilterd op: ${category || 'alle categorieën'}`);
     }
 
@@ -182,6 +266,7 @@ class MarkerManager {
         
         this.map.setLayoutProperty(this.markersLayerId, 'visibility', visibility);
         this.map.setLayoutProperty(this.labelsLayerId, 'visibility', visibility);
+        this.map.setLayoutProperty(this.heartsLayerId, 'visibility', visibility);
         
         console.log(`👁️ Markers zichtbaarheid: ${visible ? 'zichtbaar' : 'verborgen'}`);
     }
@@ -215,6 +300,139 @@ class MarkerManager {
     }
 
     /**
+     * Update liked status van markers
+     * @param {Set} likedIds - Set van liked location IDs
+     */
+    updateLikedStatus(likedIds) {
+        if (!this.isInitialized) return;
+
+        const source = this.map.getSource(this.sourceId);
+        if (!source) return;
+
+        const data = source._data;
+        if (!data || !data.features) return;
+
+        // Update liked property voor alle features
+        data.features.forEach(feature => {
+            feature.properties.liked = likedIds.has(feature.properties.id);
+        });
+
+        // Update de source data
+        source.setData(data);
+        
+        console.log(`💖 Liked status bijgewerkt voor ${likedIds.size} locaties`);
+    }
+
+    /**
+     * Markeert een marker als actief met animatie
+     * @param {string} locationId - ID van de locatie
+     */
+    setActiveMarker(locationId) {
+        if (!this.isInitialized) return;
+
+        console.log(`🎯 Setting active marker: ${locationId}`);
+
+        const source = this.map.getSource(this.sourceId);
+        if (!source) return;
+
+        const data = source._data;
+        if (!data || !data.features) return;
+
+        // Reset alle markers en markeer de actieve
+        data.features.forEach(feature => {
+            feature.properties.isActive = (feature.properties.id === locationId);
+        });
+
+        // Update de source data
+        source.setData(data);
+
+        // Start animatie voor actieve marker (alleen wiggle, geen scaling)
+        this.startMarkerAnimation(locationId);
+    }
+
+    /**
+     * Verwijdert actieve marker status
+     */
+    clearActiveMarker() {
+        if (!this.isInitialized) return;
+
+        console.log('🎯 Clearing active marker');
+
+        const source = this.map.getSource(this.sourceId);
+        if (!source) return;
+
+        const data = source._data;
+        if (!data || !data.features) return;
+
+        // Reset alle markers
+        data.features.forEach(feature => {
+            feature.properties.isActive = false;
+        });
+
+        // Update de source data
+        source.setData(data);
+
+        // Stop animatie
+        this.stopMarkerAnimation();
+    }
+
+
+    /**
+     * Start subtiele wiggle animatie voor actieve marker
+     * @param {string} locationId - ID van de actieve locatie
+     */
+    startMarkerAnimation(locationId) {
+        // Stop bestaande animatie
+        this.stopMarkerAnimation();
+
+        let animationStep = 0;
+        const animationSpeed = 0.1;
+        const wiggleAmount = 1.5; // pixels
+
+        this.animationId = setInterval(() => {
+            animationStep += animationSpeed;
+            
+            // Bereken wiggle offset (subtiele sinus wave)
+            const offsetX = Math.sin(animationStep) * wiggleAmount;
+            const offsetY = Math.cos(animationStep * 1.3) * wiggleAmount * 0.7;
+
+            // Update text offset voor icon (subtle wiggle)
+            this.map.setLayoutProperty(this.labelsLayerId, 'icon-offset', [
+                'case',
+                ['==', ['get', 'isActive'], true],
+                [offsetX, offsetY],
+                [0, 0]
+            ]);
+
+            // Update opacity voor pulsing effect
+            const pulse = 0.7 + Math.sin(animationStep * 2) * 0.3; // 0.4 tot 1.0
+            this.map.setPaintProperty(this.markersLayerId, 'circle-opacity', [
+                'case',
+                ['==', ['get', 'isActive'], true],
+                pulse,
+                0.9
+            ]);
+
+        }, 50); // 50ms = 20fps voor smooth animatie
+    }
+
+    /**
+     * Stop marker animatie
+     */
+    stopMarkerAnimation() {
+        if (this.animationId) {
+            clearInterval(this.animationId);
+            this.animationId = null;
+        }
+
+        // Reset offsets en opacity
+        if (this.isInitialized) {
+            this.map.setLayoutProperty(this.labelsLayerId, 'icon-offset', [0, 0]);
+            this.map.setPaintProperty(this.markersLayerId, 'circle-opacity', 0.9);
+        }
+    }
+
+    /**
      * Krijg marker op positie
      * @param {Object} point - Screen coordinate {x, y}
      * @returns {Array} Features op die positie
@@ -231,7 +449,14 @@ class MarkerManager {
      * Cleanup markers en sources
      */
     cleanup() {
+        // Stop animatie
+        this.stopMarkerAnimation();
+        
         // Verwijder layers als ze bestaan
+        if (this.map.getLayer(this.heartsLayerId)) {
+            this.map.removeLayer(this.heartsLayerId);
+        }
+        
         if (this.map.getLayer(this.labelsLayerId)) {
             this.map.removeLayer(this.labelsLayerId);
         }

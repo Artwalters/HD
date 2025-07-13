@@ -18,7 +18,7 @@
         "description": "Exclusieve luxe fashion boutique met designer merken en persoonlijke styling service. Unieke collecties van topkwaliteit.",
         "phone": "045-888-1528",
         "website": "www.by-nicole.com",
-        "icon": "💎",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma: 12:00-17:00, Di-Vr: 10:00-18:00, Za: 10:00-17:00, Zo: 13:00-17:00"
       }
@@ -40,7 +40,7 @@
         "description": "Trendy modewinkel met betaalbare fashion voor dames, heren en kinderen. Laatste modetrends en duurzame collecties.",
         "phone": "045-571-2345",
         "website": "www.hm.com",
-        "icon": "👕",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
       }
@@ -62,7 +62,7 @@
         "description": "Veelzijdige winkel met mode, wonen en meer. Van kleding tot interieur, alles onder één dak.",
         "phone": "045-571-3456",
         "website": "www.berden.nl",
-        "icon": "🏠",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
       }
@@ -84,7 +84,7 @@
         "description": "Nederlandse modewinkel met casual en business kleding voor dames en heren. Kwalitatief en betaalbaar.",
         "phone": "045-571-4567",
         "website": "www.we-fashion.com",
-        "icon": "👔",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
       }
@@ -106,7 +106,7 @@
         "description": "Gespecialiseerde herenmodezaak met zakelijke en casual kleding. Persoonlijke service en maatwerk.",
         "phone": "045-571-5678",
         "website": "www.fashionworks-heerlen.nl",
-        "icon": "🤵",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma: 13:00-18:00, Di-Vr: 10:00-18:00, Za: 10:00-17:00, Zo: Gesloten"
       }
@@ -128,7 +128,7 @@
         "description": "Stijlvolle mode- en schoenenzaak met trendy kleding en accessoires voor de fashion-conscious shopper.",
         "phone": "045-571-6789",
         "website": "www.dresscode-heerlen.nl",
-        "icon": "👠",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
       }
@@ -150,7 +150,7 @@
         "description": "Trendy boutique met kleding en schoenen voor fashion-forward klanten. Unieke stukken en persoonlijke styling.",
         "phone": "045-571-7890",
         "website": "www.yv-ke.nl",
-        "icon": "👗",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
       }
@@ -172,7 +172,7 @@
         "description": "Exclusieve damesmode boutique met hoogwaardige merken en persoonlijke service in een stijlvolle omgeving.",
         "phone": "045-571-8901",
         "website": "www.garbeau.nl",
-        "icon": "👚",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten"
       }
@@ -194,7 +194,7 @@
         "description": "Deense modewinkel met trendy dameskleding. Van casual tot party outfits, altijd de nieuwste trends.",
         "phone": "045-571-9012",
         "website": "www.only.com",
-        "icon": "💃",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
       }
@@ -216,7 +216,7 @@
         "description": "Gespecialiseerde damesmodezaak met elegante kleding en persoonlijke styling service. Kwaliteit en stijl centraal.",
         "phone": "045-571-0123",
         "website": "www.envogue-heerlen.nl",
-        "icon": "💄",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten"
       }
@@ -238,7 +238,7 @@
         "description": "Traditioneel modehuis met klassieke en moderne kleding. Persoonlijke service en vakmanschap sinds generaties.",
         "phone": "045-571-1234",
         "website": "www.modehuisvandenberg.nl",
-        "icon": "🎩",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 09:00-18:00, Do: 09:00-21:00, Zo: Gesloten"
       }
@@ -260,7 +260,7 @@
         "description": "Internationale modewinkel met trendy kleding voor jongeren. Streetwear, casual en party outfits.",
         "phone": "045-571-2345",
         "website": "www.newyorker.de",
-        "icon": "🗽",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
       }
@@ -282,7 +282,7 @@
         "description": "Exclusieve modeboutique met zorgvuldig geselecteerde merken en persoonlijke styling service.",
         "phone": "045-571-3456",
         "website": "www.purdey-mode.nl",
-        "icon": "✨",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
       }
@@ -304,7 +304,7 @@
         "description": "Specialist in jeans en casual wear. Grote collectie merken en maten voor dames en heren.",
         "phone": "045-571-4567",
         "website": "www.jeanscentre.nl",
-        "icon": "👖",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
       }
@@ -326,7 +326,7 @@
         "description": "Damesmode voor de moderne vrouw. Betaalbare kleding in alle maten met focus op comfort en stijl.",
         "phone": "045-571-5678",
         "website": "www.msmode.nl",
-        "icon": "👩",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
       }
@@ -348,7 +348,7 @@
         "description": "Modewinkel met eigentijdse kleding voor dames en heren. Goede prijs-kwaliteit verhouding.",
         "phone": "045-571-6789",
         "website": "www.deems.nl",
-        "icon": "👨",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
       }
@@ -370,7 +370,7 @@
         "description": "Trendy modezaak met diverse merken en stijlen. Van casual tot chic, voor elke gelegenheid.",
         "phone": "045-571-7890",
         "website": "www.mana-fashion.nl",
-        "icon": "🌟",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
       }
@@ -414,7 +414,7 @@
         "description": "Modewinkel met eigentijdse kleding voor de moderne vrouw. Betaalbare mode in een breed scala.",
         "phone": "045-571-9012",
         "website": "www.norah.nl",
-        "icon": "💫",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
       }
@@ -458,7 +458,7 @@
         "description": "Gespecialiseerde schoenenzaak met modeschoenen voor dames en heren. Kwaliteit en comfort centraal.",
         "phone": "045-571-1234",
         "website": "www.harrymaas.nl",
-        "icon": "👟",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten"
       }
@@ -480,7 +480,7 @@
         "description": "Internationale sneaker store met de nieuwste sportwear en streetwear. Exclusieve releases en limited editions.",
         "phone": "045-571-2345",
         "website": "www.footlocker.nl",
-        "icon": "👟",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
       }
@@ -502,7 +502,7 @@
         "description": "Gespecialiseerde kinderkleding winkel met trendy en praktische kleding voor baby's tot tieners.",
         "phone": "045-571-3456",
         "website": "www.jollie-kinderkleding.nl",
-        "icon": "👶",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
       }
@@ -524,7 +524,7 @@
         "description": "Exclusieve herenmodezaak met zakelijke en casual kleding. Persoonlijke service en styling advies.",
         "phone": "045-571-4567",
         "website": "www.strictlyformen.nl",
-        "icon": "🤵",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten"
       }
@@ -568,7 +568,7 @@
         "description": "Trendy modezaak met internationale merken en eigentijdse kleding voor fashion-conscious shoppers.",
         "phone": "045-571-6789",
         "website": "www.roomers.nl",
-        "icon": "🏠",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
       }
@@ -590,7 +590,7 @@
         "description": "Edgy modezaak met alternatieve mode, streetwear en unieke stukken voor individuen die opvallen.",
         "phone": "045-571-7890",
         "website": "www.outlaw-fashion.nl",
-        "icon": "🦹",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
       }
@@ -656,7 +656,7 @@
         "description": "Unieke conceptstore met vintage kleding, kunstzinnige items en magische sfeer. Regelmatig creatieve events.",
         "phone": "06-29940971",
         "website": "www.instagram.com/flyconceptstore",
-        "icon": "🦋",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Do-Vr: 10:00-18:00, Za: 10:00-17:00, Zo-Wo: Gesloten"
       }
@@ -700,7 +700,7 @@
         "description": "Gevarieerde winkel met vintage kleding, curiosa en bijzondere items. Altijd wat leuks te vinden.",
         "phone": "045-571-1234",
         "website": "www.winkelvansinkel.nl",
-        "icon": "🎭",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-17:00, Zo: 12:00-16:00"
       }
@@ -722,7 +722,7 @@
         "description": "Gezellige boutique met unieke kleding en woonaccessoires. Persoonlijke service en bijzondere vondsten.",
         "phone": "045-571-2345",
         "website": "www.samsboutique.nl",
-        "icon": "💝",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
       }
@@ -744,7 +744,7 @@
         "description": "Alternatieve mode- en schoenenzaak met gothic, punk en metal kleding. Voor de rebelse fashionista.",
         "phone": "045-571-3456",
         "website": "www.happyscreamers.nl",
-        "icon": "🖤",
+        "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
       }

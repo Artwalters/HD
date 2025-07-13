@@ -96,6 +96,15 @@ class DataLoader {
         data.features?.forEach(feature => {
             const props = feature.properties;
             
+            // Generate unique composite ID
+            const originalId = props.id;
+            const categoryKey = category.toLowerCase().replace(/\s+/g, '');
+            props.originalId = originalId; // Keep original for reference
+            props.id = `${categoryKey}_${originalId}`; // Create unique composite ID
+            props.globalId = props.id; // Alias for clarity
+            
+            console.log(`🔗 Generated unique ID: ${originalId} → ${props.id} (${category})`);
+            
             // Zet category kleur als deze niet al ingesteld is
             if (!props.color) {
                 props.color = categoryConfig.color;

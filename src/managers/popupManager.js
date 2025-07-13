@@ -30,6 +30,9 @@ class PopupManager {
         // Setup info panel global events
         this.setupInfoPanelEvents();
         
+        // Setup like button events (disabled - using per-popup handlers instead)
+        // this.setupLikeButtonEvents();
+        
         this.isInitialized = true;
         console.log('✅ Popup manager geïnitialiseerd');
     }
@@ -244,6 +247,7 @@ class PopupManager {
             this.setupScrollableDescription(description);
             this.setupFlipInteraction(popupElement, popupWrapper, properties);
             this.setupCloseButton(popupElement, popup, popupContent);
+            this.setupPopupLikeButton(popupElement, properties);
             console.log('✅ Popup interactions setup complete');
         } catch (error) {
             console.error('❌ Error setting up popup interactions:', error);
@@ -544,14 +548,9 @@ class PopupManager {
      */
     openInfoPanel(properties) {
         try {
-            // Check if mobile - close popup first with animation
-            const mobileBreakpoint = this.config?.ui?.responsive?.mobile || 767;
-            const isMobile = window.innerWidth <= mobileBreakpoint;
-            
-            console.log(`📱 Screen width: ${window.innerWidth}px, breakpoint: ${mobileBreakpoint}px, isMobile: ${isMobile}`);
-            
-            if (isMobile && this.activePopup) {
-                console.log('📱 Mobile detected - closing popup before opening info panel');
+            // Always close popup first if it exists - fixes sync issues between popup and info panel
+            if (this.activePopup) {
+                console.log('🔄 Closing popup before opening info panel to prevent sync issues');
                 this.closeActivePopup();
                 
                 // Wait for popup close animation to complete before opening info panel
@@ -561,8 +560,8 @@ class PopupManager {
                 return;
             }
             
-            // Desktop: open info panel immediately
-            console.log('💻 Desktop detected - opening info panel immediately');
+            // No popup open - show info panel immediately
+            console.log('📋 Opening info panel directly (no popup to close)');
             this.showInfoPanel(properties);
         } catch (error) {
             console.error('❌ Error in openInfoPanel:', error);
@@ -597,6 +596,7 @@ class PopupManager {
 
             // Prepare template data
             const templateData = {
+                id: properties.id,
                 name: properties.name,
                 description: properties.description || 'Geen beschrijving beschikbaar',
                 photo: properties.photo || './assets/images/catcute.png',
@@ -635,6 +635,11 @@ class PopupManager {
                 });
             });
 
+            // Activeer marker animatie via appManager
+            if (window.app && window.app.markerManager) {
+                window.app.markerManager.setActiveMarker(properties.id);
+            }
+
             console.log(`📋 Info panel geopend voor ${properties.name}`);
         } catch (error) {
             console.error('Error showing info panel:', error);
@@ -655,6 +660,65 @@ class PopupManager {
                 closeButton.removeEventListener('click', closeHandler);
             };
             closeButton.addEventListener('click', closeHandler);
+        }
+
+        // Setup like button
+        const likeButton = infoPanel.querySelector('.like-button');
+        if (likeButton) {
+            console.log('🔧 Setting up info panel like button for location:', properties.id);
+            
+            // Set initial state
+            if (window.app && window.app.likesManager) {
+                const isLiked = window.app.likesManager.isLiked(properties.id);
+                likeButton.classList.toggle('liked', isLiked);
+            }
+
+            // Add click handler
+            const likeHandler = (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                
+                console.log('🔍 Info panel like button clicked for location:', properties.id);
+                
+                if (window.app && window.app.likesManager) {
+                    // Simple toggle - check current state and flip it
+                    const isCurrentlyLiked = likeButton.classList.contains('liked');
+                    
+                    if (isCurrentlyLiked) {
+                        // Remove like
+                        likeButton.classList.remove('liked');
+                        window.app.likesManager.toggleLike(properties.id);
+                        console.log(`💔 Location ${properties.id} unliked from info panel`);
+                    } else {
+                        // Add like
+                        likeButton.classList.add('liked');
+                        window.app.likesManager.toggleLike(properties.id);
+                        console.log(`❤️ Location ${properties.id} liked from info panel`);
+                    }
+                    
+                    // Update all other like buttons with same ID (not this one)
+                    console.log(`🔍 INFO PANEL: Looking for other like buttons with ID: ${properties.id}`);
+                    const otherButtons = document.querySelectorAll(`.like-button[data-location-id="${properties.id}"]`);
+                    console.log(`🔍 INFO PANEL: Found ${otherButtons.length} total like buttons`);
+                    console.log(`🔍 INFO PANEL: This button:`, likeButton);
+                    
+                    otherButtons.forEach((button, index) => {
+                        console.log(`🔍 INFO PANEL: Button ${index}:`, button, 'Same as clicked?', button === likeButton);
+                        if (button !== likeButton) { // Don't update the button we just clicked
+                            console.log(`🔄 INFO PANEL: Updating other like button`, button);
+                            if (isCurrentlyLiked) {
+                                button.classList.remove('liked');
+                            } else {
+                                button.classList.add('liked');
+                            }
+                        } else {
+                            console.log(`⏭️ INFO PANEL: Skipping self (clicked button)`);
+                        }
+                    });
+                }
+            };
+            
+            likeButton.addEventListener('click', likeHandler);
         }
 
         // Setup suggestion clicks
@@ -985,6 +1049,11 @@ class PopupManager {
         this.cleanupScrollExpansion(infoPanel);
         this.cleanupDragHandlers(infoPanel);
         
+        // Deactiveer marker animatie via appManager
+        if (window.app && window.app.markerManager) {
+            window.app.markerManager.clearActiveMarker();
+        }
+
         // Animate close then remove
         infoPanel.classList.remove('open', 'expanded');
         
@@ -1125,6 +1194,77 @@ class PopupManager {
                      (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 + 
                      (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
     }
+
+    /**
+     * Setup like button for specific popup
+     */
+    setupPopupLikeButton(popupElement, properties) {
+        const likeButton = popupElement.querySelector('.like-button');
+        if (!likeButton) return;
+
+        console.log('🔧 Setting up like button for location:', properties.id);
+        
+        // Check if already has event listener to prevent duplicates
+        if (likeButton.hasAttribute('data-listener-added')) {
+            console.log('⚠️ Event listener already exists for this button');
+            return;
+        }
+        
+        // Mark as having listener
+        likeButton.setAttribute('data-listener-added', 'true');
+
+        // Set initial state
+        if (window.app && window.app.likesManager) {
+            const isLiked = window.app.likesManager.isLiked(properties.id);
+            likeButton.classList.toggle('liked', isLiked);
+        }
+
+        // Add click handler
+        likeButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            
+            console.log('🔍 Popup like button clicked for location:', properties.id);
+            
+            if (window.app && window.app.likesManager) {
+                // Simple toggle - check current state and flip it
+                const isCurrentlyLiked = likeButton.classList.contains('liked');
+                
+                if (isCurrentlyLiked) {
+                    // Remove like
+                    likeButton.classList.remove('liked');
+                    window.app.likesManager.toggleLike(properties.id);
+                    console.log(`💔 Location ${properties.id} unliked from popup`);
+                } else {
+                    // Add like  
+                    likeButton.classList.add('liked');
+                    window.app.likesManager.toggleLike(properties.id);
+                    console.log(`❤️ Location ${properties.id} liked from popup`);
+                }
+                
+                // Update all other like buttons with same ID (not this one)
+                console.log(`🔍 POPUP: Looking for other like buttons with ID: ${properties.id}`);
+                const otherButtons = document.querySelectorAll(`.like-button[data-location-id="${properties.id}"]`);
+                console.log(`🔍 POPUP: Found ${otherButtons.length} total like buttons`);
+                console.log(`🔍 POPUP: This button:`, likeButton);
+                
+                otherButtons.forEach((button, index) => {
+                    console.log(`🔍 POPUP: Button ${index}:`, button, 'Same as clicked?', button === likeButton);
+                    if (button !== likeButton) { // Don't update the button we just clicked
+                        console.log(`🔄 POPUP: Updating other like button`, button);
+                        if (isCurrentlyLiked) {
+                            button.classList.remove('liked');
+                        } else {
+                            button.classList.add('liked');
+                        }
+                    } else {
+                        console.log(`⏭️ POPUP: Skipping self (clicked button)`);
+                    }
+                });
+            }
+        });
+    }
+
 
     /**
      * Cleanup popup manager

@@ -2,6 +2,55 @@
  * CORE LAYOUT & MAPBOX CONTROLS  
  * ============================== */
 
+/* ==============================
+ * LIKE BUTTON STYLING
+ * ============================== */
+
+.like-button {
+  position: absolute;
+  top: 12px;
+  right: 50px;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.like-button:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+.like-button .heart-icon {
+  font-size: 20px;
+  transition: all 0.3s ease;
+}
+
+.like-button.liked .heart-icon {
+  color: #e74c3c;
+}
+
+/* Remove default emoji content and use only CSS content */
+.like-button .heart-icon {
+  display: inline-block;
+}
+
+.like-button.liked .heart-icon::before {
+  content: '❤️';
+}
+
+.like-button:not(.liked) .heart-icon::before {
+  content: '🤍';
+}
+
 /* Hide Mapbox branding */
 .mapboxgl-ctrl-logo,
 .mapboxgl-ctrl-attrib {

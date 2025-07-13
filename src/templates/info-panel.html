@@ -1,6 +1,11 @@
 <div class="info-panel-header">
     <h2 class="info-panel-title">{{name}}</h2>
-    <button class="info-panel-close" aria-label="Sluiten">×</button>
+    <div class="info-panel-header-actions">
+        <button class="like-button" data-location-id="{{id}}" aria-label="Like this location">
+            <span class="heart-icon"></span>
+        </button>
+        <button class="info-panel-close" aria-label="Sluiten">×</button>
+    </div>
 </div>
 <div class="info-panel-content">
     <div class="info-panel-photo" style="background-image: url('{{photo}}');"></div>

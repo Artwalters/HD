@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mijn Likes - Heerlen Doen</title>
+    <meta name="description" content="Bekijk al je gelikete plekken in Heerlen">
+    
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Styling -->
+    <link rel="stylesheet" href="src/styles/variables.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .stats {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .stat-item {
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .likes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .like-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .like-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-image {
+            height: 200px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .card-category {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .category-cultuur { background: rgba(75, 131, 242, 0.9); }
+        .category-horeca { background: rgba(39, 174, 96, 0.9); }
+        .category-mode { background: rgba(153, 50, 204, 0.9); }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .card-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .card-address {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .unlike-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .unlike-btn:hover {
+            background: #c0392b;
+        }
+
+        .clear-all-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .clear-all-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .empty-state {
+            text-align: center;
+            color: white;
+            padding: 60px 20px;
+        }
+
+        .empty-state h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 30px;
+        }
+
+        .explore-btn {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .explore-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .likes-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .back-button {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 20px;
+                display: inline-block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-button">← Terug naar kaart</a>
+    
+    <div class="container">
+        <div class="header">
+            <h1>❤️ Mijn Likes</h1>
+            <p>Al je favoriete plekken in Heerlen op een rijtje</p>
+        </div>
+
+        <div class="stats" id="statsSection">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalLikes">0</div>
+                    <div class="stat-label">Totaal likes</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="cultuurLikes">0</div>
+                    <div class="stat-label">Cultuur</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="horecaLikes">0</div>
+                    <div class="stat-label">Eten & Drinken</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="modeLikes">0</div>
+                    <div class="stat-label">Mode</div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button id="clearAllLikes" class="clear-all-btn" style="display: none;">
+                    🗑️ Alle likes verwijderen
+                </button>
+            </div>
+        </div>
+
+        <div id="likesContent">
+            <!-- Content wordt hier geladen -->
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="src/config/config.js"></script>
+    <script src="src/utils/dataLoader.js"></script>
+    <script src="src/managers/likesManager.js"></script>
+    <script>
+        // Likes pagina functionaliteit
+        class LikesPage {
+            constructor() {
+                this.likesManager = new LikesManager();
+                this.dataLoader = new DataLoader(window.HeerlenConfig);
+                this.allData = null;
+                this.listenersAdded = false;
+            }
+
+            async initialize() {
+                try {
+                    console.log('🔄 Laden likes pagina...');
+                    
+                    // Laad alle data
+                    this.allData = await this.dataLoader.loadAllData();
+                    console.log('📊 Data geladen:', this.allData);
+                    
+                    // Check likes
+                    const likedIds = this.likesManager.getLikedIds();
+                    console.log('❤️ Liked IDs:', likedIds);
+                    
+                    // Render likes
+                    this.renderLikes();
+                    
+                    console.log('✅ Likes pagina geladen');
+                } catch (error) {
+                    console.error('❌ Fout bij laden likes pagina:', error);
+                }
+            }
+
+            renderLikes() {
+                const likedLocations = this.likesManager.getLikedLocations(this.allData);
+                const stats = this.likesManager.getStats(this.allData);
+                
+                console.log('📍 Liked locations found:', likedLocations.length);
+                console.log('📊 Stats:', stats);
+                
+                // Update statistieken
+                this.updateStats(stats);
+                
+                // Render likes lijst
+                const content = document.getElementById('likesContent');
+                
+                if (likedLocations.length === 0) {
+                    content.innerHTML = this.renderEmptyState();
+                } else {
+                    content.innerHTML = `<div class="likes-grid">${
+                        likedLocations.map(location => this.renderLikeCard(location)).join('')
+                    }</div>`;
+                }
+                
+                // Add event listeners only once
+                if (!this.listenersAdded) {
+                    this.addEventListeners();
+                    this.listenersAdded = true;
+                }
+            }
+
+            updateStats(stats) {
+                document.getElementById('totalLikes').textContent = stats.total;
+                document.getElementById('cultuurLikes').textContent = stats.byCategory['Cultuur'] || 0;
+                document.getElementById('horecaLikes').textContent = stats.byCategory['Eten & Drinken'] || 0;
+                document.getElementById('modeLikes').textContent = stats.byCategory['Mode'] || 0;
+                
+                // Show/hide clear all button based on total likes
+                const clearBtn = document.getElementById('clearAllLikes');
+                if (stats.total > 0) {
+                    clearBtn.style.display = 'inline-block';
+                } else {
+                    clearBtn.style.display = 'none';
+                }
+            }
+
+            renderLikeCard(location) {
+                const props = location.properties;
+                const categoryClass = this.getCategoryClass(props.category);
+                
+                return `
+                    <div class="like-card" data-location-id="${props.id}">
+                        <div class="card-image" style="background-image: url('./assets/images/catcute.png');">
+                            <div class="card-category ${categoryClass}">${props.category}</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">${props.name}</h3>
+                            <p class="card-description">${props.description}</p>
+                            <div class="card-info">
+                                <span class="card-address">${props.address || ''}</span>
+                                <button class="unlike-btn" data-unlike-id="${props.id}">
+                                    Unlike ❌
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderEmptyState() {
+                return `
+                    <div class="empty-state">
+                        <h2>Nog geen likes</h2>
+                        <p>Je hebt nog geen plekken geliked. Ga naar de kaart en ontdek geweldige locaties!</p>
+                        <a href="index.html" class="explore-btn">Start met ontdekken</a>
+                    </div>
+                `;
+            }
+
+            getCategoryClass(category) {
+                switch(category) {
+                    case 'Cultuur': return 'category-cultuur';
+                    case 'Eten & Drinken': return 'category-horeca';
+                    case 'Mode': return 'category-mode';
+                    default: return 'category-cultuur';
+                }
+            }
+
+            addEventListeners() {
+                // Unlike buttons - use event delegation
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('unlike-btn')) {
+                        e.stopPropagation();
+                        const locationId = e.target.dataset.unlikeId; // Don't parseInt - keep as string
+                        this.unlikeLocation(locationId);
+                    }
+                });
+
+                // Clear all likes button
+                const clearBtn = document.getElementById('clearAllLikes');
+                if (clearBtn) {
+                    clearBtn.addEventListener('click', () => {
+                        this.clearAllLikes();
+                    });
+                }
+
+                // Card clicks - could navigate to location on map
+                document.addEventListener('click', (e) => {
+                    const card = e.target.closest('.like-card');
+                    if (card && !e.target.classList.contains('unlike-btn')) {
+                        const locationId = card.dataset.locationId;
+                        // Could implement navigation to map with this location highlighted
+                        console.log('Navigate to location:', locationId);
+                    }
+                });
+            }
+
+            unlikeLocation(locationId) {
+                this.likesManager.toggleLike(locationId);
+                this.renderLikes(); // Re-render to update the list
+            }
+
+            clearAllLikes() {
+                if (confirm('Weet je zeker dat je alle likes wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.')) {
+                    this.likesManager.clearAllLikes();
+                    this.renderLikes(); // Re-render to update the list
+                    console.log('🗑️ Alle likes verwijderd');
+                }
+            }
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const likesPage = new LikesPage();
+            likesPage.initialize();
+        });
+    </script>
+</body>
+</html>

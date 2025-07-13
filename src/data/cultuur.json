@@ -18,7 +18,7 @@
         "description": "Ontdek de rijke Romeinse geschiedenis van Heerlen in dit prachtige museum met authentieke Romeinse thermen en moderne interactieve technologie.",
         "phone": "045-560-2200",
         "website": "www.hetromeinsmuseum.nl",
-        "icon": "🏛️",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Ma-Vr: 10:00-17:00, Za-Zo: 12:00-17:00"
       }
@@ -40,7 +40,7 @@
         "description": "Fascinerend museum over de rijke mijnbouwgeschiedenis van Limburg met authentieke voorwerpen en verhalen van mijnwerkers.",
         "phone": "045-560-2200",
         "website": "www.nederlandsmijnmuseum.nl",
-        "icon": "⛏️",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Di-Zo: 10:00-17:00, Ma: Gesloten"
       }
@@ -62,7 +62,7 @@
         "description": "Iconisch architectonisch monument met bibliotheek, kunstexposities, restaurant en prachtig dakterras in het hart van Heerlen.",
         "phone": "045-577-2200",
         "website": "www.schunck.nl",
-        "icon": "🏢",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Ma-Vr: 09:00-17:00, Za: 11:00-17:00, Zo: 09:00-17:00"
       }
@@ -84,7 +84,7 @@
         "description": "Historisch kloostercomplex met prachtige kapel, gebruikt voor concerten, tentoonstellingen en culturele evenementen.",
         "phone": "045-511-1468",
         "website": "www.savelbergklooster.nl",
-        "icon": "⛪",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Op afspraak en tijdens evenementen"
       }
@@ -106,7 +106,7 @@
         "description": "Gratis toegankelijk centrum met informatie over archeologische vondsten in de regio. Kijk mee hoe archeologen werken in de kelder.",
         "phone": "045-560-2200",
         "website": "www.devondst.nl",
-        "icon": "🗿",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Di-Vr: 10:00-17:00, Za-Zo: 12:00-17:00, Ma: Gesloten"
       }
@@ -128,7 +128,7 @@
         "description": "Professioneel theater met gevarieerd programma van toneel, muziek, dans en cabaret in een moderne setting.",
         "phone": "045-560-8900",
         "website": "www.plt.nl",
-        "icon": "🎭",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Kassa: 1 uur voor voorstelling, reserveren online"
       }
@@ -150,7 +150,7 @@
         "description": "Concertzaal voor klassieke muziek, jazz en andere muziekoptredens in een intieme setting.",
         "phone": "045-560-8900",
         "website": "www.limburgzaal.nl",
-        "icon": "🎵",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Volgens programma, reserveren online"
       }
@@ -172,7 +172,7 @@
         "description": "Veelzijdig cultuurhuis met theaters, exposities, workshops en cursussen voor alle leeftijden.",
         "phone": "045-560-7500",
         "website": "www.cultuurhuis-heerlen.nl",
-        "icon": "🎨",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Ma-Za: 09:00-22:00, Zo: 14:00-22:00"
       }
@@ -194,7 +194,7 @@
         "description": "Gezellige arthouse cinema met restaurant, specialiteit in flammkuchen. Kwaliteitsfilms in een intieme setting.",
         "phone": "045-571-3030",
         "website": "www.quatrocinema.nl",
-        "icon": "🎬",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Ma: 19:30-22:00, Di-Wo: 14:30-22:00, Do-Vr: 17:00-22:00, Za-Zo: 14:00-22:00"
       }
@@ -216,7 +216,7 @@
         "description": "Filmhuis met arthouse films, documentaires en bijzondere cinema. Onderdeel van het Maankwartier.",
         "phone": "045-571-4000",
         "website": "www.filmhuisdespiegel.nl",
-        "icon": "🎞️",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Volgens filmschema, check website"
       }
@@ -238,7 +238,7 @@
         "description": "Intiem poppodium voor live muziek, van indie tot elektronische muziek. Bekend om uitstekende geluidskwaliteit.",
         "phone": "045-400-9100",
         "website": "www.nieuwenor.nl",
-        "icon": "🎸",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Volgens programma, check website"
       }
@@ -260,7 +260,7 @@
         "description": "Moderne bibliotheek in het iconische Glaspaleis met uitgebreide collectie en studieruimtes.",
         "phone": "045-577-2200",
         "website": "www.schunck.nl/bibliotheek",
-        "icon": "📚",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Ma-Vr: 10:00-20:00, Za: 10:00-17:00"
       }
@@ -282,7 +282,7 @@
         "description": "Kunstgalerie met wisselende exposities van lokale en internationale kunstenaars.",
         "phone": "045-571-8800",
         "website": "www.galerieforart.nl",
-        "icon": "🖼️",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Di-Za: 11:00-17:00, Zo-Ma: Gesloten"
       }
@@ -304,7 +304,7 @@
         "description": "Kunstgalerie met moderne en hedendaagse kunst, regelmatig wisselende exposities.",
         "phone": "045-571-9500",
         "website": "www.denieuweegalerij.nl",
-        "icon": "🎨",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Wo-Za: 12:00-17:00, Zo-Di: Gesloten"
       }
@@ -326,7 +326,7 @@
         "description": "Evenementenbureau gespecialiseerd in kunst en cultuur evenementen, pop-up exposities en creatieve workshops.",
         "phone": "045-571-7600",
         "website": "www.ap-art.nl",
-        "icon": "🎪",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Ma-Vr: 09:00-17:00, weekend op afspraak"
       }
@@ -348,7 +348,7 @@
         "description": "Experimentele theaterruimte voor jonge theatermakers en alternatieve voorstellingen.",
         "phone": "045-571-8200",
         "website": "www.theaterwerkplaatszie.nl",
-        "icon": "🎭",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Volgens programma, reserveren online"
       }
@@ -370,7 +370,7 @@
         "description": "Kunstvereniging met galerie, tentoonstellingen van leden en gastexposities. Cursussen en workshops.",
         "phone": "045-571-9800",
         "website": "www.kunstkringhenrijonas.nl",
-        "icon": "🎨",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Za-Zo: 14:00-17:00, doordeweeks op afspraak"
       }
@@ -392,7 +392,7 @@
         "description": "Muziektheatergroep met eigen repetitieruimte, workshops en voorstellingen voor alle leeftijden.",
         "phone": "045-571-6700",
         "website": "www.muziektheaterzuid.nl",
-        "icon": "🎪",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Volgens programma en workshops"
       }
@@ -414,7 +414,7 @@
         "description": "Klein theater voor experimentele voorstellingen, stand-up comedy en cabaretoptredens.",
         "phone": "045-571-5500",
         "website": "www.monkeytheater.nl",
-        "icon": "🎭",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Volgens programma, reserveren online"
       }
@@ -436,7 +436,7 @@
         "description": "Burlesque theater en school voor dans, theater en performance art. Workshops en shows.",
         "phone": "045-571-4400",
         "website": "www.wonderlandburlesque.nl",
-        "icon": "💃",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Volgens programma en workshops"
       }
@@ -458,7 +458,7 @@
         "description": "Restaurant met live piano muziek, optredens en open podium avonden voor muzikanten.",
         "phone": "045-571-3300",
         "website": "www.livepianosheerlen.nl",
-        "icon": "🎹",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Ma-Do: 18:00-24:00, Vr-Za: 18:00-02:00, Zo: 16:00-22:00"
       }
@@ -480,7 +480,7 @@
         "description": "Multifunctionele studio voor muziek, theater en dans. Verhuur van repetitieruimtes en podium.",
         "phone": "045-571-6600",
         "website": "www.studiohetpodium.nl",
-        "icon": "🎤",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Ma-Za: 10:00-22:00, Zo: 14:00-20:00"
       }
@@ -502,7 +502,7 @@
         "description": "Herdenkingsmonument ter nagedachtenis aan de Joodse gemeenschap van Heerlen tijdens WOII.",
         "phone": "045-560-2200",
         "website": "www.herinneringsheerlen.nl",
-        "icon": "🕊️",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Altijd toegankelijk"
       }
@@ -524,7 +524,7 @@
         "description": "Culturele organisatie die hedendaagse kunst en cultuur programmeert in Zuid-Limburg.",
         "phone": "045-571-7700",
         "website": "www.culturanova.nl",
-        "icon": "🎭",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Ma-Vr: 09:00-17:00"
       }
@@ -546,7 +546,7 @@
         "description": "Muziekwinkel met instrumenten, apparatuur en muzieklessen. Onderdeel van het Maankwartier.",
         "phone": "045-571-8900",
         "website": "www.vibesmusic.nl",
-        "icon": "🎵",
+        "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
         "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00"
       }

@@ -59,6 +59,12 @@ class ControlsManager {
     generateControlsHTML() {
         return `
             <div class="controls-wrapper">
+                <a href="likes.html" class="control-btn likes-btn" title="Mijn Likes" style="text-decoration: none; color: inherit;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                </a>
+                
                 <button class="control-btn zoom-in-btn" data-action="zoom-in" title="Zoom in">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="10"></circle>

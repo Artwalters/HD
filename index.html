@@ -48,10 +48,29 @@
     <script src="src/managers/controlsManager.js?v=1.1"></script>
     <script src="src/managers/locationManager.js?v=1.1"></script>
     <script src="src/managers/navigationManager.js?v=1.1"></script>
+    <script src="src/managers/likesManager.js"></script>
     <script src="src/managers/appManager.js?v=1.1"></script>
     
     <!-- Demo script (verwijder in productie) -->
     <script src="src/utils/demo.js"></script>
+    
+    <!-- Initialize app -->
+    <script>
+        // Initialize app and make it globally available
+        window.app = null;
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const appManager = new AppManager();
+                await appManager.initialize();
+                window.app = appManager;
+                window.HeerlenApp = appManager; // For backward compatibility
+                console.log('🚀 HeerlenDoen app volledig geladen!');
+            } catch (error) {
+                console.error('❌ Fout bij initialiseren van app:', error);
+            }
+        });
+    </script>
     
     <!-- Legacy script voor backwards compatibility -->
     <!-- <script src="script.js"></script> -->
