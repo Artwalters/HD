@@ -122,7 +122,7 @@ class MarkerManager {
                     this.config.markerZoom.large, 16
                 ],
                 'text-anchor': 'center',
-                'text-offset': [1.2, -1.2],
+                'text-offset': [0.8, -0.8],
                 'text-allow-overlap': true,
                 'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold']
             },

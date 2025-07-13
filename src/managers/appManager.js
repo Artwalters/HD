@@ -14,6 +14,7 @@ class AppManager {
         this.locationManager = null;
         this.navigationManager = null;
         this.likesManager = null;
+        this.threejsManager = null;
         // AudioManager verwijderd
         this.isInitialized = false;
     }
@@ -59,7 +60,10 @@ class AppManager {
             // 10. Initialiseer likes manager
             this.initializeLikesManager();
             
-            // 11. Laad en toon data
+            // 11. Initialiseer Three.js manager
+            this.initializeThreeJSManager();
+            
+            // 12. Laad en toon data
             await this.loadAndDisplayData();
             
             this.isInitialized = true;
@@ -282,6 +286,33 @@ class AppManager {
     }
 
     /**
+     * Initialiseert Three.js manager
+     */
+    initializeThreeJSManager() {
+        console.log('🔄 Initialisatie Three.js manager...');
+        console.log('THREE available:', typeof THREE !== 'undefined');
+        console.log('ThreeJSManager available:', typeof ThreeJSManager !== 'undefined');
+        console.log('GLTFLoader available:', typeof THREE !== 'undefined' && typeof THREE.GLTFLoader !== 'undefined');
+        
+        // Check if ThreeJSManager is available
+        if (typeof ThreeJSManager === 'undefined') {
+            console.warn('⚠️ ThreeJSManager niet beschikbaar - Three.js layer overgeslagen');
+            return;
+        }
+
+        // Check if THREE.js is available
+        if (typeof THREE === 'undefined') {
+            console.warn('⚠️ THREE.js niet beschikbaar - Three.js layer overgeslagen');
+            return;
+        }
+
+        this.threejsManager = new ThreeJSManager(this.map, this.config);
+        this.threejsManager.initialize();
+        
+        console.log('✅ Three.js manager geïnitialiseerd');
+    }
+
+    /**
      * Handler voor like changes
      */
     onLikeChanged(locationId, isLiked) {
@@ -343,6 +374,14 @@ class AppManager {
             if (this.filterManager) {
                 this.filterManager.updateData();
             }
+            
+            // Trigger Three.js layer loading if it hasn't loaded yet
+            setTimeout(() => {
+                if (this.threejsManager && this.map.isStyleLoaded() && !this.map.getLayer('3d-models')) {
+                    console.log('🔄 Manually triggering Three.js layer loading...');
+                    this.threejsManager.addLayer();
+                }
+            }, 2000);
             
             console.log('✅ Data geladen en markers getoond');
             
@@ -554,6 +593,10 @@ class AppManager {
         
         if (this.navigationManager) {
             this.navigationManager.destroy();
+        }
+        
+        if (this.threejsManager) {
+            this.threejsManager.destroy();
         }
         
         // AudioManager verwijderd
