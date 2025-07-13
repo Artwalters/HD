@@ -103,10 +103,15 @@ class PopupManager {
         // Calculate responsive offset
         const offset = this.calculateOffset();
         
+        // Get current zoom level or use a sensible default
+        const currentZoom = this.map.getZoom();
+        const targetZoom = Math.max(currentZoom, 16.5); // Minimum zoom of 16.5, but keep current if higher
+        
         // Fly to marker
         this.map.flyTo({ 
             center: coordinates, 
             offset, 
+            zoom: targetZoom,
             duration: this.config.popup.animation.duration, 
             essential: true 
         });
@@ -676,52 +681,58 @@ class PopupManager {
      */
     async generateSuggestions(currentProperties) {
         try {
+            console.log('🔍 Generating suggestions for:', currentProperties.name);
             const allData = await this.dataLoader.loadAllData();
             const suggestions = [];
             
+            // Debug: Log available data
+            console.log('📊 Available data structure:', allData);
+            console.log('📊 Total features in allData:', allData.features?.length || 0);
+            
+            // Work directly with allData.features
+            const allFeatures = allData.features || [];
+            
+            console.log(`📊 Total features found: ${allFeatures.length}`);
+            console.log(`🏷️ Current item category: "${currentProperties.category}"`);
+            
             // Find suggestions from same category first
-            Object.values(allData).forEach(categoryData => {
-                if (categoryData.features) {
-                    categoryData.features.forEach(feature => {
-                        const props = feature.properties;
-                        if (props.id !== currentProperties.id && 
-                            props.category === currentProperties.category && 
-                            suggestions.length < 3) {
-                            suggestions.push({
-                                id: props.id,
-                                name: props.name,
-                                address: props.address,
-                                icon: props.icon || '📍',
-                                category: props.category
-                            });
-                        }
+            allFeatures.forEach(feature => {
+                const props = feature.properties;
+                if (props.id !== currentProperties.id && 
+                    props.category === currentProperties.category && 
+                    suggestions.length < 3) {
+                    suggestions.push({
+                        id: props.id,
+                        name: props.name,
+                        address: props.address,
+                        icon: props.icon || '📍',
+                        category: props.category
                     });
                 }
             });
             
+            console.log(`✅ Found ${suggestions.length} suggestions from same category`);
+            
             // Fill remaining slots with other categories if needed
             if (suggestions.length < 3) {
-                Object.values(allData).forEach(categoryData => {
-                    if (categoryData.features) {
-                        categoryData.features.forEach(feature => {
-                            const props = feature.properties;
-                            if (props.id !== currentProperties.id && 
-                                props.category !== currentProperties.category &&
-                                suggestions.length < 3 &&
-                                !suggestions.find(s => s.id === props.id)) {
-                                suggestions.push({
-                                    id: props.id,
-                                    name: props.name,
-                                    address: props.address,
-                                    icon: props.icon || '📍',
-                                    category: props.category
-                                });
-                            }
+                allFeatures.forEach(feature => {
+                    const props = feature.properties;
+                    if (props.id !== currentProperties.id && 
+                        props.category !== currentProperties.category &&
+                        suggestions.length < 3 &&
+                        !suggestions.find(s => s.id === props.id)) {
+                        suggestions.push({
+                            id: props.id,
+                            name: props.name,
+                            address: props.address,
+                            icon: props.icon || '📍',
+                            category: props.category
                         });
                     }
                 });
             }
             
+            console.log(`📋 Total suggestions found: ${suggestions.length}`, suggestions);
             return suggestions;
         } catch (error) {
             console.error('Error generating suggestions:', error);
@@ -1043,36 +1054,59 @@ class PopupManager {
 
     /**
      * Handle click on suggestion card
-     * @param {Object} properties - Business properties
+     * @param {number|Object} idOrProperties - Either suggestion ID or full properties object
      */
-    handleSuggestionClick(properties) {
-        // Close info panel
-        this.closeInfoPanel();
-        
-        // Fly to the suggested location
-        this.map.flyTo({
-            center: [properties.lng, properties.lat],
-            zoom: 17,
-            duration: 1000
-        });
-        
-        // Wait for fly animation to complete, then open popup
-        setTimeout(() => {
-            // Create click event at the marker location
-            const point = this.map.project([properties.lng, properties.lat]);
-            const features = this.map.queryRenderedFeatures(point, {
-                layers: ['business-markers']
-            });
+    async handleSuggestionClick(idOrProperties) {
+        try {
+            let targetFeature = null;
             
-            // Find the matching feature and trigger click
-            const matchingFeature = features.find(f => f.properties.id === properties.id);
-            if (matchingFeature) {
-                this.handleMarkerClick({
-                    features: [matchingFeature],
-                    lngLat: { lng: properties.lng, lat: properties.lat }
-                });
+            // If we received an ID, find the feature
+            if (typeof idOrProperties === 'number') {
+                const allData = await this.dataLoader.loadAllData();
+                targetFeature = allData.features.find(f => f.properties.id === idOrProperties);
+                
+                if (!targetFeature) {
+                    console.error('Suggestion feature not found:', idOrProperties);
+                    return;
+                }
+            } else {
+                // Legacy support for when full properties were passed
+                targetFeature = {
+                    geometry: {
+                        coordinates: [idOrProperties.lng, idOrProperties.lat]
+                    },
+                    properties: idOrProperties
+                };
             }
-        }, 1100);
+            
+            const coords = targetFeature.geometry.coordinates;
+            const properties = targetFeature.properties;
+            
+            console.log('🎯 Navigating to suggestion:', properties.name);
+            
+            // Close current info panel
+            this.closeInfoPanel();
+            
+            // Create mock event for marker click
+            const mockEvent = {
+                features: [{
+                    geometry: {
+                        coordinates: coords
+                    },
+                    properties: properties
+                }],
+                lngLat: {
+                    lng: coords[0],
+                    lat: coords[1]
+                }
+            };
+            
+            // Directly call handleMarkerClick which will handle the flyTo animation
+            this.handleMarkerClick(mockEvent);
+            
+        } catch (error) {
+            console.error('Error handling suggestion click:', error);
+        }
     }
 
     /**
