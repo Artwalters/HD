@@ -1,11 +1,12 @@
 // ==============================
-// NAVIGATION MENU MANAGER - HEERLEN DOEN
+// DROPDOWN NAVIGATION MANAGER - HEERLEN DOEN
 // ==============================
 
 class NavigationMenuManager {
     constructor() {
         this.currentPage = this.getCurrentPage();
         this.navigationLoaded = false;
+        this.isDropdownOpen = false;
         this.init();
     }
     
@@ -13,7 +14,8 @@ class NavigationMenuManager {
         await this.loadNavigation();
         this.setActiveNavItem();
         this.setupEventListeners();
-        console.log('📱 Navigation menu geïnitialiseerd');
+        this.createBackdrop();
+        console.log('📱 Dropdown navigation menu geïnitialiseerd');
     }
     
     /**
@@ -72,16 +74,60 @@ class NavigationMenuManager {
     }
     
     /**
+     * Creëert backdrop element voor dropdown
+     */
+    createBackdrop() {
+        const backdrop = document.createElement('div');
+        backdrop.className = 'nav-backdrop';
+        backdrop.id = 'navBackdrop';
+        document.body.appendChild(backdrop);
+    }
+    
+    /**
      * Setup event listeners
      */
     setupEventListeners() {
-        const navItems = document.querySelectorAll('.nav-item');
+        // Toggle button
+        const navToggle = document.getElementById('navToggle');
+        if (navToggle) {
+            navToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.toggleDropdown();
+            });
+        }
         
+        // Navigation items
+        const navItems = document.querySelectorAll('.nav-item');
         navItems.forEach(item => {
             item.addEventListener('click', (e) => {
-                // Laat default link gedrag toe, maar voeg visuele feedback toe
+                // Sluit dropdown na klik
+                this.closeDropdown();
+                // Laat default link gedrag toe
                 this.handleNavClick(e.target.closest('.nav-item'));
             });
+        });
+        
+        // Backdrop click om dropdown te sluiten
+        const backdrop = document.getElementById('navBackdrop');
+        if (backdrop) {
+            backdrop.addEventListener('click', () => {
+                this.closeDropdown();
+            });
+        }
+        
+        // Escape key om dropdown te sluiten
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isDropdownOpen) {
+                this.closeDropdown();
+            }
+        });
+        
+        // Klik buiten dropdown om te sluiten
+        document.addEventListener('click', (e) => {
+            const navigation = document.getElementById('mainNavigation');
+            if (navigation && !navigation.contains(e.target) && this.isDropdownOpen) {
+                this.closeDropdown();
+            }
         });
         
         // Update active state wanneer pagina verandert (voor SPA gedrag)
@@ -89,6 +135,53 @@ class NavigationMenuManager {
             this.currentPage = this.getCurrentPage();
             this.setActiveNavItem();
         });
+    }
+    
+    /**
+     * Toggle dropdown open/closed
+     */
+    toggleDropdown() {
+        if (this.isDropdownOpen) {
+            this.closeDropdown();
+        } else {
+            this.openDropdown();
+        }
+    }
+    
+    /**
+     * Open dropdown
+     */
+    openDropdown() {
+        const dropdown = document.getElementById('navDropdown');
+        const toggle = document.getElementById('navToggle');
+        const backdrop = document.getElementById('navBackdrop');
+        
+        if (dropdown && toggle) {
+            dropdown.classList.add('open');
+            toggle.classList.add('active');
+            if (backdrop) {
+                backdrop.classList.add('open');
+            }
+            this.isDropdownOpen = true;
+        }
+    }
+    
+    /**
+     * Close dropdown
+     */
+    closeDropdown() {
+        const dropdown = document.getElementById('navDropdown');
+        const toggle = document.getElementById('navToggle');
+        const backdrop = document.getElementById('navBackdrop');
+        
+        if (dropdown && toggle) {
+            dropdown.classList.remove('open');
+            toggle.classList.remove('active');
+            if (backdrop) {
+                backdrop.classList.remove('open');
+            }
+            this.isDropdownOpen = false;
+        }
     }
     
     /**
@@ -114,7 +207,8 @@ class NavigationMenuManager {
     hide() {
         const navigation = document.getElementById('mainNavigation');
         if (navigation) {
-            navigation.style.transform = 'translateY(100%)';
+            navigation.style.opacity = '0';
+            navigation.style.pointerEvents = 'none';
         }
     }
     
@@ -124,7 +218,8 @@ class NavigationMenuManager {
     show() {
         const navigation = document.getElementById('mainNavigation');
         if (navigation) {
-            navigation.style.transform = 'translateY(0)';
+            navigation.style.opacity = '1';
+            navigation.style.pointerEvents = 'auto';
         }
     }
     
@@ -134,7 +229,7 @@ class NavigationMenuManager {
     toggle() {
         const navigation = document.getElementById('mainNavigation');
         if (navigation) {
-            const isHidden = navigation.style.transform === 'translateY(100%)';
+            const isHidden = navigation.style.opacity === '0';
             if (isHidden) {
                 this.show();
             } else {
