@@ -1,0 +1,308 @@
+/* ==============================
+ * SWIPE STYLES - HEERLEN DOEN
+ * ============================== */
+
+/* Reset and Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    overflow: hidden;
+    height: 100vh;
+    position: relative;
+    background-color: var(--color-background);
+}
+
+/* Swipe Container */
+.swipe-container {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Swipe Cards */
+.swipe-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(100vh);
+    background-color: var(--color-background);
+}
+
+.swipe-card:first-child {
+    transform: translateY(0);
+}
+
+.swipe-card.active {
+    transform: translateY(0);
+}
+
+/* Card Content */
+.card-content {
+    text-align: center;
+    padding: var(--space-2xl);
+    max-width: 500px;
+}
+
+.card-icon {
+    font-size: 80px;
+    margin-bottom: var(--space-lg);
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.card-title {
+    font-size: var(--heading-lg);
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
+}
+
+.card-description {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-light);
+    margin-bottom: var(--space-2xl);
+    line-height: 1.6;
+}
+
+/* Card Button */
+.card-button {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    padding: var(--space-md) var(--space-2xl);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    border-radius: var(--radius-xl);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.card-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.swipe-card.selected .card-button {
+    background-color: var(--color-secondary);
+}
+
+/* Category Specific Colors */
+.swipe-card[data-category="Cultuur"] .card-icon,
+.swipe-card[data-category="Cultuur"] .card-button {
+    background-color: var(--color-cultuur);
+}
+
+.swipe-card[data-category="Eten & Drinken"] .card-icon,
+.swipe-card[data-category="Eten & Drinken"] .card-button {
+    background-color: var(--color-horeca);
+}
+
+.swipe-card[data-category="Mode"] .card-icon,
+.swipe-card[data-category="Mode"] .card-button {
+    background-color: var(--color-mode);
+}
+
+/* Swipe Hints */
+.swipe-hint {
+    position: absolute;
+    bottom: 40px;
+    text-align: center;
+    opacity: 0.7;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.hint-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    display: block;
+    margin-bottom: var(--space-sm);
+}
+
+.hint-arrow,
+.hint-arrows {
+    font-size: 24px;
+    color: var(--color-text-light);
+}
+
+.hint-arrows span {
+    display: inline-block;
+    margin: 0 var(--space-sm);
+}
+
+/* Navigation Dots */
+.nav-dots {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+}
+
+.nav-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin: var(--space-sm) 0;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.nav-dot.active {
+    background-color: var(--color-primary);
+    transform: scale(1.5);
+}
+
+/* Selected Categories Display */
+.selected-categories {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    max-width: 400px;
+    z-index: 100;
+}
+
+.selected-categories h3 {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-sm);
+    color: var(--color-text-light);
+}
+
+.selected-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.category-chip {
+    background-color: var(--color-primary);
+    color: white;
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+}
+
+.continue-button {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    padding: var(--space-sm) var(--space-lg);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    width: 100%;
+}
+
+.continue-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Skip Button */
+.skip-button {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    background: transparent;
+    color: var(--color-text-light);
+    border: 1px solid var(--color-text-light);
+    padding: var(--space-sm) var(--space-lg);
+    font-size: var(--font-size-sm);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    z-index: 100;
+}
+
+.skip-button:hover {
+    background-color: var(--color-text-light);
+    color: white;
+}
+
+/* Animations */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Mobile Styles */
+@media (max-width: 767px) {
+    .card-icon {
+        font-size: 60px;
+    }
+    
+    .card-title {
+        font-size: var(--heading-md);
+    }
+    
+    .card-description {
+        font-size: var(--font-size-base);
+        padding: 0 var(--space-lg);
+    }
+    
+    .nav-dots {
+        right: 15px;
+    }
+    
+    .selected-categories {
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+        max-width: none;
+    }
+    
+    .skip-button {
+        top: 15px;
+        right: 15px;
+        font-size: var(--font-size-xs);
+        padding: var(--space-xs) var(--space-md);
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .card-content {
+        padding: var(--space-lg);
+    }
+    
+    .card-icon {
+        font-size: 50px;
+    }
+    
+    .card-title {
+        font-size: var(--heading-sm);
+    }
+}

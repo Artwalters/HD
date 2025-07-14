@@ -31,6 +31,12 @@ class AppManager {
         try {
             console.log('🚀 Heerlen Doen wordt geïnitialiseerd...');
             
+            // Check if user needs to select categories first
+            if (this.shouldRedirectToWelcome()) {
+                this.redirectToWelcome();
+                return;
+            }
+            
             // 1. Initialiseer map
             await this.initializeMap();
             
@@ -317,8 +323,12 @@ class AppManager {
      */
     onLikeChanged(locationId, isLiked) {
         // Update marker hearts only
-        if (this.markerManager) {
-            this.markerManager.updateLikedStatus(this.likesManager.likes);
+        if (this.markerManager && this.likesManager) {
+            // Get fresh likes from storage
+            this.likesManager.loadLikes();
+            const likedIds = new Set(this.likesManager.getLikedIds());
+            this.markerManager.updateLikedStatus(likedIds);
+            console.log(`🔄 Updated markers with ${likedIds.size} liked locations`);
         }
         
         // Let individual buttons handle their own updates
@@ -360,20 +370,44 @@ class AppManager {
             // Laad alle data
             const allData = await this.dataLoader.loadAllData();
             
+            // Filter data based on selected categories
+            const filteredData = this.filterDataBySelectedCategories(allData);
+            
             // Set liked status op data
             if (this.likesManager) {
-                allData.features.forEach(feature => {
-                    feature.properties.liked = this.likesManager.isLiked(feature.properties.id);
+                // Force reload likes from storage to get latest data
+                this.likesManager.loadLikes();
+                
+                const likedIds = this.likesManager.getLikedIds();
+                console.log('🔍 All liked IDs from storage:', likedIds);
+                
+                filteredData.features.forEach(feature => {
+                    const featureId = feature.properties.id;
+                    const isLiked = this.likesManager.isLiked(featureId);
+                    feature.properties.liked = isLiked;
+                    console.log(`🔍 Location ${featureId} (${feature.properties.name}) liked: ${isLiked}`);
                 });
+                
+                console.log('🔍 Features with liked status:', filteredData.features.map(f => ({
+                    id: f.properties.id,
+                    name: f.properties.name,
+                    liked: f.properties.liked
+                })));
             }
             
-            // Initialiseer markers met data
-            await this.markerManager.initialize(allData);
+            // Initialiseer markers met gefilterde data
+            await this.markerManager.initialize(filteredData);
             
             // Update filter data
             if (this.filterManager) {
                 this.filterManager.updateData();
             }
+            
+            // Apply category filters from preferences
+            this.applyCategoryFilters();
+            
+            // Setup likes change listener
+            this.setupLikesChangeListener();
             
             // Trigger Three.js layer loading if it hasn't loaded yet
             setTimeout(() => {
@@ -388,6 +422,63 @@ class AppManager {
         } catch (error) {
             console.error('❌ Fout bij laden van data:', error);
             throw error;
+        }
+    }
+
+    /**
+     * Filters data based on selected categories from preferences
+     */
+    filterDataBySelectedCategories(allData) {
+        const selectedCategories = localStorage.getItem('selectedCategories');
+        
+        if (!selectedCategories) {
+            return allData;
+        }
+        
+        try {
+            const categories = JSON.parse(selectedCategories);
+            
+            if (!categories || categories.length === 0) {
+                return allData;
+            }
+            
+            const filteredFeatures = allData.features.filter(feature => {
+                return categories.includes(feature.properties.category);
+            });
+            
+            return {
+                type: 'FeatureCollection',
+                features: filteredFeatures
+            };
+            
+        } catch (error) {
+            console.warn('Error filtering by selected categories:', error);
+            return allData;
+        }
+    }
+
+    /**
+     * Applies category filters from preferences to the filter manager
+     */
+    applyCategoryFilters() {
+        const selectedCategories = localStorage.getItem('selectedCategories');
+        
+        if (!selectedCategories || !this.filterManager) {
+            return;
+        }
+        
+        try {
+            const categories = JSON.parse(selectedCategories);
+            
+            if (categories && categories.length > 0) {
+                // Log the selected categories for now
+                // Note: filterManager doesn't have setAvailableCategories method yet
+                console.log('🎯 Selected categories for filtering:', categories);
+                console.log('📋 Available filter methods:', Object.getOwnPropertyNames(Object.getPrototypeOf(this.filterManager)));
+            }
+            
+        } catch (error) {
+            console.warn('Error applying category filters:', error);
         }
     }
 
@@ -625,6 +716,66 @@ class AppManager {
         
         this.isInitialized = false;
         console.log('💥 App vernietigd');
+    }
+
+    /**
+     * Checks if user should be redirected to welcome page
+     * @returns {boolean} - True if redirect is needed
+     */
+    shouldRedirectToWelcome() {
+        // Check if coming from preferences page
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('fromPreferences') === 'true') {
+            return false;
+        }
+        
+        // Check if preferences have been completed
+        const preferencesCompleted = localStorage.getItem('preferencesCompleted');
+        if (!preferencesCompleted) {
+            return true;
+        }
+        
+        // Check if categories are selected
+        const selectedCategories = localStorage.getItem('selectedCategories');
+        if (!selectedCategories) {
+            return true;
+        }
+        
+        try {
+            const categories = JSON.parse(selectedCategories);
+            return !categories || categories.length === 0;
+        } catch (error) {
+            console.warn('Error parsing selected categories:', error);
+            return true;
+        }
+    }
+
+    /**
+     * Redirects to welcome page for category selection
+     */
+    redirectToWelcome() {
+        console.log('🔄 Redirecting to welcome page for category selection');
+        window.location.href = 'welcome.html';
+    }
+
+    /**
+     * Setup listener for likes changes from preferences
+     */
+    setupLikesChangeListener() {
+        window.addEventListener('likesChanged', (event) => {
+            console.log('🔄 Likes changed event received in app:', event.detail);
+            
+            if (this.markerManager && this.likesManager) {
+                // Force reload likes from storage
+                this.likesManager.loadLikes();
+                const likedIds = new Set(this.likesManager.getLikedIds());
+                
+                // Update markers
+                this.markerManager.updateLikedStatus(likedIds);
+                
+                console.log('✅ Updated map markers with new likes');
+            }
+        });
     }
 }
 

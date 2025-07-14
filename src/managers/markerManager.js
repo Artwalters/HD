@@ -301,26 +301,49 @@ class MarkerManager {
 
     /**
      * Update liked status van markers
-     * @param {Set} likedIds - Set van liked location IDs
+     * @param {Set|Array} likedIds - Set of Array van liked location IDs
      */
     updateLikedStatus(likedIds) {
-        if (!this.isInitialized) return;
+        if (!this.isInitialized) {
+            console.warn('⚠️ MarkerManager not initialized yet');
+            return;
+        }
 
         const source = this.map.getSource(this.sourceId);
-        if (!source) return;
+        if (!source) {
+            console.warn('⚠️ No source found for markers');
+            return;
+        }
 
         const data = source._data;
-        if (!data || !data.features) return;
+        if (!data || !data.features) {
+            console.warn('⚠️ No data or features found');
+            return;
+        }
+
+        // Convert to Set if it's an array
+        const likedSet = likedIds instanceof Set ? likedIds : new Set(likedIds);
+        
+        console.log('🔍 Updating liked status with IDs:', Array.from(likedSet));
 
         // Update liked property voor alle features
+        let updatedCount = 0;
         data.features.forEach(feature => {
-            feature.properties.liked = likedIds.has(feature.properties.id);
+            const featureId = String(feature.properties.id);
+            const wasLiked = feature.properties.liked;
+            const isLiked = likedSet.has(featureId) || likedSet.has(parseInt(featureId));
+            
+            if (wasLiked !== isLiked) {
+                feature.properties.liked = isLiked;
+                updatedCount++;
+                console.log(`🔄 ${feature.properties.name} (ID: ${featureId}) liked: ${wasLiked} → ${isLiked}`);
+            }
         });
 
         // Update de source data
         source.setData(data);
         
-        console.log(`💖 Liked status bijgewerkt voor ${likedIds.size} locaties`);
+        console.log(`💖 Liked status bijgewerkt voor ${updatedCount} locaties (${likedSet.size} total likes)`);
     }
 
     /**

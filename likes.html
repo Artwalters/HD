@@ -331,6 +331,9 @@
                 try {
                     console.log('🔄 Laden likes pagina...');
                     
+                    // Initialize likes manager
+                    this.likesManager.initialize();
+                    
                     // Laad alle data
                     this.allData = await this.dataLoader.loadAllData();
                     console.log('📊 Data geladen:', this.allData);
@@ -339,6 +342,9 @@
                     const likedIds = this.likesManager.getLikedIds();
                     console.log('❤️ Liked IDs:', likedIds);
                     
+                    // Setup event listeners for likes changes
+                    this.setupLikesChangeListener();
+                    
                     // Render likes
                     this.renderLikes();
                     
@@ -346,6 +352,16 @@
                 } catch (error) {
                     console.error('❌ Fout bij laden likes pagina:', error);
                 }
+            }
+            
+            setupLikesChangeListener() {
+                // Listen for likes changes from other pages
+                window.addEventListener('likesChanged', (event) => {
+                    console.log('🔄 Likes changed event received on likes page:', event.detail);
+                    // Force reload likes and re-render
+                    this.likesManager.loadLikes();
+                    this.renderLikes();
+                });
             }
 
             renderLikes() {

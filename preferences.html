@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Heerlen Doen - Wat vind je leuk?</title>
+    
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="src/styles/variables.css">
+    <link rel="stylesheet" href="src/styles/preferences-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="preferences-header">
+        <button class="back-button" id="backButton">← Terug</button>
+        <h1 class="header-title">Wat vind je leuk?</h1>
+        <button class="skip-button" id="skipButton">Sla over</button>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+        <span class="progress-text" id="progressText">0 van 0</span>
+    </div>
+
+    <!-- Cards Container -->
+    <div class="cards-container" id="cardsContainer">
+        <!-- Cards will be dynamically loaded here -->
+    </div>
+
+    <!-- Swipe Actions -->
+    <div class="swipe-actions">
+        <button class="action-button dislike-button" id="dislikeButton">
+            <span class="button-icon">👎</span>
+            <span class="button-text">Niet leuk</span>
+        </button>
+        <button class="action-button like-button" id="likeButton">
+            <span class="button-icon">❤️</span>
+            <span class="button-text">Leuk!</span>
+        </button>
+    </div>
+
+    <!-- Swipe Hints -->
+    <div class="swipe-hints">
+        <div class="hint-left">
+            <span class="hint-arrow">←</span>
+            <span class="hint-text">Swipe links = niet leuk</span>
+        </div>
+        <div class="hint-right">
+            <span class="hint-text">Swipe rechts = leuk</span>
+            <span class="hint-arrow">→</span>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-state" id="loadingState">
+        <div class="loading-spinner"></div>
+        <p>Locaties laden...</p>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" id="emptyState" style="display: none;">
+        <div class="empty-icon">🎉</div>
+        <h2>Geweldig!</h2>
+        <p>Je hebt alle locaties bekeken</p>
+        <button class="continue-button" id="continueToMap">
+            Ga naar de kaart →
+        </button>
+    </div>
+
+    <!-- Feedback Overlay -->
+    <div class="feedback-overlay" id="feedbackOverlay">
+        <div class="feedback-content">
+            <div class="feedback-icon like-feedback">❤️</div>
+            <div class="feedback-icon dislike-feedback">👎</div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="src/config/config.js"></script>
+    <script src="src/utils/dataLoader.js"></script>
+    <script src="src/managers/preferencesManager.js"></script>
+</body>
+</html>

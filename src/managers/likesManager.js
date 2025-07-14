@@ -15,7 +15,45 @@ class LikesManager {
      */
     initialize() {
         this.loadLikes();
+        this.setupEventListeners();
         console.log(`✅ Likes Manager geïnitialiseerd: ${this.likes.size} likes geladen`);
+    }
+    
+    /**
+     * Setup event listeners for likes synchronization
+     */
+    setupEventListeners() {
+        // Listen for likes changes from preferences
+        window.addEventListener('likesChanged', (event) => {
+            console.log('🔄 Received likes changed event:', event.detail);
+            this.syncWithPreferences(event.detail);
+        });
+    }
+    
+    /**
+     * Synchronize likes with preferences data
+     */
+    syncWithPreferences(preferencesData) {
+        if (preferencesData && preferencesData.likes) {
+            // Convert to Set with normalized IDs
+            const newLikes = new Set(preferencesData.likes.map(id => String(id)));
+            
+            // Check if there are changes
+            const currentLikes = new Set(Array.from(this.likes));
+            const hasChanges = newLikes.size !== currentLikes.size || 
+                             ![...newLikes].every(id => currentLikes.has(id));
+            
+            if (hasChanges) {
+                this.likes = newLikes;
+                this.saveLikes();
+                console.log(`🔄 Synced likes from preferences: ${this.likes.size} likes`);
+                
+                // Notify all callbacks about the change
+                this.likes.forEach(id => {
+                    this.notifyCallbacks(id, true);
+                });
+            }
+        }
     }
 
     /**
@@ -23,11 +61,31 @@ class LikesManager {
      */
     loadLikes() {
         try {
+            // Load from primary storage
             const savedLikes = localStorage.getItem(this.storageKey);
+            
+            // Also check legacy storage for backward compatibility
+            const legacyLikes = localStorage.getItem('likedLocations');
+            
+            const allLikes = new Set();
+            
             if (savedLikes) {
                 const likesArray = JSON.parse(savedLikes);
-                this.likes = new Set(likesArray);
+                likesArray.forEach(id => allLikes.add(String(id)));
             }
+            
+            if (legacyLikes) {
+                const legacyArray = JSON.parse(legacyLikes);
+                legacyArray.forEach(id => allLikes.add(String(id)));
+            }
+            
+            this.likes = allLikes;
+            
+            // Save unified likes back to storage
+            if (allLikes.size > 0) {
+                this.saveLikes();
+            }
+            
         } catch (error) {
             console.warn('⚠️ Kon likes niet laden uit localStorage:', error);
             this.likes = new Set();
@@ -41,6 +99,9 @@ class LikesManager {
         try {
             const likesArray = Array.from(this.likes);
             localStorage.setItem(this.storageKey, JSON.stringify(likesArray));
+            
+            // Also save to legacy storage for backward compatibility
+            localStorage.setItem('likedLocations', JSON.stringify(likesArray));
         } catch (error) {
             console.error('❌ Kon likes niet opslaan:', error);
         }
