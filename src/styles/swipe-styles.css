@@ -1,5 +1,5 @@
 /* ==============================
- * SWIPE STYLES - HEERLEN DOEN
+ * MINIMALIST SWIPE STYLES - HEERLEN DOEN
  * ============================== */
 
 /* Reset and Base */
@@ -10,11 +10,11 @@
 }
 
 body {
-    font-family: var(--font-body);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     overflow: hidden;
     height: 100vh;
-    position: relative;
-    background-color: var(--color-background);
+    background: #ffffff;
+    color: #1a1a1a;
 }
 
 /* Swipe Container */
@@ -38,7 +38,7 @@ body {
     align-items: center;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateY(100vh);
-    background-color: var(--color-background);
+    background: #ffffff;
 }
 
 .swipe-card:first-child {
@@ -52,257 +52,260 @@ body {
 /* Card Content */
 .card-content {
     text-align: center;
-    padding: var(--space-2xl);
-    max-width: 500px;
+    padding: 40px;
+    max-width: 480px;
 }
 
 .card-icon {
-    font-size: 80px;
-    margin-bottom: var(--space-lg);
-    animation: bounce 2s ease-in-out infinite;
+    font-size: 64px;
+    margin-bottom: 32px;
+    filter: grayscale(30%);
 }
 
 .card-title {
-    font-size: var(--heading-lg);
-    font-weight: 700;
-    margin-bottom: var(--space-md);
-    color: var(--color-text);
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
 }
 
 .card-description {
-    font-size: var(--font-size-lg);
-    color: var(--color-text-light);
-    margin-bottom: var(--space-2xl);
-    line-height: 1.6;
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 40px;
+    line-height: 1.5;
+    font-weight: 400;
 }
 
 /* Card Button */
 .card-button {
-    background-color: var(--color-primary);
+    background: #1a1a1a;
     color: white;
     border: none;
-    padding: var(--space-md) var(--space-2xl);
-    font-size: var(--font-size-lg);
-    font-weight: 600;
-    border-radius: var(--radius-xl);
+    padding: 16px 32px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all var(--transition-normal);
+    transition: all 0.2s ease;
+    font-family: inherit;
 }
 
 .card-button:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    background: #333;
+    transform: translateY(-1px);
+}
+
+.card-button:active {
+    transform: translateY(0);
 }
 
 .swipe-card.selected .card-button {
-    background-color: var(--color-secondary);
-}
-
-/* Category Specific Colors */
-.swipe-card[data-category="Cultuur"] .card-icon,
-.swipe-card[data-category="Cultuur"] .card-button {
-    background-color: var(--color-cultuur);
-}
-
-.swipe-card[data-category="Eten & Drinken"] .card-icon,
-.swipe-card[data-category="Eten & Drinken"] .card-button {
-    background-color: var(--color-horeca);
-}
-
-.swipe-card[data-category="Mode"] .card-icon,
-.swipe-card[data-category="Mode"] .card-button {
-    background-color: var(--color-mode);
+    background: #000;
 }
 
 /* Swipe Hints */
 .swipe-hint {
     position: absolute;
-    bottom: 40px;
+    bottom: 60px;
     text-align: center;
-    opacity: 0.7;
-    animation: pulse 2s ease-in-out infinite;
+    opacity: 0.4;
 }
 
 .hint-text {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-light);
+    font-size: 14px;
+    color: #999;
     display: block;
-    margin-bottom: var(--space-sm);
+    margin-bottom: 8px;
+    font-weight: 400;
 }
 
 .hint-arrow,
 .hint-arrows {
-    font-size: 24px;
-    color: var(--color-text-light);
+    font-size: 18px;
+    color: #999;
 }
 
 .hint-arrows span {
     display: inline-block;
-    margin: 0 var(--space-sm);
+    margin: 0 8px;
 }
 
 /* Navigation Dots */
 .nav-dots {
     position: fixed;
-    right: 30px;
+    right: 24px;
     top: 50%;
     transform: translateY(-50%);
     z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .nav-dot {
-    width: 12px;
-    height: 12px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.2);
-    margin: var(--space-sm) 0;
+    background: #ddd;
     cursor: pointer;
-    transition: all var(--transition-normal);
+    transition: all 0.2s ease;
 }
 
 .nav-dot.active {
-    background-color: var(--color-primary);
-    transform: scale(1.5);
+    background: #1a1a1a;
+    transform: scale(1.25);
+}
+
+.nav-dot:hover {
+    background: #999;
 }
 
 /* Selected Categories Display */
 .selected-categories {
     position: fixed;
-    bottom: 30px;
-    left: 30px;
+    bottom: 24px;
+    left: 24px;
     background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    padding: var(--space-lg);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    max-width: 400px;
+    backdrop-filter: blur(20px);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #f0f0f0;
+    max-width: 320px;
     z-index: 100;
 }
 
 .selected-categories h3 {
-    font-size: var(--font-size-base);
-    margin-bottom: var(--space-sm);
-    color: var(--color-text-light);
+    font-size: 14px;
+    margin-bottom: 12px;
+    color: #666;
+    font-weight: 500;
 }
 
 .selected-list {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-sm);
-    margin-bottom: var(--space-md);
+    gap: 8px;
+    margin-bottom: 16px;
 }
 
 .category-chip {
-    background-color: var(--color-primary);
-    color: white;
-    padding: var(--space-xs) var(--space-md);
-    border-radius: var(--radius-full);
-    font-size: var(--font-size-sm);
+    background: #f5f5f5;
+    color: #1a1a1a;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid #e0e0e0;
 }
 
 .continue-button {
-    background-color: var(--color-primary);
+    background: #1a1a1a;
     color: white;
     border: none;
-    padding: var(--space-sm) var(--space-lg);
-    font-size: var(--font-size-base);
-    font-weight: 600;
-    border-radius: var(--radius-md);
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all var(--transition-normal);
+    transition: all 0.2s ease;
     width: 100%;
+    font-family: inherit;
 }
 
 .continue-button:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    background: #333;
 }
 
 /* Skip Button */
 .skip-button {
     position: fixed;
-    top: 30px;
-    right: 30px;
+    top: 24px;
+    right: 24px;
     background: transparent;
-    color: var(--color-text-light);
-    border: 1px solid var(--color-text-light);
-    padding: var(--space-sm) var(--space-lg);
-    font-size: var(--font-size-sm);
-    border-radius: var(--radius-md);
+    color: #999;
+    border: 1px solid #e0e0e0;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all var(--transition-normal);
+    transition: all 0.2s ease;
     z-index: 100;
+    font-family: inherit;
+    font-weight: 400;
 }
 
 .skip-button:hover {
-    background-color: var(--color-text-light);
-    color: white;
+    background: #f5f5f5;
+    color: #666;
+    border-color: #ccc;
 }
 
-/* Animations */
+/* Remove all animations */
 @keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-20px);
-    }
+    0%, 100% { transform: translateY(0); }
 }
 
 @keyframes pulse {
-    0%, 100% {
-        opacity: 0.7;
-    }
-    50% {
-        opacity: 1;
-    }
+    0%, 100% { opacity: 0.4; }
 }
 
 /* Mobile Styles */
 @media (max-width: 767px) {
+    .card-content {
+        padding: 32px 24px;
+    }
+    
     .card-icon {
-        font-size: 60px;
+        font-size: 56px;
+        margin-bottom: 24px;
     }
     
     .card-title {
-        font-size: var(--heading-md);
+        font-size: 28px;
     }
     
     .card-description {
-        font-size: var(--font-size-base);
-        padding: 0 var(--space-lg);
+        font-size: 15px;
+        padding: 0 16px;
     }
     
     .nav-dots {
-        right: 15px;
+        right: 16px;
     }
     
     .selected-categories {
-        left: 15px;
-        right: 15px;
-        bottom: 15px;
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
         max-width: none;
     }
     
     .skip-button {
-        top: 15px;
-        right: 15px;
-        font-size: var(--font-size-xs);
-        padding: var(--space-xs) var(--space-md);
+        top: 16px;
+        right: 16px;
+        font-size: 13px;
+        padding: 6px 12px;
     }
 }
 
 /* Small Mobile */
 @media (max-width: 480px) {
     .card-content {
-        padding: var(--space-lg);
+        padding: 24px 20px;
     }
     
     .card-icon {
-        font-size: 50px;
+        font-size: 48px;
+        margin-bottom: 20px;
     }
     
     .card-title {
-        font-size: var(--heading-sm);
+        font-size: 24px;
+    }
+    
+    .card-description {
+        font-size: 14px;
     }
 }
