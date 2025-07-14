@@ -423,7 +423,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9462229, 50.9228338]
+        "coordinates": [5.9890, 50.8775]
       },
       "properties": {
         "id": "heerlen-mural-023",
@@ -436,25 +436,6 @@
         "creation_year": 2015,
         "technique": "Zwart-wit beeldverhalen met architecturale invloed",
         "cultural_info": "Millo begon als architectuurstudent en die invloed is terug te vinden in zijn werk. In 2014 schilderde hij 13 enorme muurschilderingen in Turijn als onderdeel van de B.Art wedstrijd."
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9765, 50.8853]
-      },
-      "properties": {
-        "id": "heerlen-mural-024",
-        "name": "Heerlen Struggle",
-        "category": "Murals",
-        "address": "Stationsstraat 13, Heerlen",
-        "description": "Een strip- en pop art-achtige mural met wilde kleuren en figuren die de strijd van Heerlen verbeeldt tijdens de periode waarin de stad zwaar te kampen had met de sluiting van de mijnindustrie, drugsgebruik en prostitutie. Het werk is bedoeld om de Heerlense samenleving te sterken en te inspireren om door te vechten en niet op te geven.",
-        "artist": "Cyrcle (Los Angeles collectief)",
-        "website": "https://stichtingstreetart.com/heerlen-struggle-cyrcle/",
-        "creation_year": 2014,
-        "technique": "Strip- en pop art-achtige mural met wilde kleuren",
-        "cultural_info": "Cyrcle is een Los Angeles-gebaseerd collectief van straatartiesten, grafisch ontwerpers en traditionele beeldende kunstenaars. Binnen drie jaar verwierven ze grote bekendheid in de internationale street art scene."
       }
     }
   ]
