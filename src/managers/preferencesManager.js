@@ -5,13 +5,7 @@
 class PreferencesManager {
     constructor() {
         // Initialize with config from global scope
-        this.config = window.HeerlenConfig || {
-            dataSources: {
-                "Cultuur": "./src/data/cultuur.json",
-                "Eten & Drinken": "./src/data/horeca.json", 
-                "Mode": "./src/data/mode.json"
-            }
-        };
+        this.config = window.HeerlenConfig;
         
         this.dataLoader = new DataLoader(this.config);
         this.businesses = [];

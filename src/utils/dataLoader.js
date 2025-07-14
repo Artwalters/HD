@@ -20,6 +20,7 @@ class DataLoader {
 
         try {
             const categories = Object.keys(this.config.dataSources);
+            console.log('🔍 Loading categories:', categories);
             const dataPromises = categories.map(category => this.loadCategoryData(category));
             const categoryDataArray = await Promise.all(dataPromises);
 
@@ -29,13 +30,18 @@ class DataLoader {
                 features: []
             };
 
-            categoryDataArray.forEach(categoryData => {
+            categoryDataArray.forEach((categoryData, index) => {
+                const category = categories[index];
                 if (categoryData && categoryData.features) {
+                    console.log(`📊 ${category}: ${categoryData.features.length} items loaded`);
                     this.allData.features.push(...categoryData.features);
+                } else {
+                    console.warn(`⚠️ No data loaded for ${category}`);
                 }
             });
 
             console.log(`✅ Alle data geladen: ${this.allData.features.length} items`);
+            console.log('📋 Features per category:', this.getStats());
             return this.allData;
 
         } catch (error) {
@@ -110,6 +116,11 @@ class DataLoader {
                 props.color = categoryConfig.color;
             }
             
+            // Set default icon for murals if not present
+            if (category === 'Murals' && !props.icon) {
+                props.icon = 'assets/icons_map/Cultuur.png';
+            }
+            
             // Map emoji icons naar letters voor Mapbox
             if (props.icon && categoryConfig.iconMap) {
                 const mappedIcon = categoryConfig.iconMap[props.icon];
@@ -118,6 +129,8 @@ class DataLoader {
                 } else {
                     props.mappedIcon = categoryConfig.defaultIcon;
                 }
+            } else if (categoryConfig.defaultIcon) {
+                props.mappedIcon = categoryConfig.defaultIcon;
             }
         });
     }

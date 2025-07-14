@@ -106,7 +106,8 @@ class FilterManager {
         const icons = {
             'Cultuur': '🎭',
             'Eten & Drinken': '🍽️',
-            'Mode': '👗'
+            'Mode': '👗',
+            'Murals': '🎨'
         };
         return icons[category] || '📍';
     }

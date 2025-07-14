@@ -125,6 +125,18 @@ window.HeerlenConfig = {
                 "👨‍👩‍👧‍👦": "F"
             },
             defaultIcon: "M"
+        },
+        "Murals": {
+            color: "#E74C3C",
+            iconMap: {
+                "🎨": "A",
+                "🖼️": "A",
+                "🎭": "A",
+                "🖌️": "A",
+                "🏢": "B",
+                "🏛️": "M"
+            },
+            defaultIcon: "A"
         }
     },
 
@@ -157,7 +169,8 @@ window.HeerlenConfig = {
     dataSources: {
         "Cultuur": "./src/data/cultuur.json",
         "Eten & Drinken": "./src/data/horeca.json", 
-        "Mode": "./src/data/mode.json"
+        "Mode": "./src/data/mode.json",
+        "Murals": "./src/data/Murals.json"
     },
 
     // UI INSTELLINGEN
