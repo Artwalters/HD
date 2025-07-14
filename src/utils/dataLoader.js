@@ -118,7 +118,7 @@ class DataLoader {
             
             // Set default icon for murals if not present
             if (category === 'Murals' && !props.icon) {
-                props.icon = 'assets/icons_map/Cultuur.png';
+                props.icon = 'assets/icons_map/Murals.png';
             }
             
             // Map emoji icons naar letters voor Mapbox

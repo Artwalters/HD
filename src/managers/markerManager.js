@@ -138,7 +138,8 @@ class MarkerManager {
             { name: 'cultuur-icon', path: './assets/icons_map/Cultuur.png' },
             { name: 'horeca-icon', path: './assets/icons_map/horeca.png' },
             { name: 'winkelen-icon', path: './assets/icons_map/Winkelen.png' },
-            { name: 'bezienswaardighedene-icon', path: './assets/icons_map/Bezienwaardigheden.png' }
+            { name: 'bezienswaardighedene-icon', path: './assets/icons_map/Bezienwaardigheden.png' },
+            { name: 'murals-icon', path: './assets/icons_map/Murals.png' }
         ];
 
         for (const iconData of iconPaths) {
@@ -189,6 +190,10 @@ class MarkerManager {
         expression.push(
             ['==', ['get', 'icon'], 'assets/icons_map/Bezienwaardigheden.png'],
             'bezienswaardighedene-icon'
+        );
+        expression.push(
+            ['==', ['get', 'icon'], 'assets/icons_map/Murals.png'],
+            'murals-icon'
         );
         
         // Default fallback - gebruik eerste icon als backup
