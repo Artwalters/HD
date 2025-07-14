@@ -247,8 +247,6 @@ class PreferencesManager {
                 card.classList.add('next-card');
             } else {
                 card.classList.add('stack-card');
-                card.style.transform = `scale(${0.95 - (i * 0.02)}) translateY(${i * 4}px)`;
-                card.style.zIndex = 10 - i;
             }
             
             this.cardsContainer.appendChild(card);
@@ -492,7 +490,7 @@ class PreferencesManager {
         if (stackCard) {
             stackCard.classList.remove('stack-card');
             stackCard.classList.add('next-card');
-            stackCard.style.transform = 'scale(0.95)';
+            // CSS classes handle the transforms now
         }
         
         setTimeout(() => {

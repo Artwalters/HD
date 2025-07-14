@@ -102,16 +102,19 @@ body {
     max-width: 380px;
     margin: 32px auto;
     padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Preference Cards */
 .preference-card {
     position: absolute;
-    top: 0;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 340px;
+    transform: translate(-50%, -50%);
+    width: 340px;
+    max-width: 90vw;
     background: #ffffff;
     border-radius: 16px;
     border: 1px solid #f0f0f0;
@@ -128,16 +131,18 @@ body {
 
 .preference-card.current-card {
     z-index: 10;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .preference-card.next-card {
     z-index: 9;
-    transform: translateX(-50%) scale(0.95);
+    transform: translate(-50%, -50%) scale(0.95) translateY(8px);
     opacity: 0.8;
 }
 
 .preference-card.stack-card {
     z-index: 8;
+    transform: translate(-50%, -50%) scale(0.9) translateY(16px);
     opacity: 0.6;
 }
 
@@ -402,10 +407,13 @@ body {
     .cards-container {
         margin: 20px auto;
         height: 70vh;
+        max-width: 100%;
+        padding: 0 16px;
     }
     
     .preference-card {
-        max-width: 320px;
+        width: 320px;
+        max-width: 95vw;
     }
     
     .card-image {
@@ -443,12 +451,14 @@ body {
     }
     
     .cards-container {
-        padding: 0 16px;
+        padding: 0 12px;
         margin: 16px auto;
+        max-width: 100%;
     }
     
     .preference-card {
-        max-width: 300px;
+        width: 300px;
+        max-width: 98vw;
     }
     
     .card-image {
