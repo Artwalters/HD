@@ -39,21 +39,42 @@ body {
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateY(100vh);
     background: #ffffff;
+    z-index: 1;
 }
 
 .swipe-card:first-child {
     transform: translateY(0);
+    z-index: 10;
+}
+
+.swipe-card:nth-child(2) {
+    z-index: 9;
+}
+
+.swipe-card:nth-child(3) {
+    z-index: 8;
+}
+
+.swipe-card:nth-child(4) {
+    z-index: 7;
 }
 
 .swipe-card.active {
     transform: translateY(0);
+    z-index: 10;
 }
 
 /* Card Content */
 .card-content {
     text-align: center;
-    padding: 40px;
+    padding: 40px 20px;
     max-width: 480px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .card-icon {
@@ -254,7 +275,8 @@ body {
 /* Mobile Styles */
 @media (max-width: 767px) {
     .card-content {
-        padding: 32px 24px;
+        padding: 32px 20px;
+        max-width: 90%;
     }
     
     .card-icon {
@@ -268,7 +290,7 @@ body {
     
     .card-description {
         font-size: 15px;
-        padding: 0 16px;
+        padding: 0;
     }
     
     .nav-dots {
@@ -293,7 +315,8 @@ body {
 /* Small Mobile */
 @media (max-width: 480px) {
     .card-content {
-        padding: 24px 20px;
+        padding: 24px 16px;
+        max-width: 95%;
     }
     
     .card-icon {
