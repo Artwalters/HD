@@ -370,8 +370,9 @@ class AppManager {
             // Laad alle data
             const allData = await this.dataLoader.loadAllData();
             
-            // Filter data based on selected categories
-            const filteredData = this.filterDataBySelectedCategories(allData);
+            // BELANGRIJK: Voor de kaart tonen we ALLE data, niet alleen geselecteerde categorieën
+            // De filterManager zal de filtering afhandelen
+            const displayData = allData; // Gebruik alle data in plaats van gefilterde data
             
             // Set liked status op data
             if (this.likesManager) {
@@ -381,22 +382,22 @@ class AppManager {
                 const likedIds = this.likesManager.getLikedIds();
                 console.log('🔍 All liked IDs from storage:', likedIds);
                 
-                filteredData.features.forEach(feature => {
+                displayData.features.forEach(feature => {
                     const featureId = feature.properties.id;
                     const isLiked = this.likesManager.isLiked(featureId);
                     feature.properties.liked = isLiked;
                     console.log(`🔍 Location ${featureId} (${feature.properties.name}) liked: ${isLiked}`);
                 });
                 
-                console.log('🔍 Features with liked status:', filteredData.features.map(f => ({
+                console.log('🔍 Features with liked status:', displayData.features.map(f => ({
                     id: f.properties.id,
                     name: f.properties.name,
                     liked: f.properties.liked
                 })));
             }
             
-            // Initialiseer markers met gefilterde data
-            await this.markerManager.initialize(filteredData);
+            // Initialiseer markers met ALLE data
+            await this.markerManager.initialize(displayData);
             
             // Update filter data
             if (this.filterManager) {

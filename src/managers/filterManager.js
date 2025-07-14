@@ -22,15 +22,33 @@ class FilterManager {
         this.initializeDefaultState();
         this.isInitialized = true;
         
+        // Debug: log alle categorieën uit config
+        console.log('📋 Alle categorieën uit config:', Object.keys(this.config.categories));
         console.log('✅ Filter manager geïnitialiseerd');
     }
 
     /**
-     * Initialiseert de standaard staat (alle categorieën actief)
+     * Initialiseert de standaard staat (geselecteerde categorieën actief)
      */
     initializeDefaultState() {
-        // Selecteer alle categorieën standaard
-        Object.keys(this.config.categories).forEach(category => {
+        // Haal geselecteerde categorieën op uit localStorage
+        const selectedCategories = localStorage.getItem('selectedCategories');
+        let categoriesToActivate = [];
+        
+        if (selectedCategories) {
+            try {
+                categoriesToActivate = JSON.parse(selectedCategories);
+            } catch (e) {
+                console.error('Fout bij parsen van selectedCategories:', e);
+                categoriesToActivate = Object.keys(this.config.categories);
+            }
+        } else {
+            // Als geen categorieën geselecteerd, activeer alles
+            categoriesToActivate = Object.keys(this.config.categories);
+        }
+        
+        // Activeer de juiste categorieën
+        categoriesToActivate.forEach(category => {
             this.activeFilters.add(category);
         });
         
@@ -38,11 +56,23 @@ class FilterManager {
         const allButton = this.filterElement.querySelector('[data-category="all"]');
         const categoryButtons = this.filterElement.querySelectorAll('.filter-btn:not(.filter-btn-all)');
         
-        allButton.classList.add('active');
-        categoryButtons.forEach(btn => btn.classList.add('active'));
+        // Check of alle categorieën actief zijn
+        if (this.activeFilters.size === Object.keys(this.config.categories).length) {
+            allButton.classList.add('active');
+        }
+        
+        categoryButtons.forEach(btn => {
+            const category = btn.dataset.category;
+            if (this.activeFilters.has(category)) {
+                btn.classList.add('active');
+            }
+        });
         
         // Update counts
         this.updateFilterUI();
+        
+        // Apply initial filter
+        this.applyMultiFilter();
     }
 
     /**
