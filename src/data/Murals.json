@@ -5,855 +5,456 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9820, 50.8842]
+        "coordinates": [5.976769, 50.886962]
       },
       "properties": {
         "id": "heerlen-mural-001",
-        "name": "L'Étranger",
+        "name": "Koolpiet",
         "category": "Murals",
-        "address": "Schelmenhofje, Pancratiusstraat, Heerlen",
-        "description": "Een 'vriendelijke reus' in de kenmerkende stijl van Os Gemeos met okerkleurige figuren en platte gezichten. Deze markante reus was onderdeel van het cultureel festival Cultura Nova in 2008. Het werk staat bekend als 'De Vreemdeling' en is een van de eerste grote internationale murals in Heerlen. De typische gele huid en dromerige fantasiestijl van de Braziliaanse tweelingbroers maakt dit werk tot een iconisch herkenningspunt in de stad.",
-        "artist": "Os Gemeos (Otavio en Gustavo Pandolfo)",
-        "website": "",
-        "creation_year": 2008,
-        "technique": "Spuitverf en stencils",
-        "cultural_info": "Onderdeel van Cultura Nova 2008 festival, markeerde het begin van Heerlen's transformatie tot street art hoofdstad"
+        "address": "Honigmannstraat 2, Heerlen",
+        "description": "Een verwijzing naar het ondergrondse werk van de 'koelpieten', de mijnwerkers. Om te waarschuwen voor brandbaar mijngas en giftig koolstofmonoxide gas namen mijnwerkers kanaries mee naar beneden. Deze gingen namelijk al bij kleine beetjes gas letterlijk van hun stokje. De beeltenis in zijn geheel refereert aan een gasmasker. Een hommage aan het roemruchte mijnbouwverleden van Heerlen.",
+        "artist": "Super A en Collin van der Sluijs",
+        "website": "https://stichtingstreetart.com/koolpiet-super-a-en-collin-vd-sluijs/",
+        "creation_year": 2013,
+        "technique": "Muurschildering XXL formaat",
+        "cultural_info": "Won in 2016 de Dutch Street Art Award in de categorie Wonderwall. Heerlen is het centrum van de voormalige Oostelijke Mijnstreek waar de kolenindustrie voor welvaart zorgde."
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9792, 50.8837]
+        "coordinates": [5.9776185, 50.8911625]
       },
       "properties": {
         "id": "heerlen-mural-002",
-        "name": "Heerlen Heron",
+        "name": "Piñata",
         "category": "Murals",
-        "address": "Mijnmuseumpad, voormalig CBS-gebouw, Heerlen",
-        "description": "Een imposante zwart-witte mural van een reiger met dodo-achtige snavel en vredesduifachtige vleugels. De reiger staat symbool voor een stad die langzaam herrijst uit de restanten van het verleden, een stad waar veel armoede en ellende is geweest. Het werk bevat verwijzingen naar de mijnbouw en toont een zwaard met het woord Coriovallum, de oude Romeinse naam van Heerlen. Deze muurschildering werd gefinancierd via crowdfunding in slechts 2,5 week tijd.",
-        "artist": "Vincent Lancée en Dave de Leeuw",
-        "website": "",
-        "creation_year": 2016,
-        "technique": "Zwart-wit muurschildering, grootschalig formaat",
-        "cultural_info": "Symbool voor de herrijzenis van Heerlen uit het moeilijke mijnbouwverleden"
+        "address": "Spoorsingel 50, Heerlen",
+        "description": "Een kleurrijke aanklacht tegen surveillance en 'big brother'. De camera bestaat uit gespoten felgekleurde post-it blaadjes. Super A hoopt dat alle camera's in de openbare ruimte hetzelfde lot ondergaan als een piñata - kapot geslagen worden. Het werk ontstaat uit persoonlijke ervaringen en gedachten die uitgroeien tot concepten tussen fictie en non-fictie.",
+        "artist": "Super A (Stephan Thelen)",
+        "website": "https://stichtingstreetart.com/pinata-super-a/",
+        "creation_year": 2014,
+        "technique": "Gespoten felgekleurde post-it blaadjes vormend een camera",
+        "cultural_info": "Protest tegen camerabewaking in de openbare ruimte die het werk van street artists bemoeilijkt"
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9815, 50.8850]
+        "coordinates": [5.974373900000001, 50.8917948]
       },
       "properties": {
         "id": "heerlen-mural-003",
         "name": "Creed",
         "category": "Murals",
         "address": "Spoorsingel 63, Heerlen",
-        "description": "Een monumentale madonna-achtige figuur met een patroongordel, Heilig Schrift, bloemenkrans, legerjas in camouflagekleuren, vredestak en Heilig Hart. De Kusillo-figuur uit de Aymara-cultuur is gesluierd als non maar tegelijkertijd gekleed als paramilitair. Het werk daagt uit om na te denken over religie en de combinatie van Zuid-Amerikaanse en katholieke elementen. In 2014 leidde het bijna tot een volksprotest toen een raadslid er een 'moslima met bomgordel' in zag.",
+        "description": "Een madonna-achtige figuur met patronengordel, militaire camouflagekleding, boek (Bijbel of Koran?), vredestak en Heilig Hart. De figuur daagt uit na te denken over godsdienst en wat in naam daarvan gebeurt in de wereld. INTI's stijl is nauw verbonden met pre-Columbiaanse kunst, carnaval, Boliviaanse folklore en religie uit Zuid-Amerika.",
         "artist": "INTI (Chileense kunstenaar)",
-        "website": "",
+        "website": "https://stichtingstreetart.com/creed-inti/",
         "creation_year": 2014,
-        "technique": "XXL formaat muurschildering, geïnspireerd door pre-Columbiaanse kunst",
-        "cultural_info": "Controversieel kunstwerk dat debat aanwakkerde over religie, vrede en geweld"
+        "technique": "XXL muurschildering geïnspireerd door pre-Columbiaanse kunst",
+        "cultural_info": "Leidde bijna tot een volksprotest toen een raadslid er een 'moslima met bomgordel' in zag. Bevindt zich aan een zijwand van Aurora, het grootste street art kunstwerk van Europa."
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9800, 50.8845]
+        "coordinates": [5.9808165, 50.8948745]
       },
       "properties": {
         "id": "heerlen-mural-004",
-        "name": "Piñata",
+        "name": "Tulpenmanie",
         "category": "Murals",
-        "address": "Spoorsingel 50, bij rotonde Kempkensweg, Heerlen",
-        "description": "Een kleurrijke aanklacht tegen 'big brother' en camerabewaking. De camera bestaat uit gespoten felgekleurde post-it blaadjes. Het is een protest tegen de vele camera's in de openbare ruimte die het werk van street artists bemoeilijken. De kunstenaar hoopt dat al deze camera's hetzelfde lot ondergaan als een piñata - kapot geslagen worden.",
-        "artist": "Super A (Stefan Thelen)",
-        "website": "",
-        "creation_year": 2014,
-        "technique": "Gespoten kleurrijke post-it blaadjes vormend een camera",
-        "cultural_info": "Protest tegen surveillance en overheidscontrole"
+        "address": "Oude Kerkstraat hoek Vijgenweg, Schandelen, Heerlen",
+        "description": "De mural toont Frederik Hendrik, zoon van Willem van Oranje die streed tegen de Spanjaarden voor de zelfstandigheid van de Republiek der Zeven Verenigde Nederlanden (1588-1795). In de bloeitijd van de 17e eeuw maakte de Republiek kennis met een overvloed aan exotische groenten, fruit en bloemen zoals de tulp. De 'meest Hollandse' bloem aller tijden komt oorspronkelijk uit Turkije.",
+        "artist": "Gaia (Amerikaanse street artist)",
+        "website": "https://stichtingstreetart.com/tulpenmanie-gaia/",
+        "creation_year": 2017,
+        "technique": "Historisch narratief gecombineerd met botanische elementen",
+        "cultural_info": "Gaia verdiepte zich in de Nederlandse geschiedenis voor dit werk. Onthulling vond plaats in bijzijn van de kunstenaar, wijkbewoners en buurtorganisatie GMS."
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9785, 50.8855]
+        "coordinates": [6.0087123, 50.8643638]
       },
       "properties": {
         "id": "heerlen-mural-005",
-        "name": "Shared Service Center Zuid-Limburg",
+        "name": "Mural XXL - Hyuro",
         "category": "Murals",
-        "address": "CBS-weg 2, Heerlen",
-        "description": "Het door kunstenaar Zedz met geometrische patronen beschilderde Shared Service Center Zuid-Limburg. Een ode aan 100 jaar De Stijl met ruim 750 m² de grootste muurschildering van Nederland door één artiest gemaakt. Het werk bestaat uit complexe geometrische vormen in de karakteristieke stijl van de Nederlandse kunststroming De Stijl.",
-        "artist": "Zedz",
-        "website": "",
-        "creation_year": 2017,
-        "technique": "Geometrische patronen, 750 m² groot",
-        "cultural_info": "Eerbetoon aan 100 jaar De Stijl beweging"
+        "address": "Peter Schunckstraat, Flat III, Heerlen",
+        "description": "Een anonieme vrouwfiguur draagt een kruik alsof het een kind is, verwijzend naar de dichtbijgelegen voormalige Vroedvrouwenschool die van grote betekenis was voor heel Limburg. De 'Romeinse' kruik is naar Japans gebruik met goud gelijmd nadat deze gebroken was, verwijzend naar de lange regionale geschiedenis van Romeins verleden, mijnindustrie, neergang en transitie.",
+        "artist": "Tamara Djurovicaka Hyuro",
+        "website": "https://stichtingstreetart.com/mural-xxl-tamara-djurovicaka-hyuro/",
+        "creation_year": 2018,
+        "technique": "Narratieve muurschildering met Japanse kintsugi-verwijzing",
+        "cultural_info": "Hyuro overleed twee jaar na het maken van deze mural veel te jong. De muurschildering heeft de meeste respons bij bewoners opgeleverd - herkenbaar maar ook mystiek."
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9812, 50.8847]
+        "coordinates": [6.0087123, 50.8641000]
       },
       "properties": {
         "id": "heerlen-mural-006",
-        "name": "Corvus Oculum",
+        "name": "Mural XXL - Aryz",
         "category": "Murals",
-        "address": "Geleenstraat 9, Doctor Poelsstraat hoek, Quatro Cinema, Heerlen",
-        "description": "Dit kunstwerk vormt nu de entree van het Romeinse kwartier van Heerlen. PichiAvo staat bekend om het verweven van beelden uit de klassieke oudheid met graffiti. Het Latijnse gezegde 'Corvus Oculum' betekent 'een kraai pikt geen oog uit bij een andere kraai'. Eind 2020 hebben James Jetlag en Yasja Ligtelijn van Studio Giftig de schildering uitgebreid met Romeinse filmthema's, waarmee een drieluik werd voltooid.",
-        "artist": "PichiAvo (Spaans duo uit Valencia)",
-        "website": "",
-        "creation_year": 2018,
-        "technique": "Klassieke kunst gecombineerd met moderne graffiti",
-        "cultural_info": "Viering van Heerlen's Romeinse erfgoed, later uitgebreid tot drieluik"
+        "address": "Peter Schunckstraat, Flat II, Heerlen",
+        "description": "Een vrouwenfiguur houdt een 'plumeau' boven haar hoofd die zij doormidden breekt alsof ze haar rolpatroon, de lokale geschiedenis en regionale structuurproblemen wil doorbreken. Deze mural markeert een moment in Aryz's oeuvre waar zijn handschrift veranderde van een sombere waterverfachtige techniek naar een kleurrijke. Nog steeds figuratief, maar zeker abstracter.",
+        "artist": "Aryz (Barcelona)",
+        "website": "https://stichtingstreetart.com/mural-xxl-aryz/",
+        "creation_year": 2019,
+        "technique": "Grootschalige muurschildering met kleurrijke abstracte elementen",
+        "cultural_info": "Aryz staat bekend om zijn grootschalige muurschilderingen wereldwijd. De mural van Hyuro op deze locatie inspireerde hem tot een visueel antwoord."
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9825, 50.8860]
+        "coordinates": [6.010266199999999, 50.8691897]
       },
       "properties": {
         "id": "heerlen-mural-007",
-        "name": "Bird Love / Tropische Vogels",
+        "name": "Aurora - Trillende Lente",
         "category": "Murals",
-        "address": "Klompstraat 10, Heerlen",
-        "description": "Een realistische en kleurrijke schildering van twee kroelende papegaaien in aquarelstijl. De uitbundige, maar toch ook realistische stijl is kenmerkend voor Daniel Mac Lloyd, een autodidact uit Luxemburg. Mac Lloyd won in 2018 de Street Art Benelux Young Talent Award en koos Heerlen als locatie voor zijn prijswerk.",
-        "artist": "Daniel Mac Lloyd",
-        "website": "",
-        "creation_year": 2019,
-        "technique": "Realistische aquarelstijl muurschildering",
-        "cultural_info": "Winnaar Street Art Benelux Young Talent Award 2018"
+        "address": "Heerlerbaan, Auroraflat, Heerlen",
+        "description": "Het Aurora-project is het grootste street art-kunstwerk van Europa geworden. Het complex van 228 appartementen met 18.000 m² muuroppervlak werd beschilderd door het Spaanse kunstenaarscollectief Boa Mistura samen met bewoners. Het ontwerp weergeeft een tekst van Kahlil Gibran: 'In het Hart van elke Winter, leeft een Trillende Lente'. De zin refereert aan de geschiedenis van de plek, de stad en de individuele bewoners.",
+        "artist": "Boa Mistura (Spaans kunstenaarscollectief)",
+        "website": "https://stichtingstreetart.com/aurora/",
+        "creation_year": 2021,
+        "technique": "Grootschalige participatieve muurschildering op flatgebouw",
+        "cultural_info": "Aurora is door de unieke samenwerking tussen bewoners, kunstenaars en instanties een sociaal kunstwerk geworden van formaat. De wijk stond niet gunstig aangeschreven maar dat is nu heel anders."
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9795, 50.8852]
+        "coordinates": [5.9806925, 50.8879271]
       },
       "properties": {
         "id": "heerlen-mural-008",
-        "name": "Koolpiet - Forward in Time",
+        "name": "L'Étranger",
         "category": "Murals",
-        "address": "Honigmannstraat 2A, Heerlen",
-        "description": "Een verwijzing naar het mijnbouwverleden van Heerlen en de 'koelpieten' (mijnwerkers). Het werk toont een kanarie in een kooitje, die mijnwerkers gebruikten om gaslekken te detecteren. De 'koolpiet' verwijst naar de kanarie die in een kooitje mee de kolenmijn in ging om giftige gassen te detecteren. Dit werk won in 2016 de Dutch Street Art Award in de categorie Wonderwall.",
-        "artist": "Super A & Collin van der Sluijs",
+        "address": "Schelmenhofje, Pancratiusstraat, Heerlen",
+        "description": "Een 'vriendelijke reus' in de kenmerkende stijl van Os Gemeos met okerkleurige figuren en platte gezichten. Deze markante reus was onderdeel van het cultureel festival Cultura Nova in 2008. Het werk staat bekend als 'De Vreemdeling' en is een van de eerste grote internationale murals in Heerlen. Tijdens de openingsshow kwam de figuur tot leven in samenwerking met Plasticiens Volants.",
+        "artist": "Os Gemeos (Otavio en Gustavo Pandolfo)",
         "website": "",
-        "creation_year": 2013,
-        "technique": "Muurschildering met symbolische elementen",
-        "cultural_info": "Winnaar Dutch Street Art Awards 2016, verwijzing naar mijnbouwgeschiedenis"
+        "creation_year": 2008,
+        "technique": "Spuitverf en stencils in typische Os Gemeos-stijl",
+        "cultural_info": "Onderdeel van Cultura Nova 2008 festival, markeerde het begin van Heerlen's transformatie tot street art hoofdstad. Het Braziliaanse duo begon als graffitispuiters in São Paulo."
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9988, 50.8901]
+        "coordinates": [5.9825, 50.8861]
       },
       "properties": {
         "id": "heerlen-mural-009",
-        "name": "Aurora",
+        "name": "Self Portrait",
         "category": "Murals",
-        "address": "Heerlerbaan, Auroraflat, Heerlen",
-        "description": "De grootste mural van Europa, beschilderd op 228 appartementen met felgekleurde strepen in geel, oranje en paars. Bevat de tekst 'In het hart van elke winter leeft een trillende lente' naar Kahlil Gibran. Het werk symboliseert hoop en vernieuwing voor de bewoners van deze wijk. Elke bewoner heeft bijgedragen aan het ontwerp via een speciale app.",
-        "artist": "Boa Mistura (Spaans kunstenaarscollectief)",
-        "website": "",
-        "creation_year": 2018,
-        "technique": "Grootschalige geometrische strepen op flatgebouw",
-        "cultural_info": "Grootste mural van Europa, symbool van hoop voor de wijk"
+        "address": "Coriovallumstraat 26, Heerlen",
+        "description": "Een robotachtige kat die om het hoekje kijkt, kenmerkend voor DALeast's draadachtige sculpturen die half dier half machine zijn, half natuurlijk half kunstmatig. Hij lost de moeilijke situatie aan het pand met een grote boom ernaast briljant op. Het blijft gissen of de kat de volgende seconde verdwijnt of juist tevoorschijn komt.",
+        "artist": "DALeast",
+        "website": "https://stichtingstreetart.com/self-portrait-daleast/",
+        "creation_year": 2013,
+        "technique": "Draadachtige sculpturen, 3D illusie",
+        "cultural_info": "DALeast is uit China afkomstig en woont in Zuid-Afrika. Een echte topartiest in de street art wereld met een zeer herkenbare stijl. Zijn credo: 'DALeast is currently a human being.'"
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9805, 50.8848]
+        "coordinates": [5.9823, 50.8863]
       },
       "properties": {
         "id": "heerlen-mural-010",
-        "name": "A Crazy Little Thing Called Glove",
+        "name": "Alas! How Pitiful",
         "category": "Murals",
-        "address": "Bekkerweg 13 / Kortstraat, Heerlen",
-        "description": "Een surrealistische scène met een roze eland en een slapend kind. Het werk speelt met de titel van het Queen-nummer, waarbij 'glove' verwijst naar de handschoenen in de geweien. De hyperrealistische stijl is kenmerkend voor het Nederlandse duo TelmoMiel. Lokaal bekend als de 'Roze eland'.",
-        "artist": "TelmoMiel (Telmo Pieper & Miel Krutzmann)",
-        "website": "",
-        "creation_year": 2014,
-        "technique": "Hyperrealistische muurschildering",
-        "cultural_info": "Onderdeel van de internationale 'Glove Stories' serie"
+        "address": "Coriovallumstraat 7, Heerlen",
+        "description": "Een Mariabeeltenis die verband houdt met het nabijgelegen Christusbeeld op het Tempsplein. Typerend is dat de zwaan (symbool voor zuiverheid) wordt aangevallen door een hond (symbool voor trouw). Het verlies van spiritualiteit in het dagelijks bestaan bekritiserend. Haar gracieuze zwanen zijn een dominant terugkerend thema waarmee zij in versteende omgevingen het verlies van contact met de natuur verbeeldt.",
+        "artist": "Faith47 (Zuid-Afrikaanse kunstenaar, Liberty Du)",
+        "website": "https://stichtingstreetart.com/alas-how-pitiful-faith47/",
+        "creation_year": 2013,
+        "technique": "Gedetailleerde muurschildering met religieuze en symbolische thematiek",
+        "cultural_info": "Faith47 laat zich inspireren door sociale en politieke kwesties zoals mensenrechten, eenzaamheid, post-apartheid en feminisme. Haar werk kenmerkt zich door ruwe intimiteit."
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9830, 50.8856]
+        "coordinates": [5.9776185, 50.8911625]
       },
       "properties": {
         "id": "heerlen-mural-011",
-        "name": "Catch the Butterfly",
+        "name": "Kinetic",
         "category": "Murals",
-        "address": "Looierstraat 22 / Laanderstraat, Heerlen",
-        "description": "Een fantastische vos in kleurrijke, speelse stijl met complexe grafische lijnen. Ook op de schoorsteen is een dier te zien. Met zijn herkenbare, dynamische lijnvoering brengt de Antwerpse kunstenaar graag een stukje natuur naar de stad. De complexe grafische lijnen zijn kenmerkend voor Dzia's werk.",
-        "artist": "Dzia (Belgische kunstenaar)",
+        "address": "Spoorsingel 44, Heerlen",
+        "description": "Een dynamisch werk van de Argentijns-Spaanse kunstenaar Felipe Pantone, die al op 12-jarige leeftijd met graffiti begon. Zijn werk kenmerkt zich door kinetische elementen en geometrische patronen die bewegen en veranderen afhankelijk van het licht en de kijkhoek.",
+        "artist": "Felipe Pantone",
         "website": "",
-        "creation_year": 2016,
-        "technique": "Kleurrijke grafische lijnen en speelse stijl",
-        "cultural_info": "Brengt natuur naar de stedelijke omgeving"
+        "creation_year": 2015,
+        "technique": "Kinetische kunst met geometrische patronen",
+        "cultural_info": "Felipe Pantone combineert traditionele graffiti met digitale esthetiek en optische illusies"
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9818, 50.8844]
+        "coordinates": [5.9780, 50.8867]
       },
       "properties": {
         "id": "heerlen-mural-012",
-        "name": "Alas! How Pitiful",
+        "name": "Zonder Titel - Miosis",
         "category": "Murals",
-        "address": "Coriovallumstraat, Heerlen",
-        "description": "Een van de mooiste murals in Heerlen met een Mariabeeltenis geïnspireerd op het nabijgelegen Christusbeeld op het Tempsplein. Het werk bevat zoveel details dat voorbijgangers er minutenlang naar kunnen kijken. Een vroeg werk in Heerlen's street art ontwikkeling dat spiritualiteit en stedelijke kunst combineert.",
-        "artist": "Faith47 (Zuid-Afrikaanse kunstenaar)",
-        "website": "",
-        "creation_year": 2013,
-        "technique": "Gedetailleerde muurschildering met religieuze thematiek",
-        "cultural_info": "Vroeg werk in Heerlen's street art ontwikkeling"
+        "address": "Stadstuin Tweede Promenade, Heerlen",
+        "description": "Een inspirerende mural die oproept tot 'Speak Your Words'. MIOSIS betekent letterlijk 'de vernauwing van de pupil in het oog door samentrekking van de Musculus sphincterpupillae' - de reactie van onze ogen op licht. Marijke Lüdwig maakt haar werk om te verbazen, inspireren en anderen te raken, het liefst door hen de 'ogen wijd open te sperren'.",
+        "artist": "Miosis (Marijke Lüdwig)",
+        "website": "https://stichtingstreetart.com/zonder-titel-miosis/",
+        "creation_year": 2019,
+        "technique": "Illustratieve muurschildering",
+        "cultural_info": "MIOSIS is een jonge Nederlandse illustrator en vormgeefster met een atelier in het CBS/Carbon6 gebouw. Dit gebouw is inmiddels gesloopt."
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9800, 50.8839]
+        "coordinates": [5.9782, 50.8869]
       },
       "properties": {
         "id": "heerlen-mural-013",
-        "name": "Reflection of Oneself",
+        "name": "Zonder Titel - Dazetwo",
         "category": "Murals",
-        "address": "Stationsplein, Heerlen",
-        "description": "Dit werk refereert aan het feit dat alle Brazilianen van gemengd bloed zijn. De kunstenaar verkent thema's van identiteit en multiculturaliteit door middel van symbolische beeldtaal. Het werk nodigt uit tot reflectie over eigen identiteit en afkomst.",
-        "artist": "Nunca (Francisco Silva, Braziliaans)",
+        "address": "Stadstuin Tweede Promenade, Heerlen",
+        "description": "Een werk van de lokale kunstenaar Dazetwo uit Heerlen, die als mijnwerkerskleinzoon parallellen trekt tussen zijn eigen familiegeschiedenis en de stad. Zijn werk reflecteert op de transformatie van Heerlen van mijnstad naar moderne stad.",
+        "artist": "Dazetwo (lokale Heerlenaar)",
         "website": "",
-        "creation_year": 2016,
-        "technique": "Symbolische muurschildering",
-        "cultural_info": "Verkenning van identiteit en multiculturaliteit"
+        "creation_year": 2019,
+        "technique": "Lokaal geïnspireerde muurschildering",
+        "cultural_info": "Dazetwo is meer dan een street artist - hij is een chroniqueur van de stad die de verhalen van Heerlen vertelt door zijn persoonlijke connectie met de mijnbouwgeschiedenis."
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9810, 50.8845]
+        "coordinates": [5.9784, 50.8871]
       },
       "properties": {
         "id": "heerlen-mural-014",
-        "name": "Self-Portrait",
+        "name": "Zonder Titel - Magdalena Karol",
         "category": "Murals",
-        "address": "Kruisstraat, Heerlen",
-        "description": "Een schuwe panter in de karakteristieke stijl van Daleast. Het werk toont de complexe lijnvoering en driedimensionale illusie waarvoor de kunstenaar bekend staat. De panter lijkt uit de muur te springen door het gebruik van schaduw en perspectief.",
-        "artist": "Daleast",
+        "address": "Stadstuin Tweede Promenade, Heerlen",
+        "description": "Een werk van de van origine Poolse kunstenaar Magdalena Karol, die neergestreken is in Ierland. Haar internationale perspectief brengt een unieke kijk op de lokale context van Heerlen.",
+        "artist": "Magdalena Karol",
         "website": "",
-        "creation_year": 2013,
-        "technique": "3D illusie met complexe lijnvoering",
-        "cultural_info": "Deel van de eerste golf street art werken in Heerlen"
+        "creation_year": 2019,
+        "technique": "Interculturele muurschildering",
+        "cultural_info": "Magdalena Karol verbindt haar Poolse wortels met haar Ierse adoptie en Heerlense ervaring in dit werk."
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9822, 50.8853]
+        "coordinates": [5.9786, 50.8873]
       },
       "properties": {
         "id": "heerlen-mural-015",
-        "name": "Swinging Birds",
+        "name": "Zonder Titel - Morfai",
         "category": "Murals",
-        "address": "Morenhoek, Heerlen",
-        "description": "Uitbundige vogels die dansen en swingen in vrolijke kleuren. Het werk brengt beweging en leven in de stedelijke omgeving. De dynamische compositie en levendige kleuren zijn kenmerkend voor Van der Sluijs' stijl.",
-        "artist": "Collin van der Sluijs",
+        "address": "Stadstuin Tweede Promenade, Heerlen",
+        "description": "Een werk van Morfai (Timotiejus Norvila) uit Litouwen, die in Heerlen werkte als onderdeel van een internationaal street art project. Het werk reflecteert op de Europese verbindingen en culturele uitwisseling.",
+        "artist": "Morfai (Timotiejus Norvila)",
         "website": "",
-        "creation_year": 2013,
-        "technique": "Kleurrijke muurschildering met dynamische vogels",
-        "cultural_info": "Onderdeel van de eerste street art golf in 2013"
+        "creation_year": 2019,
+        "technique": "Litouwse geïnspireerde muurschildering",
+        "cultural_info": "Onderdeel van een project dat internationale kunstenaars naar Heerlen bracht om de culturele diversiteit te vieren."
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9835, 50.8865]
+        "coordinates": [5.9788, 50.8875]
       },
       "properties": {
         "id": "heerlen-mural-016",
-        "name": "Tulpenmanie",
+        "name": "Zonder Titel - Amber Delahaye",
         "category": "Murals",
-        "address": "Oude Kerkstraat, hoek Vijgenweg, Schandelen, Heerlen",
-        "description": "Deze muurschildering toont Frederik Hendrik, zoon van Willem van Oranje die streed tegen de Spanjaarden voor de zelfstandigheid van de Republiek der Zeven Verenigde Nederlanden. De mural verbeeldt ontdekkingen uit de 17e eeuw, inclusief exotische groenten, fruit en bloemen zoals de tulp. Een viering van de Nederlandse Gouden Eeuw en de pioniersgeest van het land.",
-        "artist": "Gaia (Amerikaanse street artist)",
+        "address": "Stadstuin Tweede Promenade, Heerlen",
+        "description": "Een werk van de Nederlandse Amber Delahaye, die grafische vormgeving studeerde in Eindhoven. Haar werk combineert moderne design principes met street art esthetiek.",
+        "artist": "Amber Delahaye",
         "website": "",
-        "creation_year": 2017,
-        "technique": "Historisch narratief gecombineerd met botanische elementen",
-        "cultural_info": "Viering van de Nederlandse Gouden Eeuw"
+        "creation_year": 2019,
+        "technique": "Grafisch vormgeving geïnspireerde muurschildering",
+        "cultural_info": "Delahaye brengt haar academische achtergrond in grafische vormgeving naar de straat, waarbij ze een brug slaat tussen kunstacademie en street art."
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9798, 50.8841]
+        "coordinates": [6.0020, 50.8895]
       },
       "properties": {
         "id": "heerlen-mural-017",
-        "name": "Synthesis",
+        "name": "Zonder Titel - Martynas Auz",
         "category": "Murals",
-        "address": "Spoorsingel, bij het spoor, Heerlen",
-        "description": "Zwart-witte spiralen met een psychedelisch ontwerp over de digitalisering van de samenleving en hoe mensen zijn samengegroeid met allerlei apparaten. Het hypnotiserende patroon symboliseert de complexe relatie tussen mens en technologie in de moderne wereld.",
-        "artist": "Bier en Brood (Jelmer Noordeman en Koen Harmsma)",
+        "address": "Zeswegenlaan 35, Heerlen",
+        "description": "Een werk van de Litouwse kunstenaar Martynas Auz, die in Heerlen werkte in het kader van een internationaal uitwisselingsprogramma. Het werk verbindt Litouwse kunsttradities met de lokale context van Heerlen.",
+        "artist": "Martynas Auz",
         "website": "",
-        "creation_year": 2016,
-        "technique": "Zwart-wit spiraalpatronen",
-        "cultural_info": "Commentaar op digitalisering van de samenleving"
+        "creation_year": 2020,
+        "technique": "Litouwse street art stijl",
+        "cultural_info": "Onderdeel van een programma dat kunstenaars uit verschillende Europese landen naar Heerlen bracht om de culturele banden te versterken."
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9803, 50.8846]
+        "coordinates": [6.0022, 50.8897]
       },
       "properties": {
         "id": "heerlen-mural-018",
-        "name": "Onze Helden",
+        "name": "Zonder Titel - BURPK",
         "category": "Murals",
-        "address": "Spoorsingel, tegenover busstation, Heerlen",
-        "description": "Een ode aan de medewerkers in de zorg, toont een verpleegster met een mondkapje. De tekst 'onze helden' werd later vervangen door 'code zwart' tijdens de pandemie. Dit werk werd een symbool van waardering voor zorgmedewerkers tijdens de COVID-19 crisis.",
-        "artist": "James Jetlag, Yasja Ligtelijn & Arian Winterink",
+        "address": "Benzenraderweg 1, Heerlen",
+        "description": "Een werk van BURPK, oftewel Thijs Reinders, een beeldend kunstenaar en ontwerper uit Heerlen. Als lokale kunstenaar brengt hij een diep begrip van de stad en haar geschiedenis naar zijn werk.",
+        "artist": "BURPK (Thijs Reinders)",
         "website": "",
-        "creation_year": 2020,
-        "technique": "Portret muurschildering",
-        "cultural_info": "Eerbetoon aan zorgmedewerkers tijdens COVID-19 pandemie"
+        "creation_year": 2019,
+        "technique": "Lokaal geïnspireerde beeldende kunst",
+        "cultural_info": "Als Heerlenaar brengt BURPK een authentieke lokale stem naar het internationale street art landschap van de stad."
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9790, 50.8838]
+        "coordinates": [5.9779, 50.8865]
       },
       "properties": {
         "id": "heerlen-mural-019",
-        "name": "Green Over Gold",
+        "name": "Mine Love, Distribute Hope",
         "category": "Murals",
-        "address": "Willemstraat, hoek Robroekergats, Heerlen",
-        "description": "Een eerbetoon aan het leven en de natuur met een aapje, koala en groot oerblad die samen een eenheid vormen die niet altijd in balans is met elkaar. Het werk reflecteert op de complexe relatie tussen mens en natuur, waarbij groen (natuur) belangrijker is dan goud (geld).",
-        "artist": "Fish (James Jetlag)",
-        "website": "",
-        "creation_year": 2018,
-        "technique": "Natuurthema muurschildering",
-        "cultural_info": "Statement over natuurbehoud versus economische belangen"
+        "address": "Stadstuin Tweede Promenade, Heerlen",
+        "description": "Krachtige woorden geschreven speciaal voor de grootvaders van de kunstenaar die trots werkten in een voormalige mijnwerkersstad in Schotland. Deze regel heeft nooit een plek kunnen krijgen in zijn thuisstad, wat het extra bijzonder maakt deze prominent te laten prijken boven het Schinkel-Zuid terrein dat de toekomst van Heerlen symboliseert.",
+        "artist": "Robert Montgomery (Schotse dichter en kunstenaar)",
+        "website": "https://stichtingstreetart.com/mine-love-robert-montgomery/",
+        "creation_year": 2019,
+        "technique": "Tekstkunst, poëzie",
+        "cultural_info": "Robert Montgomery balanceert op het randje van Street Art, Poetry en High Art. Hij komt uit een voormalige mijnwerkersstad in Schotland waar beide grootvaders trots werkten."
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9808, 50.8850]
+        "coordinates": [5.9790, 50.8879]
       },
       "properties": {
         "id": "heerlen-mural-020",
-        "name": "Blauwe Kip",
+        "name": "Zonder Titel - Spenser Little",
         "category": "Murals",
-        "address": "Willemstraat, muurtje bij steegje, Heerlen",
-        "description": "Een kleurrijke blauwe kip met complexe grafische lijnen, kenmerkend voor de speelse en herkenbare stijl van Dzia. Het werk brengt een vrolijke noot in het straatbeeld met zijn levendige kleuren en dynamische vormgeving.",
-        "artist": "Dzia (Belgische kunstenaar)",
+        "address": "Diverse locaties, centrum Heerlen",
+        "description": "Werken verspreid door het centrum van Heerlen door de Amerikaanse kunstenaar Spenser Little uit San Diego. Zijn werk reflecteert op de Amerikaanse street art traditie en hoe deze zich verhoudt tot de Europese context.",
+        "artist": "Spenser Little",
         "website": "",
-        "creation_year": 2016,
-        "technique": "Kleurrijke grafische stijl",
-        "cultural_info": "Deel van Dzia's serie dierenmuurschilderingen"
+        "creation_year": 2019,
+        "technique": "Amerikaanse street art stijl",
+        "cultural_info": "Little groeide op in de rijke graffiti- en street art scene van San Diego en brengt die ervaring naar de straten van Heerlen."
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9812, 50.8851]
+        "coordinates": [5.9813724, 50.8871301]
       },
       "properties": {
         "id": "heerlen-mural-021",
-        "name": "Haan",
+        "name": "Swinging Birds",
         "category": "Murals",
-        "address": "Willemstraat 91b, Heerlen",
-        "description": "Een staande haan in Dzia's karakteristieke kleurrijke stijl met complexe grafische lijnen en speelse uitstraling. De haan staat fier rechtop en is uitgevoerd in levendige kleuren die het straatbeeld verlevendigen.",
-        "artist": "Dzia",
-        "website": "",
-        "creation_year": 2016,
-        "technique": "Grafische muurschildering",
-        "cultural_info": "Onderdeel van Dzia's vogelserie in Heerlen"
+        "address": "Plaarstraat 14, Heerlen",
+        "description": "Uitbundige vogels die dansen en swingen in vrolijke kleuren, kenmerkend voor Van der Sluijs' fantasierijke afbeeldingen van alledaagse situaties die onze persoonlijke geneugten en worstelingen ter discussie stellen. De in Maastricht woonachtige kunstenaar groeide op tussen de graffiti en was al als 11-jarige deel van de street art scene. Zijn grafische stijl vertoont nog steeds de trekken van de straat, maar is tegelijk verhalend en figuratief.",
+        "artist": "Collin van der Sluijs",
+        "website": "https://stichtingstreetart.com/swinging-birds-collin-van-der-sluijs/",
+        "creation_year": 2013,
+        "technique": "Grafische vormgeving gecombineerd met street art, verhalend en figuratief",
+        "cultural_info": "Van der Sluijs is opgeleid als grafisch vormgever, schilder en illustrator. Samen met Super A realiseerde hij ook het kunstwerk 'Koolpiet'."
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9815, 50.8842]
+        "coordinates": [5.977383, 50.89129759999999]
       },
       "properties": {
         "id": "heerlen-mural-022",
-        "name": "Ravensculpturen Pancratiusplein",
+        "name": "Ode aan de arbeider",
         "category": "Murals",
-        "address": "Pancratiusplein en omgeving, Heerlen",
-        "description": "Middeleeuwse Heerlense scenario's in de vorm van ravensculpturen en muurschilderingen rondom het Pancratiusplein. De zwarte vogels zijn door de hele stad te vinden en vormen een soort speurtocht voor bezoekers. Dazetwo claimt meer dan 200 werken in Heerlen te hebben gemaakt.",
-        "artist": "Dazetwo (lokale Heerlenaar)",
-        "website": "",
-        "creation_year": 2021,
-        "technique": "Muurschilderingen en paste-ups van raven",
-        "cultural_info": "Lokale kunstenaar met meer dan 200 werken door de stad"
+        "address": "Spoorsingel 46, Heerlen",
+        "description": "Een cadeau van de vakbeweging FNV aan Heerlen, 50 jaar na de mijnsluiting en in het Jaar van de Mijnen. 'Handen ineen, samen voor een sociale maatschappij' heeft Super A verbeeld. Op de spaken van het grote wiel van de liftschacht zijn hedendaagse exponenten afgebeeld van de strijd voor een sociale maatschappij. De koempel op de gevel kijkt hoopvol omhoog, bijgestraald door het licht van zijn kenmerkende 'petlamp'.",
+        "artist": "Super A (Stephan Thelen)",
+        "website": "https://stichtingstreetart.com/ode-aan-de-arbeider-super-a/",
+        "creation_year": 2015,
+        "technique": "Symbolische muurschildering met mijnbouw thematiek",
+        "cultural_info": "Oud-mijnwerkers, waaronder zelfs een 99-jarige, waren uitgenodigd bij de presentatie. De mural is inmiddels niet meer te zien omdat het pand gesloopt is."
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9988, 50.8902]
+        "coordinates": [5.9462229, 50.9228338]
       },
       "properties": {
         "id": "heerlen-mural-023",
-        "name": "3D Heerlen Letters",
+        "name": "Kriebelstad",
         "category": "Murals",
-        "address": "Voor de Auroraflat, Heerlerbaan, Heerlen",
-        "description": "Grote 3D letters die 'HEERLEN' spellen. De eerste letters zijn beschilderd met raven en kraaien door Dazetwo, de laatste letters zijn gedecoreerd met vlinders, paddenstoelen en bloemen door Amber Delahaye. Een samenwerking tussen lokale kunstenaars die natuur en stedelijke elementen combineert.",
-        "artist": "Dazetwo & Amber Delahaye",
-        "website": "",
-        "creation_year": 2021,
-        "technique": "3D letters met natuurelementen",
-        "cultural_info": "Collaboratief lokaal kunstproject"
+        "address": "Laurierstraat 357, Heerlen Noord",
+        "description": "Zwart-witte beeldverhalen die te 'lezen' zijn als de verhalen van vriendelijke inwoners die hun verstedelijkte omgeving verkennen. Millo's intuïtief scherpe gevoel voor ruimte en zijn vermogen om een buitengevel te vullen met perfect gevormde ontwerpen resulteren in een monochromatische stijl met vlakken van kleur en grillige karakteriseringen.",
+        "artist": "Millo (Francesco Camillo Giorgino)",
+        "website": "https://stichtingstreetart.com/kriebelstad-millo/",
+        "creation_year": 2015,
+        "technique": "Zwart-wit beeldverhalen met architecturale invloed",
+        "cultural_info": "Millo begon als architectuurstudent en die invloed is terug te vinden in zijn werk. In 2014 schilderde hij 13 enorme muurschilderingen in Turijn als onderdeel van de B.Art wedstrijd."
       }
     },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [5.9827, 50.8858]
+        "coordinates": [5.9765, 50.8853]
       },
       "properties": {
         "id": "heerlen-mural-024",
-        "name": "OZMO - Romeinse Baden",
+        "name": "Heerlen Struggle",
         "category": "Murals",
-        "address": "Coriovallumstraat 7, Heerlen",
-        "description": "Venus maakt zich klaar om te gaan baden, geïnspireerd door het badhuis van Coriovallum, de Romeinse nederzetting die hier zo'n 2000 jaar geleden lag. Het badhuis was niet alleen een plek om je te wassen en te ontspannen, maar had ook een sociale functie. Hier kon je met mensen praten, vrienden ontmoeten en zakendoen. Dit werk is onderdeel van het nationale Museum Murals project.",
-        "artist": "OZMO (Italiaanse kunstenaar)",
-        "website": "",
-        "creation_year": 2024,
-        "technique": "Klassieke muurschildering met Romeinse thematiek",
-        "cultural_info": "Onderdeel van Museum Murals project, verwijzing naar Romeins verleden"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9819, 50.8849]
-      },
-      "properties": {
-        "id": "heerlen-mural-025",
-        "name": "Pablo Delgado Mini-tafereeltjes",
-        "category": "Murals",
-        "address": "Verspreid door het stadscentrum, Heerlen",
-        "description": "Miniatuur stencils gebaseerd op de Gouden Eeuw, verstopt in vergeten hoekjes, stiekem boven bloempotjes of in kleine nissen. Deze mini-tafereeltjes vormen een speurtocht door de stad. Oranje tegels markeren de locaties, maar sommige tegels zijn misleidend! Zeer leuk om te ontdekken met kinderen.",
-        "artist": "Pablo Delgado (Mexicaanse kunstenaar)",
-        "website": "",
-        "creation_year": 2016,
-        "technique": "Miniatuur wheat paste stencils",
-        "cultural_info": "Interactieve kunstervaring, verwijzingen naar Europese Gouden Eeuw"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9813, 50.8843]
-      },
-      "properties": {
-        "id": "heerlen-mural-026",
-        "name": "Isaac Cordal beeldjes",
-        "category": "Murals",
-        "address": "Verspreid door de stad, vaak bij beveiligingscamera's, Heerlen",
-        "description": "Hopeloze wezentjes die vooral beveiligingscamera's lijken te bewaken. Deze kleine cementfiguurtjes zijn onderdeel van het 'Cement Eclipses' project en bieden commentaar op stedelijk leven en surveillance. Ze zijn vaak te vinden in goten, bij plassen of op onverwachte stedelijke locaties.",
-        "artist": "Isaac Cordal (Spanje)",
-        "website": "",
-        "creation_year": 2016,
-        "technique": "Miniatuur cement sculpturen",
-        "cultural_info": "Kritiek op vooruitgang en surveillance in de moderne samenleving"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9795, 50.8847]
-      },
-      "properties": {
-        "id": "heerlen-mural-027",
-        "name": "Gedachten in beweging",
-        "category": "Murals",
-        "address": "Spoorsingel 12, Heerlen",
-        "description": "Een roze mural die gedachten en beweging visualiseert. Het werk nodigt uit tot contemplatie over de constante stroom van gedachten in ons dagelijks leven. De zachte roze kleur contrasteert met de vaak grijze stedelijke omgeving.",
-        "artist": "Christian Riffel",
-        "website": "",
-        "creation_year": 2018,
-        "technique": "Roze muurschildering",
-        "cultural_info": "Filosofische reflectie op menselijke gedachten"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9960, 50.8870]
-      },
-      "properties": {
-        "id": "heerlen-mural-028",
-        "name": "Zeswegen Trafohuisje",
-        "category": "Murals",
-        "address": "Mijnzetellaan, Zeswegen, Heerlen",
-        "description": "Het trafohuisje bestaat uit het wegenplan van Zeswegen en de kolen waarop de huizen gebouwd zijn. Op de achterzijde is het (straat)voetbal uitgebeeld. Alle straatnamen in Zeswegen zijn afgeleid van de mijnbouwindustrie. Dit werk is onderdeel van het 'Murals for Communities' project.",
-        "artist": "Martynas Auž (ontwerp), uitgevoerd door lokale kunstenaars",
-        "website": "",
-        "creation_year": 2020,
-        "technique": "Beschilderd trafohuisje",
-        "cultural_info": "Verwijzing naar mijnbouwgeschiedenis, gebouwd op voormalige steenberg"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9811, 50.8854]
-      },
-      "properties": {
-        "id": "heerlen-mural-029",
-        "name": "Abyss",
-        "category": "Murals",
-        "address": "Kempkensweg, Heerlen",
-        "description": "Een geometrisch optische illusie werk dat de toeschouwer meezuigt in een oneindige diepte. Het werk speelt met perspectief en diepte, waardoor het lijkt alsof er een gat in de muur zit. Kenmerkend voor 1010's stijl van portalen en oneindige ruimtes.",
-        "artist": "1010 (Duitse kunstenaar)",
-        "website": "",
-        "creation_year": 2015,
-        "technique": "Geometrische optische illusie",
-        "cultural_info": "Onderdeel van de internationale street art beweging"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9806, 50.8840]
-      },
-      "properties": {
-        "id": "heerlen-mural-030",
-        "name": "In Loving Memory",
-        "category": "Murals",
-        "address": "Bekkerveld, Heerlen",
-        "description": "Een memorial mural voor kunstenaar Remi Vervloet die in 2012 overleed. Het werk toont intense beelden waaronder een berenkop en zonnebloemen met hangende hoofden. Een community eerbetoon aan een lokale kunstenaar, gecreëerd door meerdere artiesten samen.",
-        "artist": "Dave de Leeuw, Vincent Lancee, N'tan, Hans Keuls",
-        "website": "",
-        "creation_year": 2013,
-        "technique": "Collaboratieve memorial muurschildering",
-        "cultural_info": "Community eerbetoon aan overleden lokale kunstenaar"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9832, 50.8862]
-      },
-      "properties": {
-        "id": "heerlen-mural-031",
-        "name": "Operation Heartbeat",
-        "category": "Murals",
-        "address": "Oude Kerkstraat, een van de vier hoeken, Heerlen",
-        "description": "Een hart met bloemen uit het Nederlandse koloniale rijk, onderdeel van vier hoekmuurschilderingen door Gaia. Het werk verwijst naar de Nederlandse handelsgeschiedenis en koloniale verleden, uitgevoerd in roze en paarse tinten.",
-        "artist": "Gaia (Amerikaanse kunstenaar)",
-        "website": "",
-        "creation_year": 2017,
-        "technique": "Muurschildering met historische symboliek",
-        "cultural_info": "Reflectie op Nederlands koloniaal verleden"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9834, 50.8863]
-      },
-      "properties": {
-        "id": "heerlen-mural-032",
-        "name": "Joop den Uyl - Einde Steenkool",
-        "category": "Murals",
-        "address": "Oude Kerkstraat, tweede hoek, Heerlen",
-        "description": "Portret van voormalig minister-president Joop den Uyl die op 1 december 1965 het einde van de steenkoolwinning aankondigde. Dit historische moment betekende het einde van een tijdperk voor Heerlen en heel Zuid-Limburg. Uitgevoerd in Gaia's kenmerkende roze-paarse kleurenpalet.",
-        "artist": "Gaia",
-        "website": "",
-        "creation_year": 2017,
-        "technique": "Historisch portret in street art stijl",
-        "cultural_info": "Markering van het einde van het mijnbouwtijdperk"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9801, 50.8836]
-      },
-      "properties": {
-        "id": "heerlen-mural-033",
-        "name": "Viaduct Tovercirkel",
-        "category": "Murals",
-        "address": "Tichelbeekstraat viaduct, Heerlen",
-        "description": "Een sprookjesachtig wezen omringd door kleine figuurtjes en kleurrijke ballonnen. Gemaakt in samenwerking met kinderen van Basisschool de Tovercirkel, die met verf gevulde kerstballen tegen de muur gooiden om het kleurrijke effect te creëren.",
-        "artist": "Dave de Leeuw, Vincent Lancee & kinderen Basisschool de Tovercirkel",
-        "website": "",
-        "creation_year": 2017,
-        "technique": "Collaboratief werk met verfballen techniek",
-        "cultural_info": "Community project met lokale basisschool"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9825, 50.8868]
-      },
-      "properties": {
-        "id": "heerlen-mural-034",
-        "name": "Finok Brug Murals",
-        "category": "Murals",
-        "address": "Brugpijlers met rode achtergrond, Heerlen",
-        "description": "Twee murals op dezelfde brug met felle rode achtergronden. De werken tonen maskers, vissen en kipachtige wezens. Sommigen interpreteren het als een vis die een figuur met wit hoofd eet, anderen zien er een geest in die tevoorschijn komt.",
-        "artist": "Finok (Raphael Sagarra, Braziliaans)",
-        "website": "",
+        "address": "Stationsstraat 13, Heerlen",
+        "description": "Een strip- en pop art-achtige mural met wilde kleuren en figuren die de strijd van Heerlen verbeeldt tijdens de periode waarin de stad zwaar te kampen had met de sluiting van de mijnindustrie, drugsgebruik en prostitutie. Het werk is bedoeld om de Heerlense samenleving te sterken en te inspireren om door te vechten en niet op te geven.",
+        "artist": "Cyrcle (Los Angeles collectief)",
+        "website": "https://stichtingstreetart.com/heerlen-struggle-cyrcle/",
         "creation_year": 2014,
-        "technique": "Surrealistische muurschilderingen op brugpijlers",
-        "cultural_info": "Open voor interpretatie, typisch voor Finok's mysterieuze stijl"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9990, 50.8895]
-      },
-      "properties": {
-        "id": "heerlen-mural-035",
-        "name": "Heerlerbaan XXL Gallery - Zavier Eltono",
-        "category": "Murals",
-        "address": "Heerlerbaan flatgebouwen, Heerlen",
-        "description": "Geometrische vormen op 14 verdiepingen hoge flatgebouwen. Elk huishouden droeg bij aan het ontwerp via een speciale generator app. De bewoners konden patronen en kleuren kiezen die vervolgens werden vertaald naar de enormes muurschildering.",
-        "artist": "Zavier Eltono (Frans)",
-        "website": "",
-        "creation_year": 2018,
-        "technique": "Participatieve geometrische kunst op grote schaal",
-        "cultural_info": "Community-gedreven ontwerp met bewonersparticipatie"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9992, 50.8896]
-      },
-      "properties": {
-        "id": "heerlen-mural-036",
-        "name": "Heerlerbaan XXL - Hendrik Beikirch",
-        "category": "Murals",
-        "address": "Heerlerbaan flatgebouw, Heerlen",
-        "description": "Fotorealistische portret op een van de hoogste flatgebouwen van Heerlerbaan. Beikirch staat bekend om zijn monumentale zwart-wit portretten die de menselijke conditie verkennen. Het portret kijkt uit over de wijk als een beschermende aanwezigheid.",
-        "artist": "Hendrik Beikirch (Duits)",
-        "website": "",
-        "creation_year": 2018,
-        "technique": "Fotorealistisch portret op grote hoogte",
-        "cultural_info": "Deel van Heerlerbaan XXL Gallery project"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9805, 50.8855]
-      },
-      "properties": {
-        "id": "heerlen-mural-037",
-        "name": "Garbage Men Serie",
-        "category": "Murals",
-        "address": "Verspreid door Heerlen centrum",
-        "description": "Kleine paste-ups van vuilnismannen in gele pakken, vaak geplaatst op onverwachte locaties. Deze mini-werken eren de onzichtbare helden van de stad - de mensen die onze straten schoon houden. Jaune's kenmerkende gele figuren zijn een eerbetoon aan straatwerkers.",
-        "artist": "Jaune (Belgisch)",
-        "website": "",
-        "creation_year": 2016,
-        "technique": "Paste-ups en stencils",
-        "cultural_info": "Eerbetoon aan onzichtbare stedelijke werkers"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9840, 50.8875]
-      },
-      "properties": {
-        "id": "heerlen-mural-038",
-        "name": "ROA Dierenmural",
-        "category": "Murals",
-        "address": "Huisbergerstraat 12, Heerlerheide, Heerlen",
-        "description": "Gedetailleerde zwart-witte afbeeldingen van dieren, knaagdieren, vogels en reptielen. ROA's werk vertegenwoordigt bedreigde diersoorten en stedelijke wildlife. De anatomische precisie en grootschalige uitvoering zijn kenmerkend voor deze internationaal erkende kunstenaar.",
-        "artist": "ROA (Belgisch)",
-        "website": "",
-        "creation_year": 2015,
-        "technique": "Zwart-wit dierenportretten op grote schaal",
-        "cultural_info": "Focus op bedreigde soorten en stedelijke natuur"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9994, 50.8898]
-      },
-      "properties": {
-        "id": "heerlen-mural-039",
-        "name": "Hyuro - Heerlerbaan",
-        "category": "Murals",
-        "address": "Heerlerbaan flatgebouw, Heerlen",
-        "description": "Poëtische en vaak bewegende beelden die gender, sociale kwesties en menselijke emoties verkennen. Hyuro's werk op de Heerlerbaan flats toont figuren in beweging, als een soort stop-motion animatie op de gevel.",
-        "artist": "Hyuro (Spaans-Argentijns)",
-        "website": "",
-        "creation_year": 2018,
-        "technique": "Narratieve muurschildering met bewegingsillusie",
-        "cultural_info": "Verkenning van sociale en genderthema's"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9850, 50.8870]
-      },
-      "properties": {
-        "id": "heerlen-mural-040",
-        "name": "Gaia - Ganzerik School",
-        "category": "Murals",
-        "address": "Ganzerik school, Heerlerheide, Heerlen",
-        "description": "Een educatief kunstwerk op een schoolgebouw dat historische en hedendaagse thema's combineert. Het werk moedigt kinderen aan om na te denken over geschiedenis, identiteit en hun plaats in de wereld.",
-        "artist": "Gaia",
-        "website": "",
-        "creation_year": 2018,
-        "technique": "Educatieve muurschildering",
-        "cultural_info": "Kunstwerk met educatieve doeleinden voor schoolkinderen"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9796, 50.8849]
-      },
-      "properties": {
-        "id": "heerlen-mural-041",
-        "name": "Sparkle Up Your Mind",
-        "category": "Murals",
-        "address": "Heerlen centrum",
-        "description": "Een 30 meter hoge muurschildering die de geest aanmoedigt om te 'sparkelen' of te schitteren. Het werk gebruikt heldere kleuren en dynamische vormen om een gevoel van mentale energie en creativiteit op te roepen.",
-        "artist": "Onbekend",
-        "website": "",
-        "creation_year": 2019,
-        "technique": "Grootschalige kleurrijke muurschildering",
-        "cultural_info": "Inspirerend werk dat creativiteit en positiviteit promoot"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9823, 50.8859]
-      },
-      "properties": {
-        "id": "heerlen-mural-042",
-        "name": "Cyrcle - Heerlen Struggle",
-        "category": "Murals",
-        "address": "Heerlen centrum",
-        "description": "Een politiek geladen werk dat de strijd en veerkracht van Heerlen's gemeenschap weergeeft. Het werk verwijst naar de economische uitdagingen na het sluiten van de mijnen en de continue strijd voor herstel en vernieuwing.",
-        "artist": "Cyrcle (Amerikaans duo)",
-        "website": "",
-        "creation_year": 2016,
-        "technique": "Symbolische muurschildering met tekstuele elementen",
-        "cultural_info": "Politieke kunst over post-industriële transformatie"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9996, 50.8900]
-      },
-      "properties": {
-        "id": "heerlen-mural-043",
-        "name": "Isaac Tin Wei Lin - Heerlerbaan",
-        "category": "Murals",
-        "address": "Heerlerbaan flatgebouw, Heerlen",
-        "description": "Abstract werk dat traditionele Chinese kalligrafie combineert met moderne graffiti-elementen. De kunstenaar verkent de spanning tussen oosterse en westerse kunsttradities op de monumentale schaal van de Heerlerbaan flats.",
-        "artist": "Isaac Tin Wei Lin (Amerikaans)",
-        "website": "",
-        "creation_year": 2018,
-        "technique": "Abstract expressionisme met kalligrafische elementen",
-        "cultural_info": "Fusie van oosterse en westerse kunsttradities"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9810, 50.8857]
-      },
-      "properties": {
-        "id": "heerlen-mural-044",
-        "name": "De Stijl Hommage",
-        "category": "Murals",
-        "address": "Verschillende locaties in Heerlen",
-        "description": "Verschillende werken die een eerbetoon zijn aan de Nederlandse kunstbeweging De Stijl. Deze murals gebruiken de kenmerkende primaire kleuren (rood, blauw, geel) met zwart, wit en grijs in geometrische composities.",
-        "artist": "Verschillende kunstenaars",
-        "website": "",
-        "creation_year": 2017,
-        "technique": "Geometrische abstractie in De Stijl traditie",
-        "cultural_info": "100-jarig jubileum van De Stijl beweging"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [5.9817, 50.8846]
-      },
-      "properties": {
-        "id": "heerlen-mural-045",
-        "name": "Heerlen is Mad",
-        "category": "Murals",
-        "address": "Spoorsingel gebied, Heerlen",
-        "description": "Een protestmural die de frustratie van de lokale gemeenschap uitdrukt. Het werk ontstond tijdens een periode van sociale onrust en dient als een blijvende herinnering aan de stem van het volk in tijden van verandering.",
-        "artist": "Anoniem/Community",
-        "website": "",
-        "creation_year": 2015,
-        "technique": "Graffiti-stijl protestkunst",
-        "cultural_info": "Uitdrukking van lokale sociale bewegingen"
+        "technique": "Strip- en pop art-achtige mural met wilde kleuren",
+        "cultural_info": "Cyrcle is een Los Angeles-gebaseerd collectief van straatartiesten, grafisch ontwerpers en traditionele beeldende kunstenaars. Binnen drie jaar verwierven ze grote bekendheid in de internationale street art scene."
       }
     }
   ]
