@@ -23,7 +23,7 @@
 
         body {
             font-family: 'Inter', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f8f9fa;
             min-height: 100vh;
             color: #333;
         }
@@ -37,7 +37,7 @@
         .header {
             text-align: center;
             margin-bottom: 40px;
-            color: white;
+            color: #333;
         }
 
         .header h1 {
@@ -55,51 +55,25 @@
             position: absolute;
             top: 20px;
             left: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
+            background: white;
+            border: 1px solid #e0e0e0;
+            color: #333;
             padding: 12px 20px;
-            border-radius: 25px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .back-button:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
+            background: #f5f5f5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
 
-        .stats {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 20px;
+        .actions {
             margin-bottom: 30px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            text-align: center;
-        }
-
-        .stat-item {
-            color: white;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.8;
         }
 
         .likes-grid {
@@ -110,21 +84,22 @@
 
         .like-card {
             background: white;
-            border-radius: 15px;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             cursor: pointer;
+            border: 1px solid #e0e0e0;
         }
 
         .like-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .card-image {
-            height: 200px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            height: 160px;
+            background: #f0f0f0;
             background-size: cover;
             background-position: center;
             position: relative;
@@ -134,10 +109,10 @@
             position: absolute;
             top: 12px;
             left: 12px;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
             color: white;
         }
 
@@ -146,11 +121,11 @@
         .category-mode { background: rgba(153, 50, 204, 0.9); }
 
         .card-content {
-            padding: 20px;
+            padding: 16px;
         }
 
         .card-title {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 8px;
             color: #333;
@@ -182,42 +157,41 @@
         }
 
         .unlike-btn {
-            background: #e74c3c;
+            background: #dc3545;
             color: white;
             border: none;
-            padding: 8px 12px;
-            border-radius: 20px;
+            padding: 6px 12px;
+            border-radius: 4px;
             font-size: 0.8rem;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: background 0.2s ease;
         }
 
         .unlike-btn:hover {
-            background: #c0392b;
+            background: #c82333;
         }
 
         .clear-all-btn {
-            background: #e74c3c;
+            background: #dc3545;
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
+            padding: 10px 20px;
+            border-radius: 6px;
             font-size: 0.9rem;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.2s ease;
         }
 
         .clear-all-btn:hover {
-            background: #c0392b;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+            background: #c82333;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
         }
 
         .empty-state {
             text-align: center;
-            color: white;
+            color: #666;
             padding: 60px 20px;
         }
 
@@ -234,20 +208,18 @@
 
         .explore-btn {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
+            background: #007bff;
             color: white;
-            padding: 15px 30px;
-            border-radius: 25px;
+            padding: 12px 24px;
+            border-radius: 6px;
             text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-weight: 500;
+            transition: all 0.2s ease;
         }
 
         .explore-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
+            background: #0056b3;
+            transform: translateY(-1px);
         }
 
         @media (max-width: 768px) {
@@ -283,30 +255,10 @@
             <p>Al je favoriete plekken in Heerlen op een rijtje</p>
         </div>
 
-        <div class="stats" id="statsSection">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-number" id="totalLikes">0</div>
-                    <div class="stat-label">Totaal likes</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="cultuurLikes">0</div>
-                    <div class="stat-label">Cultuur</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="horecaLikes">0</div>
-                    <div class="stat-label">Eten & Drinken</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="modeLikes">0</div>
-                    <div class="stat-label">Mode</div>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 20px;">
-                <button id="clearAllLikes" class="clear-all-btn" style="display: none;">
-                    🗑️ Alle likes verwijderen
-                </button>
-            </div>
+        <div class="actions" style="text-align: center; margin-bottom: 30px;">
+            <button id="clearAllLikes" class="clear-all-btn" style="display: none;">
+                🗑️ Alle likes verwijderen
+            </button>
         </div>
 
         <div id="likesContent">
@@ -394,11 +346,6 @@
             }
 
             updateStats(stats) {
-                document.getElementById('totalLikes').textContent = stats.total;
-                document.getElementById('cultuurLikes').textContent = stats.byCategory['Cultuur'] || 0;
-                document.getElementById('horecaLikes').textContent = stats.byCategory['Eten & Drinken'] || 0;
-                document.getElementById('modeLikes').textContent = stats.byCategory['Mode'] || 0;
-                
                 // Show/hide clear all button based on total likes
                 const clearBtn = document.getElementById('clearAllLikes');
                 if (stats.total > 0) {

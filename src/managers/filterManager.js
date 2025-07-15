@@ -53,13 +53,7 @@ class FilterManager {
         });
         
         // Update UI
-        const allButton = this.filterElement.querySelector('[data-category="all"]');
-        const categoryButtons = this.filterElement.querySelectorAll('.filter-btn:not(.filter-btn-all)');
-        
-        // Check of alle categorieën actief zijn
-        if (this.activeFilters.size === Object.keys(this.config.categories).length) {
-            allButton.classList.add('active');
-        }
+        const categoryButtons = this.filterElement.querySelectorAll('.filter-btn');
         
         categoryButtons.forEach(btn => {
             const category = btn.dataset.category;
@@ -99,12 +93,6 @@ class FilterManager {
             <div class="filter-wrapper">
                 <div class="filter-content">
                     <div class="filter-buttons">
-                        <button class="filter-btn filter-btn-all" data-category="all">
-                            <span class="filter-icon">🌍</span>
-                            <span class="filter-label">Alle</span>
-                            <span class="filter-count">${this.getTotalCount()}</span>
-                        </button>
-                        
                         ${categories.map(category => this.generateCategoryButton(category)).join('')}
                     </div>
                 </div>
@@ -202,13 +190,8 @@ class FilterManager {
         const button = e.currentTarget;
         const category = button.dataset.category;
         
-        if (category === 'all') {
-            // Toggle all categories
-            this.toggleAllCategories();
-        } else {
-            // Toggle individual category
-            this.toggleCategory(category, button);
-        }
+        // Toggle individual category
+        this.toggleCategory(category, button);
         
         // Apply filter
         this.applyMultiFilter();
@@ -225,47 +208,8 @@ class FilterManager {
             this.activeFilters.add(category);
             button.classList.add('active');
         }
-        
-        // Update "Alle" button state
-        this.updateAllButtonState();
     }
 
-    /**
-     * Toggle alle categorieën
-     */
-    toggleAllCategories() {
-        const allButton = this.filterElement.querySelector('[data-category="all"]');
-        const categoryButtons = this.filterElement.querySelectorAll('.filter-btn:not(.filter-btn-all)');
-        
-        if (this.activeFilters.size === Object.keys(this.config.categories).length) {
-            // Als alle categorieën actief zijn, deselecteer alles
-            this.activeFilters.clear();
-            categoryButtons.forEach(btn => btn.classList.remove('active'));
-            allButton.classList.remove('active');
-        } else {
-            // Selecteer alle categorieën
-            this.activeFilters.clear();
-            Object.keys(this.config.categories).forEach(category => {
-                this.activeFilters.add(category);
-            });
-            categoryButtons.forEach(btn => btn.classList.add('active'));
-            allButton.classList.add('active');
-        }
-    }
-
-    /**
-     * Update de "Alle" button state
-     */
-    updateAllButtonState() {
-        const allButton = this.filterElement.querySelector('[data-category="all"]');
-        const totalCategories = Object.keys(this.config.categories).length;
-        
-        if (this.activeFilters.size === totalCategories) {
-            allButton.classList.add('active');
-        } else {
-            allButton.classList.remove('active');
-        }
-    }
 
     /**
      * Past multi-filter toe
@@ -274,11 +218,8 @@ class FilterManager {
         if (this.activeFilters.size === 0) {
             // Geen filters actief, toon niets
             this.appManager.markerManager.updateData({ type: "FeatureCollection", features: [] });
-        } else if (this.activeFilters.size === Object.keys(this.config.categories).length) {
-            // Alle categorieën actief, toon alles
-            this.appManager.filterByCategory(null);
         } else {
-            // Specifieke categorieën actief, filter data
+            // Filter data op actieve categorieën
             const filteredData = this.getFilteredData();
             this.appManager.markerManager.updateData(filteredData);
         }
@@ -287,7 +228,7 @@ class FilterManager {
         this.updateFilterUI();
         
         const activeCategories = Array.from(this.activeFilters);
-        console.log(`🔍 Multi-filter toegepast: ${activeCategories.join(', ')}`);
+        console.log(`🔍 Multi-filter toegepast: ${activeCategories.join(', ') || 'Geen'}`);
     }
 
     /**
@@ -354,10 +295,7 @@ class FilterManager {
         });
         
         // Update UI
-        const allButton = this.filterElement.querySelector('[data-category="all"]');
-        const categoryButtons = this.filterElement.querySelectorAll('.filter-btn:not(.filter-btn-all)');
-        
-        allButton.classList.add('active');
+        const categoryButtons = this.filterElement.querySelectorAll('.filter-btn');
         categoryButtons.forEach(btn => btn.classList.add('active'));
         
         // Apply filter

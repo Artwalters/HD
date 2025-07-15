@@ -30,10 +30,15 @@ class MarkerManager {
         await this.loadMarkerIcons();
 
         // Voeg data source toe
-        this.map.addSource(this.sourceId, {
-            type: 'geojson',
-            data: data
-        });
+        if (!this.map.getSource(this.sourceId)) {
+            this.map.addSource(this.sourceId, {
+                type: 'geojson',
+                data: data
+            });
+        } else {
+            // Update existing source
+            this.map.getSource(this.sourceId).setData(data);
+        }
 
         // Voeg marker circles layer toe
         this.addMarkersLayer();
