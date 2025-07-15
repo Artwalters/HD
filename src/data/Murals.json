@@ -17,7 +17,12 @@
         "website": "https://stichtingstreetart.com/koolpiet-super-a-en-collin-vd-sluijs/",
         "creation_year": 2013,
         "technique": "Muurschildering XXL formaat",
-        "cultural_info": "Won in 2016 de Dutch Street Art Award in de categorie Wonderwall. Heerlen is het centrum van de voormalige Oostelijke Mijnstreek waar de kolenindustrie voor welvaart zorgde."
+        "cultural_info": "Won in 2016 de Dutch Street Art Award in de categorie Wonderwall. Heerlen is het centrum van de voormalige Oostelijke Mijnstreek waar de kolenindustrie voor welvaart zorgde.",
+        "subcategories": {
+          "technique": ["muurschildering"],
+          "style": ["figuratief", "symbolisch"],
+          "theme": ["mijnbouw", "geschiedenis"]
+        }
       }
     },
     {
@@ -36,7 +41,12 @@
         "website": "https://stichtingstreetart.com/pinata-super-a/",
         "creation_year": 2014,
         "technique": "Gespoten felgekleurde post-it blaadjes vormend een camera",
-        "cultural_info": "Protest tegen camerabewaking in de openbare ruimte die het werk van street artists bemoeilijkt"
+        "cultural_info": "Protest tegen camerabewaking in de openbare ruimte die het werk van street artists bemoeilijkt",
+        "subcategories": {
+          "technique": ["spuitverf", "collage"],
+          "style": ["kleurrijk", "conceptueel"],
+          "theme": ["sociale-kwesties", "surveillance"]
+        }
       }
     },
     {
@@ -55,7 +65,12 @@
         "website": "https://stichtingstreetart.com/creed-inti/",
         "creation_year": 2014,
         "technique": "XXL muurschildering geïnspireerd door pre-Columbiaanse kunst",
-        "cultural_info": "Leidde bijna tot een volksprotest toen een raadslid er een 'moslima met bomgordel' in zag. Bevindt zich aan een zijwand van Aurora, het grootste street art kunstwerk van Europa."
+        "cultural_info": "Leidde bijna tot een volksprotest toen een raadslid er een 'moslima met bomgordel' in zag. Bevindt zich aan een zijwand van Aurora, het grootste street art kunstwerk van Europa.",
+        "subcategories": {
+          "technique": ["muurschildering"],
+          "style": ["figuratief", "symbolisch"],
+          "theme": ["religie", "sociale-kwesties"]
+        }
       }
     },
     {
@@ -74,7 +89,12 @@
         "website": "https://stichtingstreetart.com/tulpenmanie-gaia/",
         "creation_year": 2017,
         "technique": "Historisch narratief gecombineerd met botanische elementen",
-        "cultural_info": "Gaia verdiepte zich in de Nederlandse geschiedenis voor dit werk. Onthulling vond plaats in bijzijn van de kunstenaar, wijkbewoners en buurtorganisatie GMS."
+        "cultural_info": "Gaia verdiepte zich in de Nederlandse geschiedenis voor dit werk. Onthulling vond plaats in bijzijn van de kunstenaar, wijkbewoners en buurtorganisatie GMS.",
+        "subcategories": {
+          "technique": ["muurschildering"],
+          "style": ["figuratief", "realistisch"],
+          "theme": ["geschiedenis", "natuur"]
+        }
       }
     },
     {
@@ -93,7 +113,12 @@
         "website": "https://stichtingstreetart.com/mural-xxl-tamara-djurovicaka-hyuro/",
         "creation_year": 2018,
         "technique": "Narratieve muurschildering met Japanse kintsugi-verwijzing",
-        "cultural_info": "Hyuro overleed twee jaar na het maken van deze mural veel te jong. De muurschildering heeft de meeste respons bij bewoners opgeleverd - herkenbaar maar ook mystiek."
+        "cultural_info": "Hyuro overleed twee jaar na het maken van deze mural veel te jong. De muurschildering heeft de meeste respons bij bewoners opgeleverd - herkenbaar maar ook mystiek.",
+        "subcategories": {
+          "technique": ["muurschildering"],
+          "style": ["figuratief", "symbolisch"],
+          "theme": ["geschiedenis", "sociale-kwesties"]
+        }
       }
     },
     {
@@ -112,7 +137,12 @@
         "website": "https://stichtingstreetart.com/mural-xxl-aryz/",
         "creation_year": 2019,
         "technique": "Grootschalige muurschildering met kleurrijke abstracte elementen",
-        "cultural_info": "Aryz staat bekend om zijn grootschalige muurschilderingen wereldwijd. De mural van Hyuro op deze locatie inspireerde hem tot een visueel antwoord."
+        "cultural_info": "Aryz staat bekend om zijn grootschalige muurschilderingen wereldwijd. De mural van Hyuro op deze locatie inspireerde hem tot een visueel antwoord.",
+        "subcategories": {
+          "technique": ["muurschildering"],
+          "style": ["figuratief", "abstrakt", "kleurrijk"],
+          "theme": ["sociale-kwesties", "geschiedenis"]
+        }
       }
     },
     {
@@ -131,7 +161,12 @@
         "website": "https://stichtingstreetart.com/aurora/",
         "creation_year": 2021,
         "technique": "Grootschalige participatieve muurschildering op flatgebouw",
-        "cultural_info": "Aurora is door de unieke samenwerking tussen bewoners, kunstenaars en instanties een sociaal kunstwerk geworden van formaat. De wijk stond niet gunstig aangeschreven maar dat is nu heel anders."
+        "cultural_info": "Aurora is door de unieke samenwerking tussen bewoners, kunstenaars en instanties een sociaal kunstwerk geworden van formaat. De wijk stond niet gunstig aangeschreven maar dat is nu heel anders.",
+        "subcategories": {
+          "technique": ["muurschildering"],
+          "style": ["conceptueel", "participatief"],
+          "theme": ["sociale-kwesties", "gemeenschap"]
+        }
       }
     },
     {
@@ -150,7 +185,12 @@
         "website": "",
         "creation_year": 2008,
         "technique": "Spuitverf en stencils in typische Os Gemeos-stijl",
-        "cultural_info": "Onderdeel van Cultura Nova 2008 festival, markeerde het begin van Heerlen's transformatie tot street art hoofdstad. Het Braziliaanse duo begon als graffitispuiters in São Paulo."
+        "cultural_info": "Onderdeel van Cultura Nova 2008 festival, markeerde het begin van Heerlen's transformatie tot street art hoofdstad. Het Braziliaanse duo begon als graffitispuiters in São Paulo.",
+        "subcategories": {
+          "technique": ["spuitverf", "stencils"],
+          "style": ["figuratief", "graffiti"],
+          "theme": ["cultuur", "internationale-uitwisseling"]
+        }
       }
     },
     {
@@ -169,7 +209,12 @@
         "website": "https://stichtingstreetart.com/self-portrait-daleast/",
         "creation_year": 2013,
         "technique": "Draadachtige sculpturen, 3D illusie",
-        "cultural_info": "DALeast is uit China afkomstig en woont in Zuid-Afrika. Een echte topartiest in de street art wereld met een zeer herkenbare stijl. Zijn credo: 'DALeast is currently a human being.'"
+        "cultural_info": "DALeast is uit China afkomstig en woont in Zuid-Afrika. Een echte topartiest in de street art wereld met een zeer herkenbare stijl. Zijn credo: 'DALeast is currently a human being.'",
+        "subcategories": {
+          "technique": ["draadachtige sculpturen"],
+          "style": ["3D-illusie", "conceptueel"],
+          "theme": ["dieren", "technologie"]
+        }
       }
     },
     {
@@ -188,7 +233,12 @@
         "website": "https://stichtingstreetart.com/alas-how-pitiful-faith47/",
         "creation_year": 2013,
         "technique": "Gedetailleerde muurschildering met religieuze en symbolische thematiek",
-        "cultural_info": "Faith47 laat zich inspireren door sociale en politieke kwesties zoals mensenrechten, eenzaamheid, post-apartheid en feminisme. Haar werk kenmerkt zich door ruwe intimiteit."
+        "cultural_info": "Faith47 laat zich inspireren door sociale en politieke kwesties zoals mensenrechten, eenzaamheid, post-apartheid en feminisme. Haar werk kenmerkt zich door ruwe intimiteit.",
+        "subcategories": {
+          "technique": ["muurschildering"],
+          "style": ["figuratief", "symbolisch", "gedetailleerd"],
+          "theme": ["religie", "natuur", "sociale-kwesties"]
+        }
       }
     },
     {
@@ -207,7 +257,12 @@
         "website": "",
         "creation_year": 2015,
         "technique": "Kinetische kunst met geometrische patronen",
-        "cultural_info": "Felipe Pantone combineert traditionele graffiti met digitale esthetiek en optische illusies"
+        "cultural_info": "Felipe Pantone combineert traditionele graffiti met digitale esthetiek en optische illusies",
+        "subcategories": {
+          "technique": ["kinetische kunst"],
+          "style": ["geometrisch", "digitaal", "optische-illusie"],
+          "theme": ["technologie", "beweging"]
+        }
       }
     },
     {
@@ -226,7 +281,12 @@
         "website": "https://stichtingstreetart.com/zonder-titel-miosis/",
         "creation_year": 2019,
         "technique": "Illustratieve muurschildering",
-        "cultural_info": "MIOSIS is een jonge Nederlandse illustrator en vormgeefster met een atelier in het CBS/Carbon6 gebouw. Dit gebouw is inmiddels gesloopt."
+        "cultural_info": "MIOSIS is een jonge Nederlandse illustrator en vormgeefster met een atelier in het CBS/Carbon6 gebouw. Dit gebouw is inmiddels gesloopt.",
+        "subcategories": {
+          "technique": ["illustratie"],
+          "style": ["illustratief", "inspirerend"],
+          "theme": ["communicatie", "inspiratie"]
+        }
       }
     },
     {
@@ -245,7 +305,12 @@
         "website": "",
         "creation_year": 2019,
         "technique": "Lokaal geïnspireerde muurschildering",
-        "cultural_info": "Dazetwo is meer dan een street artist - hij is een chroniqueur van de stad die de verhalen van Heerlen vertelt door zijn persoonlijke connectie met de mijnbouwgeschiedenis."
+        "cultural_info": "Dazetwo is meer dan een street artist - hij is een chroniqueur van de stad die de verhalen van Heerlen vertelt door zijn persoonlijke connectie met de mijnbouwgeschiedenis.",
+        "subcategories": {
+          "technique": ["muurschildering"],
+          "style": ["lokaal", "persoonlijk"],
+          "theme": ["mijnbouw", "geschiedenis", "familie"]
+        }
       }
     },
     {
@@ -264,7 +329,12 @@
         "website": "",
         "creation_year": 2019,
         "technique": "Interculturele muurschildering",
-        "cultural_info": "Magdalena Karol verbindt haar Poolse wortels met haar Ierse adoptie en Heerlense ervaring in dit werk."
+        "cultural_info": "Magdalena Karol verbindt haar Poolse wortels met haar Ierse adoptie en Heerlense ervaring in dit werk.",
+        "subcategories": {
+          "technique": ["muurschildering"],
+          "style": ["intercultureel", "persoonlijk"],
+          "theme": ["identiteit", "internationale-uitwisseling"]
+        }
       }
     },
     {
@@ -283,7 +353,12 @@
         "website": "",
         "creation_year": 2019,
         "technique": "Litouwse geïnspireerde muurschildering",
-        "cultural_info": "Onderdeel van een project dat internationale kunstenaars naar Heerlen bracht om de culturele diversiteit te vieren."
+        "cultural_info": "Onderdeel van een project dat internationale kunstenaars naar Heerlen bracht om de culturele diversiteit te vieren.",
+        "subcategories": {
+          "technique": ["muurschildering"],
+          "style": ["cultureel", "internationaal"],
+          "theme": ["cultuur", "internationale-uitwisseling"]
+        }
       }
     },
     {
@@ -302,7 +377,12 @@
         "website": "",
         "creation_year": 2019,
         "technique": "Grafisch vormgeving geïnspireerde muurschildering",
-        "cultural_info": "Delahaye brengt haar academische achtergrond in grafische vormgeving naar de straat, waarbij ze een brug slaat tussen kunstacademie en street art."
+        "cultural_info": "Delahaye brengt haar academische achtergrond in grafische vormgeving naar de straat, waarbij ze een brug slaat tussen kunstacademie en street art.",
+        "subcategories": {
+          "technique": ["grafische vormgeving"],
+          "style": ["academisch", "modern"],
+          "theme": ["design", "academie"]
+        }
       }
     },
     {
@@ -321,7 +401,12 @@
         "website": "",
         "creation_year": 2020,
         "technique": "Litouwse street art stijl",
-        "cultural_info": "Onderdeel van een programma dat kunstenaars uit verschillende Europese landen naar Heerlen bracht om de culturele banden te versterken."
+        "cultural_info": "Onderdeel van een programma dat kunstenaars uit verschillende Europese landen naar Heerlen bracht om de culturele banden te versterken.",
+        "subcategories": {
+          "technique": ["street art"],
+          "style": ["litouws", "europees"],
+          "theme": ["cultuur", "internationale-uitwisseling"]
+        }
       }
     },
     {
@@ -340,7 +425,12 @@
         "website": "",
         "creation_year": 2019,
         "technique": "Lokaal geïnspireerde beeldende kunst",
-        "cultural_info": "Als Heerlenaar brengt BURPK een authentieke lokale stem naar het internationale street art landschap van de stad."
+        "cultural_info": "Als Heerlenaar brengt BURPK een authentieke lokale stem naar het internationale street art landschap van de stad.",
+        "subcategories": {
+          "technique": ["beeldende kunst"],
+          "style": ["lokaal", "authentiek"],
+          "theme": ["lokale-identiteit", "geschiedenis"]
+        }
       }
     },
     {
@@ -359,7 +449,12 @@
         "website": "https://stichtingstreetart.com/mine-love-robert-montgomery/",
         "creation_year": 2019,
         "technique": "Tekstkunst, poëzie",
-        "cultural_info": "Robert Montgomery balanceert op het randje van Street Art, Poetry en High Art. Hij komt uit een voormalige mijnwerkersstad in Schotland waar beide grootvaders trots werkten."
+        "cultural_info": "Robert Montgomery balanceert op het randje van Street Art, Poetry en High Art. Hij komt uit een voormalige mijnwerkersstad in Schotland waar beide grootvaders trots werkten.",
+        "subcategories": {
+          "technique": ["tekstkunst", "poëzie"],
+          "style": ["literair", "conceptueel"],
+          "theme": ["mijnbouw", "familie", "emotie"]
+        }
       }
     },
     {
@@ -378,7 +473,12 @@
         "website": "",
         "creation_year": 2019,
         "technique": "Amerikaanse street art stijl",
-        "cultural_info": "Little groeide op in de rijke graffiti- en street art scene van San Diego en brengt die ervaring naar de straten van Heerlen."
+        "cultural_info": "Little groeide op in de rijke graffiti- en street art scene van San Diego en brengt die ervaring naar de straten van Heerlen.",
+        "subcategories": {
+          "technique": ["street art", "graffiti"],
+          "style": ["amerikaans", "traditioneel"],
+          "theme": ["cultuur", "internationale-uitwisseling"]
+        }
       }
     },
     {
@@ -397,7 +497,12 @@
         "website": "https://stichtingstreetart.com/swinging-birds-collin-van-der-sluijs/",
         "creation_year": 2013,
         "technique": "Grafische vormgeving gecombineerd met street art, verhalend en figuratief",
-        "cultural_info": "Van der Sluijs is opgeleid als grafisch vormgever, schilder en illustrator. Samen met Super A realiseerde hij ook het kunstwerk 'Koolpiet'."
+        "cultural_info": "Van der Sluijs is opgeleid als grafisch vormgever, schilder en illustrator. Samen met Super A realiseerde hij ook het kunstwerk 'Koolpiet'.",
+        "subcategories": {
+          "technique": ["grafische vormgeving", "street art"],
+          "style": ["figuratief", "verhalend", "kleurrijk"],
+          "theme": ["dieren", "vreugde", "natuur"]
+        }
       }
     },
     {
@@ -416,7 +521,12 @@
         "website": "https://stichtingstreetart.com/ode-aan-de-arbeider-super-a/",
         "creation_year": 2015,
         "technique": "Symbolische muurschildering met mijnbouw thematiek",
-        "cultural_info": "Oud-mijnwerkers, waaronder zelfs een 99-jarige, waren uitgenodigd bij de presentatie. De mural is inmiddels niet meer te zien omdat het pand gesloopt is."
+        "cultural_info": "Oud-mijnwerkers, waaronder zelfs een 99-jarige, waren uitgenodigd bij de presentatie. De mural is inmiddels niet meer te zien omdat het pand gesloopt is.",
+        "subcategories": {
+          "technique": ["muurschildering"],
+          "style": ["symbolisch", "herdenkend"],
+          "theme": ["mijnbouw", "arbeiders", "sociale-kwesties"]
+        }
       }
     },
     {
@@ -435,7 +545,12 @@
         "website": "https://stichtingstreetart.com/kriebelstad-millo/",
         "creation_year": 2015,
         "technique": "Zwart-wit beeldverhalen met architecturale invloed",
-        "cultural_info": "Millo begon als architectuurstudent en die invloed is terug te vinden in zijn werk. In 2014 schilderde hij 13 enorme muurschilderingen in Turijn als onderdeel van de B.Art wedstrijd."
+        "cultural_info": "Millo begon als architectuurstudent en die invloed is terug te vinden in zijn werk. In 2014 schilderde hij 13 enorme muurschilderingen in Turijn als onderdeel van de B.Art wedstrijd.",
+        "subcategories": {
+          "technique": ["beeldverhalen"],
+          "style": ["zwart-wit", "architecturaal", "verhalend"],
+          "theme": ["stedelijk-leven", "architectuur"]
+        }
       }
     }
   ]

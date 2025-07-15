@@ -20,7 +20,12 @@
         "website": "www.by-nicole.com",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma: 12:00-17:00, Di-Vr: 10:00-18:00, Za: 10:00-17:00, Zo: 13:00-17:00"
+        "opening_hours": "Ma: 12:00-17:00, Di-Vr: 10:00-18:00, Za: 10:00-17:00, Zo: 13:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames"],
+          "price_range": ["luxury"],
+          "style": ["formal", "casual"]
+        }
       }
     },
     {
@@ -42,7 +47,12 @@
         "website": "www.hm.com",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames", "heren", "kinderen"],
+          "price_range": ["budget", "mid-range"],
+          "style": ["casual", "sportief"]
+        }
       }
     },
     {
@@ -64,7 +74,12 @@
         "website": "www.berden.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["mid-range"],
+          "style": ["casual", "formal"]
+        }
       }
     },
     {
@@ -86,7 +101,12 @@
         "website": "www.we-fashion.com",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["mid-range"],
+          "style": ["casual", "formal"]
+        }
       }
     },
     {
@@ -108,7 +128,12 @@
         "website": "www.fashionworks-heerlen.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma: 13:00-18:00, Di-Vr: 10:00-18:00, Za: 10:00-17:00, Zo: Gesloten"
+        "opening_hours": "Ma: 13:00-18:00, Di-Vr: 10:00-18:00, Za: 10:00-17:00, Zo: Gesloten",
+        "subcategories": {
+          "target_audience": ["heren"],
+          "price_range": ["mid-range"],
+          "style": ["formal", "casual"]
+        }
       }
     },
     {
@@ -130,7 +155,12 @@
         "website": "www.dresscode-heerlen.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["mid-range"],
+          "style": ["trendy", "casual"]
+        }
       }
     },
     {
@@ -152,7 +182,12 @@
         "website": "www.yv-ke.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["mid-range"],
+          "style": ["trendy", "casual"]
+        }
       }
     },
     {
@@ -174,7 +209,12 @@
         "website": "www.garbeau.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten",
+        "subcategories": {
+          "target_audience": ["dames"],
+          "price_range": ["luxury"],
+          "style": ["formal", "casual"]
+        }
       }
     },
     {
@@ -196,7 +236,12 @@
         "website": "www.only.com",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames"],
+          "price_range": ["budget", "mid-range"],
+          "style": ["trendy", "casual"]
+        }
       }
     },
     {
@@ -218,7 +263,12 @@
         "website": "www.envogue-heerlen.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten",
+        "subcategories": {
+          "target_audience": ["dames"],
+          "price_range": ["mid-range"],
+          "style": ["formal", "casual"]
+        }
       }
     },
     {
@@ -240,7 +290,12 @@
         "website": "www.modehuisvandenberg.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 09:00-18:00, Do: 09:00-21:00, Zo: Gesloten"
+        "opening_hours": "Ma-Za: 09:00-18:00, Do: 09:00-21:00, Zo: Gesloten",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["mid-range"],
+          "style": ["formal", "casual"]
+        }
       }
     },
     {
@@ -262,7 +317,12 @@
         "website": "www.newyorker.de",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["budget"],
+          "style": ["trendy", "casual"]
+        }
       }
     },
     {
@@ -284,7 +344,12 @@
         "website": "www.purdey-mode.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["luxury"],
+          "style": ["formal", "casual"]
+        }
       }
     },
     {
@@ -306,7 +371,12 @@
         "website": "www.jeanscentre.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["mid-range"],
+          "style": ["casual"]
+        }
       }
     },
     {
@@ -328,7 +398,12 @@
         "website": "www.msmode.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames"],
+          "price_range": ["budget"],
+          "style": ["casual"]
+        }
       }
     },
     {
@@ -350,7 +425,12 @@
         "website": "www.deems.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["mid-range"],
+          "style": ["casual"]
+        }
       }
     },
     {
@@ -372,7 +452,12 @@
         "website": "www.mana-fashion.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["mid-range"],
+          "style": ["trendy", "casual"]
+        }
       }
     },
     {
@@ -394,7 +479,12 @@
         "website": "www.promenade-outlet.nl",
         "icon": "🏷️",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["budget"],
+          "style": ["casual"]
+        }
       }
     },
     {
@@ -416,7 +506,12 @@
         "website": "www.norah.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames"],
+          "price_range": ["budget"],
+          "style": ["casual"]
+        }
       }
     },
     {
@@ -438,7 +533,12 @@
         "website": "www.tkmaxx.nl",
         "icon": "🛍️",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames", "heren", "kinderen"],
+          "price_range": ["budget"],
+          "style": ["casual"]
+        }
       }
     },
     {
@@ -460,7 +560,12 @@
         "website": "www.harrymaas.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["mid-range"],
+          "style": ["formal", "casual"]
+        }
       }
     },
     {
@@ -482,7 +587,12 @@
         "website": "www.footlocker.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["mid-range"],
+          "style": ["sportief", "casual"]
+        }
       }
     },
     {
@@ -504,7 +614,12 @@
         "website": "www.jollie-kinderkleding.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["kinderen"],
+          "price_range": ["mid-range"],
+          "style": ["trendy", "casual"]
+        }
       }
     },
     {
@@ -526,7 +641,12 @@
         "website": "www.strictlyformen.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten",
+        "subcategories": {
+          "target_audience": ["heren"],
+          "price_range": ["luxury"],
+          "style": ["formal", "casual"]
+        }
       }
     },
     {
@@ -548,7 +668,12 @@
         "website": "www.pietersdortu.nl",
         "icon": "👨‍💼",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["mid-range"],
+          "style": ["formal", "casual"]
+        }
       }
     },
     {
@@ -570,7 +695,12 @@
         "website": "www.roomers.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["mid-range"],
+          "style": ["trendy", "casual"]
+        }
       }
     },
     {
@@ -592,7 +722,12 @@
         "website": "www.outlaw-fashion.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["mid-range"],
+          "style": ["alternatief", "casual"]
+        }
       }
     },
     {
@@ -614,7 +749,12 @@
         "website": "www.capolino.nl",
         "icon": "🇮🇹",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: Gesloten",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["luxury"],
+          "style": ["formal", "casual"]
+        }
       }
     },
     {
@@ -636,7 +776,12 @@
         "website": "www.tessmode.nl",
         "icon": "🛍️",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["mid-range"],
+          "style": ["casual"]
+        }
       }
     },
     {
@@ -658,7 +803,12 @@
         "website": "www.instagram.com/flyconceptstore",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Do-Vr: 10:00-18:00, Za: 10:00-17:00, Zo-Wo: Gesloten"
+        "opening_hours": "Do-Vr: 10:00-18:00, Za: 10:00-17:00, Zo-Wo: Gesloten",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["mid-range"],
+          "style": ["vintage", "uniek"]
+        }
       }
     },
     {
@@ -680,7 +830,12 @@
         "website": "www.gelukventoen.nl",
         "icon": "🕰️",
         "color": "#9932CC",
-        "opening_hours": "Do-Za: 11:00-17:00, Zo-Wo: Gesloten"
+        "opening_hours": "Do-Za: 11:00-17:00, Zo-Wo: Gesloten",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["mid-range"],
+          "style": ["vintage", "retro"]
+        }
       }
     },
     {
@@ -702,7 +857,12 @@
         "website": "www.winkelvansinkel.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-17:00, Zo: 12:00-16:00"
+        "opening_hours": "Ma-Za: 10:00-17:00, Zo: 12:00-16:00",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["mid-range"],
+          "style": ["vintage", "uniek"]
+        }
       }
     },
     {
@@ -724,7 +884,12 @@
         "website": "www.samsboutique.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames"],
+          "price_range": ["mid-range"],
+          "style": ["uniek", "casual"]
+        }
       }
     },
     {
@@ -746,7 +911,12 @@
         "website": "www.happyscreamers.nl",
         "icon": "assets/icons_map/Winkelen.png",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames", "heren"],
+          "price_range": ["mid-range"],
+          "style": ["alternatief", "gothic"]
+        }
       }
     },
     {
@@ -768,7 +938,12 @@
         "website": "www.hendriksmode.nl",
         "icon": "👨‍👩‍👧‍👦",
         "color": "#9932CC",
-        "opening_hours": "Ma-Za: 09:00-18:00, Do: 09:00-21:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 09:00-18:00, Do: 09:00-21:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "target_audience": ["dames", "heren", "kinderen"],
+          "price_range": ["mid-range"],
+          "style": ["traditioneel", "casual"]
+        }
       }
     }
   ]

@@ -29,8 +29,29 @@
         <span class="progress-text" id="progressText">0 van 0</span>
     </div>
 
-    <!-- Cards Container -->
-    <div class="cards-container" id="cardsContainer">
+    <!-- Subcategory Wizard (shown first) -->
+    <div class="subcategory-wizard" id="subcategoryWizard">
+        <div class="wizard-content">
+            <div class="wizard-step" id="currentStep">
+                <!-- Current step content will be loaded here -->
+            </div>
+            
+            <div class="wizard-navigation">
+                <button class="nav-button back-nav" id="stepBack" style="display: none;">
+                    ← Vorige
+                </button>
+                <button class="nav-button next-nav" id="stepNext" disabled>
+                    Volgende →
+                </button>
+                <button class="nav-button finish-nav" id="stepFinish" style="display: none;">
+                    Start swipen 🚀
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards Container (shown after subcategory selection) -->
+    <div class="cards-container" id="cardsContainer" style="display: none;">
         <!-- Cards will be dynamically loaded here -->
     </div>
 
@@ -68,6 +89,7 @@
     <!-- JavaScript -->
     <script src="src/config/config.js"></script>
     <script src="src/utils/dataLoader.js"></script>
+    <script src="src/data/subcategories.js"></script>
     <script src="src/managers/preferencesManager.js"></script>
     <script src="src/managers/navigationMenuManager.js"></script>
 </body>

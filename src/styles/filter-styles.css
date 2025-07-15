@@ -10,12 +10,8 @@
     transform: translateX(-50%);
     z-index: 1000;
     font-family: var(--font-body);
-    width: 90%;
-    max-width: 800px;
-}
-
-/* Filter Wrapper */
-.filter-wrapper {
+    width: auto;
+    max-width: 500px;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -23,21 +19,13 @@
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    width: 100%;
-}
-
-
-/* Filter Content */
-.filter-content {
-    max-height: none;
-    overflow: visible;
 }
 
 .filter-buttons {
-    padding: 16px;
+    padding: 8px;
     display: flex;
     flex-direction: row;
-    gap: 12px;
+    gap: 6px;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-behavior: smooth;
@@ -51,15 +39,15 @@
 .filter-btn {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
+    gap: 8px;
+    padding: 8px 12px;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
+    border-radius: 20px;
     cursor: pointer;
     transition: all 0.2s ease;
     font-family: var(--font-body);
-    font-size: 14px;
+    font-size: 13px;
     color: rgba(0, 0, 0, 0.8);
     position: relative;
     overflow: hidden;
@@ -69,67 +57,72 @@
 }
 
 .filter-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
     border-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .filter-btn.active {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.25);
     border-color: rgba(255, 255, 255, 0.4);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
 }
 
 .filter-btn.active::before {
     content: '';
     position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
+    left: 50%;
+    bottom: 2px;
+    width: 6px;
+    height: 2px;
     background: var(--category-color, var(--color-primary));
-    border-radius: 0 3px 3px 0;
+    border-radius: 1px;
+    transform: translateX(-50%);
 }
 
-.filter-btn.active::after {
-    content: '✓';
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 10px;
-    color: var(--category-color, var(--color-primary));
-    font-weight: bold;
-}
+/* Removed checkmark for minimalist design */
 
 /* Filter Button Elements */
 .filter-icon {
-    font-size: 16px;
+    font-size: 14px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
+}
+
+/* Buttons with subcategories */
+.filter-btn.has-subcategories {
+    position: relative;
+}
+
+.filter-btn.has-subcategories::after {
+    content: '⚙️';
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font-size: 10px;
+    opacity: 0.7;
 }
 
 .filter-label {
     flex: 1;
-    font-weight: 500;
+    font-weight: 400;
     text-align: left;
 }
 
 .filter-count {
-    background: rgba(0, 0, 0, 0.1);
-    color: rgba(0, 0, 0, 0.7);
-    font-size: 12px;
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-weight: 600;
-    min-width: 20px;
+    background: rgba(0, 0, 0, 0.08);
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-weight: 500;
+    min-width: 18px;
     text-align: center;
-    margin-right: 16px;
+    margin-right: 0;
 }
 
 .filter-btn.active .filter-count {
@@ -172,43 +165,38 @@
 @media (max-width: 768px) {
     .filter-container {
         top: 10px;
-        left: 10px;
-        right: 10px;
-        transform: none;
+        left: 50%;
+        transform: translateX(-50%);
         width: auto;
-        max-width: none;
-    }
-    
-    .filter-wrapper {
-        width: 100%;
+        max-width: 90%;
         border-radius: 12px;
     }
     
     .filter-buttons {
-        padding: 10px;
-        gap: 6px;
+        padding: 6px;
+        gap: 4px;
         /* Enable horizontal scrolling on mobile */
         overflow-x: auto;
         overflow-y: hidden;
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
         /* Add padding to scroll area */
-        padding-right: 15px;
+        padding-right: 8px;
     }
     
     .filter-btn {
-        padding: 8px 12px;
-        font-size: 12px;
-        border-radius: 10px;
+        padding: 5px 8px;
+        font-size: 11px;
+        border-radius: 14px;
         /* Ensure buttons don't shrink too much */
         min-width: auto;
         flex-shrink: 0;
     }
     
     .filter-icon {
-        font-size: 14px;
-        width: 16px;
-        height: 16px;
+        font-size: 12px;
+        width: 14px;
+        height: 14px;
     }
     
     .filter-label {
@@ -220,14 +208,11 @@
     .filter-count {
         font-size: 10px;
         padding: 1px 4px;
-        margin-right: 8px;
+        margin-right: 0;
         min-width: 16px;
     }
     
-    .filter-btn.active::after {
-        font-size: 8px;
-        right: 4px;
-    }
+    /* Removed active checkmark for minimalist design */
     
     /* Show only icons on mobile for space efficiency */
     .filter-btn {
@@ -240,13 +225,10 @@
 @media (max-width: 480px) {
     .filter-container {
         top: 8px;
-        left: 8px;
-        right: 8px;
-        transform: none;
+        left: 50%;
+        transform: translateX(-50%);
         width: auto;
-    }
-    
-    .filter-wrapper {
+        max-width: 95%;
         border-radius: 10px;
     }
     
@@ -258,14 +240,14 @@
     }
     
     .filter-btn {
-        padding: 6px 8px;
-        border-radius: 8px;
-        font-size: 11px;
+        padding: 4px 6px;
+        border-radius: 12px;
+        font-size: 10px;
         /* Snap to position when scrolling */
         scroll-snap-align: start;
         /* Minimum touch target size */
-        min-height: 32px;
-        min-width: 40px;
+        min-height: 28px;
+        min-width: 36px;
     }
     
     .filter-icon {
@@ -286,10 +268,7 @@
         min-width: 14px;
     }
     
-    .filter-btn.active::after {
-        font-size: 7px;
-        right: 3px;
-    }
+    /* Removed active checkmark for minimalist design */
     
     /* Add scroll indicators */
     .filter-buttons::before,
@@ -333,27 +312,9 @@
 
 /* Dark theme support */
 @media (prefers-color-scheme: dark) {
-    .filter-wrapper {
+    .filter-container {
         background: rgba(0, 0, 0, 0.4);
         border-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    .filter-header {
-        background: rgba(0, 0, 0, 0.2);
-        border-bottom-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    .filter-header h3 {
-        color: rgba(255, 255, 255, 0.9);
-    }
-    
-    .filter-toggle {
-        color: rgba(255, 255, 255, 0.7);
-    }
-    
-    .filter-toggle:hover {
-        background: rgba(255, 255, 255, 0.1);
-        color: rgba(255, 255, 255, 0.9);
     }
     
     .filter-btn {
@@ -379,14 +340,13 @@
 }
 
 /* Focus styles for accessibility */
-.filter-toggle:focus,
 .filter-btn:focus {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
 }
 
-/* Smooth scrolling for filter content */
-.filter-content {
+/* Smooth scrolling for filter buttons */
+.filter-buttons {
     scroll-behavior: smooth;
 }
 

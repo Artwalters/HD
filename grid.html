@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Grid Animatie - Dubbel Laag</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .hero-container {
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+            background: #ffffff;
+        }
+
+        .grid-animation-wrap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+
+        /* ONDERSTE LAAG: Image Grid - Altijd zichtbaar */
+        .image-grid-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(16, 1fr);
+            grid-template-rows: repeat(12, 1fr);
+            gap: 2px;
+            z-index: 1;
+        }
+
+        .image-cell {
+            background-size: 1600% 1200%;
+            background-repeat: no-repeat;
+            border-radius: 4px;
+            transition: opacity 0.3s ease;
+            border: 0.5px solid #ffffff;
+            box-sizing: border-box;
+        }
+
+        /* Verschillende achtergrondafbeeldingen */
+        .image-grid-1 .image-cell {
+            background-image: url('assets/images/image.png');
+            background-size: 1600% 1200%;
+        }
+
+        .image-grid-2 .image-cell {
+            background-image: url('assets/images/catcute.png');
+            background-size: 1600% 1200%;
+        }
+
+        .image-grid-3 .image-cell {
+            background-image: url('assets/images/image.png');
+            background-size: 1600% 1200%;
+        }
+
+        .image-grid-4 .image-cell {
+            background-image: url('assets/images/catcute.png');
+            background-size: 1600% 1200%;
+        }
+
+        .image-grid-container:not(.active) {
+            opacity: 0;
+        }
+
+        .image-grid-container.active {
+            opacity: 1;
+        }
+
+        /* BOVENSTE LAAG: Gekleurde Overlay Cellen */
+        .overlay-grid-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(16, 1fr);
+            grid-template-rows: repeat(12, 1fr);
+            gap: 2px;
+            z-index: 2;
+            pointer-events: none;
+            transition: gap 0.3s ease, width 0.3s ease, height 0.3s ease, top 0.3s ease, left 0.3s ease;
+        }
+
+        .overlay-cell {
+            border-radius: 4px;
+            transform: scale(0);
+            will-change: transform;
+            transition: transform 0.1s ease;
+        }
+
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .control-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .control-button:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+        }
+
+        .control-button:active {
+            transform: translateY(0);
+        }
+
+        .info {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .phase-indicator {
+            text-align: center;
+            margin-top: 10px;
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                bottom: 20px;
+                padding: 15px;
+            }
+            
+            .control-button {
+                padding: 8px 15px;
+                margin: 0 5px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-container">
+        <div class="content-wrapper">
+            <div class="grid-animation-wrap">
+                <!-- ONDERSTE LAAG: Image Grids (altijd zichtbaar) -->
+                <div class="image-grid-container image-grid-1 active" id="image-grid-1"></div>
+                <div class="image-grid-container image-grid-2" id="image-grid-2"></div>
+                <div class="image-grid-container image-grid-3" id="image-grid-3"></div>
+                <div class="image-grid-container image-grid-4" id="image-grid-4"></div>
+
+                <!-- BOVENSTE LAAG: Overlay Grid (animerende cellen) -->
+                <div class="overlay-grid-container" id="overlay-grid"></div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <div class="info">Hero Grid Animatie - Dubbel Laag Systeem</div>
+        <button class="control-button" onclick="startAnimation()">Start Animatie</button>
+        <button class="control-button" onclick="stopAnimation()">Stop</button>
+        <button class="control-button" onclick="nextPhase()">Volgende Fase</button>
+        <div class="phase-indicator">Fase: <span id="phase-counter">1</span>/4</div>
+    </div>
+
+    <script>
+        // Configuratie
+        const PHASE_DURATION = 4.2;
+        const FIRST_PHASE_PERCENT = 0.20;
+        const FIRST_PHASE_DURATION = 0.4;
+        const PAUSE_BETWEEN_PHASES = 1.8;
+        const SECOND_PHASE_DURATION = 0.4;
+        const FULL_GRID_DURATION = 0.3;
+        const DISAPPEAR_DURATION = 0.5;
+
+        // Globale variabelen
+        let masterTimeline;
+        let currentPhase = 0;
+        let overlayCells = [];
+        let imageGridContainers = [];
+        let isAnimating = false;
+
+        // Kleuren voor elke fase
+        const colors = ['#6E90DB', '#D49C0C', '#EB625E', '#A2C617'];
+
+        // Shuffle functie
+        function shuffle(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        // Initialiseer image grids (onderste laag)
+        function initializeImageGrids() {
+            imageGridContainers = [
+                document.getElementById('image-grid-1'),
+                document.getElementById('image-grid-2'),
+                document.getElementById('image-grid-3'),
+                document.getElementById('image-grid-4')
+            ];
+
+            imageGridContainers.forEach((container, containerIndex) => {
+                container.innerHTML = '';
+                
+                // Maak 16x12 grid van image cellen
+                for (let y = 0; y < 12; y++) {
+                    for (let x = 0; x < 16; x++) {
+                        const cell = document.createElement('div');
+                        cell.classList.add('image-cell');
+                        
+                        // Bereken background-position
+                        const xPos = (x / 15) * 100;
+                        const yPos = (y / 11) * 100;
+                        cell.style.backgroundPosition = `${xPos}% ${yPos}%`;
+                        
+                        container.appendChild(cell);
+                    }
+                }
+            });
+        }
+
+        // Initialiseer overlay grid (bovenste laag)
+        function initializeOverlayGrid() {
+            const overlayContainer = document.getElementById('overlay-grid');
+            overlayContainer.innerHTML = '';
+            overlayCells = [];
+
+            // Maak 16x12 grid van overlay cellen
+            for (let y = 0; y < 12; y++) {
+                for (let x = 0; x < 16; x++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('overlay-cell');
+                    overlayContainer.appendChild(cell);
+                    overlayCells.push(cell);
+                }
+            }
+        }
+
+
+        // Sorteer cellen van buiten naar binnen maar random binnen elke laag
+        function sortCellsFromOutsideToInside(cells) {
+            const gridWidth = 16;
+            const gridHeight = 12;
+            
+            // Maak array van cellen met hun ring-niveau (0 = buitenste ring)
+            const cellsWithRing = cells.map((cell, index) => {
+                const x = index % gridWidth;
+                const y = Math.floor(index / gridWidth);
+                
+                // Bereken ring niveau: hoe ver van de rand
+                const distanceFromLeft = x;
+                const distanceFromRight = gridWidth - 1 - x;
+                const distanceFromTop = y;
+                const distanceFromBottom = gridHeight - 1 - y;
+                
+                const ring = Math.min(distanceFromLeft, distanceFromRight, distanceFromTop, distanceFromBottom);
+                
+                return { cell, ring, index };
+            });
+            
+            // Groepeer cellen per ring
+            const rings = {};
+            cellsWithRing.forEach(item => {
+                if (!rings[item.ring]) {
+                    rings[item.ring] = [];
+                }
+                rings[item.ring].push(item.cell);
+            });
+            
+            // Sorteer ringen van buiten naar binnen (0, 1, 2, ...) en shuffle elke ring
+            const sortedRings = Object.keys(rings).map(Number).sort((a, b) => a - b);
+            const result = [];
+            
+            sortedRings.forEach(ring => {
+                const shuffledRing = shuffle([...rings[ring]]);
+                result.push(...shuffledRing);
+            });
+            
+            return result;
+        }
+
+        // Animeer grid fase
+        function animateGridPhase(phaseIndex, timeline, position) {
+            const color = colors[phaseIndex];
+            const totalCells = overlayCells.length;
+            const firstPhaseCount = Math.floor(totalCells * FIRST_PHASE_PERCENT);
+            const secondPhaseCount = totalCells - firstPhaseCount;
+
+            // TIMING BEREKENINGEN
+            const gridPhaseStartTime = position;
+            const firstPhaseEndTime = gridPhaseStartTime + FIRST_PHASE_DURATION;
+            const secondPhaseStartTime = firstPhaseEndTime + PAUSE_BETWEEN_PHASES;
+            const secondPhaseEndTime = secondPhaseStartTime + SECOND_PHASE_DURATION;
+            const backgroundChangeTime = secondPhaseEndTime + FULL_GRID_DURATION;
+            const disappearStartTime = backgroundChangeTime + 0.1;
+
+            // Update fase indicator aan het begin
+            timeline.call(() => {
+                document.getElementById('phase-counter').textContent = phaseIndex + 1;
+            }, null, gridPhaseStartTime);
+
+            // Reset alle overlay cellen
+            timeline.set(overlayCells, { 
+                scale: 0, 
+                backgroundColor: color
+            }, gridPhaseStartTime);
+
+            // Sorteer cellen van buiten naar binnen
+            const sortedCells = sortCellsFromOutsideToInside([...overlayCells]);
+
+            // FASE 1: Eerste 20% van overlay cellen (van buiten naar binnen)
+            const firstPhaseCells = sortedCells.slice(0, firstPhaseCount);
+            timeline.to(firstPhaseCells, {
+                scale: 1,
+                duration: 0,
+                stagger: firstPhaseCount > 0 ? FIRST_PHASE_DURATION / firstPhaseCount : 0,
+            }, gridPhaseStartTime);
+
+            // FASE 2: Resterende 80% van overlay cellen (van buiten naar binnen)
+            const secondPhaseCells = sortedCells.slice(firstPhaseCount);
+            timeline.to(secondPhaseCells, {
+                scale: 1,
+                duration: 0,
+                stagger: secondPhaseCount > 0 ? SECOND_PHASE_DURATION / secondPhaseCount : 0,
+            }, secondPhaseStartTime);
+
+            // ACHTERGROND WISSEL - precies op het moment dat grid volledig zichtbaar is
+            timeline.call(() => {
+                imageGridContainers.forEach((container, index) => {
+                    if (index === phaseIndex) {
+                        container.classList.add('active');
+                    } else {
+                        container.classList.remove('active');
+                    }
+                });
+            }, null, backgroundChangeTime);
+
+            // FASE 3: Alle overlay cellen laten verdwijnen (van binnen naar buiten)
+            const disappearCells = [...sortedCells].reverse();
+            
+            timeline.to(disappearCells, {
+                scale: 0,
+                duration: 0,
+                stagger: totalCells > 0 ? DISAPPEAR_DURATION / totalCells : 0,
+            }, disappearStartTime);
+        }
+
+        // Maak master timeline
+        function createMasterTimeline() {
+            if (masterTimeline) masterTimeline.kill();
+            
+            masterTimeline = gsap.timeline({
+                repeat: -1,
+                repeatDelay: 0.2,
+                onRepeat: () => {
+                    currentPhase = 0;
+                }
+            });
+
+            let position = 0;
+
+            // Voeg elke fase toe
+            for (let i = 0; i < 4; i++) {
+                // TIMING BEREKENINGEN - zelfde als in animateGridPhase
+                const gridPhaseStartTime = position + 0.3; // Grid start 0.3s later
+                
+                // Animeer overlay grid (start 0.3s later)
+                animateGridPhase(i, masterTimeline, gridPhaseStartTime);
+                
+                position += PHASE_DURATION;
+            }
+
+            return masterTimeline;
+        }
+
+        // Control functies
+        function startAnimation() {
+            if (!isAnimating) {
+                createMasterTimeline();
+                isAnimating = true;
+            }
+        }
+
+        function stopAnimation() {
+            if (masterTimeline) {
+                masterTimeline.kill();
+                isAnimating = false;
+            }
+        }
+
+        function nextPhase() {
+            if (masterTimeline) {
+                currentPhase = (currentPhase + 1) % 4;
+                const nextPosition = currentPhase * PHASE_DURATION;
+                masterTimeline.seek(nextPosition);
+                document.getElementById('phase-counter').textContent = currentPhase + 1;
+            }
+        }
+
+        // Reset functie
+        function resetAnimation() {
+            // Reset alle overlay cellen
+            gsap.set(overlayCells, { scale: 0, backgroundColor: 'transparent' });
+
+            // Reset image grid containers
+            imageGridContainers.forEach((container, index) => {
+                if (index === 0) {
+                    container.classList.add('active');
+                } else {
+                    container.classList.remove('active');
+                }
+            });
+            
+            currentPhase = 0;
+            document.getElementById('phase-counter').textContent = '1';
+        }
+
+        // Initialisatie
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeImageGrids();
+            initializeOverlayGrid();
+            resetAnimation();
+            
+            // Start automatisch na 1 seconde
+            setTimeout(() => {
+                startAnimation();
+            }, 1000);
+        });
+
+        // Window resize handler
+        window.addEventListener('resize', function() {
+            if (masterTimeline) {
+                stopAnimation();
+                setTimeout(() => {
+                    startAnimation();
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>

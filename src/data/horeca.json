@@ -20,7 +20,12 @@
         "website": "www.highnoon.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Di-Do: 15:00-21:00, Vr-Za: 15:00-21:30, Zo: 12:00-21:00, Ma: Gesloten"
+        "opening_hours": "Di-Do: 15:00-21:00, Vr-Za: 15:00-21:30, Zo: 12:00-21:00, Ma: Gesloten",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["restaurant"],
+          "atmosphere": ["gezellig", "familie"]
+        }
       }
     },
     {
@@ -42,7 +47,12 @@
         "website": "www.houseofsteaks.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Do: 17:00-22:00, Vr-Za: 17:00-23:00, Zo: 16:00-21:00"
+        "opening_hours": "Ma-Do: 17:00-22:00, Vr-Za: 17:00-23:00, Zo: 16:00-21:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["restaurant"],
+          "atmosphere": ["business", "romantisch"]
+        }
       }
     },
     {
@@ -64,7 +74,12 @@
         "website": "www.restobarg1.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Do: 16:00-01:00, Vr-Za: 16:00-02:00, Zo: 14:00-24:00"
+        "opening_hours": "Ma-Do: 16:00-01:00, Vr-Za: 16:00-02:00, Zo: 14:00-24:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["restaurant", "bar"],
+          "atmosphere": ["gezellig", "romantisch"]
+        }
       }
     },
     {
@@ -86,7 +101,12 @@
         "website": "www.hauran-restaurant.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Zo: 12:00-23:00"
+        "opening_hours": "Ma-Zo: 12:00-23:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["restaurant"],
+          "atmosphere": ["gezellig", "familie"]
+        }
       }
     },
     {
@@ -108,7 +128,12 @@
         "website": "www.grandturquoise.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Zo: 16:00-23:00"
+        "opening_hours": "Ma-Zo: 16:00-23:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["restaurant"],
+          "atmosphere": ["romantisch", "business"]
+        }
       }
     },
     {
@@ -130,7 +155,12 @@
         "website": "www.elgreco-heerlen.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Zo: 17:00-23:00"
+        "opening_hours": "Ma-Zo: 17:00-23:00",
+        "subcategories": {
+          "cuisine_type": ["grieks"],
+          "dining_style": ["restaurant"],
+          "atmosphere": ["gezellig", "familie"]
+        }
       }
     },
     {
@@ -152,7 +182,12 @@
         "website": "www.smaakvermaak.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Di-Zo: 17:00-22:00, Ma: Gesloten"
+        "opening_hours": "Di-Zo: 17:00-22:00, Ma: Gesloten",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["restaurant"],
+          "atmosphere": ["romantisch", "business"]
+        }
       }
     },
     {
@@ -174,7 +209,12 @@
         "website": "www.detweeggezusters.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Di-Zo: 12:00-22:00, Ma: Gesloten"
+        "opening_hours": "Di-Zo: 12:00-22:00, Ma: Gesloten",
+        "subcategories": {
+          "cuisine_type": ["nederlands", "internationaal"],
+          "dining_style": ["restaurant"],
+          "atmosphere": ["gezellig", "familie"]
+        }
       }
     },
     {
@@ -196,7 +236,12 @@
         "website": "www.goodpeople-heerlen.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Zo: 12:00-22:00"
+        "opening_hours": "Ma-Zo: 12:00-22:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["restaurant"],
+          "atmosphere": ["gezellig", "romantisch"]
+        }
       }
     },
     {
@@ -218,7 +263,12 @@
         "website": "www.dapeco.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Zo: 17:00-22:00"
+        "opening_hours": "Ma-Zo: 17:00-22:00",
+        "subcategories": {
+          "cuisine_type": ["italiaans"],
+          "dining_style": ["restaurant"],
+          "atmosphere": ["gezellig", "familie"]
+        }
       }
     },
     {
@@ -240,7 +290,12 @@
         "website": "www.ilcastello-heerlen.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Zo: 16:00-23:00"
+        "opening_hours": "Ma-Zo: 16:00-23:00",
+        "subcategories": {
+          "cuisine_type": ["italiaans"],
+          "dining_style": ["restaurant"],
+          "atmosphere": ["gezellig", "familie"]
+        }
       }
     },
     {
@@ -262,7 +317,12 @@
         "website": "www.nisos-heerlen.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Zo: 17:00-23:00"
+        "opening_hours": "Ma-Zo: 17:00-23:00",
+        "subcategories": {
+          "cuisine_type": ["grieks"],
+          "dining_style": ["restaurant"],
+          "atmosphere": ["gezellig", "familie"]
+        }
       }
     },
     {
@@ -284,7 +344,12 @@
         "website": "www.thestory-heerlen.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Zo: 12:00-22:00"
+        "opening_hours": "Ma-Zo: 12:00-22:00",
+        "subcategories": {
+          "cuisine_type": ["midden-oosters"],
+          "dining_style": ["restaurant"],
+          "atmosphere": ["gezellig", "authentiek"]
+        }
       }
     },
     {
@@ -306,7 +371,12 @@
         "website": "www.taxim-heerlen.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Zo: 12:00-23:00"
+        "opening_hours": "Ma-Zo: 12:00-23:00",
+        "subcategories": {
+          "cuisine_type": ["turks"],
+          "dining_style": ["restaurant"],
+          "atmosphere": ["gezellig", "traditioneel"]
+        }
       }
     },
     {
@@ -328,7 +398,12 @@
         "website": "www.tokopatja.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Za: 16:00-22:00, Zo: 15:00-22:00"
+        "opening_hours": "Ma-Za: 16:00-22:00, Zo: 15:00-22:00",
+        "subcategories": {
+          "cuisine_type": ["indonesisch"],
+          "dining_style": ["takeaway"],
+          "atmosphere": ["authentiek", "casual"]
+        }
       }
     },
     {
@@ -350,7 +425,12 @@
         "website": "www.brasserie-goya.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Za: 10:00-20:00, Zo: 12:00-18:00"
+        "opening_hours": "Ma-Za: 10:00-20:00, Zo: 12:00-18:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["brasserie"],
+          "atmosphere": ["modern", "casual"]
+        }
       }
     },
     {
@@ -372,7 +452,12 @@
         "website": "www.grandcafe-heerlen.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Zo: 09:00-22:00"
+        "opening_hours": "Ma-Zo: 09:00-22:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["cafe"],
+          "atmosphere": ["klassiek", "gezellig"]
+        }
       }
     },
     {
@@ -394,7 +479,12 @@
         "website": "www.cafepelt.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Do: 11:00-01:00, Vr-Za: 11:00-02:00, Zo: 12:00-24:00"
+        "opening_hours": "Ma-Do: 11:00-01:00, Vr-Za: 11:00-02:00, Zo: 12:00-24:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["cafe"],
+          "atmosphere": ["gezellig", "terras"]
+        }
       }
     },
     {
@@ -416,7 +506,12 @@
         "website": "www.cafetess.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Do: 16:00-01:00, Vr-Za: 16:00-02:00, Zo: 16:00-24:00"
+        "opening_hours": "Ma-Do: 16:00-01:00, Vr-Za: 16:00-02:00, Zo: 16:00-24:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["cafe", "bar"],
+          "atmosphere": ["trendy", "gezellig"]
+        }
       }
     },
     {
@@ -438,7 +533,12 @@
         "website": "www.cafebluff.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Do: 16:00-01:00, Vr-Za: 16:00-02:00, Zo: 16:00-24:00"
+        "opening_hours": "Ma-Do: 16:00-01:00, Vr-Za: 16:00-02:00, Zo: 16:00-24:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["cafe", "bar"],
+          "atmosphere": ["gezellig", "live muziek"]
+        }
       }
     },
     {
@@ -460,7 +560,12 @@
         "website": "www.drklinge.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Do: 11:00-01:00, Vr-Za: 11:00-02:00, Zo: 12:00-24:00"
+        "opening_hours": "Ma-Do: 11:00-01:00, Vr-Za: 11:00-02:00, Zo: 12:00-24:00",
+        "subcategories": {
+          "cuisine_type": ["nederlands"],
+          "dining_style": ["cafe"],
+          "atmosphere": ["traditioneel", "lokaal"]
+        }
       }
     },
     {
@@ -482,7 +587,12 @@
         "website": "www.cafebracke.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Do: 10:00-01:00, Vr-Za: 10:00-02:00, Zo: 11:00-24:00"
+        "opening_hours": "Ma-Do: 10:00-01:00, Vr-Za: 10:00-02:00, Zo: 11:00-24:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["cafe"],
+          "atmosphere": ["klassiek", "gezellig"]
+        }
       }
     },
     {
@@ -504,7 +614,12 @@
         "website": "www.dekrommetoeter.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Do: 10:00-01:00, Vr-Za: 10:00-02:00, Zo: 11:00-24:00"
+        "opening_hours": "Ma-Do: 10:00-01:00, Vr-Za: 10:00-02:00, Zo: 11:00-24:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["cafe"],
+          "atmosphere": ["gezellig", "familie"]
+        }
       }
     },
     {
@@ -526,7 +641,12 @@
         "website": "www.debank-heerlen.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Do: 17:00-01:00, Vr-Za: 17:00-02:00, Zo: 17:00-24:00"
+        "opening_hours": "Ma-Do: 17:00-01:00, Vr-Za: 17:00-02:00, Zo: 17:00-24:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["bar"],
+          "atmosphere": ["trendy", "stijlvol"]
+        }
       }
     },
     {
@@ -548,7 +668,12 @@
         "website": "www.bolero-heerlen.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Do: 17:00-01:00, Vr-Za: 17:00-02:00, Zo: 17:00-24:00"
+        "opening_hours": "Ma-Do: 17:00-01:00, Vr-Za: 17:00-02:00, Zo: 17:00-24:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["bar"],
+          "atmosphere": ["sfeervo", "live muziek"]
+        }
       }
     },
     {
@@ -570,7 +695,12 @@
         "website": "www.dimisoverloaded.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Di: 12:00-17:00, Wo-Za: 10:00-17:00, Zo: 12:00-17:00, Ma: Gesloten"
+        "opening_hours": "Di: 12:00-17:00, Wo-Za: 10:00-17:00, Zo: 12:00-17:00, Ma: Gesloten",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["lunchroom"],
+          "atmosphere": ["populair", "casual"]
+        }
       }
     },
     {
@@ -592,7 +722,12 @@
         "website": "www.thirtyfour-heerlen.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Vr: 08:00-17:00, Za: 09:00-17:00, Zo: 10:00-16:00"
+        "opening_hours": "Ma-Vr: 08:00-17:00, Za: 09:00-17:00, Zo: 10:00-16:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["coffee shop"],
+          "atmosphere": ["trendy", "gezellig"]
+        }
       }
     },
     {
@@ -614,7 +749,12 @@
         "website": "www.brunchbar-heerlen.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Vr: 08:00-16:00, Za-Zo: 09:00-16:00"
+        "opening_hours": "Ma-Vr: 08:00-16:00, Za-Zo: 09:00-16:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["brunchbar"],
+          "atmosphere": ["trendy", "gezond"]
+        }
       }
     },
     {
@@ -636,7 +776,12 @@
         "website": "www.hetduitsebakkertje.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Za: 07:00-18:00, Zo: 08:00-17:00"
+        "opening_hours": "Ma-Za: 07:00-18:00, Zo: 08:00-17:00",
+        "subcategories": {
+          "cuisine_type": ["duits"],
+          "dining_style": ["bakkerij"],
+          "atmosphere": ["traditioneel", "authentiek"]
+        }
       }
     },
     {
@@ -658,7 +803,12 @@
         "website": "www.jansenjanssen.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Za: 07:00-18:00, Zo: 08:00-17:00"
+        "opening_hours": "Ma-Za: 07:00-18:00, Zo: 08:00-17:00",
+        "subcategories": {
+          "cuisine_type": ["nederlands"],
+          "dining_style": ["bakkerij", "coffee shop"],
+          "atmosphere": ["vers", "gezellig"]
+        }
       }
     },
     {
@@ -680,7 +830,12 @@
         "website": "www.coffeelovers.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Za: 08:00-18:00, Zo: 10:00-17:00"
+        "opening_hours": "Ma-Za: 08:00-18:00, Zo: 10:00-17:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["coffee shop"],
+          "atmosphere": ["specialty", "vers"]
+        }
       }
     },
     {
@@ -702,7 +857,12 @@
         "website": "www.aroma-heerlen.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Vr: 07:00-17:00, Za: 08:00-17:00, Zo: 09:00-16:00"
+        "opening_hours": "Ma-Vr: 07:00-17:00, Za: 08:00-17:00, Zo: 09:00-16:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["coffee shop"],
+          "atmosphere": ["gezellig", "vers"]
+        }
       }
     },
     {
@@ -724,7 +884,12 @@
         "website": "www.bagelsbeans.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Za: 08:00-18:00, Zo: 09:00-17:00"
+        "opening_hours": "Ma-Za: 08:00-18:00, Zo: 09:00-17:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["coffee shop"],
+          "atmosphere": ["gezond", "vers"]
+        }
       }
     },
     {
@@ -746,7 +911,12 @@
         "website": "www.patstostibar.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Za: 10:00-18:00, Zo: 12:00-17:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Zo: 12:00-17:00",
+        "subcategories": {
+          "cuisine_type": ["nederlands"],
+          "dining_style": ["fastfood"],
+          "atmosphere": ["populair", "casual"]
+        }
       }
     },
     {
@@ -768,7 +938,12 @@
         "website": "www.duuvelke-heerlen.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Do: 16:00-01:00, Vr-Za: 16:00-02:00, Zo: 16:00-24:00"
+        "opening_hours": "Ma-Do: 16:00-01:00, Vr-Za: 16:00-02:00, Zo: 16:00-24:00",
+        "subcategories": {
+          "cuisine_type": ["nederlands"],
+          "dining_style": ["restaurant"],
+          "atmosphere": ["gezellig", "traditioneel"]
+        }
       }
     },
     {
@@ -790,7 +965,12 @@
         "website": "www.nieuwenor.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Do: 20:00-01:00, Vr-Za: 20:00-02:00, Zo: 20:00-24:00"
+        "opening_hours": "Ma-Do: 20:00-01:00, Vr-Za: 20:00-02:00, Zo: 20:00-24:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["cafe"],
+          "atmosphere": ["muziek", "cultural"]
+        }
       }
     },
     {
@@ -812,7 +992,12 @@
         "website": "www.deportvanherle.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Do: 11:00-01:00, Vr-Za: 11:00-02:00, Zo: 12:00-24:00"
+        "opening_hours": "Ma-Do: 11:00-01:00, Vr-Za: 11:00-02:00, Zo: 12:00-24:00",
+        "subcategories": {
+          "cuisine_type": ["nederlands"],
+          "dining_style": ["cafe"],
+          "atmosphere": ["traditioneel", "lokaal"]
+        }
       }
     },
     {
@@ -834,7 +1019,12 @@
         "website": "www.detapperij.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Do: 16:00-01:00, Vr-Za: 16:00-02:00, Zo: 16:00-24:00"
+        "opening_hours": "Ma-Do: 16:00-01:00, Vr-Za: 16:00-02:00, Zo: 16:00-24:00",
+        "subcategories": {
+          "cuisine_type": ["internationaal"],
+          "dining_style": ["cafe"],
+          "atmosphere": ["gezellig", "vriendelijk"]
+        }
       }
     },
     {
@@ -856,7 +1046,12 @@
         "website": "www.alanya-heerlen.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Zo: 12:00-23:00"
+        "opening_hours": "Ma-Zo: 12:00-23:00",
+        "subcategories": {
+          "cuisine_type": ["turks"],
+          "dining_style": ["restaurant"],
+          "atmosphere": ["halal", "authentiek"]
+        }
       }
     },
     {
@@ -878,7 +1073,12 @@
         "website": "www.mamamia-heerlen.nl",
         "icon": "assets/icons_map/horeca.png",
         "color": "#27AE60",
-        "opening_hours": "Ma-Zo: 16:00-23:00"
+        "opening_hours": "Ma-Zo: 16:00-23:00",
+        "subcategories": {
+          "cuisine_type": ["italiaans"],
+          "dining_style": ["restaurant"],
+          "atmosphere": ["familie", "gezellig"]
+        }
       }
     }
   ]

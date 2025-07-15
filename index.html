@@ -50,6 +50,7 @@
     <link rel="stylesheet" href="src/styles/main.css">
     <link rel="stylesheet" href="src/styles/popup-styles.css">
     <link rel="stylesheet" href="src/styles/filter-styles.css">
+    <link rel="stylesheet" href="src/styles/preference-modal.css">
     <link rel="stylesheet" href="src/styles/controls-styles.css">
     <link rel="stylesheet" href="src/styles/navigation-styles.css">
     <link rel="stylesheet" href="src/styles/info-panel-styles.css">
@@ -69,10 +70,16 @@
     <script src="src/utils/templateLoader.js?v=1.0"></script>
     <script src="src/utils/dataLoader.js?v=1.1"></script>
     
+    <!-- Data & Definitions -->
+    <script src="src/data/subcategories.js?v=1.0"></script>
+    
+    <!-- Components -->
+    <script src="src/components/preferenceModal.js?v=1.0"></script>
+    
     <!-- Managers -->
     <script src="src/managers/markerManager.js?v=1.1"></script>
     <script src="src/managers/popupManager.js?v=1.1"></script>
-    <script src="src/managers/filterManager.js?v=1.1"></script>
+    <script src="src/managers/filterManager.js?v=1.8"></script>
     <script src="src/managers/controlsManager.js?v=1.1"></script>
     <script src="src/managers/locationManager.js?v=1.1"></script>
     <script src="src/managers/navigationManager.js?v=1.1"></script>
@@ -83,6 +90,79 @@
     
     <!-- Demo script (verwijder in productie) -->
     <script src="src/utils/demo.js"></script>
+    
+    <!-- Debug script -->
+    <script>
+        console.log('🔍 Debug: Checking global variables...');
+        console.log('🔍 SubcategoryDefinitions:', typeof window.SubcategoryDefinitions);
+        console.log('🔍 PreferenceModal:', typeof window.PreferenceModal);
+        console.log('🔍 FilterManager:', typeof window.FilterManager);
+        
+        if (window.SubcategoryDefinitions) {
+            console.log('🔍 Available categories:', Object.keys(window.SubcategoryDefinitions));
+        }
+        
+        // Test functie om preference modal te testen
+        window.testPreferenceModal = function() {
+            if (window.app && window.app.filterManager) {
+                console.log('🧪 Testing preference modal...');
+                window.app.filterManager.pendingCategorySelection.add('Mode');
+                window.app.filterManager.showPreferenceModal();
+            } else {
+                console.log('🧪 App not ready yet');
+            }
+        };
+        
+        // Test functie om cultuur button te simuleren
+        window.testCultuurButton = function() {
+            console.log('🧪 Testing Cultuur button click...');
+            if (window.app && window.app.filterManager) {
+                const filterManager = window.app.filterManager;
+                filterManager.pendingCategorySelection.add('Cultuur');
+                filterManager.showPreferenceModal();
+            }
+        };
+        
+        // Test alle variabelen na 3 seconden
+        setTimeout(() => {
+            console.log('🕐 After 3 seconds check:');
+            console.log('🔍 SubcategoryDefinitions:', typeof window.SubcategoryDefinitions, window.SubcategoryDefinitions ? Object.keys(window.SubcategoryDefinitions) : 'undefined');
+            console.log('🔍 PreferenceModal:', typeof window.PreferenceModal);
+            console.log('🔍 app.filterManager:', window.app ? typeof window.app.filterManager : 'app not ready');
+            if (window.app && window.app.filterManager) {
+                console.log('🔍 filterManager.preferenceModal:', typeof window.app.filterManager.preferenceModal);
+                
+                // Test de filter buttons
+                const buttons = document.querySelectorAll('.filter-btn');
+                console.log('🔍 Filter buttons found:', buttons.length);
+                buttons.forEach((btn, index) => {
+                    console.log(`🔍 Button ${index}:`, btn.dataset.category, btn.textContent.trim());
+                });
+            }
+            
+            // Test direct klikken
+            console.log('🧪 Testing direct modal creation...');
+            window.testModal = function() {
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(0, 0, 0, 0.7);
+                    z-index: 10000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                `;
+                modal.innerHTML = '<div style="background: white; padding: 30px; border-radius: 15px;">TEST MODAL WERKT!</div>';
+                document.body.appendChild(modal);
+                modal.onclick = () => modal.remove();
+            };
+            console.log('🧪 Run testModal() in console to test');
+        }, 3000);
+    </script>
     
     <!-- Initialize app -->
     <script>

@@ -20,7 +20,11 @@
         "website": "www.hetromeinsmuseum.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Ma-Vr: 10:00-17:00, Za-Zo: 12:00-17:00"
+        "opening_hours": "Ma-Vr: 10:00-17:00, Za-Zo: 12:00-17:00",
+        "subcategories": {
+          "period": ["romeins"],
+          "type": ["museum"]
+        }
       }
     },
     {
@@ -42,7 +46,11 @@
         "website": "www.nederlandsmijnmuseum.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Di-Zo: 10:00-17:00, Ma: Gesloten"
+        "opening_hours": "Di-Zo: 10:00-17:00, Ma: Gesloten",
+        "subcategories": {
+          "period": ["industrieel"],
+          "type": ["museum"]
+        }
       }
     },
     {
@@ -64,7 +72,11 @@
         "website": "www.schunck.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Ma-Vr: 09:00-17:00, Za: 11:00-17:00, Zo: 09:00-17:00"
+        "opening_hours": "Ma-Vr: 09:00-17:00, Za: 11:00-17:00, Zo: 09:00-17:00",
+        "subcategories": {
+          "period": ["modern"],
+          "type": ["gallery", "bibliotheek"]
+        }
       }
     },
     {
@@ -86,7 +98,11 @@
         "website": "www.savelbergklooster.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Op afspraak en tijdens evenementen"
+        "opening_hours": "Op afspraak en tijdens evenementen",
+        "subcategories": {
+          "period": ["historisch"],
+          "type": ["museum", "evenementenlocatie"]
+        }
       }
     },
     {
@@ -108,7 +124,11 @@
         "website": "www.devondst.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Di-Vr: 10:00-17:00, Za-Zo: 12:00-17:00, Ma: Gesloten"
+        "opening_hours": "Di-Vr: 10:00-17:00, Za-Zo: 12:00-17:00, Ma: Gesloten",
+        "subcategories": {
+          "period": ["archeologisch"],
+          "type": ["museum", "educatief"]
+        }
       }
     },
     {
@@ -130,7 +150,11 @@
         "website": "www.plt.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Kassa: 1 uur voor voorstelling, reserveren online"
+        "opening_hours": "Kassa: 1 uur voor voorstelling, reserveren online",
+        "subcategories": {
+          "period": ["modern"],
+          "type": ["theater", "voorstellingen"]
+        }
       }
     },
     {
@@ -152,7 +176,11 @@
         "website": "www.limburgzaal.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Volgens programma, reserveren online"
+        "opening_hours": "Volgens programma, reserveren online",
+        "subcategories": {
+          "period": ["modern"],
+          "type": ["concertzaal", "muziek"]
+        }
       }
     },
     {
@@ -174,7 +202,11 @@
         "website": "www.cultuurhuis-heerlen.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Ma-Za: 09:00-22:00, Zo: 14:00-22:00"
+        "opening_hours": "Ma-Za: 09:00-22:00, Zo: 14:00-22:00",
+        "subcategories": {
+          "period": ["modern"],
+          "type": ["cultuurhuis", "educatief"]
+        }
       }
     },
     {
@@ -196,7 +228,11 @@
         "website": "www.quatrocinema.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Ma: 19:30-22:00, Di-Wo: 14:30-22:00, Do-Vr: 17:00-22:00, Za-Zo: 14:00-22:00"
+        "opening_hours": "Ma: 19:30-22:00, Di-Wo: 14:30-22:00, Do-Vr: 17:00-22:00, Za-Zo: 14:00-22:00",
+        "subcategories": {
+          "period": ["modern"],
+          "type": ["cinema", "arthouse"]
+        }
       }
     },
     {
@@ -218,7 +254,11 @@
         "website": "www.filmhuisdespiegel.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Volgens filmschema, check website"
+        "opening_hours": "Volgens filmschema, check website",
+        "subcategories": {
+          "period": ["modern"],
+          "type": ["cinema", "arthouse"]
+        }
       }
     },
     {
@@ -240,7 +280,11 @@
         "website": "www.nieuwenor.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Volgens programma, check website"
+        "opening_hours": "Volgens programma, check website",
+        "subcategories": {
+          "period": ["modern"],
+          "type": ["poppodium", "muziek"]
+        }
       }
     },
     {
@@ -262,7 +306,11 @@
         "website": "www.schunck.nl/bibliotheek",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Ma-Vr: 10:00-20:00, Za: 10:00-17:00"
+        "opening_hours": "Ma-Vr: 10:00-20:00, Za: 10:00-17:00",
+        "subcategories": {
+          "period": ["modern"],
+          "type": ["bibliotheek", "educatief"]
+        }
       }
     },
     {
@@ -284,7 +332,11 @@
         "website": "www.galerieforart.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Di-Za: 11:00-17:00, Zo-Ma: Gesloten"
+        "opening_hours": "Di-Za: 11:00-17:00, Zo-Ma: Gesloten",
+        "subcategories": {
+          "period": ["modern"],
+          "type": ["gallery", "kunst"]
+        }
       }
     },
     {
@@ -306,7 +358,11 @@
         "website": "www.denieuweegalerij.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Wo-Za: 12:00-17:00, Zo-Di: Gesloten"
+        "opening_hours": "Wo-Za: 12:00-17:00, Zo-Di: Gesloten",
+        "subcategories": {
+          "period": ["modern"],
+          "type": ["gallery", "kunst"]
+        }
       }
     },
     {
@@ -328,7 +384,11 @@
         "website": "www.ap-art.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Ma-Vr: 09:00-17:00, weekend op afspraak"
+        "opening_hours": "Ma-Vr: 09:00-17:00, weekend op afspraak",
+        "subcategories": {
+          "period": ["modern"],
+          "type": ["evenementen", "educatief"]
+        }
       }
     },
     {
@@ -350,7 +410,11 @@
         "website": "www.theaterwerkplaatszie.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Volgens programma, reserveren online"
+        "opening_hours": "Volgens programma, reserveren online",
+        "subcategories": {
+          "period": ["modern"],
+          "type": ["theater", "experimenteel"]
+        }
       }
     },
     {
@@ -372,7 +436,11 @@
         "website": "www.kunstkringhenrijonas.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Za-Zo: 14:00-17:00, doordeweeks op afspraak"
+        "opening_hours": "Za-Zo: 14:00-17:00, doordeweeks op afspraak",
+        "subcategories": {
+          "period": ["modern"],
+          "type": ["gallery", "educatief"]
+        }
       }
     },
     {
@@ -394,7 +462,11 @@
         "website": "www.muziektheaterzuid.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Volgens programma en workshops"
+        "opening_hours": "Volgens programma en workshops",
+        "subcategories": {
+          "period": ["modern"],
+          "type": ["theater", "muziek"]
+        }
       }
     },
     {
@@ -416,7 +488,11 @@
         "website": "www.monkeytheater.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Volgens programma, reserveren online"
+        "opening_hours": "Volgens programma, reserveren online",
+        "subcategories": {
+          "period": ["modern"],
+          "type": ["theater", "comedy"]
+        }
       }
     },
     {
@@ -438,7 +514,11 @@
         "website": "www.wonderlandburlesque.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Volgens programma en workshops"
+        "opening_hours": "Volgens programma en workshops",
+        "subcategories": {
+          "period": ["modern"],
+          "type": ["theater", "dans"]
+        }
       }
     },
     {
@@ -460,7 +540,11 @@
         "website": "www.livepianosheerlen.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Ma-Do: 18:00-24:00, Vr-Za: 18:00-02:00, Zo: 16:00-22:00"
+        "opening_hours": "Ma-Do: 18:00-24:00, Vr-Za: 18:00-02:00, Zo: 16:00-22:00",
+        "subcategories": {
+          "period": ["modern"],
+          "type": ["muziek", "live"]
+        }
       }
     },
     {
@@ -482,7 +566,11 @@
         "website": "www.studiohetpodium.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Ma-Za: 10:00-22:00, Zo: 14:00-20:00"
+        "opening_hours": "Ma-Za: 10:00-22:00, Zo: 14:00-20:00",
+        "subcategories": {
+          "period": ["modern"],
+          "type": ["studio", "verhuur"]
+        }
       }
     },
     {
@@ -504,7 +592,11 @@
         "website": "www.herinneringsheerlen.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Altijd toegankelijk"
+        "opening_hours": "Altijd toegankelijk",
+        "subcategories": {
+          "period": ["historisch"],
+          "type": ["monument", "herdenking"]
+        }
       }
     },
     {
@@ -526,7 +618,11 @@
         "website": "www.culturanova.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Ma-Vr: 09:00-17:00"
+        "opening_hours": "Ma-Vr: 09:00-17:00",
+        "subcategories": {
+          "period": ["modern"],
+          "type": ["organisatie", "evenementen"]
+        }
       }
     },
     {
@@ -548,7 +644,11 @@
         "website": "www.vibesmusic.nl",
         "icon": "assets/icons_map/Cultuur.png",
         "color": "#4B83F2",
-        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00"
+        "opening_hours": "Ma-Za: 10:00-18:00, Do: 10:00-21:00",
+        "subcategories": {
+          "period": ["modern"],
+          "type": ["muziek", "winkel"]
+        }
       }
     }
   ]
