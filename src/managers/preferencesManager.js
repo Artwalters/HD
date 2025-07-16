@@ -447,16 +447,6 @@ class PreferencesManager {
                     ${subcategoryMatches.map(match => `<span class="subcategory-tag">${match.icon} ${match.label}</span>`).join('')}
                 </div>` : ''}
                 
-                <!-- Debug info -->
-                <div class="debug-subcategories" style="background: #e3f2fd; padding: 8px; margin: 8px 0; border-radius: 4px; font-size: 12px;">
-                    <strong>Debug Info:</strong><br>
-                    Restaurant: ${business.properties.name}<br>
-                    Category: ${business.properties.category}<br>
-                    Subcategorie voorkeuren: ${JSON.stringify(this.subcategoryPreferences)}<br>
-                    Business subcategories: ${JSON.stringify(business.properties.subcategories)}<br>
-                    Business full properties: ${JSON.stringify(business.properties, null, 2)}<br>
-                    Matches: ${subcategoryMatches.length}
-                </div>
                 
                 ${address ? `<div class="card-address">📍 ${address}</div>` : ''}
                 ${openingHours ? `<div class="card-hours">🕐 ${openingHours}</div>` : ''}

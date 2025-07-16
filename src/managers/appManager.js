@@ -363,6 +363,19 @@ class AppManager {
 
 
     /**
+     * Krijgt geselecteerde categorieën uit localStorage
+     */
+    getSelectedCategories() {
+        try {
+            const saved = localStorage.getItem('selectedCategories');
+            return saved ? JSON.parse(saved) : [];
+        } catch (error) {
+            console.error('Fout bij laden selectedCategories:', error);
+            return [];
+        }
+    }
+
+    /**
      * Laadt en toont alle data
      */
     async loadAndDisplayData() {
@@ -370,9 +383,23 @@ class AppManager {
             // Laad alle data
             const allData = await this.dataLoader.loadAllData();
             
-            // BELANGRIJK: Voor de kaart tonen we ALLE data, niet alleen geselecteerde categorieën
-            // De filterManager zal de filtering afhandelen
-            const displayData = allData; // Gebruik alle data in plaats van gefilterde data
+            // Haal geselecteerde categorieën op uit localStorage
+            const selectedCategories = this.getSelectedCategories();
+            
+            // Filter data op basis van geselecteerde categorieën
+            let displayData = allData;
+            if (selectedCategories.length > 0) {
+                displayData = {
+                    type: "FeatureCollection",
+                    features: allData.features.filter(feature => 
+                        selectedCategories.includes(feature.properties.category)
+                    )
+                };
+                console.log(`📋 Gefilterd op geselecteerde categorieën: ${displayData.features.length} items van ${allData.features.length}`);
+            } else {
+                console.log('📋 Geen categorieën geselecteerd, toon niets');
+                displayData = { type: "FeatureCollection", features: [] };
+            }
             
             // Set liked status op data
             if (this.likesManager) {
