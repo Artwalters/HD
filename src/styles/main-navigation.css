@@ -140,6 +140,12 @@
         cursor: pointer;
         position: relative;
         z-index: 1003;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+        width: 100%;
+        min-height: 48px;
+        line-height: 1.2;
+        text-align: left;
     }
     
     .nav-link:last-child {

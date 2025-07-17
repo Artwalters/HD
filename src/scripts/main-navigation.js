@@ -3,16 +3,24 @@
 // ==========================================
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Try to initialize immediately
     initializeMainNavigation();
+    
+    // Also try after a short delay to ensure DOM is fully loaded
+    setTimeout(initializeMainNavigation, 100);
 });
 
 function initializeMainNavigation() {
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');
     
-    if (navToggle && navMenu) {
+    if (navToggle && navMenu && !navToggle.dataset.initialized) {
+        // Mark as initialized to prevent duplicate listeners
+        navToggle.dataset.initialized = 'true';
+        
         // Mobile menu toggle
         navToggle.addEventListener('click', function() {
+            console.log('Mobile menu toggle clicked');
             navToggle.classList.toggle('active');
             navMenu.classList.toggle('active');
         });
@@ -21,6 +29,8 @@ function initializeMainNavigation() {
         const navLinks = navMenu.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
+                console.log('Navigation link clicked:', this.getAttribute('href'));
+                
                 // Close menu for all link clicks
                 navToggle.classList.remove('active');
                 navMenu.classList.remove('active');
@@ -40,6 +50,14 @@ function initializeMainNavigation() {
                             behavior: 'smooth'
                         });
                     }
+                } else if (href && href.endsWith('.html')) {
+                    // For .html links, ensure they navigate properly
+                    console.log('Navigating to:', href);
+                    
+                    // Add a small delay to ensure menu closes first
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 100);
                 }
                 // For .html links, let them work normally (no preventDefault)
             });
