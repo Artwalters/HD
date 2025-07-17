@@ -2,15 +2,8 @@
  * MINIMALIST PREFERENCES STYLES - HEERLEN DOEN
  * ============================== */
 
-/* Reset and Base */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* Page-specific body styles */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: #ffffff;
     min-height: 100vh;
     overflow-x: hidden;

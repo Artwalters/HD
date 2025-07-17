@@ -1,8 +1,5 @@
-/* Reset and base styles */
+/* Map-specific styles */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
     /* Prevent text selection and dragging on all UI elements */
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -14,9 +11,7 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
+    font-family: var(--font-body);
 }
 
 /* Map container - fullscreen */

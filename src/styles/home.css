@@ -2,19 +2,13 @@
    HEERLEN DOEN - HOME PAGE STYLES
    ========================================== */
 
-/* Reset & Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* Home Page Specific Styles */
 body {
-    font-family: "Inter", sans-serif;
+    font-family: var(--font-body);
     font-weight: 400;
     font-style: normal;
     line-height: 1.6;
-    color: #ffffff;
+    color: var(--color-text-white);
     background-color: #000000;
     overflow-x: hidden;
 }

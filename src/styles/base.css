@@ -1,0 +1,80 @@
+/* ==============================
+   BASE STYLES - HEERLEN DOEN
+   Common reset and base styles
+   ============================== */
+
+/* CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Base Body Styles */
+body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Common Container */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-xl);
+}
+
+/* Common Button Reset */
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* Common Link Reset */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Common List Reset */
+ul, ol {
+    list-style: none;
+}
+
+/* Common Focus Styles */
+:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Common Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Common Selection Styles */
+::selection {
+    background: var(--color-primary);
+    color: white;
+}
+
+/* Common Transition Base */
+* {
+    transition: color var(--transition-fast), 
+                background-color var(--transition-fast),
+                border-color var(--transition-fast);
+}
+
+/* Disable transitions during page load */
+.preload * {
+    transition: none !important;
+}
+
+/* Remove preload class after page loads */
+.preload {
+    transition: none !important;
+}
