@@ -9,6 +9,7 @@ class SimpleOrientation {
         this.isTracking = false;
         this.currentHeading = 0;
         this.callbacks = [];
+        this.showSuccessMessage = true; // Control whether to show success alert
         
         // Platform detection
         this.isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -36,7 +37,10 @@ class SimpleOrientation {
                         console.log('✅ Permission granted! Starting orientation tracking...');
                         this.hasPermission = true;
                         this.startListening();
-                        alert('✅ Kompas ingeschakeld! Je ziet nu je kijkrichting op de kaart.');
+                        // Don't show alert automatically - let calling code decide
+                        if (this.showSuccessMessage) {
+                            alert('✅ Kompas ingeschakeld! Je ziet nu je kijkrichting op de kaart.');
+                        }
                     } else {
                         console.log('❌ Permission denied');
                         alert('❌ Kompas toegang geweigerd. Ga naar Safari Instellingen > Motion & Orientation Access om dit in te schakelen.');

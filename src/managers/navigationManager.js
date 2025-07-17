@@ -195,6 +195,12 @@ class NavigationManager {
         const destination = [destinationLng, destinationLat];
 
         try {
+            // Request orientation permission for navigation (iOS)
+            if (!this.locationManager.isOrientationTracking) {
+                console.log('🧭 Requesting orientation permission for navigation...');
+                await this.locationManager.requestOrientationPermissionDirect();
+            }
+
             const route = await this.fetchRoute(origin, destination);
             
             if (!route || !route.routes || route.routes.length === 0) {

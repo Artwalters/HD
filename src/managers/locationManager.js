@@ -140,12 +140,6 @@ class LocationManager {
         const controlsContainer = document.querySelector('.custom-controls .controls-wrapper');
         if (controlsContainer) {
             controlsContainer.appendChild(this.createLocationButton());
-            
-            // Add compass button for iOS
-            const compassButton = this.createCompassButton();
-            if (compassButton) {
-                controlsContainer.appendChild(compassButton);
-            }
         }
     }
 
@@ -190,37 +184,54 @@ class LocationManager {
     }
 
     /**
-     * Creëert compass permission button voor iOS test
+     * Request orientation permission directly when needed
      */
-    createCompassButton() {
-        // Only create compass button on iOS
+    requestOrientationPermissionDirect() {
+        console.log('🧭 Requesting orientation permission directly...');
+        
+        // Only for iOS devices
         if (!/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-            return null;
+            console.log('🤖 No permission needed for this platform');
+            return Promise.resolve(true);
         }
 
-        const button = document.createElement('button');
-        button.className = 'control-btn compass-btn';
-        button.title = 'Kompas inschakelen';
-        button.innerHTML = `
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polygon points="16.24,7.76 14.12,14.12 7.76,16.24 9.88,9.88 16.24,7.76"></polygon>
-            </svg>
-        `;
-
-        // DIRECT permission request in click handler - NO async/await between click and request
-        button.addEventListener('click', function() {
-            console.log('🧭 Compass button clicked - requesting permission DIRECTLY');
-            
+        return new Promise((resolve) => {
             if (window.SimpleOrientation) {
+                // Disable success message for automatic requests
+                const originalShowMessage = window.SimpleOrientation.showSuccessMessage;
+                window.SimpleOrientation.showSuccessMessage = false;
+
+                // Store original callback to restore later
+                const originalCallbacks = [...window.SimpleOrientation.callbacks];
+                
+                // Add our own callback to detect when permission is granted
+                const permissionCallback = (heading) => {
+                    console.log('🧭 Orientation permission granted and tracking started');
+                    // Remove our callback
+                    window.SimpleOrientation.offHeadingChange(permissionCallback);
+                    // Restore original settings
+                    window.SimpleOrientation.showSuccessMessage = originalShowMessage;
+                    resolve(true);
+                };
+                
+                window.SimpleOrientation.onHeadingChange(permissionCallback);
+
+                // Set a timeout in case permission is denied
+                setTimeout(() => {
+                    if (!window.SimpleOrientation.hasPermission) {
+                        window.SimpleOrientation.offHeadingChange(permissionCallback);
+                        window.SimpleOrientation.showSuccessMessage = originalShowMessage;
+                        resolve(false);
+                    }
+                }, 5000);
+
                 // This will call DeviceOrientationEvent.requestPermission() DIRECTLY
                 window.SimpleOrientation.requestPermissionDirect();
             } else {
-                alert('❌ SimpleOrientation niet beschikbaar');
+                console.error('❌ SimpleOrientation niet beschikbaar');
+                resolve(false);
             }
         });
-
-        return button;
     }
 
     /**
@@ -256,7 +267,8 @@ class LocationManager {
             } else {
                 // Request orientation permission first if needed (iOS)
                 if (!this.isOrientationTracking) {
-                    await this.requestOrientationPermissionWithUI();
+                    console.log('🧭 Requesting orientation permission from location click...');
+                    await this.requestOrientationPermissionDirect();
                 }
                 
                 await this.startTracking();
