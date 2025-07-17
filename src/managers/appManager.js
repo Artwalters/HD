@@ -58,7 +58,7 @@ class AppManager {
             // 7. Audio manager verwijderd
             
             // 8. Initialiseer location manager
-            this.initializeLocationManager();
+            await this.initializeLocationManager();
             
             // 9. Initialiseer navigation manager
             this.initializeNavigationManager();
@@ -193,9 +193,9 @@ class AppManager {
     /**
      * Initialiseert location manager
      */
-    initializeLocationManager() {
+    async initializeLocationManager() {
         this.locationManager = new LocationManager(this.map, this.config);
-        this.locationManager.initialize();
+        await this.locationManager.initialize();
         console.log('✅ Location manager geïnitialiseerd');
     }
 

@@ -23,20 +23,20 @@ class LocationManager {
         this.orientationCallbacks = [];
         this.hasHadInitialLocation = false;
         this.lastOrientationUpdate = 0;
+        this.orientationUtils = null;
     }
 
     /**
      * Initialiseert de location manager
      */
-    initialize() {
+    async initialize() {
         if (this.isInitialized) return;
 
         this.checkGeolocationSupport();
-        this.checkOrientationSupport();
+        await this.initializeOrientationTracking();
         this.createLocationControl();
         this.createCompassControl();
         this.setupMapListeners();
-        this.setupOrientationListeners();
         this.isInitialized = true;
         
         console.log('✅ Location manager geïnitialiseerd');
@@ -61,19 +61,50 @@ class LocationManager {
     }
 
     /**
-     * Controleert of device orientation ondersteund wordt
+     * Initialize modern orientation tracking
      */
-    checkOrientationSupport() {
-        // Forceer compass voor alle browsers (ook desktop)
-        this.isOrientationSupported = true;
+    async initializeOrientationTracking() {
+        console.log('🧭 Initializing orientation tracking...');
         
-        if (typeof DeviceOrientationEvent !== 'undefined') {
-            console.log('✅ Device orientation ondersteund');
+        // Initialize orientation utils
+        if (window.OrientationUtils) {
+            this.orientationUtils = window.OrientationUtils;
+            
+            // Initialize orientation tracking
+            const success = await this.orientationUtils.initialize();
+            if (success) {
+                this.isOrientationSupported = true;
+                this.isOrientationTracking = true;
+                
+                // Subscribe to orientation changes
+                this.orientationUtils.onOrientationChange((heading) => {
+                    this.heading = heading;
+                    this.updateUserLocationOrientation();
+                    
+                    // Notify callbacks
+                    this.orientationCallbacks.forEach(callback => {
+                        callback({ heading: heading });
+                    });
+                });
+                
+                console.log('✅ Modern orientation tracking initialized');
+            } else {
+                console.warn('⚠️ Orientation tracking failed to initialize');
+                this.fallbackToLegacyOrientation();
+            }
         } else {
-            console.log('🖥️ Desktop browser - compass will use simulated orientation');
+            console.warn('⚠️ OrientationUtils not available, using legacy orientation');
+            this.fallbackToLegacyOrientation();
         }
-        
-        return this.isOrientationSupported;
+    }
+
+    /**
+     * Fallback to legacy orientation implementation
+     */
+    fallbackToLegacyOrientation() {
+        console.log('🔄 Falling back to legacy orientation tracking...');
+        this.isOrientationSupported = true;
+        this.setupLegacyOrientationListeners();
     }
 
     /**
@@ -162,6 +193,11 @@ class LocationManager {
             if (this.isTracking) {
                 this.stopTracking();
             } else {
+                // Request orientation permission first if needed (iOS)
+                if (!this.isOrientationTracking) {
+                    await this.requestOrientationPermissionWithUI();
+                }
+                
                 await this.startTracking();
             }
             
@@ -169,6 +205,33 @@ class LocationManager {
             this.handleLocationError(error);
         } finally {
             button.classList.remove('loading');
+        }
+    }
+
+    /**
+     * Request orientation permission with user-friendly UI
+     */
+    async requestOrientationPermissionWithUI() {
+        // Only show permission dialog on iOS
+        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+            const userChoice = confirm(
+                'Voor een betere navigatie-ervaring wil deze app toegang tot je apparaat oriëntatie. ' +
+                'Hiermee kunnen we je kompas richting tonen op de kaart. Toestaan?'
+            );
+            
+            if (userChoice) {
+                try {
+                    const permission = await DeviceOrientationEvent.requestPermission();
+                    if (permission === 'granted') {
+                        await this.initializeOrientationTracking();
+                        console.log('✅ Orientation permission granted via UI');
+                    } else {
+                        console.log('⚠️ Orientation permission denied via UI');
+                    }
+                } catch (error) {
+                    console.error('❌ Error requesting orientation permission:', error);
+                }
+            }
         }
     }
 
@@ -243,9 +306,9 @@ class LocationManager {
     }
 
     /**
-     * Setup orientation event listeners
+     * Setup legacy orientation event listeners (fallback)
      */
-    setupOrientationListeners() {
+    setupLegacyOrientationListeners() {
         if (!this.isOrientationSupported) return;
         
         // Request permission voor iOS 13+
@@ -464,7 +527,7 @@ class LocationManager {
         // Start orientation tracking if not already started
         if (!this.isOrientationTracking) {
             console.log('🧭 Starting orientation tracking from location success');
-            this.setupOrientationListeners();
+            this.initializeOrientationTracking();
         }
         
         // Only fly to user location once when first found, never during navigation
@@ -896,6 +959,12 @@ class LocationManager {
         this.removeLocationMarker();
         
         // Stop orientation tracking
+        if (this.orientationUtils) {
+            this.orientationUtils.destroy();
+            this.orientationUtils = null;
+        }
+        
+        // Fallback: stop legacy listeners if active
         if (this.isOrientationTracking) {
             window.removeEventListener('deviceorientationabsolute', this.handleOrientationChange);
             window.removeEventListener('deviceorientation', this.handleOrientationChange);
