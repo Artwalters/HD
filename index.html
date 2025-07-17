@@ -3,90 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heerlen Doen - Ontdek Heerlen</title>
-    <meta name="description" content="Ontdek de beste plekken in Heerlen - cultuur, horeca, mode en meer!">
+    <title>Heerlen Doen - Ontdek de Stad</title>
     
-    <!-- Mapbox GL JS -->
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css" rel="stylesheet" />
-    
-    <!-- Three.js - Working version -->
-    <script src="https://unpkg.com/three@0.126.0/build/three.min.js"></script>
-    <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
-    
-    <!-- Inter Font for professional look -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Astronef Font for hero titles -->
+    <!-- Astronef Font voor Headers -->
     <link rel="stylesheet" href="https://use.typekit.net/som4aiu.css">
     
-    <!-- CSS Styling -->
-    <link rel="stylesheet" href="src/styles/variables.css">
-    <link rel="stylesheet" href="src/styles/main.css">
-    <link rel="stylesheet" href="src/styles/popup-styles.css">
-    <link rel="stylesheet" href="src/styles/filter-styles.css">
-    <link rel="stylesheet" href="src/styles/preference-modal.css">
-    <link rel="stylesheet" href="src/styles/controls-styles.css">
-    <link rel="stylesheet" href="src/styles/navigation-styles.css">
-    <link rel="stylesheet" href="src/styles/info-panel-styles.css">
-    <link rel="stylesheet" href="src/styles/navigation-menu.css">
+    <!-- Inter Font voor Body Text -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <link rel="stylesheet" href="src/styles/home.css">
 </head>
 <body>
-    <!-- Hoofdcontainer -->
-    <div id="map"></div>
-    
-    <!-- Info Panel wordt dynamisch geladen via template -->
-    
-    <!-- Performance & Configuratie -->
-    <script src="src/utils/performance.js"></script>
-    <script src="src/config/config.js"></script>
-    
-    <!-- Utils -->
-    <script src="src/utils/templateLoader.js?v=1.0"></script>
-    <script src="src/utils/dataLoader.js?v=1.1"></script>
-    
-    <!-- Data & Definitions -->
-    <script src="src/data/subcategories.js?v=1.0"></script>
-    
-    <!-- Components -->
-    <script src="src/components/preferenceModal.js?v=1.0"></script>
-    
-    <!-- Managers -->
-    <script src="src/managers/markerManager.js?v=1.1"></script>
-    <script src="src/managers/popupManager.js?v=1.1"></script>
-    <script src="src/managers/filterManager.js?v=1.8"></script>
-    <script src="src/managers/controlsManager.js?v=1.1"></script>
-    <script src="src/managers/locationManager.js?v=1.1"></script>
-    <script src="src/managers/navigationManager.js?v=1.1"></script>
-    <script src="src/managers/likesManager.js"></script>
-    <script src="src/managers/threejsManager.js"></script>
-    <script src="src/managers/appManager.js?v=1.1"></script>
-    <script src="src/managers/navigationMenuManager.js"></script>
-    
-    <!-- Demo script (verwijder in productie) -->
-    <script src="src/utils/demo.js"></script>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">HEERLEN DOEN</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#locaties" class="nav-link">Locaties</a>
+                <a href="#events" class="nav-link">Events</a>
+                <a href="#plan-je-dag" class="nav-link">Plan je dag</a>
+                <a href="#meer" class="nav-link">Meer</a>
+            </div>
+            <div class="nav-login">
+                <button class="login-btn">Inloggen</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <!-- Grid Animation -->
+                <div class="grid-animation-wrap">
+                    <!-- Image Grids (Background) -->
+                    <div class="image-grid-container image-grid-1 active" id="image-grid-1"></div>
+                    <div class="image-grid-container image-grid-2" id="image-grid-2"></div>
+                    <div class="image-grid-container image-grid-3" id="image-grid-3"></div>
+                    <div class="image-grid-container image-grid-4" id="image-grid-4"></div>
+                    
+                    <!-- Overlay Grid (Animation) -->
+                    <div class="overlay-grid-container" id="overlay-grid"></div>
+                    
+                    <!-- Right Side Gradient Overlay -->
+                    <div class="grid-right-gradient"></div>
+                    
+                    <!-- Bottom Gradient Overlay -->
+                    <div class="grid-bottom-gradient"></div>
+                </div>
+                
+                <!-- Hero Text -->
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="title-line title-boeiende">BOEIENDE</span>
+                        <span class="title-line title-cultuur">CULTUUR?</span>
+                        <span class="title-line title-heerlen">HEERLEN</span>
+                        <span class="title-line title-doen">DOEN</span>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section">
+        <div class="container">
+            <h2 class="section-title">DAGJE HEERLEN</h2>
+            <p class="section-subtitle">
+                Of jij nou houdt van spannende avonturen, kunst, 
+                lekkere plekken of gewoon ontspannen, Heerlen heeft 
+                voor iedereen wat wils. Ontdek alles wat onze stad 
+                je te bieden heeft!
+            </p>
+            
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">🎭</div>
+                    <h3 class="category-title">Cultuur</h3>
+                    <p class="category-description">
+                        Ontdek de rijke culturele geschiedenis van Heerlen 
+                        met musea, theaters en kunstgalerijen die je 
+                        meenemen op een inspirerende reis.
+                    </p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">🏛️</div>
+                    <h3 class="category-title">Bezienswaardigheden</h3>
+                    <p class="category-description">
+                        Van historische gebouwen tot moderne architectuur - 
+                        verken de bezienswaardigheden die Heerlen tot 
+                        een unieke stad maken.
+                    </p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">🎨</div>
+                    <h3 class="category-title">Murals tour</h3>
+                    <p class="category-description">
+                        Wandel door de straten en ontdek de kleurrijke 
+                        muurschilderingen die Heerlen transformeren 
+                        tot een openluchtmuseum.
+                    </p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">🛍️</div>
+                    <h3 class="category-title">Winkelen</h3>
+                    <p class="category-description">
+                        Shop tot je erbij neervalt in de gezellige 
+                        winkelstraten vol unieke boetiekjes en 
+                        bekende merken.
+                    </p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">🎪</div>
+                    <h3 class="category-title">All Event</h3>
+                    <p class="category-description">
+                        Blijf op de hoogte van alle events, festivals 
+                        en evenementen die Heerlen het hele jaar 
+                        door bruisend houden.
+                    </p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">🍽️</div>
+                    <h3 class="category-title">Uit</h3>
+                    <p class="category-description">
+                        Proef de lokale smaak in restaurants, cafés 
+                        en bars waar traditie en moderne culinaire 
+                        kunst elkaar ontmoeten.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="events-section">
+        <div class="container">
+            <h2 class="section-title">DEZE EVENTS MAG JE NIET MISSEN</h2>
+            
+            <div class="events-carousel">
+                <div class="event-card">
+                    <div class="event-image"></div>
+                    <div class="event-content">
+                        <div class="event-date">
+                            <span class="day">12</span>
+                            <span class="month">DEC</span>
+                        </div>
+                        <h3 class="event-title">Kerstmarkt</h3>
+                        <p class="event-description">Gezellige kerstmarkt in het centrum</p>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-image"></div>
+                    <div class="event-content">
+                        <div class="event-date">
+                            <span class="day">15</span>
+                            <span class="month">DEC</span>
+                        </div>
+                        <h3 class="event-title">Winterfest</h3>
+                        <p class="event-description">Muziek en gezelligheid</p>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-image"></div>
+                    <div class="event-content">
+                        <div class="event-date">
+                            <span class="day">20</span>
+                            <span class="month">DEC</span>
+                        </div>
+                        <h3 class="event-title">Kunstexpositie</h3>
+                        <p class="event-description">Lokale kunstenaars showcases</p>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-image"></div>
+                    <div class="event-content">
+                        <div class="event-date">
+                            <span class="day">25</span>
+                            <span class="month">DEC</span>
+                        </div>
+                        <h3 class="event-title">Kerstconcert</h3>
+                        <p class="event-description">Klassieke muziek in de kerk</p>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-image"></div>
+                    <div class="event-content">
+                        <div class="event-date">
+                            <span class="day">31</span>
+                            <span class="month">DEC</span>
+                        </div>
+                        <h3 class="event-title">Nieuwjaarsfeest</h3>
+                        <p class="event-description">Vuurwerk en live muziek</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Things to Do Section -->
+    <section class="todo-section">
+        <div class="container">
+            <h2 class="section-title">LEUKE OM TE DOEN</h2>
+            <p class="section-subtitle">
+                Of jij nou houdt van spannende avonturen, kunst, 
+                lekkere plekken of gewoon ontspannen, Heerlen heeft 
+                voor iedereen wat wils. Ontdek alles wat onze stad 
+                je te bieden heeft!
+            </p>
+            
+            <div class="todo-grid">
+                <div class="todo-card">
+                    <div class="todo-image"></div>
+                    <div class="todo-content">
+                        <h3 class="todo-title">Stadspark Wandeling</h3>
+                        <p class="todo-description">Ontspan in het groen</p>
+                    </div>
+                </div>
+                
+                <div class="todo-card">
+                    <div class="todo-image"></div>
+                    <div class="todo-content">
+                        <h3 class="todo-title">Museum Bezoek</h3>
+                        <p class="todo-description">Leer over de geschiedenis</p>
+                    </div>
+                </div>
+                
+                <div class="todo-card">
+                    <div class="todo-image"></div>
+                    <div class="todo-content">
+                        <h3 class="todo-title">Lokaal Restaurant</h3>
+                        <p class="todo-description">Proef de lokale keuken</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <h3 class="footer-title">TERUGJE PAKKEN?</h3>
+                <h4 class="footer-subtitle">HEERLEN DOEN</h4>
+            </div>
+            <div class="footer-right">
+                <div class="footer-info">
+                    <p>Gemeente Heerlen</p>
+                    <p>Postbus 1</p>
+                    <p>6400 AA Heerlen</p>
+                </div>
+            </div>
+        </div>
         
-    <!-- Initialize app -->
-    <script>
-        // Initialize app and make it globally available
-        window.app = null;
-        
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                const appManager = new AppManager();
-                await appManager.initialize();
-                window.app = appManager;
-                window.HeerlenApp = appManager; // For backward compatibility
-                console.log('🚀 HeerlenDoen app volledig geladen!');
-            } catch (error) {
-                console.error('❌ Fout bij initialiseren van app:', error);
-            }
-        });
-    </script>
-    
-    <!-- Legacy script voor backwards compatibility -->
-    <!-- <script src="script.js"></script> -->
+        <!-- Footer Grid Animation -->
+        <div class="footer-grid-animation">
+            <div class="footer-image-grid-container footer-image-grid-1 active" id="footer-image-grid-1"></div>
+            <div class="footer-image-grid-container footer-image-grid-2" id="footer-image-grid-2"></div>
+            <div class="footer-overlay-grid-container" id="footer-overlay-grid"></div>
+        </div>
+    </footer>
+
+    <script src="src/scripts/home.js"></script>
 </body>
 </html>

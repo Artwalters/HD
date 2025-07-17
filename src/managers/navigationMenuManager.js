@@ -46,10 +46,11 @@ class NavigationMenuManager {
         
         // Map filenames naar pagina types
         const pageMap = {
-            'welcome.html': 'home',
-            'index.html': 'map',
+            'index.html': 'home',
+            'map.html': 'map',
             'likes.html': 'likes',
-            'preferences.html': 'preferences'
+            'preferences.html': 'preferences',
+            'welcome.html': 'welcome'
         };
         
         return pageMap[filename] || 'map'; // Default naar map
