@@ -66,7 +66,28 @@ class LocationManager {
     async initializeOrientationTracking() {
         console.log('🧭 Initializing orientation tracking...');
         
-        // Initialize orientation utils
+        // Try SimpleOrientation first (direct iOS permission)
+        if (window.SimpleOrientation) {
+            console.log('🧭 Using SimpleOrientation for direct permission handling');
+            
+            // Subscribe to heading changes
+            window.SimpleOrientation.onHeadingChange((heading) => {
+                this.heading = heading;
+                this.updateUserLocationOrientation();
+                
+                // Notify callbacks
+                this.orientationCallbacks.forEach(callback => {
+                    callback({ heading: heading });
+                });
+            });
+            
+            this.isOrientationSupported = true;
+            // Don't set isOrientationTracking = true until user grants permission
+            console.log('✅ SimpleOrientation connected - ready for permission request');
+            return;
+        }
+        
+        // Fallback to OrientationUtils
         if (window.OrientationUtils) {
             this.orientationUtils = window.OrientationUtils;
             
@@ -119,6 +140,12 @@ class LocationManager {
         const controlsContainer = document.querySelector('.custom-controls .controls-wrapper');
         if (controlsContainer) {
             controlsContainer.appendChild(this.createLocationButton());
+            
+            // Add compass button for iOS
+            const compassButton = this.createCompassButton();
+            if (compassButton) {
+                controlsContainer.appendChild(compassButton);
+            }
         }
     }
 
@@ -159,6 +186,40 @@ class LocationManager {
         `;
 
         button.addEventListener('click', this.handleLocationClick.bind(this));
+        return button;
+    }
+
+    /**
+     * Creëert compass permission button voor iOS test
+     */
+    createCompassButton() {
+        // Only create compass button on iOS
+        if (!/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+            return null;
+        }
+
+        const button = document.createElement('button');
+        button.className = 'control-btn compass-btn';
+        button.title = 'Kompas inschakelen';
+        button.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="16.24,7.76 14.12,14.12 7.76,16.24 9.88,9.88 16.24,7.76"></polygon>
+            </svg>
+        `;
+
+        // DIRECT permission request in click handler - NO async/await between click and request
+        button.addEventListener('click', function() {
+            console.log('🧭 Compass button clicked - requesting permission DIRECTLY');
+            
+            if (window.SimpleOrientation) {
+                // This will call DeviceOrientationEvent.requestPermission() DIRECTLY
+                window.SimpleOrientation.requestPermissionDirect();
+            } else {
+                alert('❌ SimpleOrientation niet beschikbaar');
+            }
+        });
+
         return button;
     }
 
