@@ -210,29 +210,66 @@ class LocationManager {
 
     /**
      * Request orientation permission with user-friendly UI
+     * Following best practices: only ask when user expects it
      */
     async requestOrientationPermissionWithUI() {
-        // Only show permission dialog on iOS
+        // Check if we need to ask for permission at all
+        if (!this.orientationUtils) {
+            console.log('⚠️ OrientationUtils not available');
+            return;
+        }
+
+        // Check current permission status first
+        const permissionStatus = await this.orientationUtils.checkPermissionStatus();
+        
+        if (permissionStatus === 'granted') {
+            console.log('✅ Orientation permission already granted');
+            await this.initializeOrientationTracking();
+            return;
+        }
+        
+        if (permissionStatus === 'denied') {
+            console.log('❌ Orientation permission previously denied');
+            this.showOrientationPermissionInfo();
+            return;
+        }
+
+        // Only ask for permission if status is 'prompt'
         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
             const userChoice = confirm(
-                'Voor een betere navigatie-ervaring wil deze app toegang tot je apparaat oriëntatie. ' +
-                'Hiermee kunnen we je kompas richting tonen op de kaart. Toestaan?'
+                '🧭 Kompas Richting\n\n' +
+                'Deze app kan je apparaat kompas gebruiken om je kijkrichting te tonen op de kaart. ' +
+                'Dit maakt navigatie veel handiger!\n\n' +
+                'Wil je kompas richting inschakelen?'
             );
             
             if (userChoice) {
-                try {
-                    const permission = await DeviceOrientationEvent.requestPermission();
-                    if (permission === 'granted') {
-                        await this.initializeOrientationTracking();
-                        console.log('✅ Orientation permission granted via UI');
-                    } else {
-                        console.log('⚠️ Orientation permission denied via UI');
-                    }
-                } catch (error) {
-                    console.error('❌ Error requesting orientation permission:', error);
-                }
+                // Initialize orientation tracking - this will handle the permission request
+                await this.initializeOrientationTracking();
+            } else {
+                console.log('👤 User chose not to enable orientation');
             }
+        } else {
+            // For non-iOS devices, just initialize orientation tracking
+            await this.initializeOrientationTracking();
         }
+    }
+
+    /**
+     * Show information about orientation permissions
+     */
+    showOrientationPermissionInfo() {
+        const message = /iPad|iPhone|iPod/.test(navigator.userAgent) 
+            ? 'Kompas richting is uitgeschakeld.\n\n' +
+              'Om kompas richting in te schakelen:\n' +
+              '• Ga naar Safari > Instellingen\n' +
+              '• Kies "Motion & Orientation Access"\n' +
+              '• Schakel toegang in voor deze website\n' +
+              '• Herlaad de pagina'
+            : 'Kompas richting is uitgeschakeld.\n\n' +
+              'Herlaad de pagina en sta toegang toe wanneer daarom wordt gevraagd.';
+        
+        alert(message);
     }
 
     /**
@@ -511,18 +548,31 @@ class LocationManager {
      * Behandelt successful location
      */
     handleLocationSuccess(position) {
-        const { latitude, longitude, accuracy } = position.coords;
+        const { latitude, longitude, accuracy, heading: geolocationHeading } = position.coords;
         
         this.userLocation = {
             lat: latitude,
             lng: longitude,
             accuracy: accuracy,
-            timestamp: Date.now()
+            timestamp: Date.now(),
+            geolocationHeading: geolocationHeading // Store geolocation heading as fallback
         };
 
         this.isTracking = true;
         this.updateLocationButton('active');
         this.updateLocationMarker();
+        
+        // Send geolocation heading to debug panel
+        if (window.OrientationDebug && geolocationHeading !== null && geolocationHeading !== undefined) {
+            window.OrientationDebug.updateGeolocationHeading(geolocationHeading);
+        }
+        
+        // Use geolocation heading as fallback if device orientation not available
+        if (!this.isOrientationTracking && geolocationHeading !== null && geolocationHeading !== undefined) {
+            console.log(`🧭 Using geolocation heading as fallback: ${geolocationHeading}°`);
+            this.heading = geolocationHeading;
+            this.updateUserLocationOrientation();
+        }
         
         // Start orientation tracking if not already started
         if (!this.isOrientationTracking) {
@@ -547,7 +597,8 @@ class LocationManager {
             detail: this.userLocation
         }));
         
-        console.log(`📍 Locatie gevonden: ${latitude.toFixed(6)}, ${longitude.toFixed(6)} (±${accuracy}m)`);
+        const headingInfo = geolocationHeading !== null ? ` heading: ${geolocationHeading}°` : '';
+        console.log(`📍 Locatie gevonden: ${latitude.toFixed(6)}, ${longitude.toFixed(6)} (±${accuracy}m)${headingInfo}`);
     }
 
     /**

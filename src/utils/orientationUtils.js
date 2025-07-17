@@ -71,14 +71,50 @@ class OrientationUtils {
     }
 
     /**
+     * Check current permission status using Permissions API (when available)
+     */
+    async checkPermissionStatus() {
+        // Check if Permissions API is available (Safari 16+, Chrome, Firefox)
+        if ('permissions' in navigator) {
+            try {
+                const result = await navigator.permissions.query({ name: 'gyroscope' });
+                console.log('🔍 Gyroscope permission status:', result.state);
+                return result.state; // 'granted', 'denied', or 'prompt'
+            } catch (error) {
+                console.log('⚠️ Permissions API not available for gyroscope, assuming prompt');
+                return 'prompt';
+            }
+        }
+        
+        // Fallback for browsers without Permissions API
+        return 'prompt';
+    }
+
+    /**
      * Request necessary permissions for device orientation
      */
     async requestPermissions() {
         console.log('🔐 Requesting orientation permissions...');
         
-        // iOS 13+ requires explicit permission
-        if (this.isIOS && typeof DeviceOrientationEvent.requestPermission === 'function') {
+        // Check current permission status first
+        const permissionStatus = await this.checkPermissionStatus();
+        console.log('📋 Current permission status:', permissionStatus);
+        
+        if (permissionStatus === 'granted') {
+            this.hasPermission = true;
+            return true;
+        }
+        
+        if (permissionStatus === 'denied') {
+            console.log('❌ Orientation permission previously denied');
+            this.showPermissionDeniedMessage();
+            return false;
+        }
+
+        // iOS 13+ requires explicit permission request
+        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
             try {
+                console.log('📱 Requesting iOS DeviceOrientation permission...');
                 const permission = await DeviceOrientationEvent.requestPermission();
                 console.log('📱 iOS permission result:', permission);
                 
@@ -87,17 +123,47 @@ class OrientationUtils {
                     return true;
                 } else {
                     console.error('❌ iOS orientation permission denied');
+                    this.showPermissionDeniedMessage();
                     return false;
                 }
             } catch (error) {
                 console.error('❌ Error requesting iOS permission:', error);
-                return false;
+                // Some older iOS versions might not support requestPermission
+                // Fall through to assume permission granted
+                console.log('🔄 Falling back to legacy iOS orientation support');
+                this.hasPermission = true;
+                return true;
             }
         }
 
-        // Android and other browsers - assume permission granted
+        // Android and other browsers - no explicit permission needed for DeviceOrientation
         this.hasPermission = true;
         return true;
+    }
+
+    /**
+     * Show user-friendly message when permission is denied
+     */
+    showPermissionDeniedMessage() {
+        console.log('💡 Showing permission denied guidance...');
+        
+        // Could be replaced with a better UI notification
+        if (this.isIOS) {
+            alert(
+                'Kompas functionaliteit is uitgeschakeld.\n\n' +
+                'Om de kompas richting te zien:\n' +
+                '1. Ga naar Safari Instellingen\n' +
+                '2. Kies "Motion & Orientation Access"\n' +
+                '3. Schakel toegang in voor deze website\n' +
+                '4. Herlaad de pagina'
+            );
+        } else {
+            alert(
+                'Kompas functionaliteit is uitgeschakeld.\n\n' +
+                'Om de kompas richting te zien, vernieuw de pagina en ' +
+                'sta toegang toe wanneer daarom gevraagd wordt.'
+            );
+        }
     }
 
     /**
@@ -162,6 +228,11 @@ class OrientationUtils {
      */
     handleDeviceOrientation(event) {
         if (!event.alpha && event.alpha !== 0) return;
+        
+        // Send raw data to debug panel
+        if (window.OrientationDebug) {
+            window.OrientationDebug.updateOrientationData(event);
+        }
         
         let heading = 0;
         
