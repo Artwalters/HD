@@ -760,6 +760,7 @@ body {
         gap: 20px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         border-top: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 1002;
     }
     
     .nav-menu.active {
@@ -770,6 +771,12 @@ body {
         font-size: 18px;
         padding: 15px 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: block;
+        color: #ffffff;
+        text-decoration: none;
+        cursor: pointer;
+        position: relative;
+        z-index: 1003;
     }
     
     .nav-link:last-child {

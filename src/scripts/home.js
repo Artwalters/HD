@@ -19,9 +19,15 @@ document.addEventListener('DOMContentLoaded', function() {
         // Close menu when clicking on a nav link
         const navLinks = navMenu.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                navToggle.classList.remove('active');
-                navMenu.classList.remove('active');
+            link.addEventListener('click', function(e) {
+                // Allow the link to work normally
+                console.log('Navigation clicked:', link.href);
+                
+                // Close the menu after a short delay to allow navigation
+                setTimeout(() => {
+                    navToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }, 100);
             });
         });
         
