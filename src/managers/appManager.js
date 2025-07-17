@@ -133,7 +133,6 @@ class AppManager {
             // Wait for map to load
             this.map.on('load', () => {
                 console.log('✅ Mapbox kaart geladen');
-                this.addHeerlenMask();
                 resolve();
             });
 
@@ -144,72 +143,6 @@ class AppManager {
         });
     }
 
-    /**
-     * Voegt een mask toe om Heerlen centrum te highlighten
-     */
-    addHeerlenMask() {
-        // Heerlen centrum coördinaten (ongeveer)
-        const heerlenCenter = [5.9800, 50.8875]; // Lng, Lat
-        const radiusKm = 3.5; // 3.5km radius rond centrum
-        
-        // Converteer radius naar graden (ongeveer)
-        const radiusDegrees = radiusKm / 111; // 1 graad ≈ 111km
-        
-        // Creëer een cirkel rond Heerlen centrum
-        const createCircle = (center, radius, points = 64) => {
-            const coords = [];
-            for (let i = 0; i <= points; i++) {
-                const angle = (i / points) * 2 * Math.PI;
-                const lng = center[0] + radius * Math.cos(angle);
-                const lat = center[1] + radius * Math.sin(angle);
-                coords.push([lng, lat]);
-            }
-            return coords;
-        };
-        
-        // Wereldwijde bounding box (hele wereld dimmen)
-        const worldBounds = [
-            [-180, -85],  // Southwest
-            [180, -85],   // Southeast  
-            [180, 85],    // Northeast
-            [-180, 85],   // Northwest
-            [-180, -85]   // Close polygon
-        ];
-        
-        // Heerlen cirkel (dit gebied wordt uitgespaard)
-        const heerlenCircle = createCircle(heerlenCenter, radiusDegrees);
-        
-        // Creëer polygon met hole (wereld minus Heerlen cirkel)
-        const maskPolygon = {
-            type: 'Feature',
-            geometry: {
-                type: 'Polygon',
-                coordinates: [
-                    worldBounds,    // Outer ring (hele wereld)
-                    heerlenCircle   // Inner ring (Heerlen hole)
-                ]
-            }
-        };
-        
-        // Voeg mask source toe
-        this.map.addSource('heerlen-mask', {
-            type: 'geojson',
-            data: maskPolygon
-        });
-        
-        // Voeg mask layer toe met semi-transparante overlay
-        this.map.addLayer({
-            id: 'heerlen-mask-layer',
-            type: 'fill',
-            source: 'heerlen-mask',
-            paint: {
-                'fill-color': '#000000',
-                'fill-opacity': 0.3
-            }
-        }); // Toevoegen zonder specific before layer
-        
-        console.log('✅ Heerlen centrum mask toegevoegd');
-    }
 
     /**
      * Initialiseert data loader
@@ -251,7 +184,6 @@ class AppManager {
     initializeControlsManager() {
         this.controlsManager = new ControlsManager(this.map, this.config);
         this.controlsManager.initialize();
-        console.log('✅ Controls manager geïnitialiseerd');
     }
 
     /**

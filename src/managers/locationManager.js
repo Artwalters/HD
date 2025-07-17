@@ -371,6 +371,7 @@ class LocationManager {
         // Throttle updates - only update every 200ms
         const now = Date.now();
         if (!this.lastOrientationUpdate || (now - this.lastOrientationUpdate) > 200) {
+            console.log(`🧭 Orientation update - Heading: ${heading.toFixed(1)}°`);
             // this.updateCompass(heading); // Disabled - compass removed
             this.updateUserLocationOrientation();
             this.lastOrientationUpdate = now;
@@ -462,6 +463,7 @@ class LocationManager {
         
         // Start orientation tracking if not already started
         if (!this.isOrientationTracking) {
+            console.log('🧭 Starting orientation tracking from location success');
             this.setupOrientationListeners();
         }
         
@@ -623,9 +625,9 @@ class LocationManager {
             }
         });
         
-        // Responsive dot size based on screen width (smaller like Google Maps)
+        // Responsive dot size based on screen width
         const isMobile = window.innerWidth <= 768;
-        const dotSize = isMobile ? 24 : 20; // Much smaller like real Google Maps
+        const dotSize = isMobile ? 48 : 40; // Larger to show direction indicator clearly
         
         // Create Google Maps style blue dot
         const googleMapsDotSvg = this.createDirectionalDotSvg(this.heading || 0);
@@ -650,16 +652,36 @@ class LocationManager {
      * Create directional dot SVG with gradient based on heading
      */
     createDirectionalDotSvg(heading) {
-        // Simple Google Maps style blue dot - no gradient needed
+        // Google Maps style blue dot with directional indicator
+        console.log(`🧭 Creating directional indicator with heading: ${heading}°`);
+        
         return `data:image/svg+xml;base64,${btoa(`
-            <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-                        <feDropShadow dx="0" dy="1" stdDeviation="1" flood-opacity="0.25"/>
+                        <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.3"/>
                     </filter>
                 </defs>
-                <!-- Main blue circle exactly like Google Maps -->
-                <circle cx="16" cy="16" r="9" fill="#1a73e8" stroke="#FFFFFF" stroke-width="3" filter="url(#shadow)"/>
+                
+                <!-- Rotate entire group based on heading -->
+                <g transform="rotate(${heading}, 32, 32)">
+                    <!-- Direction cone/view indicator -->
+                    <path d="M 32 20 L 26 32 L 32 29 L 38 32 Z" 
+                          fill="#4285f4" 
+                          opacity="0.8"
+                          filter="url(#shadow)"/>
+                    
+                    <!-- Larger view cone for better visibility -->
+                    <path d="M 32 10 L 20 32 L 32 26 L 44 32 Z" 
+                          fill="#4285f4" 
+                          opacity="0.3"/>
+                </g>
+                
+                <!-- Main blue circle (doesn't rotate) -->
+                <circle cx="32" cy="32" r="12" fill="#1a73e8" stroke="#FFFFFF" stroke-width="4" filter="url(#shadow)"/>
+                
+                <!-- Inner white dot for contrast -->
+                <circle cx="32" cy="32" r="4" fill="#FFFFFF" opacity="0.9"/>
             </svg>
         `)}`;
     }
@@ -674,7 +696,7 @@ class LocationManager {
             source: 'user-location-pin',
             layout: {
                 'icon-image': 'navigation-arrow',
-                'icon-size': dotSize / 32, // Scale based on original SVG size (32x32)
+                'icon-size': dotSize / 64, // Scale based on new SVG size (64x64)
                 'icon-allow-overlap': true,
                 'icon-ignore-placement': true,
                 'icon-anchor': 'center'

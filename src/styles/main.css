@@ -264,3 +264,74 @@ button,
 #map {
     touch-action: none; /* Let Mapbox handle all touch interactions */
 }
+
+/* ==============================
+   CUSTOM CONTROLS STYLING
+   ============================== */
+.custom-controls {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.controls-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.control-btn {
+    width: 44px;
+    height: 44px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    cursor: pointer;
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    color: #333;
+    text-decoration: none;
+}
+
+.control-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+.control-btn.active {
+    background: #1a73e8;
+    color: white;
+}
+
+.control-btn.loading {
+    opacity: 0.7;
+    animation: pulse 2s infinite;
+}
+
+.control-btn.error {
+    background: #ea4335;
+    color: white;
+}
+
+.control-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.compass-btn.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
+}
+}

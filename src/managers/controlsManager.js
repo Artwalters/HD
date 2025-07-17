@@ -80,13 +80,6 @@ class ControlsManager {
                     </svg>
                 </button>
                 
-                <button class="control-btn mask-toggle-btn active" data-action="toggle-mask" title="Heerlen focus aan/uit">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="3"></circle>
-                        <circle cx="12" cy="12" r="9" stroke-dasharray="3 3"></circle>
-                    </svg>
-                </button>
-                
                 <button class="control-btn compass-btn" data-action="reset-bearing" title="Reset naar het noorden">
                     <div class="compass-indicator">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -145,9 +138,6 @@ class ControlsManager {
                 break;
             case 'reset-bearing':
                 this.resetBearing();
-                break;
-            case 'toggle-mask':
-                this.toggleMask(e.currentTarget);
                 break;
         }
     }
@@ -266,27 +256,6 @@ class ControlsManager {
         this.map.on('load', this.updateControlsState.bind(this));
     }
 
-    /**
-     * Toggle Heerlen mask aan/uit
-     */
-    toggleMask(button) {
-        const layer = this.map.getLayer('heerlen-mask-layer');
-        const isActive = button.classList.contains('active');
-        
-        if (layer) {
-            if (isActive) {
-                // Mask uitschakelen
-                this.map.setLayoutProperty('heerlen-mask-layer', 'visibility', 'none');
-                button.classList.remove('active');
-                button.title = 'Heerlen focus inschakelen';
-            } else {
-                // Mask inschakelen
-                this.map.setLayoutProperty('heerlen-mask-layer', 'visibility', 'visible');
-                button.classList.add('active');
-                button.title = 'Heerlen focus uitschakelen';
-            }
-        }
-    }
 
     /**
      * Cleanup controls manager
