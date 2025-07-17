@@ -62,7 +62,7 @@ class PreferencesManager {
     setupEventListeners() {
         // Back button
         document.getElementById('backButton').addEventListener('click', () => {
-            window.location.href = 'welcome.html';
+            window.location.href = 'plan-je-dag.html';
         });
         
         // Skip button
@@ -788,7 +788,7 @@ class PreferencesManager {
     }
 
     /**
-     * Laad geselecteerde categorieën uit welcome.html (NIET uit oude voorkeuren)
+     * Laad geselecteerde categorieën uit plan-je-dag.html (NIET uit oude voorkeuren)
      */
     loadSelectedCategoriesFromPreferences() {
         // Converteer array naar Set als het nodig is
@@ -796,8 +796,8 @@ class PreferencesManager {
             this.selectedCategories = new Set(this.selectedCategories);
         }
         
-        // NIET categorieën toevoegen uit oude voorkeuren - gebruik alleen welcome.html selectie
-        console.log('📋 Alleen gebruiken van welcome.html categorieën:', Array.from(this.selectedCategories));
+        // NIET categorieën toevoegen uit oude voorkeuren - gebruik alleen plan-je-dag.html selectie
+        console.log('📋 Alleen gebruiken van plan-je-dag.html categorieën:', Array.from(this.selectedCategories));
     }
 
     /**
@@ -811,7 +811,7 @@ class PreferencesManager {
 
         this.wizardSteps = [];
         
-        // Ga direct naar subcategorie stappen (categorieën komen van welcome.html)
+        // Ga direct naar subcategorie stappen (categorieën komen van plan-je-dag.html)
         this.selectedCategories.forEach(category => {
             const definition = window.SubcategoryDefinitions[category];
             if (definition) {

@@ -50,7 +50,7 @@ class NavigationMenuManager {
             'map.html': 'map',
             'likes.html': 'likes',
             'preferences.html': 'preferences',
-            'welcome.html': 'welcome'
+            'plan-je-dag.html': 'plan'
         };
         
         return pageMap[filename] || 'map'; // Default naar map

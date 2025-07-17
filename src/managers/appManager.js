@@ -715,7 +715,7 @@ class AppManager {
      */
     redirectToWelcome() {
         console.log('🔄 Redirecting to welcome page for category selection');
-        window.location.href = 'welcome.html';
+        window.location.href = 'plan-je-dag.html';
     }
 
     /**
