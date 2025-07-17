@@ -20,14 +20,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const navLinks = navMenu.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
-                // Allow the link to work normally
-                console.log('Navigation clicked:', link.href);
+                // Close menu for all link clicks
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('active');
                 
-                // Close the menu after a short delay to allow navigation
-                setTimeout(() => {
-                    navToggle.classList.remove('active');
-                    navMenu.classList.remove('active');
-                }, 100);
+                // Let the link work normally - no preventDefault needed for .html links
+                console.log('Navigation clicked:', link.getAttribute('href'));
             });
         });
         
@@ -363,20 +361,25 @@ function initializeScrollAnimations() {
 // ==========================================
 
 function initializeNavigation() {
-    // Smooth scrolling for navigation links
+    // Smooth scrolling only for anchor links (starting with #)
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
+            const href = this.getAttribute('href');
             
-            if (targetElement) {
-                const offsetTop = targetElement.offsetTop - 80; // Account for fixed nav
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
+            // Only handle smooth scrolling for anchor links
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                const targetElement = document.querySelector(href);
+                
+                if (targetElement) {
+                    const offsetTop = targetElement.offsetTop - 80; // Account for fixed nav
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
             }
+            // For .html links, let them work normally (no preventDefault)
         });
     });
 
@@ -385,17 +388,21 @@ function initializeNavigation() {
         const scrollPosition = window.scrollY + 100;
         
         document.querySelectorAll('.nav-link').forEach(link => {
-            const targetId = link.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
+            const href = link.getAttribute('href');
             
-            if (targetElement) {
-                const offsetTop = targetElement.offsetTop;
-                const offsetBottom = offsetTop + targetElement.offsetHeight;
+            // Only handle active state for anchor links
+            if (href && href.startsWith('#')) {
+                const targetElement = document.querySelector(href);
                 
-                if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
+                if (targetElement) {
+                    const offsetTop = targetElement.offsetTop;
+                    const offsetBottom = offsetTop + targetElement.offsetHeight;
+                    
+                    if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
                 }
             }
         });
