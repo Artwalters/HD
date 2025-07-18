@@ -11,11 +11,16 @@
   --color-text: #333333;
   --color-text-light: #666666;
   --color-text-white: #ffffff;
+  --color-border: #e0e0e0;
+  --color-border-light: #f0f0f0;
   
   /* CATEGORIEËN KLEUREN */
   --color-cultuur: #4B83F2;
   --color-horeca: #27AE60;
   --color-mode: #9932CC;
+  --color-bezienswaardigheden: #FF6B6B;
+  --color-winkelen: #4ECDC4;
+  --color-events: #FFE66D;
   
   /* POPUP KLEUREN */
   --popup-background: rgba(255, 255, 255, 0.95);
@@ -23,42 +28,69 @@
   --popup-shadow: rgba(0, 0, 0, 0.15);
   --popup-overlay: rgba(0, 0, 0, 0.5);
   
-  
   /* GLASMORFISME EFFECTEN */
   --glass-background: rgba(255, 255, 255, 0.2);
   --glass-border: rgba(255, 255, 255, 0.4);
   --glass-blur: blur(10px);
   --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   
-  /* TYPOGRAFIE */
-  --font-heading: "Inter", sans-serif;
-  --font-body: "Inter", sans-serif;
+  /* TYPOGRAFIE - Golden Ratio Scale (1.618) */
+  --font-heading: "astronef-std-super-narrow", "astronef-std-super-cond", "astronef-std-super-comp", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
   
-  /* FONT SIZES */
-  --font-size-xs: 12px;
-  --font-size-sm: 14px;
+  /* GOLDEN RATIO FONT SIZES - Base: 16px */
   --font-size-base: 16px;
-  --font-size-lg: 18px;
-  --font-size-xl: 20px;
-  --font-size-2xl: 24px;
-  --font-size-3xl: 30px;
-  --font-size-4xl: 36px;
-  --font-size-5xl: 48px;
+  --font-size-sm: calc(var(--font-size-base) / 1.618); /* ~10px */
+  --font-size-xs: calc(var(--font-size-sm) / 1.618); /* ~6px */
+  --font-size-lg: calc(var(--font-size-base) * 1.618); /* ~26px */
+  --font-size-xl: calc(var(--font-size-lg) * 1.618); /* ~42px */
+  --font-size-2xl: calc(var(--font-size-xl) * 1.618); /* ~68px */
+  --font-size-3xl: calc(var(--font-size-2xl) * 1.618); /* ~110px */
+  --font-size-4xl: calc(var(--font-size-3xl) * 1.618); /* ~178px */
   
-  /* HEADING SIZES */
-  --heading-xl: 4.5em;
-  --heading-lg: 3em;
-  --heading-md: 2.6em;
-  --heading-sm: 2em;
+  /* TYPOGRAFIE HIËRARCHIE */
+  --text-display-1: clamp(4rem, 10vw, var(--font-size-4xl));
+  --text-display-2: clamp(3rem, 8vw, var(--font-size-3xl));
+  --text-h1: clamp(2.5rem, 6vw, var(--font-size-2xl));
+  --text-h2: clamp(2rem, 4vw, var(--font-size-xl));
+  --text-h3: clamp(1.5rem, 3vw, var(--font-size-lg));
+  --text-h4: clamp(1.25rem, 2.5vw, calc(var(--font-size-base) * 1.25));
+  --text-body-lg: var(--font-size-lg);
+  --text-body: var(--font-size-base);
+  --text-body-sm: var(--font-size-sm);
+  --text-caption: calc(var(--font-size-sm) * 0.875);
   
-  /* SPACING */
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-  --space-3xl: 4rem;
+  /* FONT WEIGHTS */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+  
+  /* LINE HEIGHTS */
+  --line-height-tight: 1.1;
+  --line-height-snug: 1.3;
+  --line-height-normal: 1.618;
+  --line-height-relaxed: 1.8;
+  --line-height-loose: 2;
+  
+  /* LETTER SPACING */
+  --letter-spacing-tight: -0.05em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.05em;
+  --letter-spacing-wider: 0.1em;
+  --letter-spacing-widest: 0.2em;
+  
+  /* SPACING - Golden Ratio */
+  --space-unit: 1rem;
+  --space-xs: calc(var(--space-unit) / 2.618); /* ~6px */
+  --space-sm: calc(var(--space-unit) / 1.618); /* ~10px */
+  --space-md: var(--space-unit); /* 16px */
+  --space-lg: calc(var(--space-unit) * 1.618); /* ~26px */
+  --space-xl: calc(var(--space-unit) * 2.618); /* ~42px */
+  --space-2xl: calc(var(--space-unit) * 4.236); /* ~68px */
+  --space-3xl: calc(var(--space-unit) * 6.854); /* ~110px */
   
   /* BORDER RADIUS */
   --radius-sm: 5px;
@@ -73,6 +105,7 @@
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.15);
   --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
   
   /* TRANSITIONS */
   --transition-fast: 0.15s ease;

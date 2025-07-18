@@ -58,11 +58,11 @@
 }
 
 .header-stats {
-    font-family: "Inter", sans-serif;
-    font-size: 0.9em;
+    font-family: var(--font-body);
+    font-size: var(--text-body);
     color: rgba(255, 255, 255, 0.9);
-    margin-top: 4px;
-    font-weight: 500;
+    margin-top: var(--space-xs);
+    font-weight: var(--font-weight-medium);
 }
 
 .navigation-panel.collapsed .header-stats {
@@ -133,14 +133,14 @@
 
 /* Navigation uses info-panel-title styling */
 .navigation-panel .info-panel-title {
-    font-family: "astronef-std-super-cond", sans-serif;
-    font-weight: 200;
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-semibold);
     font-style: normal;
-    font-size: 1.8em;
+    font-size: var(--text-h3);
     text-transform: uppercase;
     margin: 0;
-    color: white;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    color: var(--color-text-white);
+    text-shadow: var(--shadow-sm);
 }
 
 .navigation-panel .info-panel-close {
@@ -176,7 +176,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: "Inter", sans-serif;
+    font-family: var(--font-body);
     font-size: 0.9em;
     color: #333;
     line-height: 1.5;
@@ -206,7 +206,7 @@
 }
 
 .navigation-panel .info-panel-section h3 {
-    font-family: "Inter", sans-serif;
+    font-family: var(--font-body);
     font-weight: 600;
     font-size: 1.1em;
     margin: 0 0 12px 0;
@@ -263,7 +263,7 @@
     cursor: pointer;
     transition: all 0.2s ease;
     color: #333;
-    font-family: "Inter", sans-serif;
+    font-family: var(--font-body);
     font-size: 0.85em;
     font-weight: 500;
     flex: 1;

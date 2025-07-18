@@ -8,27 +8,27 @@
     left: 0;
     right: 0;
     background-image: linear-gradient(rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.15) 65%, rgba(0, 0, 0, 0.075) 75.5%, rgba(0, 0, 0, 0.037) 82.85%, rgba(0, 0, 0, 0.019) 88%, rgba(0, 0, 0, 0) 100%);
-    z-index: 1000;
-    padding: 15px 0 30px;
+    z-index: var(--z-fixed);
+    padding: var(--space-md) 0 var(--space-lg);
     border-bottom: none;
 }
 
 .nav-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 var(--space-xl);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .nav-logo .logo-text {
-    font-family: "astronef-std-super-normal", sans-serif;
-    font-size: 24px;
-    font-weight: 400;
-    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: var(--text-h4);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-white);
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: var(--letter-spacing-wide);
 }
 
 .logo-link {
@@ -38,18 +38,18 @@
 
 .nav-menu {
     display: flex;
-    gap: 40px;
+    gap: var(--space-xl);
 }
 
 .nav-link {
-    color: #ffffff;
+    color: var(--color-text-white);
     text-decoration: none;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: var(--text-body);
+    font-weight: var(--font-weight-medium);
     text-transform: none;
-    letter-spacing: 0;
-    transition: all 0.3s ease;
-    padding: 10px 0;
+    letter-spacing: var(--letter-spacing-normal);
+    transition: all var(--transition-normal);
+    padding: var(--space-sm) 0;
     position: relative;
 }
 
@@ -60,8 +60,8 @@
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(45deg, #6E90DB, #D49C0C);
-    transition: width 0.3s ease;
+    background: linear-gradient(45deg, var(--color-primary), #D49C0C);
+    transition: width var(--transition-normal);
 }
 
 .nav-link:hover::after {
@@ -86,9 +86,9 @@
 .hamburger-line {
     width: 25px;
     height: 3px;
-    background: #ffffff;
+    background: var(--color-text-white);
     margin: 3px 0;
-    transition: 0.3s;
+    transition: var(--transition-normal);
     border-radius: 2px;
 }
 

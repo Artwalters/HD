@@ -8,24 +8,24 @@
     top: 120px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1000;
+    z-index: var(--z-fixed);
     font-family: var(--font-body);
     width: auto;
     max-width: 500px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    background: var(--glass-background);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--glass-shadow);
     overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--transition-normal);
 }
 
 .filter-buttons {
-    padding: 8px;
+    padding: var(--space-sm);
     display: flex;
     flex-direction: row;
-    gap: 6px;
+    gap: var(--space-xs);
     overflow-x: auto;
     overflow-y: hidden;
     scroll-behavior: smooth;
@@ -39,16 +39,16 @@
 .filter-btn {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--glass-background);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all var(--transition-fast);
     font-family: var(--font-body);
-    font-size: 13px;
-    color: rgba(0, 0, 0, 0.8);
+    font-size: var(--text-body-sm);
+    color: var(--color-text);
     position: relative;
     overflow: hidden;
     white-space: nowrap;
@@ -59,13 +59,13 @@
 .filter-btn:hover {
     background: rgba(255, 255, 255, 0.15);
     border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-sm);
 }
 
 .filter-btn.active {
     background: rgba(255, 255, 255, 0.25);
     border-color: rgba(255, 255, 255, 0.4);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--shadow-md);
 }
 
 .filter-btn.active::before {
@@ -84,7 +84,7 @@
 
 /* Filter Button Elements */
 .filter-icon {
-    font-size: 14px;
+    font-size: var(--text-body-sm);
     flex-shrink: 0;
     display: flex;
     align-items: center;

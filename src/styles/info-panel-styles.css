@@ -6,7 +6,7 @@
 .info-panel-header-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-sm);
 }
 
 /* Like button in info panel header */
@@ -18,6 +18,7 @@
   border: 1px solid rgba(75, 131, 242, 0.3);
   width: 36px;
   height: 36px;
+  border-radius: var(--radius-full);
 }
 
 .info-panel-header .like-button:hover {
@@ -25,17 +26,17 @@
 }
 
 .info-panel-header .like-button .heart-icon {
-  font-size: 18px;
+  font-size: var(--text-body-lg);
 }
 
 .info-panel {
   position: fixed;
-  background: white;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  border-radius: 20px 20px 0 0;
-  z-index: 1000;
+  background: var(--color-background);
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  z-index: var(--z-fixed);
   transform: translateY(100%);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.2s ease-out;
+  transition: transform var(--transition-normal), height var(--transition-fast);
   overflow: hidden;
   
   /* Mobile first - bottom panel */
@@ -71,8 +72,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 24px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: var(--space-lg) var(--space-xl);
+  border-bottom: 1px solid var(--color-border-light);
   background: inherit;
   position: relative;
   cursor: grab;
@@ -85,15 +86,15 @@
 .info-panel-header::before {
   content: '';
   position: absolute;
-  top: 8px;
+  top: var(--space-sm);
   left: 50%;
   transform: translateX(-50%);
   width: 40px;
   height: 5px;
   background: rgba(255, 255, 255, 0.5);
-  border-radius: 3px;
-  transition: opacity 0.2s ease;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-sm);
+  transition: opacity var(--transition-fast);
+  box-shadow: var(--shadow-sm);
 }
 
 .info-panel.expanded .info-panel-header::before {
@@ -103,7 +104,7 @@
 /* Visual feedback during drag */
 .info-panel.dragging {
   opacity: 0.95;
-  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-xl);
 }
 
 @media screen and (min-width: 768px) {
@@ -113,30 +114,30 @@
 }
 
 .info-panel-title {
-  font-family: "astronef-std-super-cond", sans-serif;
-  font-weight: 200;
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
   font-style: normal;
-  font-size: 1.8em;
+  font-size: var(--text-h3);
   text-transform: uppercase;
   margin: 0;
-  color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  color: var(--color-text-white);
+  text-shadow: var(--shadow-sm);
 }
 
 .info-panel-close {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
-  border-radius: 50%;
+  background: var(--glass-background);
+  border: 1px solid var(--glass-border);
+  color: var(--color-text-white);
+  border-radius: var(--radius-full);
   width: 32px;
   height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 20px;
-  transition: all 0.2s ease;
-  backdrop-filter: blur(10px);
+  font-size: var(--text-h4);
+  transition: all var(--transition-fast);
+  backdrop-filter: var(--glass-blur);
 }
 
 .info-panel-close:hover {
@@ -145,7 +146,7 @@
 }
 
 .info-panel-content {
-  padding: 24px;
+  padding: var(--space-xl);
   overflow-y: auto;
   overflow-x: hidden;
   height: calc(100% - 80px);
@@ -160,36 +161,36 @@
   height: 200px;
   background-size: cover;
   background-position: center;
-  border-radius: 12px;
-  margin-bottom: 24px;
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-xl);
   background-image: url('../../assets/images/catcute.png');
 }
 
 .info-panel-details {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--space-lg);
 }
 
 .info-panel-section {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 16px;
-  backdrop-filter: blur(10px);
+  background: var(--glass-background);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  backdrop-filter: var(--glass-blur);
 }
 
 .info-panel-section h3 {
-  font-family: "Inter", sans-serif;
-  font-weight: 600;
-  font-size: 1.1em;
-  margin: 0 0 8px 0;
-  color: white;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-body-lg);
+  margin: 0 0 var(--space-sm) 0;
+  color: var(--color-text-white);
 }
 
 .info-panel-section p {
-  font-family: "Inter", sans-serif;
-  font-size: 0.9em;
-  line-height: 1.5;
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--line-height-relaxed);
   margin: 0;
   color: rgba(255, 255, 255, 0.9);
 }
@@ -197,21 +198,21 @@
 .info-panel-contact {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-sm);
 }
 
 .info-panel-contact a {
-  color: white;
+  color: var(--color-text-white);
   text-decoration: none;
-  font-family: "Inter", sans-serif;
-  font-size: 0.9em;
-  padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  transition: all 0.2s ease;
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--glass-background);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-sm);
 }
 
 .info-panel-contact a:hover {
@@ -221,27 +222,27 @@
 
 /* Suggestions section */
 .suggestions-section {
-  margin-top: 24px;
+  margin-top: var(--space-xl);
 }
 
 .info-panel-suggestions {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: 12px;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
 }
 
 .suggestion-card {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 16px;
+  background: var(--glass-background);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--space-md);
   text-decoration: none;
-  color: white;
+  color: var(--color-text-white);
 }
 
 .suggestion-card:hover {
@@ -260,7 +261,7 @@
 }
 
 .suggestion-name {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 1em;
   margin-bottom: 4px;
@@ -270,7 +271,7 @@
 }
 
 .suggestion-address {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.85em;
   opacity: 0.8;
   white-space: nowrap;

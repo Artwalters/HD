@@ -8,20 +8,20 @@
 
 .like-button {
   position: absolute;
-  top: 12px;
+  top: var(--space-sm);
   right: 50px;
-  z-index: 1000;
+  z-index: var(--z-fixed);
   background: rgba(0, 0, 0, 0.7);
   border: none;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   width: 40px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
+  transition: all var(--transition-normal);
+  backdrop-filter: var(--glass-blur);
 }
 
 .like-button:hover {
@@ -30,8 +30,8 @@
 }
 
 .like-button .heart-icon {
-  font-size: 20px;
-  transition: all 0.3s ease;
+  font-size: var(--text-h4);
+  transition: all var(--transition-normal);
 }
 
 .like-button.liked .heart-icon {
@@ -94,7 +94,7 @@
 /* Control positioning */
 .mapboxgl-ctrl-top-right {
   margin-top: 12em;
-  margin-right: 4rem;
+  margin-right: var(--space-3xl);
 }
 
 .mapboxgl-ctrl-bottom-right {
@@ -192,24 +192,24 @@
 
 /* Popup typography */
 .popup-title {
-  font-family: "astronef-std-super-cond", sans-serif;
-  font-weight: 200;
+  font-family: var(--font-heading);
+  font-weight: 400;
   font-style: normal;
-  font-size: 2.5em;
-  line-height: 1.1em;
+  font-size: calc(var(--text-h1) * 0.5);
+  line-height: var(--line-height-tight);
   text-transform: uppercase;
   text-align: center;
-  margin-top: 1.2em;
+  margin-top: var(--space-lg);
 }
 
 
 .popup-title.details {
-  font-family: "astronef-std-super-cond", sans-serif;
-  font-weight: 200;
+  font-family: var(--font-heading);
+  font-weight: 400;
   font-style: normal;
-  font-size: 1.8em;
+  font-size: calc(var(--text-h2) * 0.5);
   text-align: left;
-  margin-top: 0.7em;
+  margin-top: var(--space-md);
   text-transform: uppercase;
 }
 
