@@ -223,7 +223,8 @@ function animateGridPhase(phaseIndex, timeline, position) {
 
     timeline.set(overlayCells, { 
         scale: 0, 
-        backgroundColor: color
+        backgroundColor: color,
+        force3D: true
     }, gridPhaseStartTime);
 
     const sortedCells = sortCellsFromOutsideToInside([...overlayCells], 8, 6);
@@ -234,6 +235,8 @@ function animateGridPhase(phaseIndex, timeline, position) {
         scale: 1,
         duration: 0,
         stagger: firstPhaseCount > 0 ? FIRST_PHASE_DURATION / firstPhaseCount : 0,
+        force3D: true,
+        ease: "none"
     }, gridPhaseStartTime);
 
     // Phase 2: Remaining 80% of cells
@@ -242,15 +245,22 @@ function animateGridPhase(phaseIndex, timeline, position) {
         scale: 1,
         duration: 0,
         stagger: secondPhaseCount > 0 ? SECOND_PHASE_DURATION / secondPhaseCount : 0,
+        force3D: true,
+        ease: "none"
     }, secondPhaseStartTime);
 
-    // Background switch
+    // Background switch with will-change optimization
     timeline.call(() => {
         imageGridContainers.forEach((container, index) => {
             if (index === phaseIndex) {
+                container.style.willChange = 'opacity';
                 container.classList.add('active');
             } else {
                 container.classList.remove('active');
+                // Remove will-change after transition
+                setTimeout(() => {
+                    container.style.willChange = 'auto';
+                }, 300);
             }
         });
     }, null, backgroundChangeTime);
@@ -261,6 +271,8 @@ function animateGridPhase(phaseIndex, timeline, position) {
         scale: 0,
         duration: 0,
         stagger: totalCells > 0 ? DISAPPEAR_DURATION / totalCells : 0,
+        force3D: true,
+        ease: "none"
     }, disappearStartTime);
 }
 
