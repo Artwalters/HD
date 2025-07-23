@@ -177,13 +177,13 @@ body {
 .title-line {
     display: block;
     margin-bottom: calc(var(--space-xs) * -2.5);
-    opacity: 0;
-    transform: translateY(50px);
-    animation: titleSlideUp 0.8s ease forwards;
+    opacity: 1;
+    transform: translateY(0);
+    animation: none;
 }
 
-.title-boeiende {
-    color: #D49C0C;
+#hero-text-0 {
+    color: #6E90DB; /* Default: blauw voor VERRAST */
     animation: none;
     opacity: 1;
     transform: translateY(0);
@@ -193,8 +193,8 @@ body {
     max-width: none;
 }
 
-.title-cultuur {
-    color: #D49C0C;
+#hero-text-1 {
+    color: #6E90DB; /* Default: blauw voor WORDEN? */
     animation: none;
     opacity: 1;
     transform: translateY(0);
@@ -206,12 +206,16 @@ body {
 
 .title-heerlen {
     color: var(--color-text-white);
-    animation-delay: 0.6s;
+    animation: none;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .title-doen {
     color: var(--color-text-white);
-    animation-delay: 0.8s;
+    animation: none;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 @keyframes titleSlideUp {

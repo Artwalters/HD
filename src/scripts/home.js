@@ -65,6 +65,99 @@ let isAnimating = false;
 // Animation Colors
 const colors = ['#6E90DB', '#D49C0C', '#EB625E', '#A2C617'];
 
+// Hero Text Data - mapped to colors array
+const heroTexts = [
+    ['VERRAST', 'WORDEN?'],    // Index 0: blauw (#6E90DB)
+    ['BOEIENDE', 'CULTUUR?'],  // Index 1: oranje (#D49C0C)
+    ['TERRASJE', 'PIKKEN?'],   // Index 2: rood (#EB625E)
+    ['GEZELLIG', 'WINKELEN?']  // Index 3: groen (#A2C617)
+];
+
+// ==========================================
+// HERO TEXT ANIMATION
+// ==========================================
+
+let heroSplit0, heroSplit1;
+
+function setupHeroSplitText() {
+    const heroText0 = document.getElementById('hero-text-0');
+    const heroText1 = document.getElementById('hero-text-1');
+    
+    if (heroText0 && heroText1 && typeof gsap !== 'undefined') {
+        // Split text into characters and wrap in spans
+        const text0 = heroText0.textContent;
+        const text1 = heroText1.textContent;
+        
+        heroText0.innerHTML = text0.split('').map(char => 
+            `<span style="display: inline-block; white-space: nowrap;">${char === ' ' ? '&nbsp;' : char}</span>`
+        ).join('');
+        
+        heroText1.innerHTML = text1.split('').map(char => 
+            `<span style="display: inline-block; white-space: nowrap;">${char === ' ' ? '&nbsp;' : char}</span>`
+        ).join('');
+        
+        // Get the actual span elements
+        heroSplit0 = { chars: heroText0.querySelectorAll('span') };
+        heroSplit1 = { chars: heroText1.querySelectorAll('span') };
+    }
+}
+
+function animateHeroTextIn(phaseIndex, color, timeline, position) {
+    const heroText0 = document.getElementById('hero-text-0');
+    const heroText1 = document.getElementById('hero-text-1');
+    
+    if (heroText0 && heroText1) {
+        const [text0, text1] = heroTexts[phaseIndex];
+        console.log(`Hero text IN: phase ${phaseIndex}, color ${color}, text: "${text0} ${text1}"`);
+        
+        // Change text content and rebuild split at start of phase
+        timeline.call(() => {
+            heroText0.textContent = text0;
+            heroText1.textContent = text1;
+            heroText0.style.color = color;
+            heroText1.style.color = color;
+            
+            // Rebuild split text
+            setupHeroSplitText();
+            
+            // Set initial position for new characters (coming from bottom)
+            if (heroSplit0 && heroSplit0.chars && heroSplit1 && heroSplit1.chars) {
+                gsap.set([...heroSplit0.chars, ...heroSplit1.chars], {
+                    y: 200
+                });
+            }
+        }, null, position);
+        
+        // Animate in new characters right after first blokjes appear
+        timeline.call(() => {
+            if (heroSplit0 && heroSplit0.chars && heroSplit1 && heroSplit1.chars) {
+                gsap.to([...heroSplit0.chars, ...heroSplit1.chars], {
+                    duration: 0.6,
+                    y: 0,
+                    ease: "back.out(1.2)",
+                    stagger: 0.04
+                });
+            }
+        }, null, position + 0.2);
+    }
+}
+
+function animateHeroTextOut(timeline, position) {
+    console.log(`Hero text OUT at position: ${position}`);
+    
+    // Animate out current characters to top
+    timeline.call(() => {
+        if (heroSplit0 && heroSplit0.chars && heroSplit1 && heroSplit1.chars) {
+            gsap.to([...heroSplit0.chars, ...heroSplit1.chars], {
+                duration: 0.3,
+                y: -200,
+                ease: "power2.in",
+                stagger: 0.02
+            });
+        }
+    }, null, position);
+}
+
 // ==========================================
 // UTILITY FUNCTIONS
 // ==========================================
@@ -266,6 +359,12 @@ function animateGridPhase(phaseIndex, timeline, position) {
             }
         });
     }, null, backgroundChangeTime);
+    
+    // Add hero text IN animation at beginning of grid phase
+    animateHeroTextIn(phaseIndex, color, timeline, gridPhaseStartTime);
+    
+    // Add hero text OUT animation at end of phase (before cells disappear)
+    animateHeroTextOut(timeline, disappearStartTime - 0.3);
 
     // Phase 3: Cells disappear
     const disappearCells = [...sortedCells].reverse();
@@ -556,6 +655,19 @@ function resetAnimation() {
         }
     });
     
+    // Initialize hero text to first phase (index 0 - blauw)  
+    const heroText0 = document.getElementById('hero-text-0');
+    const heroText1 = document.getElementById('hero-text-1');
+    if (heroText0 && heroText1) {
+        heroText0.textContent = heroTexts[0][0];
+        heroText1.textContent = heroTexts[0][1];
+        heroText0.style.color = colors[0];
+        heroText1.style.color = colors[0];
+        
+        // Setup split text for initial state
+        setupHeroSplitText();
+    }
+    
     currentPhase = 0;
 }
 
@@ -586,63 +698,6 @@ function initializeDragScroll() {
 // DOM READY
 // ==========================================
 
-// ==========================================
-// HERO TEXT STAGGER ANIMATION
-// ==========================================
-
-function initializeHeroTextAnimation() {
-    const boeiendeElement = document.querySelector('.title-boeiende');
-    const cultuurElement = document.querySelector('.title-cultuur');
-    
-    if (boeiendeElement && cultuurElement) {
-        // Split text into individual characters
-        const boeiendeText = boeiendeElement.textContent;
-        const cultuurText = cultuurElement.textContent;
-        
-        // Create spans for each character
-        boeiendeElement.innerHTML = boeiendeText.split('').map(char => 
-            `<span style="display: inline-block; white-space: nowrap;">${char === ' ' ? '&nbsp;' : char}</span>`
-        ).join('');
-        
-        cultuurElement.innerHTML = cultuurText.split('').map(char => 
-            `<span style="display: inline-block; white-space: nowrap;">${char === ' ' ? '&nbsp;' : char}</span>`
-        ).join('');
-        
-        // Get all character spans
-        const boeiendeChars = boeiendeElement.querySelectorAll('span');
-        const cultuurChars = cultuurElement.querySelectorAll('span');
-        const allChars = [...boeiendeChars, ...cultuurChars];
-        
-        // Create timeline for looping animation
-        const heroTimeline = gsap.timeline({ repeat: -1, repeatDelay: 2 });
-        
-        // Animate from bottom to normal position
-        heroTimeline.fromTo(allChars, {
-            y: 200
-        }, {
-            y: 0,
-            duration: 0.6,
-            ease: "back.out(1.2)",
-            stagger: 0.05
-        });
-        
-        // Hold for a moment
-        heroTimeline.to({}, { duration: 1.5 });
-        
-        // Animate from normal to top
-        heroTimeline.to(allChars, {
-            y: -200,
-            duration: 0.4,
-            ease: "power2.in",
-            stagger: 0.03
-        });
-        
-        // Reset position for next loop
-        heroTimeline.set(allChars, {
-            y: 200
-        });
-    }
-}
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all components
@@ -651,9 +706,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeFooterGrids();
     initializeFooterOverlayGrid();
     resetAnimation();
-    
-    // Initialize hero text animation
-    initializeHeroTextAnimation();
     
     // Initialize interactive elements
     initializeNavigation();
