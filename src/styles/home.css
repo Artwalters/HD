@@ -184,12 +184,24 @@ body {
 
 .title-boeiende {
     color: #D49C0C;
-    animation-delay: 0.2s;
+    animation: none;
+    opacity: 1;
+    transform: translateY(0);
+    overflow: hidden;
+    white-space: nowrap;
+    width: 150%;
+    max-width: none;
 }
 
 .title-cultuur {
     color: #D49C0C;
-    animation-delay: 0.4s;
+    animation: none;
+    opacity: 1;
+    transform: translateY(0);
+    overflow: hidden;
+    white-space: nowrap;
+    width: 150%;
+    max-width: none;
 }
 
 .title-heerlen {
@@ -292,9 +304,9 @@ body {
 
 .over-text {
     max-width: 100%;
-    font-size: 16px;
+    font-size: 24px;
     color: #ffffff;
-    line-height: 1.6;
+    line-height: 1.618;
     text-align: left;
 }
 

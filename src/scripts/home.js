@@ -586,6 +586,64 @@ function initializeDragScroll() {
 // DOM READY
 // ==========================================
 
+// ==========================================
+// HERO TEXT STAGGER ANIMATION
+// ==========================================
+
+function initializeHeroTextAnimation() {
+    const boeiendeElement = document.querySelector('.title-boeiende');
+    const cultuurElement = document.querySelector('.title-cultuur');
+    
+    if (boeiendeElement && cultuurElement) {
+        // Split text into individual characters
+        const boeiendeText = boeiendeElement.textContent;
+        const cultuurText = cultuurElement.textContent;
+        
+        // Create spans for each character
+        boeiendeElement.innerHTML = boeiendeText.split('').map(char => 
+            `<span style="display: inline-block; white-space: nowrap;">${char === ' ' ? '&nbsp;' : char}</span>`
+        ).join('');
+        
+        cultuurElement.innerHTML = cultuurText.split('').map(char => 
+            `<span style="display: inline-block; white-space: nowrap;">${char === ' ' ? '&nbsp;' : char}</span>`
+        ).join('');
+        
+        // Get all character spans
+        const boeiendeChars = boeiendeElement.querySelectorAll('span');
+        const cultuurChars = cultuurElement.querySelectorAll('span');
+        const allChars = [...boeiendeChars, ...cultuurChars];
+        
+        // Create timeline for looping animation
+        const heroTimeline = gsap.timeline({ repeat: -1, repeatDelay: 2 });
+        
+        // Animate from bottom to normal position
+        heroTimeline.fromTo(allChars, {
+            y: 200
+        }, {
+            y: 0,
+            duration: 0.6,
+            ease: "back.out(1.2)",
+            stagger: 0.05
+        });
+        
+        // Hold for a moment
+        heroTimeline.to({}, { duration: 1.5 });
+        
+        // Animate from normal to top
+        heroTimeline.to(allChars, {
+            y: -200,
+            duration: 0.4,
+            ease: "power2.in",
+            stagger: 0.03
+        });
+        
+        // Reset position for next loop
+        heroTimeline.set(allChars, {
+            y: 200
+        });
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all components
     initializeImageGrids();
@@ -593,6 +651,9 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeFooterGrids();
     initializeFooterOverlayGrid();
     resetAnimation();
+    
+    // Initialize hero text animation
+    initializeHeroTextAnimation();
     
     // Initialize interactive elements
     initializeNavigation();
