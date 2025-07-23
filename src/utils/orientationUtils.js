@@ -406,4 +406,3 @@ class OrientationUtils {
 
 // Export as singleton
 window.OrientationUtils = new OrientationUtils();
-export default window.OrientationUtils;

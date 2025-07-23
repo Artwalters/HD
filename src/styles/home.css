@@ -19,127 +19,6 @@ body {
     padding: 0 var(--space-xl);
 }
 
-/* ==========================================
-   NAVIGATION
-   ========================================== */
-.main-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: transparent;
-    z-index: 1000;
-    padding: 15px 0 30px;
-    border-bottom: none;
-}
-
-.nav-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 var(--space-xl);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nav-logo .logo-text {
-    font-family: var(--font-heading);
-    font-size: var(--text-h4);
-    font-weight: 400;
-    color: var(--color-text-white);
-    text-transform: uppercase;
-    letter-spacing: var(--letter-spacing-wide);
-}
-
-.nav-menu {
-    display: flex;
-    gap: var(--space-xl);
-}
-
-.nav-link {
-    color: var(--color-text-white);
-    text-decoration: none;
-    font-size: var(--text-body);
-    font-weight: var(--font-weight-medium);
-    text-transform: none;
-    letter-spacing: var(--letter-spacing-normal);
-    transition: all var(--transition-normal);
-    padding: var(--space-sm) 0;
-    position: relative;
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(45deg, var(--color-primary), #D49C0C);
-    transition: width var(--transition-normal);
-}
-
-.nav-link:hover::after {
-    width: 100%;
-}
-
-.nav-link:hover {
-    color: #D49C0C;
-}
-
-.login-btn {
-    background: transparent;
-    color: var(--color-text-white);
-    border: 2px solid var(--color-text-white);
-    padding: var(--space-sm) var(--space-lg);
-    border-radius: var(--radius-sm);
-    font-size: var(--text-body-sm);
-    font-weight: var(--font-weight-medium);
-    text-transform: none;
-    letter-spacing: var(--letter-spacing-normal);
-    cursor: pointer;
-    transition: all var(--transition-normal);
-    font-family: var(--font-body);
-}
-
-.login-btn:hover {
-    background: var(--color-text-white);
-    color: #000000;
-    transform: none;
-    box-shadow: none;
-}
-
-/* Mobile Navigation Toggle */
-.nav-toggle {
-    display: none;
-    background: none;
-    border: none;
-    flex-direction: column;
-    cursor: pointer;
-    padding: 5px;
-    z-index: 1001;
-}
-
-.hamburger-line {
-    width: 25px;
-    height: 3px;
-    background: var(--color-text-white);
-    margin: 3px 0;
-    transition: var(--transition-normal);
-    border-radius: 2px;
-}
-
-.nav-toggle.active .hamburger-line:nth-child(1) {
-    transform: rotate(-45deg) translate(-5px, 6px);
-}
-
-.nav-toggle.active .hamburger-line:nth-child(2) {
-    opacity: 0;
-}
-
-.nav-toggle.active .hamburger-line:nth-child(3) {
-    transform: rotate(45deg) translate(-5px, -6px);
-}
 
 /* ==========================================
    HERO SECTION
@@ -386,7 +265,7 @@ body {
 
 .over-section .section-title {
     font-family: var(--font-heading);
-    font-size: 36px;
+    font-size: 48px;
     font-weight: 400;
     color: #000000;
     text-transform: uppercase;
@@ -449,7 +328,7 @@ body {
 .dagje-uit-section .section-title,
 .leuk-om-te-doen-section .section-title {
     font-family: var(--font-heading);
-    font-size: 36px;
+    font-size: 48px;
     font-weight: 400;
     color: #000000;
     text-transform: uppercase;
@@ -785,59 +664,8 @@ body {
         gap: 25px;
     }
     
-    .nav-menu {
-        gap: 20px;
-    }
-    
-    .nav-link {
-        font-size: 14px;
-    }
 }
 @media (max-width: 768px) {
-    .nav-toggle {
-        display: flex;
-    }
-    
-    .nav-menu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: rgba(0, 0, 0, 0.95);
-        backdrop-filter: blur(10px);
-        flex-direction: column;
-        padding: 20px;
-        gap: 20px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        z-index: 1002;
-    }
-    
-    .nav-menu.active {
-        display: flex;
-    }
-    
-    .nav-link {
-        font-size: 18px;
-        padding: 15px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        display: block;
-        color: #ffffff;
-        text-decoration: none;
-        cursor: pointer;
-        position: relative;
-        z-index: 1003;
-    }
-    
-    .nav-link:last-child {
-        border-bottom: none;
-    }
-    
-    .nav-container {
-        padding: 0 15px;
-        position: relative;
-    }
     
     .hero-content {
         padding: 100px 20px 20px;
@@ -862,51 +690,29 @@ body {
         font-size: clamp(48px, 14vw, 96px);
     }
     
-    .nav-menu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: rgba(0, 0, 0, 0.95);
-        backdrop-filter: blur(10px);
-        flex-direction: column;
-        padding: 20px;
-        gap: 20px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        z-index: 1002;
-    }
-    
-    .nav-menu.active {
-        display: flex;
-    }
-    
-    .nav-link {
-        font-size: 18px;
-        padding: 15px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        display: block;
-        color: #ffffff;
-        text-decoration: none;
-        cursor: pointer;
-        position: relative;
-        z-index: 1003;
-    }
-    
-    .nav-link:last-child {
-        border-bottom: none;
-    }
-    
-    .nav-container {
-        padding: 0 15px;
-        position: relative;
-    }
     
     
-    .categories-grid {
+    .cards-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        grid-template-rows: repeat(4, 1fr);
+        gap: 15px;
+        max-width: 300px;
+    }
+    
+    .empty-card {
+        height: 100px;
+    }
+    
+    .over-text {
+        max-width: 100%;
+        font-size: 14px;
+    }
+    
+    .over-section .section-title,
+    .dagje-uit-section .section-title,
+    .leuk-om-te-doen-section .section-title {
+        font-size: 32px;
+        margin-bottom: 20px;
     }
     
     .category-card {

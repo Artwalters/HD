@@ -9,7 +9,6 @@ class AppManager {
         this.dataLoader = null;
         this.markerManager = null;
         this.popupManager = null;
-        this.filterManager = null;
         this.controlsManager = null;
         this.locationManager = null;
         this.navigationManager = null;
@@ -31,11 +30,7 @@ class AppManager {
         try {
             console.log('🚀 Heerlen Doen wordt geïnitialiseerd...');
             
-            // Check if user needs to select categories first
-            if (this.shouldRedirectToWelcome()) {
-                this.redirectToWelcome();
-                return;
-            }
+            // Category selection removed - proceed directly to map initialization
             
             // 1. Initialiseer map
             await this.initializeMap();
@@ -49,10 +44,7 @@ class AppManager {
             // 4. Initialiseer popup manager
             this.initializePopupManager();
             
-            // 5. Initialiseer filter manager
-            this.initializeFilterManager();
-            
-            // 6. Initialiseer controls manager
+            // 5. Initialiseer controls manager
             this.initializeControlsManager();
             
             // 7. Audio manager verwijderd
@@ -169,14 +161,6 @@ class AppManager {
         console.log('✅ Popup manager geïnitialiseerd');
     }
 
-    /**
-     * Initialiseert filter manager
-     */
-    initializeFilterManager() {
-        this.filterManager = new FilterManager(this, this.config);
-        this.filterManager.initialize();
-        console.log('✅ Filter manager geïnitialiseerd');
-    }
 
     /**
      * Initialiseert controls manager
@@ -294,18 +278,6 @@ class AppManager {
     }
 
 
-    /**
-     * Krijgt geselecteerde categorieën uit localStorage
-     */
-    getSelectedCategories() {
-        try {
-            const saved = localStorage.getItem('selectedCategories');
-            return saved ? JSON.parse(saved) : [];
-        } catch (error) {
-            console.error('Fout bij laden selectedCategories:', error);
-            return [];
-        }
-    }
 
     /**
      * Laadt en toont alle data
@@ -315,23 +287,9 @@ class AppManager {
             // Laad alle data
             const allData = await this.dataLoader.loadAllData();
             
-            // Haal geselecteerde categorieën op uit localStorage
-            const selectedCategories = this.getSelectedCategories();
-            
-            // Filter data op basis van geselecteerde categorieën
+            // Show all data (no category filtering)
             let displayData = allData;
-            if (selectedCategories.length > 0) {
-                displayData = {
-                    type: "FeatureCollection",
-                    features: allData.features.filter(feature => 
-                        selectedCategories.includes(feature.properties.category)
-                    )
-                };
-                console.log(`📋 Gefilterd op geselecteerde categorieën: ${displayData.features.length} items van ${allData.features.length}`);
-            } else {
-                console.log('📋 Geen categorieën geselecteerd, toon niets');
-                displayData = { type: "FeatureCollection", features: [] };
-            }
+            console.log(`📋 Alle data geladen: ${displayData.features.length} items`);
             
             // Set liked status op data
             if (this.likesManager) {
@@ -358,13 +316,12 @@ class AppManager {
             // Initialiseer markers met ALLE data
             await this.markerManager.initialize(displayData);
             
-            // Update filter data
-            if (this.filterManager) {
-                this.filterManager.updateData();
+            // Filter functionality removed - all markers are always shown
+            if (this.markerManager) {
+                this.markerManager.showAllMarkers();
             }
             
-            // Apply category filters from preferences
-            this.applyCategoryFilters();
+            // Category filters removed - all markers always visible
             
             // Setup likes change listener
             this.setupLikesChangeListener();
@@ -385,78 +342,8 @@ class AppManager {
         }
     }
 
-    /**
-     * Filters data based on selected categories from preferences
-     */
-    filterDataBySelectedCategories(allData) {
-        const selectedCategories = localStorage.getItem('selectedCategories');
-        
-        if (!selectedCategories) {
-            return allData;
-        }
-        
-        try {
-            const categories = JSON.parse(selectedCategories);
-            
-            if (!categories || categories.length === 0) {
-                return allData;
-            }
-            
-            const filteredFeatures = allData.features.filter(feature => {
-                return categories.includes(feature.properties.category);
-            });
-            
-            return {
-                type: 'FeatureCollection',
-                features: filteredFeatures
-            };
-            
-        } catch (error) {
-            console.warn('Error filtering by selected categories:', error);
-            return allData;
-        }
-    }
 
-    /**
-     * Applies category filters from preferences to the filter manager
-     */
-    applyCategoryFilters() {
-        const selectedCategories = localStorage.getItem('selectedCategories');
-        
-        if (!selectedCategories || !this.filterManager) {
-            return;
-        }
-        
-        try {
-            const categories = JSON.parse(selectedCategories);
-            
-            if (categories && categories.length > 0) {
-                // Log the selected categories for now
-                // Note: filterManager doesn't have setAvailableCategories method yet
-                console.log('🎯 Selected categories for filtering:', categories);
-                console.log('📋 Available filter methods:', Object.getOwnPropertyNames(Object.getPrototypeOf(this.filterManager)));
-            }
-            
-        } catch (error) {
-            console.warn('Error applying category filters:', error);
-        }
-    }
 
-    /**
-     * Filtert markers op categorie
-     * @param {string} category - Categorie naam (null voor alle)
-     */
-    filterByCategory(category = null) {
-        if (!this.isInitialized) {
-            console.warn('⚠️ App nog niet geïnitialiseerd');
-            return;
-        }
-
-        this.markerManager.filterByCategory(category);
-        
-        const categoryText = category || 'alle categorieën';
-        console.log(`🔍 Gefilterd op: ${categoryText}`);
-    }
 
     /**
      * Zoekt in data
@@ -630,9 +517,6 @@ class AppManager {
             this.popupManager.destroy();
         }
         
-        if (this.filterManager) {
-            this.filterManager.destroy();
-        }
         
         if (this.controlsManager) {
             this.controlsManager.destroy();
@@ -678,48 +562,10 @@ class AppManager {
         console.log('💥 App vernietigd');
     }
 
-    /**
-     * Checks if user should be redirected to welcome page
-     * @returns {boolean} - True if redirect is needed
-     */
-    shouldRedirectToWelcome() {
-        // Check if coming from preferences page
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('fromPreferences') === 'true') {
-            return false;
-        }
-        
-        // Check if preferences have been completed
-        const preferencesCompleted = localStorage.getItem('preferencesCompleted');
-        if (!preferencesCompleted) {
-            return true;
-        }
-        
-        // Check if categories are selected
-        const selectedCategories = localStorage.getItem('selectedCategories');
-        if (!selectedCategories) {
-            return true;
-        }
-        
-        try {
-            const categories = JSON.parse(selectedCategories);
-            return !categories || categories.length === 0;
-        } catch (error) {
-            console.warn('Error parsing selected categories:', error);
-            return true;
-        }
-    }
+
 
     /**
-     * Redirects to welcome page for category selection
-     */
-    redirectToWelcome() {
-        console.log('🔄 Redirecting to welcome page for category selection');
-        window.location.href = 'plan-je-dag.html';
-    }
-
-    /**
-     * Setup listener for likes changes from preferences
+     * Setup listener for likes changes
      */
     setupLikesChangeListener() {
         window.addEventListener('likesChanged', (event) => {

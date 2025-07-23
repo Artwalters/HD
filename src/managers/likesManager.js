@@ -23,20 +23,20 @@ class LikesManager {
      * Setup event listeners for likes synchronization
      */
     setupEventListeners() {
-        // Listen for likes changes from preferences
+        // Listen for likes changes
         window.addEventListener('likesChanged', (event) => {
             console.log('🔄 Received likes changed event:', event.detail);
-            this.syncWithPreferences(event.detail);
+            this.syncLikesData(event.detail);
         });
     }
     
     /**
-     * Synchronize likes with preferences data
+     * Synchronize likes with external data
      */
-    syncWithPreferences(preferencesData) {
-        if (preferencesData && preferencesData.likes) {
+    syncLikesData(likesData) {
+        if (likesData && likesData.likes) {
             // Convert to Set with normalized IDs
-            const newLikes = new Set(preferencesData.likes.map(id => String(id)));
+            const newLikes = new Set(likesData.likes.map(id => String(id)));
             
             // Check if there are changes
             const currentLikes = new Set(Array.from(this.likes));
@@ -46,7 +46,7 @@ class LikesManager {
             if (hasChanges) {
                 this.likes = newLikes;
                 this.saveLikes();
-                console.log(`🔄 Synced likes from preferences: ${this.likes.size} likes`);
+                console.log(`🔄 Synced likes: ${this.likes.size} likes`);
                 
                 // Notify all callbacks about the change
                 this.likes.forEach(id => {

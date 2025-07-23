@@ -106,7 +106,6 @@ body {
 }
 
 /* Hide scrollbar when not scrolling (Apple-like behavior) */
-.filter-buttons::-webkit-scrollbar,
 .instructions-list::-webkit-scrollbar,
 .popup-description::-webkit-scrollbar,
 .info-panel-content::-webkit-scrollbar,
@@ -115,7 +114,6 @@ body {
     height: 6px;
 }
 
-.filter-buttons::-webkit-scrollbar-thumb,
 .instructions-list::-webkit-scrollbar-thumb,
 .popup-description::-webkit-scrollbar-thumb,
 .info-panel-content::-webkit-scrollbar-thumb,
@@ -124,7 +122,6 @@ body {
     transition: background 0.5s ease;
 }
 
-.filter-buttons:hover::-webkit-scrollbar-thumb,
 .instructions-list:hover::-webkit-scrollbar-thumb,
 .popup-description:hover::-webkit-scrollbar-thumb,
 .info-panel-content:hover::-webkit-scrollbar-thumb,
@@ -133,7 +130,6 @@ body {
 }
 
 /* Overlay scrollbars for a more native feel */
-.filter-buttons,
 .instructions-list,
 .popup-description,
 .info-panel-content,
@@ -169,14 +165,12 @@ body {
 
 /* Prevent dragging on all UI elements but allow scrolling in specific containers */
 .custom-controls,
-.filter-container,
 .navigation-panel,
 .mapboxgl-popup,
 .mapboxgl-popup-content,
 button,
 .nav-btn,
-.control-btn,
-.filter-btn {
+.control-btn {
     /* Prevent text selection */
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -236,23 +230,20 @@ svg,
 button img,
 button svg,
 .control-btn svg,
-.nav-btn svg,
-.filter-btn svg {
+.nav-btn svg {
     pointer-events: none; /* Icon is not interactive, parent button is */
 }
 
 /* Ensure buttons remain clickable */
 button,
 .control-btn,
-.nav-btn,
-.filter-btn {
+.nav-btn {
     pointer-events: auto;
     cursor: pointer;
 }
 
 /* Prevent accidental text selection during quick taps */
 .custom-controls *,
-.filter-container *,
 .navigation-panel * {
     -webkit-tap-highlight-color: transparent;
 }

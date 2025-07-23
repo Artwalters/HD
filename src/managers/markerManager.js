@@ -52,6 +52,9 @@ class MarkerManager {
         // Setup event listeners
         this.setupEventListeners();
         
+        // Ensure all markers are visible (no filtering)
+        this.showAllMarkers();
+        
         this.isInitialized = true;
         console.log(`✅ Markers geïnitialiseerd: ${data.features.length} items`);
     }
@@ -239,30 +242,19 @@ class MarkerManager {
     }
 
     /**
-     * Filtert markers op categorie
-     * @param {string} category - Categorie om te tonen (null = alle)
+     * Shows all markers (filter functionality removed)
      */
-    filterByCategory(category) {
+    showAllMarkers() {
         if (!this.isInitialized) return;
 
-        const filter = category ? 
-            ['==', ['get', 'category'], category] : 
-            null;
-
-        this.map.setFilter(this.markersLayerId, filter);
-        this.map.setFilter(this.labelsLayerId, filter);
+        // Remove all filters to show all markers
+        this.map.setFilter(this.markersLayerId, null);
+        this.map.setFilter(this.labelsLayerId, null);
         
-        // Hearts layer heeft gecombineerde filter: liked EN category
-        const heartsFilter = category ? 
-            ['all', 
-                ['==', ['get', 'liked'], true],
-                ['==', ['get', 'category'], category]
-            ] : 
-            ['==', ['get', 'liked'], true];
-            
-        this.map.setFilter(this.heartsLayerId, heartsFilter);
+        // Hearts layer only shows liked markers
+        this.map.setFilter(this.heartsLayerId, ['==', ['get', 'liked'], true]);
         
-        console.log(`🔍 Markers gefilterd op: ${category || 'alle categorieën'}`);
+        console.log(`🗺️ Alle markers worden getoond`);
     }
 
     /**
