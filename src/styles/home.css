@@ -418,15 +418,27 @@ body {
 }
 
 /* ==========================================
-   WHITE SPACER SECTION
+   MAP CTA SECTION
    ========================================== */
-.white-spacer-section {
-    padding: 200px 0;
+.map-cta-section {
     background: #ffffff;
     position: relative;
+    margin-top: -85px;
+    z-index: 1;
 }
 
-.white-spacer-section::after {
+.map-image-container {
+    width: 100%;
+}
+
+.map-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.map-cta-section::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -440,11 +452,30 @@ body {
 }
 
 /* ==========================================
+   STACKED CARD SECTION
+   ========================================== */
+.stacked-card-section {
+    padding: 60px 0;
+    background: #22201F;
+    position: relative;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+    width: 100%;
+    z-index: 2;
+}
+
+
+/* ==========================================
    EVENTS SECTION
    ========================================== */
 .events-section {
-    padding: var(--space-3xl) 0;
+    padding: 120px 0;
     background: #111111;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    margin-top: -85px;
+    position: relative;
+    z-index: 2;
 }
 
 .events-carousel {

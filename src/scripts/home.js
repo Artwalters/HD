@@ -252,15 +252,17 @@ function animateGridPhase(phaseIndex, timeline, position) {
     // Background switch with will-change optimization
     timeline.call(() => {
         imageGridContainers.forEach((container, index) => {
-            if (index === phaseIndex) {
-                container.style.willChange = 'opacity';
-                container.classList.add('active');
-            } else {
-                container.classList.remove('active');
-                // Remove will-change after transition
-                setTimeout(() => {
-                    container.style.willChange = 'auto';
-                }, 300);
+            if (container) {
+                if (index === phaseIndex) {
+                    container.style.willChange = 'opacity';
+                    container.classList.add('active');
+                } else {
+                    container.classList.remove('active');
+                    // Remove will-change after transition
+                    setTimeout(() => {
+                        container.style.willChange = 'auto';
+                    }, 300);
+                }
             }
         });
     }, null, backgroundChangeTime);
@@ -331,10 +333,12 @@ function animateFooterGrid() {
     // Switch footer background
     footerTimeline.call(() => {
         footerImageGridContainers.forEach((container, index) => {
-            if (index === 0) {
-                container.classList.add('active');
-            } else {
-                container.classList.remove('active');
+            if (container) {
+                if (index === 0) {
+                    container.classList.add('active');
+                } else {
+                    container.classList.remove('active');
+                }
             }
         });
     }, null, 1.5);
@@ -525,22 +529,30 @@ function initializeMobileMenu() {
 // ==========================================
 
 function resetAnimation() {
-    gsap.set(overlayCells, { scale: 0, backgroundColor: 'transparent' });
-    gsap.set(footerOverlayCells, { scale: 0, backgroundColor: 'transparent' });
+    if (overlayCells && overlayCells.length > 0) {
+        gsap.set(overlayCells, { scale: 0, backgroundColor: 'transparent' });
+    }
+    if (footerOverlayCells && footerOverlayCells.length > 0) {
+        gsap.set(footerOverlayCells, { scale: 0, backgroundColor: 'transparent' });
+    }
 
     imageGridContainers.forEach((container, index) => {
-        if (index === 0) {
-            container.classList.add('active');
-        } else {
-            container.classList.remove('active');
+        if (container) {
+            if (index === 0) {
+                container.classList.add('active');
+            } else {
+                container.classList.remove('active');
+            }
         }
     });
 
     footerImageGridContainers.forEach((container, index) => {
-        if (index === 0) {
-            container.classList.add('active');
-        } else {
-            container.classList.remove('active');
+        if (container) {
+            if (index === 0) {
+                container.classList.add('active');
+            } else {
+                container.classList.remove('active');
+            }
         }
     });
     
@@ -562,6 +574,15 @@ function stopAnimations() {
 }
 
 // ==========================================
+// DRAG FUNCTIONALITY
+// ==========================================
+
+function initializeDragScroll() {
+    // Remove drag functionality - use default scroll
+    console.log('Using default scroll for events carousel');
+}
+
+// ==========================================
 // DOM READY
 // ==========================================
 
@@ -577,6 +598,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeNavigation();
     initializeInteractiveElements();
     initializeMobileMenu();
+    initializeDragScroll();
     
     // Start animations after a short delay
     setTimeout(() => {
