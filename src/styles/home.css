@@ -9,12 +9,12 @@ body {
     font-style: normal;
     line-height: var(--line-height-normal);
     color: var(--color-text-white);
-    background-color: #efeae6;
+    background-color: #22201F;
     overflow-x: hidden;
 }
 
 .container {
-    max-width: 1600px;
+    max-width: 1800px;
     margin: 0 auto;
     padding: 0 var(--space-xl);
 }
@@ -25,7 +25,7 @@ body {
    ========================================== */
 .hero-section {
     min-height: 100vh;
-    background: #efeae6;
+    background: #22201F;
     position: relative;
     overflow: hidden;
 }
@@ -36,10 +36,11 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 1px;
-    background: #000000;
-    max-width: 1600px;
+    height: 2px;
+    background: #666666;
+    max-width: 1800px;
     margin: 0 auto;
+    border-radius: 1px;
 }
 
 .hero-container {
@@ -52,7 +53,7 @@ body {
 
 .hero-content {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: var(--space-xl);
     display: flex;
@@ -98,7 +99,7 @@ body {
     background-size: 800% 600%;
     background-repeat: no-repeat;
     border-radius: 8px;
-    border: 0.2px solid #efeae6;
+    border: 0.2px solid #22201F;
     transition: none;
     aspect-ratio: 4 / 5;
 }
@@ -223,7 +224,7 @@ body {
     grid-template-columns: repeat(4, 1fr);
     gap: var(--space-sm);
     margin-top: var(--space-2xl);
-    max-width: 1400px;
+    max-width: 1600px;
     margin-left: auto;
     margin-right: auto;
     padding: 0 var(--space-xl);
@@ -247,7 +248,7 @@ body {
    ========================================== */
 .over-section {
     padding: 80px 0;
-    background: #efeae6;
+    background: #22201F;
     position: relative;
 }
 
@@ -257,17 +258,18 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 1px;
-    background: #000000;
-    max-width: 1600px;
+    height: 2px;
+    background: #666666;
+    max-width: 1800px;
     margin: 0 auto;
+    border-radius: 1px;
 }
 
 .over-section .section-title {
     font-family: var(--font-heading);
     font-size: 48px;
     font-weight: 400;
-    color: #000000;
+    color: #ffffff;
     text-transform: uppercase;
     text-align: left;
     margin-bottom: 40px;
@@ -291,7 +293,7 @@ body {
 .over-text {
     max-width: 100%;
     font-size: 16px;
-    color: #000000;
+    color: #ffffff;
     line-height: 1.6;
     text-align: left;
 }
@@ -301,7 +303,7 @@ body {
    ========================================== */
 .dagje-uit-section {
     padding: 80px 0;
-    background: #efeae6;
+    background: #22201F;
     position: relative;
 }
 
@@ -311,10 +313,11 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 1px;
-    background: #000000;
-    max-width: 1600px;
+    height: 2px;
+    background: #666666;
+    max-width: 1800px;
     margin: 0 auto;
+    border-radius: 1px;
 }
 
 .dagje-uit-section .container,
@@ -325,12 +328,45 @@ body {
     gap: 40px;
 }
 
+/* Mobile responsive layout */
+@media (max-width: 768px) {
+    .over-section .container,
+    .dagje-uit-section .container,
+    .leuk-om-te-doen-section .container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    
+    .over-section .section-title,
+    .dagje-uit-section .section-title,
+    .leuk-om-te-doen-section .section-title {
+        margin-bottom: 20px;
+    }
+    
+    .over-content {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    
+    /* Section divider lines - 50% opacity and content width */
+    .hero-section::after,
+    .over-section::after,
+    .dagje-uit-section::after,
+    .leuk-om-te-doen-section::after {
+        opacity: 0.5;
+        max-width: calc(100% - 30px); /* Account for container padding */
+        left: 15px;
+        right: 15px;
+    }
+}
+
 .dagje-uit-section .section-title,
 .leuk-om-te-doen-section .section-title {
     font-family: var(--font-heading);
     font-size: 48px;
     font-weight: 400;
-    color: #000000;
+    color: #ffffff;
     text-transform: uppercase;
     text-align: left;
     margin-bottom: 0;
@@ -343,13 +379,13 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    gap: 20px;
-    width: 600px;
+    gap: 15px;
+    width: 700px;
     flex-shrink: 0;
 }
 
 .empty-card {
-    background: #000000;
+    background: #ffffff;
     border-radius: 12px;
     aspect-ratio: 4 / 5;
     transition: opacity 0.3s ease;
@@ -364,7 +400,7 @@ body {
    ========================================== */
 .leuk-om-te-doen-section {
     padding: 80px 0;
-    background: #efeae6;
+    background: #22201F;
     position: relative;
 }
 
@@ -374,10 +410,33 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 1px;
-    background: #000000;
-    max-width: 1600px;
+    height: 2px;
+    background: #666666;
+    max-width: 1800px;
     margin: 0 auto;
+    border-radius: 1px;
+}
+
+/* ==========================================
+   WHITE SPACER SECTION
+   ========================================== */
+.white-spacer-section {
+    padding: 200px 0;
+    background: #ffffff;
+    position: relative;
+}
+
+.white-spacer-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #666666;
+    max-width: 1800px;
+    margin: 0 auto;
+    border-radius: 1px;
 }
 
 /* ==========================================
@@ -485,7 +544,7 @@ body {
    ========================================== */
 .todo-section {
     padding: var(--space-3xl) 0;
-    background: #efeae6;
+    background: #22201F;
 }
 
 .todo-grid {
@@ -541,14 +600,14 @@ body {
    FOOTER
    ========================================== */
 .footer {
-    background: #efeae6;
+    background: #22201F;
     padding: var(--space-2xl) 0 var(--space-xl);
     position: relative;
     overflow: hidden;
 }
 
 .footer-content {
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 0 var(--space-xl);
     display: flex;
@@ -694,13 +753,15 @@ body {
     
     .cards-grid {
         grid-template-columns: 1fr;
-        grid-template-rows: repeat(4, 1fr);
-        gap: 15px;
-        max-width: 300px;
+        grid-template-rows: repeat(4, auto);
+        gap: 12px;
+        width: 100%;
+        max-width: none;
     }
     
     .empty-card {
-        height: 100px;
+        /* Remove fixed height to maintain aspect-ratio 4/5 */
+        width: 100%;
     }
     
     .over-text {

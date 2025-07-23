@@ -7,6 +7,7 @@
 function initializeMainNavigation() {
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');
+    const mainNav = document.querySelector('.main-nav');
     
     if (navToggle && navMenu) {
         // Mobile menu toggle
@@ -49,6 +50,41 @@ function initializeMainNavigation() {
                 navToggle.classList.remove('active');
                 navMenu.classList.remove('active');
             }
+        });
+    }
+    
+    // GSAP smooth hide on scroll
+    if (mainNav && typeof gsap !== 'undefined') {
+        let lastScrollTop = 0;
+        let scrollThreshold = 10;
+        let isHidden = false;
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (Math.abs(scrollTop - lastScrollTop) <= scrollThreshold) {
+                return;
+            }
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100 && !isHidden) {
+                // Scrolling down & past 100px - hide nav
+                isHidden = true;
+                gsap.to(mainNav, {
+                    y: -100,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+            } else if (scrollTop < lastScrollTop && isHidden) {
+                // Scrolling up - show nav
+                isHidden = false;
+                gsap.to(mainNav, {
+                    y: 0,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+            }
+            
+            lastScrollTop = scrollTop;
         });
     }
     
