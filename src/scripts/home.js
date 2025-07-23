@@ -88,6 +88,8 @@ function setupHeroSplitText() {
         const text0 = heroText0.textContent;
         const text1 = heroText1.textContent;
         
+        console.log(`Splitting text: "${text0}" and "${text1}"`);
+        
         heroText0.innerHTML = text0.split('').map(char => 
             `<span style="display: inline-block; white-space: nowrap;">${char === ' ' ? '&nbsp;' : char}</span>`
         ).join('');
@@ -99,6 +101,10 @@ function setupHeroSplitText() {
         // Get the actual span elements
         heroSplit0 = { chars: heroText0.querySelectorAll('span') };
         heroSplit1 = { chars: heroText1.querySelectorAll('span') };
+        
+        console.log(`Split result: ${heroSplit0.chars.length} + ${heroSplit1.chars.length} characters`);
+    } else {
+        console.error('setupHeroSplitText failed:', { heroText0, heroText1, gsap: typeof gsap });
     }
 }
 
@@ -122,23 +128,22 @@ function animateHeroTextIn(phaseIndex, color, timeline, position) {
             
             // Set initial position for new characters (coming from bottom)
             if (heroSplit0 && heroSplit0.chars && heroSplit1 && heroSplit1.chars) {
+                console.log(`Setting initial position for ${heroSplit0.chars.length + heroSplit1.chars.length} characters`);
                 gsap.set([...heroSplit0.chars, ...heroSplit1.chars], {
                     y: 200
                 });
-            }
-        }, null, position);
-        
-        // Animate in new characters right after first blokjes appear
-        timeline.call(() => {
-            if (heroSplit0 && heroSplit0.chars && heroSplit1 && heroSplit1.chars) {
+                
+                // Animate in immediately after setting position
                 gsap.to([...heroSplit0.chars, ...heroSplit1.chars], {
                     duration: 0.6,
                     y: 0,
                     ease: "back.out(1.2)",
                     stagger: 0.04
                 });
+            } else {
+                console.error('Hero split characters not found!', { heroSplit0, heroSplit1 });
             }
-        }, null, position + 0.2);
+        }, null, position + 0.05);
     }
 }
 
@@ -148,12 +153,15 @@ function animateHeroTextOut(timeline, position) {
     // Animate out current characters to top
     timeline.call(() => {
         if (heroSplit0 && heroSplit0.chars && heroSplit1 && heroSplit1.chars) {
+            console.log(`Animating out ${heroSplit0.chars.length + heroSplit1.chars.length} characters`);
             gsap.to([...heroSplit0.chars, ...heroSplit1.chars], {
-                duration: 0.3,
+                duration: 0.25,
                 y: -200,
                 ease: "power2.in",
-                stagger: 0.02
+                stagger: 0.015
             });
+        } else {
+            console.error('Hero split characters not found for OUT animation!', { heroSplit0, heroSplit1 });
         }
     }, null, position);
 }
@@ -364,7 +372,7 @@ function animateGridPhase(phaseIndex, timeline, position) {
     animateHeroTextIn(phaseIndex, color, timeline, gridPhaseStartTime);
     
     // Add hero text OUT animation at end of phase (before cells disappear)
-    animateHeroTextOut(timeline, disappearStartTime - 0.3);
+    animateHeroTextOut(timeline, disappearStartTime - 0.5);
 
     // Phase 3: Cells disappear
     const disappearCells = [...sortedCells].reverse();
@@ -405,6 +413,12 @@ function createMasterTimeline() {
 
 function animateFooterGrid() {
     if (footerTimeline) footerTimeline.kill();
+    
+    // Check if footer cells exist
+    if (!footerOverlayCells || footerOverlayCells.length === 0) {
+        console.warn('Footer overlay cells not found, skipping footer animation');
+        return;
+    }
     
     footerTimeline = gsap.timeline({
         repeat: -1,
@@ -594,6 +608,11 @@ function initializeInteractiveElements() {
 function initializeMobileMenu() {
     // Create mobile menu toggle button
     const navContainer = document.querySelector('.nav-container');
+    if (!navContainer) {
+        console.warn('Nav container not found, skipping mobile menu initialization');
+        return;
+    }
+    
     const mobileMenuBtn = document.createElement('button');
     mobileMenuBtn.classList.add('mobile-menu-btn');
     mobileMenuBtn.innerHTML = '☰';
@@ -713,11 +732,11 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeMobileMenu();
     initializeDragScroll();
     
-    // Start animations after a short delay
+    // Start animations immediately
     setTimeout(() => {
         startAnimations();
         initializeScrollAnimations();
-    }, 1000);
+    }, 100);
 });
 
 // ==========================================
