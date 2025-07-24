@@ -809,6 +809,124 @@ body {
 }
 
 /* ==========================================
+   LOCALS SECTION  
+   ========================================== */
+.locals-section {
+    padding: 120px 0;
+    background: #22201F;
+    position: relative;
+}
+
+.locals-content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.locals-left {
+    flex-shrink: 0;
+    width: auto;
+}
+
+.locals-title {
+    font-family: var(--font-heading);
+    font-size: 48px;
+    font-weight: 400;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-align: left;
+    margin-bottom: 0;
+    letter-spacing: 2px;
+}
+
+.locals-right {
+    flex-shrink: 0;
+    width: 700px;
+}
+
+.locals-intro {
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 1.6;
+    margin: 0 0 40px 0;
+}
+
+.locals-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.locals-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.locals-item:hover {
+    padding-left: 10px;
+    border-bottom-color: rgba(255, 255, 255, 0.4);
+}
+
+.locals-activity {
+    font-family: var(--font-body);
+    font-size: 24px;
+    font-weight: 500;
+    color: #ffffff;
+    flex: 1;
+    max-width: 382px;
+}
+
+.locals-category {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .locals-section {
+        padding: 80px 0;
+    }
+    
+    .locals-content {
+        flex-direction: column;
+        gap: 40px;
+    }
+    
+    .locals-left {
+        width: 100%;
+    }
+    
+    .locals-title {
+        font-size: clamp(48px, 12vw, 80px);
+    }
+    
+    .locals-intro {
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+    
+    .locals-activity {
+        font-size: 18px;
+    }
+    
+    .locals-item {
+        padding: 16px 0;
+    }
+}
+
+/* ==========================================
    FOOTER SECTION  
    ========================================== */
 .footer-section {
