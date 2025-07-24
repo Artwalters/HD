@@ -584,6 +584,9 @@ class PopupManager {
         try {
             // Generate suggestions
             const suggestions = await this.generateSuggestions(properties);
+            console.log('🎯 DEBUG: Generated suggestions:', suggestions);
+            console.log('🎯 DEBUG: Suggestions length:', suggestions.length);
+            
             const suggestionsHtml = suggestions.map(suggestion => 
                 `<a href="#" class="suggestion-card" data-id="${suggestion.id}">
                     <div class="suggestion-icon">${suggestion.icon}</div>
@@ -593,6 +596,8 @@ class PopupManager {
                     </div>
                 </a>`
             ).join('');
+            
+            console.log('🎯 DEBUG: Suggestions HTML:', suggestionsHtml);
 
             // Prepare template data
             const templateData = {
@@ -607,10 +612,17 @@ class PopupManager {
                 hasSuggestions: suggestions.length > 0,
                 suggestionsHtml: suggestionsHtml
             };
+            
+            console.log('🎯 DEBUG: Template data hasSuggestions:', templateData.hasSuggestions);
+            console.log('🎯 DEBUG: Full template data:', templateData);
 
             // Load and render template
             const template = await this.templateLoader.loadTemplate('info-panel.html');
             const renderedHtml = this.templateLoader.renderAdvanced(template, templateData);
+            
+            console.log('🎯 DEBUG: Rendered HTML length:', renderedHtml.length);
+            console.log('🎯 DEBUG: Contains suggestions-section:', renderedHtml.includes('suggestions-section'));
+            console.log('🎯 DEBUG: Contains "Vind je dit ook leuk":', renderedHtml.includes('Vind je dit ook leuk'));
 
             // Create and insert panel
             const infoPanel = document.createElement('div');
