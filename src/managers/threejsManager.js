@@ -195,6 +195,10 @@ class ThreeJSManager {
                     antialias: true
                 });
                 this.renderer.autoClear = false;
+                
+                // Enable depth testing to ensure proper rendering order
+                this.renderer.setRenderOrder = true;
+                this.renderer.sortObjects = true;
             },
 
             loadModels: function() {
@@ -297,8 +301,14 @@ class ThreeJSManager {
                         }
                     });
 
-                    // Render scene
+                    // Render scene with proper depth handling
                     this.renderer.resetState();
+                    
+                    // Enable depth testing for proper layering
+                    const gl = this.renderer.getContext();
+                    gl.enable(gl.DEPTH_TEST);
+                    gl.depthFunc(gl.LEQUAL);
+                    
                     this.renderer.render(this.scene, this.camera);
                 } catch (error) {
                     console.error('❌ Error in Three.js render:', error);
@@ -372,7 +382,20 @@ class ThreeJSManager {
             }
 
             console.log('🎬 Adding Three.js layer to map...');
-            this.map.addLayer(this.customLayer);
+            // Add the layer before any symbol layers to ensure markers stay on top
+            const layers = this.map.getStyle().layers;
+            let beforeId = null;
+            
+            // Find the first symbol layer (markers are typically symbol layers)
+            for (let i = 0; i < layers.length; i++) {
+                if (layers[i].type === 'symbol') {
+                    beforeId = layers[i].id;
+                    break;
+                }
+            }
+            
+            // Add layer before symbol layers so markers stay visible
+            this.map.addLayer(this.customLayer, beforeId);
             console.log('✅ Three.js layer toegevoegd aan map');
             
             // Verify layer was added

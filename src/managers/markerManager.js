@@ -9,8 +9,8 @@ class MarkerManager {
         this.sourceId = 'businesses';
         this.markersLayerId = 'business-markers';
         this.labelsLayerId = 'business-labels';
-        this.heartsLayerId = 'business-hearts';
         this.isInitialized = false;
+        this.likedMarkersAnimationId = null;
     }
 
     /**
@@ -43,17 +43,16 @@ class MarkerManager {
         // Voeg marker circles layer toe
         this.addMarkersLayer();
         
-        // Voeg icon labels layer toe
+        // Voeg icon labels layer toe  
         this.addIconsLayer();
-        
-        // Voeg hearts layer toe voor liked markers
-        this.addHeartsLayer();
         
         // Setup event listeners
         this.setupEventListeners();
         
         // Ensure all markers are visible (no filtering)
         this.showAllMarkers();
+        
+        // Pulsing animation disabled
         
         this.isInitialized = true;
         console.log(`✅ Markers geïnitialiseerd: ${data.features.length} items`);
@@ -72,10 +71,10 @@ class MarkerManager {
                     'interpolate',
                     ['linear'],
                     ['zoom'],
-                    this.config.markerZoom.min, 3.456,
-                    this.config.markerZoom.small, 5.76,
-                    this.config.markerZoom.medium, 8.064,
-                    this.config.markerZoom.large, 10.368
+                    this.config.markerZoom.min, 5,      // 4 * 1.25
+                    this.config.markerZoom.small, 7.5,  // 6 * 1.25
+                    this.config.markerZoom.medium, 10,  // 8 * 1.25
+                    this.config.markerZoom.large, 12.5  // 10 * 1.25
                 ],
                 'circle-color': ['get', 'color'],
                 'circle-stroke-width': 2,
@@ -99,10 +98,10 @@ class MarkerManager {
                     'interpolate',
                     ['linear'],
                     ['zoom'],
-                    this.config.markerZoom.min, 0.0648,
-                    this.config.markerZoom.small, 0.108,
-                    this.config.markerZoom.medium, 0.1512,
-                    this.config.markerZoom.large, 0.1944
+                    this.config.markerZoom.min, 0.075,   // 0.06 * 1.25
+                    this.config.markerZoom.small, 0.113, // 0.09 * 1.25
+                    this.config.markerZoom.medium, 0.15, // 0.12 * 1.25
+                    this.config.markerZoom.large, 0.188  // 0.15 * 1.25
                 ],
                 'icon-anchor': 'center',
                 'icon-allow-overlap': true
@@ -110,33 +109,6 @@ class MarkerManager {
         });
     }
 
-    /**
-     * Voegt hearts layer toe voor liked markers
-     */
-    addHeartsLayer() {
-        this.map.addLayer({
-            id: this.heartsLayerId,
-            type: 'symbol',
-            source: this.sourceId,
-            layout: {
-                'text-field': '❤️',
-                'text-size': [
-                    'interpolate',
-                    ['linear'],
-                    ['zoom'],
-                    this.config.markerZoom.min, 8,
-                    this.config.markerZoom.small, 12,
-                    this.config.markerZoom.medium, 14,
-                    this.config.markerZoom.large, 16
-                ],
-                'text-anchor': 'center',
-                'text-offset': [0.8, -0.8],
-                'text-allow-overlap': true,
-                'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold']
-            },
-            filter: ['==', ['get', 'liked'], true] // Alleen tonen als liked
-        });
-    }
 
     /**
      * Laadt PNG iconen als Mapbox images
@@ -149,6 +121,17 @@ class MarkerManager {
             { name: 'bezienswaardighedene-icon', path: './assets/icons_map/Bezienwaardigheden.png' },
             { name: 'murals-icon', path: './assets/icons_map/Murals.png' }
         ];
+
+        // Probeer likes icon te laden (optioneel)
+        try {
+            const likesImage = await this.loadImage('./assets/icons_map/likes.png');
+            if (!this.map.hasImage('likes-icon')) {
+                this.map.addImage('likes-icon', likesImage);
+                console.log('✅ Likes icon geladen');
+            }
+        } catch (error) {
+            console.warn('⚠️ Likes icon niet gevonden, normale icons worden gebruikt');
+        }
 
         for (const iconData of iconPaths) {
             try {
@@ -176,13 +159,68 @@ class MarkerManager {
     }
 
     /**
+     * Creëert een wit hart icon voor gelikte markers
+     */
+    async createHeartIcon() {
+        return new Promise((resolve) => {
+            // Gebruik simpele emoji approach in plaats van canvas
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Mapbox vereist specifieke afmetingen - gebruik veelgebruikte size
+            const size = 48;
+            canvas.width = size;
+            canvas.height = size;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            // Teken wit hart emoji
+            ctx.font = `${size - 8}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = '#ffffff';
+            ctx.strokeStyle = '#cccccc';
+            ctx.lineWidth = 2;
+            
+            // Teken hart tekst
+            const heartText = '♥';
+            ctx.strokeText(heartText, size/2, size/2);
+            ctx.fillText(heartText, size/2, size/2);
+            
+            try {
+                // Voeg het hart icon toe aan Mapbox
+                if (!this.map.hasImage('heart-icon')) {
+                    this.map.addImage('heart-icon', canvas);
+                    console.log('✅ Hart icon toegevoegd aan Mapbox');
+                }
+                resolve();
+            } catch (error) {
+                console.error('❌ Fout bij toevoegen hart icon:', error);
+                resolve(); // Continue anyway
+            }
+        });
+    }
+
+    /**
      * Creëert expressie voor icon image mapping
      * @returns {Array} Mapbox expression voor icon image mapping
      */
     createIconImageExpression() {
         const expression = ['case'];
         
-        // Map PNG paths naar icon names
+        // Check of likes icon beschikbaar is
+        const hasLikesIcon = this.map.hasImage('likes-icon');
+        
+        // Als likes icon beschikbaar is EN marker is geliked, gebruik likes icon
+        if (hasLikesIcon) {
+            expression.push(
+                ['==', ['get', 'liked'], true],
+                'likes-icon'
+            );
+        }
+        
+        // Anders map PNG paths naar icon names
         expression.push(
             ['==', ['get', 'icon'], 'assets/icons_map/Cultuur.png'],
             'cultuur-icon'
@@ -251,9 +289,6 @@ class MarkerManager {
         this.map.setFilter(this.markersLayerId, null);
         this.map.setFilter(this.labelsLayerId, null);
         
-        // Hearts layer only shows liked markers
-        this.map.setFilter(this.heartsLayerId, ['==', ['get', 'liked'], true]);
-        
         console.log(`🗺️ Alle markers worden getoond`);
     }
 
@@ -268,7 +303,6 @@ class MarkerManager {
         
         this.map.setLayoutProperty(this.markersLayerId, 'visibility', visibility);
         this.map.setLayoutProperty(this.labelsLayerId, 'visibility', visibility);
-        this.map.setLayoutProperty(this.heartsLayerId, 'visibility', visibility);
         
         console.log(`👁️ Markers zichtbaarheid: ${visible ? 'zichtbaar' : 'verborgen'}`);
     }
@@ -457,6 +491,8 @@ class MarkerManager {
         }
     }
 
+    // Pulsing animation methods removed for stability
+
     /**
      * Krijg marker op positie
      * @param {Object} point - Screen coordinate {x, y}
@@ -474,14 +510,10 @@ class MarkerManager {
      * Cleanup markers en sources
      */
     cleanup() {
-        // Stop animatie
+        // Stop animaties
         this.stopMarkerAnimation();
         
         // Verwijder layers als ze bestaan
-        if (this.map.getLayer(this.heartsLayerId)) {
-            this.map.removeLayer(this.heartsLayerId);
-        }
-        
         if (this.map.getLayer(this.labelsLayerId)) {
             this.map.removeLayer(this.labelsLayerId);
         }
