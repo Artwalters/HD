@@ -483,6 +483,21 @@ function initializeScrollAnimations() {
             toggleActions: 'play none none reverse'
         }
     });
+
+    // GSAP Scroll animatie voor footer
+    const footerPadding = window.innerWidth <= 768 ? 30 : 100; // 15px per kant op mobile, 50px op desktop
+    gsap.to(".footer-white-content", {
+        width: `calc(100% - ${footerPadding}px)`,
+        height: `calc(100% - ${footerPadding}px)`,
+        borderRadius: "24px",
+        ease: "none",
+        scrollTrigger: {
+            trigger: ".footer-section",
+            start: "top bottom",
+            end: "top center",
+            scrub: true
+        }
+    });
 }
 
 // ==========================================
