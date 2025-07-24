@@ -34,6 +34,12 @@ class Carousel3D {
         this.snapThreshold = 0.01; // When to start snapping
         this.snapStrength = 0.1; // How strong the snap is
         
+        // Camera zoom states (initialized after responsive settings)
+        this.updateZoomStates();
+        this.isZoomAnimating = false;
+        
+        // Zoom is nu altijd simpel - geen drag tracking nodig
+        
         this.init();
     }
     
@@ -99,6 +105,11 @@ class Carousel3D {
             this.radius *= 0.8;
             this.cameraDistance *= 0.9;
         }
+    }
+    
+    updateZoomStates() {
+        this.originalCameraDistance = this.cameraDistance;
+        this.zoomedOutDistance = this.cameraDistance * 2.5; // 150% verder weg tijdens drag - nog dramatischer
     }
     
     init() {
@@ -251,6 +262,24 @@ class Carousel3D {
         this.lastPointerX = clientX;
         
         this.container.style.cursor = 'grabbing';
+        
+        // Altijd zoom uit bij start
+        this.zoomOut();
+    }
+    
+    zoomOut() {
+        // Kill bestaande animatie en start nieuwe
+        gsap.killTweensOf(this.camera.position);
+        this.isZoomAnimating = true;
+        
+        gsap.to(this.camera.position, {
+            z: this.zoomedOutDistance,
+            duration: 0.25,
+            ease: "power2.out",
+            onComplete: () => {
+                this.isZoomAnimating = false;
+            }
+        });
     }
     
     onPointerMove(event) {
@@ -261,13 +290,16 @@ class Carousel3D {
         const clientX = event.clientX || (event.touches && event.touches[0].clientX);
         const deltaX = clientX - this.lastPointerX;
         
-        // Responsive sensitivity - more sensitive on mobile
-        let sensitivity = window.innerWidth <= 768 ? 0.8 : 0.5;
-        
-        // Convert to rotation (reverse direction)
-        const rotationDelta = -(deltaX / this.canvas.clientWidth) * Math.PI * sensitivity;
-        this.targetRotation += rotationDelta;
-        this.velocity = rotationDelta * 0.1;
+        // Normale drag beweging
+        if (Math.abs(deltaX) > 0) {
+            // Responsive sensitivity - more sensitive on mobile
+            let sensitivity = window.innerWidth <= 768 ? 0.8 : 0.5;
+            
+            // Convert to rotation (natural direction - als je de kaarten vasthoudt)
+            const rotationDelta = (deltaX / this.canvas.clientWidth) * Math.PI * sensitivity;
+            this.targetRotation += rotationDelta;
+            this.velocity = rotationDelta * 0.1;
+        }
         
         this.lastPointerX = clientX;
     }
@@ -275,6 +307,24 @@ class Carousel3D {
     onPointerEnd() {
         this.isInteracting = false;
         this.container.style.cursor = 'grab';
+        
+        // Altijd zoom in bij loslaten
+        this.zoomIn();
+    }
+    
+    zoomIn() {
+        // Kill bestaande animatie en start nieuwe
+        gsap.killTweensOf(this.camera.position);
+        this.isZoomAnimating = true;
+        
+        gsap.to(this.camera.position, {
+            z: this.originalCameraDistance,
+            duration: 0.4,
+            ease: "power2.inOut",
+            onComplete: () => {
+                this.isZoomAnimating = false;
+            }
+        });
     }
     
     onWheel(event) {
@@ -292,10 +342,16 @@ class Carousel3D {
         // Update responsive settings
         this.getResponsiveSettings();
         
+        // Update camera zoom states with new responsive values
+        this.updateZoomStates();
+        
         // Update camera
         this.camera.aspect = width / height;
         this.camera.fov = this.fov;
-        this.camera.position.set(0, 0, this.cameraDistance);
+        
+        // Set camera to appropriate distance (original or zoomed based on interaction state)
+        const targetDistance = this.isInteracting ? this.zoomedOutDistance : this.originalCameraDistance;
+        this.camera.position.set(0, 0, targetDistance);
         this.camera.updateProjectionMatrix();
         
         // Update renderer
