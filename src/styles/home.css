@@ -146,10 +146,10 @@ body {
 /* Right Side Gradient Overlay */
 .grid-right-gradient {
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 180px;
-    height: 100%;
+    top: -2px;
+    right: -2px;
+    width: 182px;
+    height: calc(100% + 4px);
     background: linear-gradient(
         to left,
         #22201F 0%,
@@ -172,11 +172,11 @@ body {
 @media (max-width: 992px) {
     .grid-right-gradient {
         top: auto;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        width: 100%;
-        height: 120px;
+        bottom: -2px;
+        right: -2px;
+        left: -2px;
+        width: calc(100% + 4px);
+        height: 122px;
         background: linear-gradient(
             to top,
             #22201F 0%,
