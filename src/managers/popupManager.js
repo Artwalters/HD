@@ -589,7 +589,6 @@ class PopupManager {
             
             const suggestionsHtml = suggestions.map(suggestion => 
                 `<a href="#" class="suggestion-card" data-id="${suggestion.id}">
-                    <div class="suggestion-icon">${suggestion.icon}</div>
                     <div class="suggestion-info">
                         <div class="suggestion-name">${suggestion.name}</div>
                         <div class="suggestion-address">${suggestion.address}</div>
@@ -792,7 +791,6 @@ class PopupManager {
                 id: feature.properties.id,
                 name: feature.properties.name,
                 address: feature.properties.address,
-                icon: feature.properties.icon || '📍',
                 category: feature.properties.category
             }));
             
@@ -815,7 +813,6 @@ class PopupManager {
                         id: feature.properties.id,
                         name: feature.properties.name,
                         address: feature.properties.address,
-                        icon: feature.properties.icon || '📍',
                         category: feature.properties.category
                     });
                 });

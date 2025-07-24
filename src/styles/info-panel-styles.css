@@ -238,9 +238,7 @@
   padding: var(--space-md);
   cursor: pointer;
   transition: all var(--transition-fast);
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
+  display: block;
   text-decoration: none;
   color: var(--color-text-white);
 }
@@ -250,14 +248,8 @@
   transform: translateX(4px);
 }
 
-.suggestion-icon {
-  font-size: 2em;
-  flex-shrink: 0;
-}
-
 .suggestion-info {
-  flex: 1;
-  min-width: 0;
+  width: 100%;
 }
 
 .suggestion-name {
