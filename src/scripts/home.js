@@ -139,20 +139,22 @@ function animateHeroTextIn(phaseIndex, color, timeline, position) {
             if (heroSplit0 && heroSplit0.chars && heroSplit1 && heroSplit1.chars) {
                 console.log(`Setting initial position for ${heroSplit0.chars.length + heroSplit1.chars.length} characters`);
                 gsap.set([...heroSplit0.chars, ...heroSplit1.chars], {
-                    y: 200
+                    y: 100,
+                    opacity: 0
                 });
                 
                 // Animate in immediately after setting position
                 gsap.to([...heroSplit0.chars, ...heroSplit1.chars], {
-                    duration: 0.6,
+                    duration: 0.4,
                     y: 0,
-                    ease: "back.out(1.2)",
-                    stagger: 0.04
+                    opacity: 1,
+                    ease: "power3.out",
+                    stagger: 0.02
                 });
             } else {
                 console.error('Hero split characters not found!', { heroSplit0, heroSplit1 });
             }
-        }, null, position + 0.05);
+        }, null, position);
     }
 }
 
@@ -164,10 +166,11 @@ function animateHeroTextOut(timeline, position) {
         if (heroSplit0 && heroSplit0.chars && heroSplit1 && heroSplit1.chars) {
             console.log(`Animating out ${heroSplit0.chars.length + heroSplit1.chars.length} characters`);
             gsap.to([...heroSplit0.chars, ...heroSplit1.chars], {
-                duration: 0.25,
-                y: -200,
+                duration: 0.3,
+                y: -50,
+                opacity: 0,
                 ease: "power2.in",
-                stagger: 0.015
+                stagger: 0.01
             });
         } else {
             console.error('Hero split characters not found for OUT animation!', { heroSplit0, heroSplit1 });
@@ -230,20 +233,22 @@ function animateFooterTextIn(phaseIndex, color, timeline, position) {
             if (footerSplit0 && footerSplit0.chars && footerSplit1 && footerSplit1.chars) {
                 console.log(`Setting initial position for ${footerSplit0.chars.length + footerSplit1.chars.length} footer characters`);
                 gsap.set([...footerSplit0.chars, ...footerSplit1.chars], {
-                    y: 200
+                    y: 100,
+                    opacity: 0
                 });
                 
                 // Animate in immediately after setting position
                 gsap.to([...footerSplit0.chars, ...footerSplit1.chars], {
-                    duration: 0.6,
+                    duration: 0.4,
                     y: 0,
-                    ease: "back.out(1.2)",
-                    stagger: 0.04
+                    opacity: 1,
+                    ease: "power3.out",
+                    stagger: 0.02
                 });
             } else {
                 console.error('Footer split characters not found!', { footerSplit0, footerSplit1 });
             }
-        }, null, position + 0.05);
+        }, null, position);
     }
 }
 
@@ -255,10 +260,11 @@ function animateFooterTextOut(timeline, position) {
         if (footerSplit0 && footerSplit0.chars && footerSplit1 && footerSplit1.chars) {
             console.log(`Animating out ${footerSplit0.chars.length + footerSplit1.chars.length} footer characters`);
             gsap.to([...footerSplit0.chars, ...footerSplit1.chars], {
-                duration: 0.25,
-                y: -200,
+                duration: 0.3,
+                y: -50,
+                opacity: 0,
                 ease: "power2.in",
-                stagger: 0.015
+                stagger: 0.01
             });
         } else {
             console.error('Footer split characters not found for OUT animation!', { footerSplit0, footerSplit1 });
@@ -269,7 +275,7 @@ function animateFooterTextOut(timeline, position) {
 function createFooterTextTimeline() {
     const footerTextTimeline = gsap.timeline({
         repeat: -1,
-        repeatDelay: 0.2,
+        repeatDelay: 0,
         delay: 1
     });
 
@@ -278,13 +284,13 @@ function createFooterTextTimeline() {
 
     for (let i = 0; i < 4; i++) {
         const color = colors[i];
-        const textPhaseStartTime = position + 0.3;
+        const textPhaseStartTime = position + 0.2;
         
         // Add text IN animation at beginning of phase
         animateFooterTextIn(i, color, footerTextTimeline, textPhaseStartTime);
         
         // Add text OUT animation at end of phase
-        animateFooterTextOut(footerTextTimeline, textPhaseStartTime + phaseDuration - 0.5);
+        animateFooterTextOut(footerTextTimeline, textPhaseStartTime + phaseDuration - 0.4);
         
         position += phaseDuration;
     }
@@ -513,10 +519,10 @@ function animateGridPhase(phaseIndex, timeline, position) {
     }, null, backgroundChangeTime);
     
     // Add hero text IN animation at beginning of grid phase
-    animateHeroTextIn(phaseIndex, color, timeline, gridPhaseStartTime);
+    animateHeroTextIn(phaseIndex, color, timeline, gridPhaseStartTime + 0.2);
     
     // Add hero text OUT animation at end of phase (before cells disappear)
-    animateHeroTextOut(timeline, disappearStartTime - 0.5);
+    animateHeroTextOut(timeline, disappearStartTime - 0.4);
 
     // Phase 3: Cells disappear
     const disappearCells = [...sortedCells].reverse();
@@ -534,7 +540,7 @@ function createMasterTimeline() {
     
     masterTimeline = gsap.timeline({
         repeat: -1,
-        repeatDelay: 0.2,
+        repeatDelay: 0,
         onRepeat: () => {
             currentPhase = 0;
         }
@@ -543,7 +549,7 @@ function createMasterTimeline() {
     let position = 0;
 
     for (let i = 0; i < 4; i++) {
-        const gridPhaseStartTime = position + 0.3;
+        const gridPhaseStartTime = position;
         animateGridPhase(i, masterTimeline, gridPhaseStartTime);
         position += PHASE_DURATION;
     }
