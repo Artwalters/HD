@@ -1195,16 +1195,46 @@ class NavigationManager {
      * Setup navigation event listeners
      */
     setupNavigationListeners() {
+        console.log('🔧 Setting up navigation listeners for panel:', this.navigationPanel);
+        
         const closeBtn = this.navigationPanel.querySelector('.info-panel-close');
         const profileBtns = this.navigationPanel.querySelectorAll('.profile-btn');
         const cameraBtn = this.navigationPanel.querySelector('.camera-btn');
         const recenterBtn = this.navigationPanel.querySelector('.recenter-btn');
 
+        console.log('🔍 Navigation panel close button found:', closeBtn);
+        console.log('🔍 Navigation panel HTML:', this.navigationPanel.innerHTML.substring(0, 200));
 
         if (closeBtn) {
-            closeBtn.addEventListener('click', () => {
-                this.stopNavigation();
-            });
+            // Remove any existing event listeners first
+            const newCloseBtn = closeBtn.cloneNode(true);
+            closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
+            
+            // Add fresh event listener
+            newCloseBtn.addEventListener('click', (e) => {
+                console.log('🔴 Navigation close button clicked - stopping navigation');
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                
+                // Force close navigation
+                this.forceStopNavigation();
+            }, { once: false, passive: false });
+            
+            // Also add touch event as backup
+            newCloseBtn.addEventListener('touchend', (e) => {
+                console.log('📱 Navigation close button touched - stopping navigation');
+                e.preventDefault();
+                e.stopPropagation();
+                this.forceStopNavigation();
+            }, { once: false, passive: false });
+            
+            console.log('✅ Navigation close button event listeners attached');
+        } else {
+            console.error('❌ Navigation close button not found in panel');
+            // Try to find any button that might work as close
+            const allButtons = this.navigationPanel.querySelectorAll('button');
+            console.log('🔍 All buttons in navigation panel:', allButtons);
         }
 
         // Setup profile buttons (voor transportmodus)
@@ -1410,9 +1440,22 @@ class NavigationManager {
      * Verberg navigation panel
      */
     hideNavigationPanel() {
+        console.log('🙈 Hiding navigation panel:', this.navigationPanel);
         if (this.navigationPanel) {
-            this.navigationPanel.remove();
+            try {
+                this.navigationPanel.remove();
+                console.log('✅ Navigation panel removed successfully');
+            } catch (error) {
+                console.error('Error removing navigation panel:', error);
+                // Force remove if needed
+                const panel = document.querySelector('.navigation-panel');
+                if (panel) {
+                    panel.remove();
+                }
+            }
             this.navigationPanel = null;
+        } else {
+            console.log('⚠️ No navigation panel to hide');
         }
     }
 
@@ -1448,6 +1491,22 @@ class NavigationManager {
                 btn.classList.remove('active');
             }
         });
+    }
+
+    /**
+     * Force stop navigation - guaranteed to work
+     */
+    forceStopNavigation() {
+        console.log('🛑🛑 FORCE STOPPING navigation and camera following');
+        try {
+            this.stopNavigation();
+        } catch (error) {
+            console.error('Error in stopNavigation, forcing cleanup:', error);
+            // Force cleanup if regular stop fails
+            this.isNavigating = false;
+            this.currentRoute = null;
+            this.hideNavigationPanel();
+        }
     }
 
     /**

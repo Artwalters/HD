@@ -136,6 +136,7 @@ body {
 
 .overlay-cell {
     border-radius: 8px;
+    border: 1px solid #22201F;
     transform: scale(0) translateZ(0);
     transition: none;
     aspect-ratio: 4 / 5;
