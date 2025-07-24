@@ -15,6 +15,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     
+    <!-- Three.js for 3D carousel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
     <link rel="stylesheet" href="src/styles/variables.css">
     <link rel="stylesheet" href="src/styles/base.css">
     <link rel="stylesheet" href="src/styles/main-navigation.css">
@@ -104,10 +107,13 @@
         </div>
     </section>
 
-    <!-- Map CTA Section -->
-    <section class="map-cta-section">
-        <div class="map-image-container">
-            <img src="assets/images/map.png" alt="Heerlen Kaart" class="map-image">
+    <!-- 3D Carousel Section -->
+    <section class="carousel-3d-section">
+        <div class="carousel-3d-container" id="carousel-3d">
+            <canvas class="carousel-3d-canvas"></canvas>
+            <div class="carousel-3d-overlay">
+                <div class="carousel-3d-hint">Scroll of swipe om te draaien</div>
+            </div>
         </div>
     </section>
 
@@ -121,6 +127,7 @@
     
     <script src="src/scripts/main-navigation.js"></script>
     <script src="src/scripts/component-loader.js"></script>
+    <script src="src/scripts/carousel-3d.js"></script>
     <script src="src/scripts/home.js"></script>
 </body>
 </html>
