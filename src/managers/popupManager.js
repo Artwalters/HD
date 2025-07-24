@@ -747,11 +747,6 @@ class PopupManager {
         try {
             console.log('🔍 Generating suggestions for:', currentProperties.name);
             const allData = await this.dataLoader.loadAllData();
-            const suggestions = [];
-            
-            // Debug: Log available data
-            console.log('📊 Available data structure:', allData);
-            console.log('📊 Total features in allData:', allData.features?.length || 0);
             
             // Work directly with allData.features
             const allFeatures = allData.features || [];
@@ -759,40 +754,45 @@ class PopupManager {
             console.log(`📊 Total features found: ${allFeatures.length}`);
             console.log(`🏷️ Current item category: "${currentProperties.category}"`);
             
-            // Find suggestions from same category first
-            allFeatures.forEach(feature => {
+            // Find all candidates from same category first
+            const sameCategoryCandidates = allFeatures.filter(feature => {
                 const props = feature.properties;
-                if (props.id !== currentProperties.id && 
-                    props.category === currentProperties.category && 
-                    suggestions.length < 3) {
-                    suggestions.push({
-                        id: props.id,
-                        name: props.name,
-                        address: props.address,
-                        icon: props.icon || '📍',
-                        category: props.category
-                    });
-                }
+                return props.id !== currentProperties.id && 
+                       props.category === currentProperties.category;
             });
             
-            console.log(`✅ Found ${suggestions.length} suggestions from same category`);
+            console.log(`🎯 Found ${sameCategoryCandidates.length} candidates from same category`);
+            
+            // Shuffle the same category candidates and take up to 3
+            const shuffledSameCategory = this.shuffleArray([...sameCategoryCandidates]);
+            const suggestions = shuffledSameCategory.slice(0, 3).map(feature => ({
+                id: feature.properties.id,
+                name: feature.properties.name,
+                address: feature.properties.address,
+                icon: feature.properties.icon || '📍',
+                category: feature.properties.category
+            }));
             
             // Fill remaining slots with other categories if needed
             if (suggestions.length < 3) {
-                allFeatures.forEach(feature => {
+                const otherCategoryCandidates = allFeatures.filter(feature => {
                     const props = feature.properties;
-                    if (props.id !== currentProperties.id && 
-                        props.category !== currentProperties.category &&
-                        suggestions.length < 3 &&
-                        !suggestions.find(s => s.id === props.id)) {
-                        suggestions.push({
-                            id: props.id,
-                            name: props.name,
-                            address: props.address,
-                            icon: props.icon || '📍',
-                            category: props.category
-                        });
-                    }
+                    return props.id !== currentProperties.id && 
+                           props.category !== currentProperties.category &&
+                           !suggestions.find(s => s.id === props.id);
+                });
+                
+                const shuffledOtherCategories = this.shuffleArray([...otherCategoryCandidates]);
+                const remainingSlots = 3 - suggestions.length;
+                
+                shuffledOtherCategories.slice(0, remainingSlots).forEach(feature => {
+                    suggestions.push({
+                        id: feature.properties.id,
+                        name: feature.properties.name,
+                        address: feature.properties.address,
+                        icon: feature.properties.icon || '📍',
+                        category: feature.properties.category
+                    });
                 });
             }
             
@@ -802,6 +802,16 @@ class PopupManager {
             console.error('Error generating suggestions:', error);
             return [];
         }
+    }
+
+    // Helper function to shuffle an array (Fisher-Yates algorithm)
+    shuffleArray(array) {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
     }
 
     /**
