@@ -735,10 +735,13 @@ class PopupManager {
 
         // Setup suggestion clicks
         const suggestionCards = infoPanel.querySelectorAll('.suggestion-card');
-        suggestionCards.forEach(card => {
+        console.log(`🎯 DEBUG: Found ${suggestionCards.length} suggestion cards for event listeners`);
+        suggestionCards.forEach((card, index) => {
+            const suggestionId = parseInt(card.dataset.id);
+            console.log(`🎯 DEBUG: Setting up click listener for card ${index + 1}, ID: ${suggestionId}`);
             card.addEventListener('click', (e) => {
                 e.preventDefault();
-                const suggestionId = parseInt(card.dataset.id);
+                console.log(`🎯 DEBUG: Suggestion card clicked! ID: ${suggestionId}`);
                 this.handleSuggestionClick(suggestionId);
             });
         });
@@ -769,14 +772,22 @@ class PopupManager {
             // Find all candidates from same category first
             const sameCategoryCandidates = allFeatures.filter(feature => {
                 const props = feature.properties;
-                return props.id !== currentProperties.id && 
+                console.log(`🔍 Checking feature: ${props.name} (id: ${props.id}, category: "${props.category}") vs current: ${currentProperties.name} (id: ${currentProperties.id}, category: "${currentProperties.category}")`);
+                const isValid = props.id !== currentProperties.id && 
                        props.category === currentProperties.category;
+                console.log(`   Valid candidate: ${isValid}`);
+                return isValid;
             });
             
-            console.log(`🎯 Found ${sameCategoryCandidates.length} candidates from same category`);
+            console.log(`🎯 Found ${sameCategoryCandidates.length} candidates from same category:`);
+            sameCategoryCandidates.forEach((candidate, index) => {
+                console.log(`   ${index + 1}. ${candidate.properties.name} (${candidate.properties.category})`);
+            });
             
             // Shuffle the same category candidates and take up to 3
             const shuffledSameCategory = this.shuffleArray([...sameCategoryCandidates]);
+            console.log(`🔀 After shuffle, taking ${Math.min(3, shuffledSameCategory.length)} suggestions`);
+            
             const suggestions = shuffledSameCategory.slice(0, 3).map(feature => ({
                 id: feature.properties.id,
                 name: feature.properties.name,
@@ -784,6 +795,8 @@ class PopupManager {
                 icon: feature.properties.icon || '📍',
                 category: feature.properties.category
             }));
+            
+            console.log(`📋 Mapped suggestions:`, suggestions);
             
             // Fill remaining slots with other categories if needed
             if (suggestions.length < 3) {
@@ -1149,16 +1162,20 @@ class PopupManager {
      */
     async handleSuggestionClick(idOrProperties) {
         try {
+            console.log(`🎯 DEBUG: handleSuggestionClick called with:`, idOrProperties);
             let targetFeature = null;
             
             // If we received an ID, find the feature
             if (typeof idOrProperties === 'number') {
+                console.log(`🎯 DEBUG: Looking for feature with ID: ${idOrProperties}`);
                 const allData = await this.dataLoader.loadAllData();
                 targetFeature = allData.features.find(f => f.properties.id === idOrProperties);
                 
                 if (!targetFeature) {
-                    console.error('Suggestion feature not found:', idOrProperties);
+                    console.error('🎯 DEBUG: Suggestion feature not found:', idOrProperties);
                     return;
+                } else {
+                    console.log(`🎯 DEBUG: Found target feature:`, targetFeature.properties.name);
                 }
             } else {
                 // Legacy support for when full properties were passed
