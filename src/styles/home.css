@@ -14,7 +14,7 @@ body {
 }
 
 .container {
-    max-width: 1800px;
+    max-width: 1550px;
     margin: 0 auto;
     padding: 0 var(--space-xl);
 }
@@ -38,7 +38,7 @@ body {
     right: 0;
     height: 2px;
     background: #666666;
-    max-width: 1800px;
+    max-width: 1550px;
     margin: 0 auto;
     border-radius: 1px;
 }
@@ -53,7 +53,7 @@ body {
 
 .hero-content {
     width: 100%;
-    max-width: 1400px;
+    max-width: 1550px;
     margin: 0 auto;
     padding: var(--space-xl);
     display: flex;
@@ -276,7 +276,7 @@ body {
     right: 0;
     height: 2px;
     background: #666666;
-    max-width: 1800px;
+    max-width: 1550px;
     margin: 0 auto;
     border-radius: 1px;
 }
@@ -294,23 +294,22 @@ body {
 
 .over-section .container {
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
-    justify-content: space-between;
     gap: 40px;
 }
 
 .over-content {
     display: flex;
-    justify-content: flex-end;
-    width: 600px;
-    flex-shrink: 0;
+    justify-content: flex-start;
+    width: 100%;
 }
 
 .over-text {
     max-width: 100%;
-    font-size: 24px;
+    font-size: 27px;
     color: #ffffff;
-    line-height: 1.618;
+    line-height: 1.5;
     text-align: left;
 }
 
@@ -331,7 +330,7 @@ body {
     right: 0;
     height: 2px;
     background: #666666;
-    max-width: 1800px;
+    max-width: 1550px;
     margin: 0 auto;
     border-radius: 1px;
 }
@@ -346,7 +345,6 @@ body {
 
 /* Mobile responsive layout */
 @media (max-width: 768px) {
-    .over-section .container,
     .dagje-uit-section .container,
     .leuk-om-te-doen-section .container {
         flex-direction: column;
@@ -428,7 +426,7 @@ body {
     right: 0;
     height: 2px;
     background: #666666;
-    max-width: 1800px;
+    max-width: 1550px;
     margin: 0 auto;
     border-radius: 1px;
 }
@@ -462,7 +460,7 @@ body {
     right: 0;
     height: 2px;
     background: #666666;
-    max-width: 1800px;
+    max-width: 1550px;
     margin: 0 auto;
     border-radius: 1px;
 }
@@ -772,6 +770,9 @@ body {
     
 }
 @media (max-width: 768px) {
+    .title-line {
+        margin-bottom: 0;
+    }
     
     .hero-content {
         padding: 100px 20px 20px;
@@ -813,7 +814,7 @@ body {
     
     .over-text {
         max-width: 100%;
-        font-size: 14px;
+        font-size: 20px;
     }
     
     .over-section .section-title,
@@ -881,14 +882,18 @@ body {
 
 /* iPad Mini Portrait Specific */
 @media (min-width: 768px) and (max-width: 991px) {
+    .title-line {
+        margin-bottom: 0;
+    }
+    
     .hero-content {
         padding: 0px 40px 40px;
         gap: var(--space-lg);
     }
     
     .grid-animation-wrap {
-        width: min(80vw, 680px);
-        height: 420px;
+        width: min(90vw, 684px);
+        height: 426px;
     }
     
     .hero-title {
@@ -900,33 +905,53 @@ body {
     .hero-text {
         max-width: 600px;
     }
+    
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 20px;
+        width: 100%;
+        max-width: none;
+    }
+    
+    .dagje-uit-section .container,
+    .leuk-om-te-doen-section .container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+    }
 }
 
 /* iPad Pro Landscape (1024px+) */
 @media (min-width: 1024px) and (max-width: 1199px) {
     .hero-content {
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         align-items: center;
-        justify-content: left;
         padding: 80px 40px 40px;
         gap: var(--space-xl);
     }
     
+    .over-section .container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: flex-start;
+        gap: 40px;
+    }
+    
     .grid-animation-wrap {
-        width: 397px;
+        width: 100%;
+        max-width: 397px;
         height: 419px;
-        order: 1;
-        flex-shrink: 0;
-        margin-left: 4rem;
+        justify-self: end;
     }
     
     .hero-text {
-        order: 2;
+        width: 100%;
         max-width: 450px;
         text-align: left;
         justify-content: center;
         align-self: center;
-        flex: 1;
     }
     
     .hero-title {
@@ -939,28 +964,34 @@ body {
 /* Desktop Small (1200px+) */
 @media (min-width: 1200px) and (max-width: 1399px) {
     .hero-content {
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         align-items: center;
-        justify-content: left;
         padding: 80px 40px 40px;
         gap: calc(var(--space-xl) * 1.2);
-        max-width: 1600px;
+        max-width: 1550px;
+    }
+    
+    .over-section .container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: flex-start;
+        gap: 40px;
     }
     
     .grid-animation-wrap {
-        width: 420px;
+        width: 100%;
+        max-width: 420px;
         height: 480px;
-        order: 1;
-        flex-shrink: 0;
+        justify-self: end;
     }
     
     .hero-text {
-        order: 2;
+        width: 100%;
         max-width: 500px;
         text-align: left;
         justify-content: center;
         align-self: center;
-        flex: 1;
     }
     
     .hero-title {
@@ -973,29 +1004,34 @@ body {
 /* Desktop Large (1400px+) */
 @media (min-width: 1400px) {
     .hero-content {
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         align-items: center;
-        justify-content: left;
-        padding: 80px 40px 40px;
-        gap: calc(var(--space-xl) * 1.5);
-        max-width: 1800px;
+        padding: 80px 64px 40px;
+        gap: calc(var(--space-xl) * 0.5);
+        max-width: 1550px;
+    }
+    
+    .over-section .container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: flex-start;
+        gap: 40px;
     }
     
     .grid-animation-wrap {
-        width: 730px;
+        width: 100%;
+        max-width: 730px;
         height: 680px;
-        order: 1;
-        flex-shrink: 0;
-        margin-left: 5rem;
+        justify-self: end;
     }
     
     .hero-text {
-        order: 2;
+        width: 100%;
         max-width: 600px;
         text-align: left;
         justify-content: center;
         align-self: center;
-        flex: 1;
     }
     
     .hero-title {
@@ -1006,6 +1042,10 @@ body {
 }
 
 @media (max-width: 480px) {
+    .title-line {
+        margin-bottom: 0;
+    }
+    
     .container {
         padding: 0 15px;
     }
@@ -1014,7 +1054,7 @@ body {
         flex-direction: column;
         justify-content: center;
         text-align: center;
-        padding-top: 0px;
+        padding-top: 4rem;
         gap: var(--space-md);
     }
     
