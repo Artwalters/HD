@@ -99,7 +99,7 @@ body {
     background-size: 800% 600%;
     background-repeat: no-repeat;
     border-radius: 8px;
-    border: 0.2px solid #22201F;
+    border: 1px solid #22201F;
     transition: none;
     aspect-ratio: 4 / 5;
 }
