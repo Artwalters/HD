@@ -177,6 +177,12 @@ class Carousel3D {
         const borderRadius = Math.max(8, this.cardWidth * 0.1); // Responsive border radius
         this.cardGeometry = this.createRoundedRectGeometry(this.cardWidth, this.cardHeight, borderRadius);
         
+        // Month names for timeline
+        const months = [
+            'JAN', 'FEB', 'MAR', 'APR', 'MEI', 'JUN',
+            'JUL', 'AUG', 'SEP', 'OKT', 'NOV', 'DEC'
+        ];
+        
         // Card colors (verschillende kleuren voor visual effect)
         const colors = [
             0x4B83F2, // Blauw
@@ -192,6 +198,12 @@ class Carousel3D {
             0x16A085, // Donkergroen
             0xE67E22  // Donkeroranje
         ];
+        
+        // Array to store month labels
+        this.monthLabels = [];
+        
+        // Create circular timeline
+        this.createTimelineCircle();
         
         for (let i = 0; i < this.cardCount; i++) {
             // Material with border radius simulation
@@ -223,7 +235,139 @@ class Carousel3D {
             
             this.cards.push(card);
             this.scene.add(card);
+            
+            // Create month label for this card
+            this.createMonthLabel(i, months[i], angle);
         }
+    }
+    
+    createTimelineCircle() {
+        // Create circular timeline like battle pass system
+        const timelineRadius = this.radius + this.cardHeight * 0.2; // Same as labels
+        const points = [];
+        const segments = 64; // More segments for smooth circle
+        
+        for (let i = 0; i <= segments; i++) {
+            const angle = (i / segments) * Math.PI * 2;
+            const x = Math.cos(angle) * timelineRadius;
+            const z = Math.sin(angle) * timelineRadius;
+            points.push(new THREE.Vector3(x, -this.cardHeight * 0.5, z));
+        }
+        
+        // Create line geometry
+        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+        
+        // Create line material - subtle gray line
+        const material = new THREE.LineBasicMaterial({
+            color: 0xcccccc,
+            transparent: true,
+            opacity: 0.6,
+            linewidth: 2
+        });
+        
+        // Create the timeline circle
+        this.timelineCircle = new THREE.Line(geometry, material);
+        this.scene.add(this.timelineCircle);
+        
+        // Create dots at each month position for battle pass effect
+        this.createTimelineDots(timelineRadius);
+    }
+    
+    createTimelineDots(radius) {
+        this.timelineDots = [];
+        
+        for (let i = 0; i < this.cardCount; i++) {
+            const angle = (i / this.cardCount) * Math.PI * 2;
+            
+            // Create dot geometry
+            const dotGeometry = new THREE.CircleGeometry(this.cardWidth * 0.04, 8);
+            
+            // Create dot material - matching card color or neutral
+            const dotMaterial = new THREE.MeshBasicMaterial({
+                color: 0x666666,
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            // Create dot mesh
+            const dot = new THREE.Mesh(dotGeometry, dotMaterial);
+            
+            // Position on timeline circle
+            dot.position.x = Math.cos(angle) * radius;
+            dot.position.z = Math.sin(angle) * radius;
+            dot.position.y = -this.cardHeight * 0.5;
+            
+            // Face up
+            dot.rotation.x = -Math.PI / 2;
+            
+            // Store reference
+            dot.userData = {
+                index: i,
+                angle: angle
+            };
+            
+            this.timelineDots.push(dot);
+            this.scene.add(dot);
+        }
+    }
+    
+    createMonthLabel(index, monthText, angle) {
+        // Create text geometry
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.width = 512;
+        canvas.height = 128;
+        
+        // Clear canvas
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Set font properties - responsive font size
+        const fontSize = window.innerWidth <= 768 ? 48 : 64;
+        context.font = `${fontSize}px astronef, sans-serif`;
+        context.fillStyle = '#22201F';
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        
+        // Draw text
+        context.fillText(monthText, canvas.width / 2, canvas.height / 2);
+        
+        // Create texture from canvas
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.needsUpdate = true;
+        
+        // Create material
+        const material = new THREE.MeshBasicMaterial({
+            map: texture,
+            transparent: true,
+            alphaTest: 0.1
+        });
+        
+        // Create geometry for text plane
+        const labelWidth = this.cardWidth * 0.8;
+        const labelHeight = labelWidth * 0.25;
+        const geometry = new THREE.PlaneGeometry(labelWidth, labelHeight);
+        
+        // Create mesh
+        const label = new THREE.Mesh(geometry, material);
+        
+        // Position below the card - above the timeline circle
+        const labelRadius = this.radius + this.cardHeight * 0.2;
+        label.position.x = Math.cos(angle) * labelRadius;
+        label.position.z = Math.sin(angle) * labelRadius;
+        label.position.y = -this.cardHeight * 0.35;
+        
+        // Face camera
+        label.lookAt(0, label.position.y, 0);
+        
+        // Store reference data
+        label.userData = {
+            index: index,
+            angle: angle,
+            originalRadius: labelRadius
+        };
+        
+        this.monthLabels.push(label);
+        this.scene.add(label);
     }
     
     setupEventListeners() {
@@ -372,6 +516,23 @@ class Carousel3D {
         this.cards = [];
         this.cardMaterials = [];
         
+        // Remove existing month labels
+        this.monthLabels.forEach(label => {
+            this.scene.remove(label);
+        });
+        this.monthLabels = [];
+        
+        // Remove existing timeline elements
+        if (this.timelineCircle) {
+            this.scene.remove(this.timelineCircle);
+        }
+        if (this.timelineDots) {
+            this.timelineDots.forEach(dot => {
+                this.scene.remove(dot);
+            });
+            this.timelineDots = [];
+        }
+        
         // Create new cards with updated responsive settings
         this.createCards();
     }
@@ -407,6 +568,7 @@ class Carousel3D {
         
         // Update card positions
         this.updateCards();
+        this.updateMonthLabels();
         
         this.renderer.render(this.scene, this.camera);
     }
@@ -434,6 +596,33 @@ class Carousel3D {
             // Opacity based on position
             const opacity = Math.max(0.3, 1 - (distanceFromFront / this.radius) * 0.6);
             card.material.opacity = opacity;
+        });
+    }
+    
+    updateMonthLabels() {
+        this.monthLabels.forEach((label, index) => {
+            // Calculate position with rotation
+            const angle = label.userData.angle + this.currentRotation;
+            
+            // Position in circle - slightly outside the cards
+            const labelRadius = label.userData.originalRadius;
+            label.position.x = Math.cos(angle) * labelRadius;
+            label.position.z = Math.sin(angle) * labelRadius;
+            
+            // Keep Y position stable above timeline circle
+            label.position.y = -this.cardHeight * 0.35;
+            
+            // Always face camera for readability
+            label.lookAt(this.camera.position);
+            
+            // Scale and opacity based on distance from front (similar to cards)
+            const distanceFromFront = Math.abs(label.position.z);
+            const scale = Math.max(0.6, 1 - (distanceFromFront / this.radius) * 0.3);
+            label.scale.setScalar(scale);
+            
+            // Opacity based on position
+            const opacity = Math.max(0.4, 1 - (distanceFromFront / this.radius) * 0.5);
+            label.material.opacity = opacity;
         });
     }
 }
