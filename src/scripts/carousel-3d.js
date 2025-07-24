@@ -162,8 +162,8 @@ class Carousel3D {
         const clientX = event.clientX || (event.touches && event.touches[0].clientX);
         const deltaX = clientX - this.lastPointerX;
         
-        // Convert to rotation
-        const rotationDelta = (deltaX / this.canvas.clientWidth) * Math.PI * 0.5;
+        // Convert to rotation (reverse direction)
+        const rotationDelta = -(deltaX / this.canvas.clientWidth) * Math.PI * 0.5;
         this.targetRotation += rotationDelta;
         this.velocity = rotationDelta * 0.1;
         
@@ -178,7 +178,7 @@ class Carousel3D {
     onWheel(event) {
         event.preventDefault();
         
-        const delta = event.deltaY * 0.001;
+        const delta = -event.deltaY * 0.001;
         this.targetRotation += delta;
         this.velocity = delta * 0.1;
     }
