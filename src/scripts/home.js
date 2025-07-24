@@ -73,11 +73,20 @@ const heroTexts = [
     ['GEZELLIG', 'WINKELEN?']  // Index 3: groen (#A2C617)
 ];
 
+// Footer Text Data - same as hero texts
+const footerTexts = [
+    ['VERRAST', 'WORDEN?'],    // Index 0: blauw (#6E90DB)
+    ['BOEIENDE', 'CULTUUR?'],  // Index 1: oranje (#D49C0C)
+    ['TERRASJE', 'PIKKEN?'],   // Index 2: rood (#EB625E)
+    ['GEZELLIG', 'WINKELEN?']  // Index 3: groen (#A2C617)
+];
+
 // ==========================================
 // HERO TEXT ANIMATION
 // ==========================================
 
 let heroSplit0, heroSplit1;
+let footerSplit0, footerSplit1;
 
 function setupHeroSplitText() {
     const heroText0 = document.getElementById('hero-text-0');
@@ -164,6 +173,141 @@ function animateHeroTextOut(timeline, position) {
             console.error('Hero split characters not found for OUT animation!', { heroSplit0, heroSplit1 });
         }
     }, null, position);
+}
+
+// ==========================================
+// FOOTER TEXT ANIMATION
+// ==========================================
+
+function setupFooterSplitText() {
+    const footerText0 = document.getElementById('footer-text-0');
+    const footerText1 = document.getElementById('footer-text-1');
+    
+    if (footerText0 && footerText1 && typeof gsap !== 'undefined') {
+        // Split text into characters and wrap in spans
+        const text0 = footerText0.textContent;
+        const text1 = footerText1.textContent;
+        
+        console.log(`Splitting footer text: "${text0}" and "${text1}"`);
+        
+        footerText0.innerHTML = text0.split('').map(char => 
+            `<span style="display: inline-block; white-space: nowrap;">${char === ' ' ? '&nbsp;' : char}</span>`
+        ).join('');
+        
+        footerText1.innerHTML = text1.split('').map(char => 
+            `<span style="display: inline-block; white-space: nowrap;">${char === ' ' ? '&nbsp;' : char}</span>`
+        ).join('');
+        
+        // Get the actual span elements
+        footerSplit0 = { chars: footerText0.querySelectorAll('span') };
+        footerSplit1 = { chars: footerText1.querySelectorAll('span') };
+        
+        console.log(`Footer split result: ${footerSplit0.chars.length} + ${footerSplit1.chars.length} characters`);
+    } else {
+        console.error('setupFooterSplitText failed:', { footerText0, footerText1, gsap: typeof gsap });
+    }
+}
+
+function animateFooterTextIn(phaseIndex, color, timeline, position) {
+    const footerText0 = document.getElementById('footer-text-0');
+    const footerText1 = document.getElementById('footer-text-1');
+    
+    if (footerText0 && footerText1) {
+        const [text0, text1] = footerTexts[phaseIndex];
+        console.log(`Footer text IN: phase ${phaseIndex}, color ${color}, text: "${text0} ${text1}"`);
+        
+        // Change text content and rebuild split at start of phase
+        timeline.call(() => {
+            footerText0.textContent = text0;
+            footerText1.textContent = text1;
+            footerText0.style.color = color;
+            footerText1.style.color = color;
+            
+            // Rebuild split text
+            setupFooterSplitText();
+            
+            // Set initial position for new characters (coming from bottom)
+            if (footerSplit0 && footerSplit0.chars && footerSplit1 && footerSplit1.chars) {
+                console.log(`Setting initial position for ${footerSplit0.chars.length + footerSplit1.chars.length} footer characters`);
+                gsap.set([...footerSplit0.chars, ...footerSplit1.chars], {
+                    y: 200
+                });
+                
+                // Animate in immediately after setting position
+                gsap.to([...footerSplit0.chars, ...footerSplit1.chars], {
+                    duration: 0.6,
+                    y: 0,
+                    ease: "back.out(1.2)",
+                    stagger: 0.04
+                });
+            } else {
+                console.error('Footer split characters not found!', { footerSplit0, footerSplit1 });
+            }
+        }, null, position + 0.05);
+    }
+}
+
+function animateFooterTextOut(timeline, position) {
+    console.log(`Footer text OUT at position: ${position}`);
+    
+    // Animate out current characters to top
+    timeline.call(() => {
+        if (footerSplit0 && footerSplit0.chars && footerSplit1 && footerSplit1.chars) {
+            console.log(`Animating out ${footerSplit0.chars.length + footerSplit1.chars.length} footer characters`);
+            gsap.to([...footerSplit0.chars, ...footerSplit1.chars], {
+                duration: 0.25,
+                y: -200,
+                ease: "power2.in",
+                stagger: 0.015
+            });
+        } else {
+            console.error('Footer split characters not found for OUT animation!', { footerSplit0, footerSplit1 });
+        }
+    }, null, position);
+}
+
+function createFooterTextTimeline() {
+    const footerTextTimeline = gsap.timeline({
+        repeat: -1,
+        repeatDelay: 0.2,
+        delay: 1
+    });
+
+    let position = 0;
+    const phaseDuration = 4.2; // Same as hero animation
+
+    for (let i = 0; i < 4; i++) {
+        const color = colors[i];
+        const textPhaseStartTime = position + 0.3;
+        
+        // Add text IN animation at beginning of phase
+        animateFooterTextIn(i, color, footerTextTimeline, textPhaseStartTime);
+        
+        // Add text OUT animation at end of phase
+        animateFooterTextOut(footerTextTimeline, textPhaseStartTime + phaseDuration - 0.5);
+        
+        position += phaseDuration;
+    }
+
+    return footerTextTimeline;
+}
+
+function animateFooterText() {
+    // Initialize footer text to first phase (index 0 - blauw)  
+    const footerText0 = document.getElementById('footer-text-0');
+    const footerText1 = document.getElementById('footer-text-1');
+    if (footerText0 && footerText1) {
+        footerText0.textContent = footerTexts[0][0]; // "VERRAST"
+        footerText1.textContent = footerTexts[0][1]; // "WORDEN?"
+        footerText0.style.color = colors[0]; // Blue
+        footerText1.style.color = colors[0]; // Blue
+        
+        // Setup split text for initial state
+        setupFooterSplitText();
+    }
+    
+    // Start the cycling animation
+    createFooterTextTimeline();
 }
 
 // ==========================================
@@ -485,7 +629,7 @@ function initializeScrollAnimations() {
     });
 
     // GSAP Scroll animatie voor footer
-    const footerPadding = window.innerWidth <= 768 ? 30 : 100; // 15px per kant op mobile, 50px op desktop
+    const footerPadding = window.innerWidth <= 768 ? 84 : 100; // var(--space-xl) * 2 op mobile (~42px per kant), 50px op desktop
     gsap.to(".footer-white-content", {
         width: `calc(100% - ${footerPadding}px)`,
         height: `calc(100% - ${footerPadding}px)`,
@@ -751,6 +895,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         startAnimations();
         initializeScrollAnimations();
+        animateFooterText();
     }, 100);
 });
 

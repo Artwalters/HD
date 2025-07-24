@@ -931,7 +931,6 @@ body {
    ========================================== */
 .footer-section {
     height: 100vh;
-    background: #0a0a0a;
     position: relative;
     z-index: 2;
     display: flex;
@@ -948,6 +947,52 @@ body {
     align-items: center;
     justify-content: center;
     transition: all 0.8s ease-out;
+}
+
+.footer-header {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 10;
+}
+
+.footer-brand {
+    font-family: var(--font-heading);
+    font-size: clamp(18px, 3vw, 32px);
+    font-weight: 400;
+    color: #22201F;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+.footer-hero-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+
+.footer-hero-title {
+    font-family: var(--font-heading);
+    font-size: clamp(72px, 12vw, 160px);
+    font-weight: 400;
+    line-height: 0.9;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    overflow: hidden;
+}
+
+.footer-title-line {
+    display: block;
+    margin-bottom: calc(var(--space-xs) * -2.5);
+    color: #6E90DB;
+    overflow: hidden;
 }
 
 /* ==========================================
