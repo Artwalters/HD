@@ -51,7 +51,7 @@ class Carousel3D {
             1,
             2000
         );
-        this.camera.position.set(0, 0, 500);
+        this.camera.position.set(0, 0, 800);
         
         // Renderer
         this.renderer = new THREE.WebGLRenderer({
