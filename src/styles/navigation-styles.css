@@ -133,8 +133,8 @@
 
 /* Navigation uses info-panel-title styling */
 .navigation-panel .info-panel-title {
-    font-family: var(--font-heading);
-    font-weight: var(--font-weight-semibold);
+    font-family: "astronef-std-super-narrow", "astronef-std-super-cond", "astronef-std-super-comp", system-ui, sans-serif;
+    font-weight: 400;
     font-style: normal;
     font-size: var(--text-h3);
     text-transform: uppercase;
@@ -209,8 +209,8 @@
 }
 
 .navigation-panel .info-panel-section h3 {
-    font-family: var(--font-body);
-    font-weight: 600;
+    font-family: "astronef-std-super-narrow", "astronef-std-super-cond", "astronef-std-super-comp", system-ui, sans-serif;
+    font-weight: 400;
     font-size: 1.1em;
     margin: 0 0 12px 0;
     color: #222;
@@ -218,6 +218,7 @@
     padding: 8px 12px;
     border-radius: 6px;
     margin-bottom: 16px;
+    text-transform: uppercase;
 }
 
 /* Navigation controls styling */
@@ -389,10 +390,11 @@
 
 .instructions-header h3 {
     margin: 0;
-    font-family: \"Inter\", sans-serif;
-    font-weight: 600;
+    font-family: "astronef-std-super-narrow", "astronef-std-super-cond", "astronef-std-super-comp", system-ui, sans-serif;
+    font-weight: 400;
     font-size: 1.1em;
     color: white;
+    text-transform: uppercase;
 }
 
 .toggle-instructions {
