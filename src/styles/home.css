@@ -467,6 +467,19 @@ body {
 }
 
 /* ==========================================
+   EMPTY SECTION  
+   ========================================== */
+.empty-section {
+    padding: 120px 0;
+    background: #111111;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    margin-top: -85px;
+    position: relative;
+    z-index: 2;
+}
+
+/* ==========================================
    STACKED CARD SECTION
    ========================================== */
 .stacked-card-section {
