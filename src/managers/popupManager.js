@@ -737,7 +737,7 @@ class PopupManager {
         const suggestionCards = infoPanel.querySelectorAll('.suggestion-card');
         console.log(`🎯 DEBUG: Found ${suggestionCards.length} suggestion cards for event listeners`);
         suggestionCards.forEach((card, index) => {
-            const suggestionId = parseInt(card.dataset.id);
+            const suggestionId = card.dataset.id; // Keep as string, don't parse to int
             console.log(`🎯 DEBUG: Setting up click listener for card ${index + 1}, ID: ${suggestionId}`);
             card.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -1165,8 +1165,8 @@ class PopupManager {
             console.log(`🎯 DEBUG: handleSuggestionClick called with:`, idOrProperties);
             let targetFeature = null;
             
-            // If we received an ID, find the feature
-            if (typeof idOrProperties === 'number') {
+            // If we received an ID (string or number), find the feature
+            if (typeof idOrProperties === 'number' || typeof idOrProperties === 'string') {
                 console.log(`🎯 DEBUG: Looking for feature with ID: ${idOrProperties}`);
                 const allData = await this.dataLoader.loadAllData();
                 targetFeature = allData.features.find(f => f.properties.id === idOrProperties);
