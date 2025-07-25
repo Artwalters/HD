@@ -28,11 +28,11 @@ class Carousel3D {
         // Touch/Mouse interaction
         this.lastPointerX = 0;
         this.velocity = 0;
-        this.damping = 0.95;
+        this.damping = window.innerWidth <= 768 ? 0.92 : 0.95; // Faster damping on mobile for quicker snap
         
-        // Snapping
-        this.snapThreshold = 0.01; // When to start snapping
-        this.snapStrength = 0.1; // How strong the snap is
+        // Snapping - veel sterker op mobile
+        this.snapThreshold = window.innerWidth <= 768 ? 0.05 : 0.01; // When to start snapping
+        this.snapStrength = window.innerWidth <= 768 ? 0.25 : 0.1; // How strong the snap is
         
         // Camera zoom states (initialized after responsive settings)
         this.updateZoomStates();
@@ -589,8 +589,10 @@ class Carousel3D {
         
         this.container.style.cursor = 'grabbing';
         
-        // Altijd zoom uit bij start
-        this.zoomOut();
+        // Alleen zoom uit op desktop
+        if (window.innerWidth > 768) {
+            this.zoomOut();
+        }
     }
     
     zoomOut() {
@@ -625,7 +627,7 @@ class Carousel3D {
             if (totalDeltaY > totalDeltaX && totalDeltaY > 10) {
                 this.isInteracting = false;
                 this.container.style.cursor = 'grab';
-                this.zoomIn();
+                // Geen zoom op mobile
                 return;
             }
             
@@ -657,8 +659,10 @@ class Carousel3D {
         this.isInteracting = false;
         this.container.style.cursor = 'grab';
         
-        // Altijd zoom in bij loslaten
-        this.zoomIn();
+        // Alleen zoom in op desktop
+        if (window.innerWidth > 768) {
+            this.zoomIn();
+        }
     }
     
     zoomIn() {
