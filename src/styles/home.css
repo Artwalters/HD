@@ -860,12 +860,20 @@ body {
     margin-bottom: 0;
     letter-spacing: 2px;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    line-height: 0.9;
+}
+
+.locals-title .title-line {
     display: block;
+    width: 100%;
 }
 
 .locals-right {
     flex-shrink: 0;
     width: 700px;
+    max-width: 100%;
 }
 
 .locals-intro {
@@ -932,20 +940,84 @@ body {
     }
     
     .locals-title {
-        font-size: clamp(48px, 12vw, 80px);
+        font-size: clamp(48px, 12vw, 68px);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        line-height: 0.85;
+    }
+    
+    .locals-title .title-line {
+        display: block;
+        width: 100%;
+    }
+    
+    .locals-right {
+        width: 100%;
     }
     
     .locals-intro {
-        font-size: 16px;
+        font-size: clamp(14px, 4vw, 16px);
         margin-bottom: 30px;
+        line-height: 1.5;
     }
     
     .locals-activity {
-        font-size: 18px;
+        font-size: clamp(16px, 4.5vw, 18px);
+        line-height: 1.4;
+    }
+    
+    .locals-category {
+        font-size: clamp(12px, 3vw, 14px);
+        line-height: 1.3;
     }
     
     .locals-item {
         padding: 16px 0;
+    }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+    .locals-section {
+        padding: 60px 0;
+    }
+    
+    .locals-title {
+        font-size: clamp(36px, 10vw, 48px);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        line-height: 0.8;
+    }
+    
+    .locals-title .title-line {
+        display: block;
+        width: 100%;
+    }
+    
+    .locals-intro {
+        font-size: clamp(12px, 3.5vw, 14px);
+        margin-bottom: 25px;
+        line-height: 1.6;
+    }
+    
+    .locals-activity {
+        font-size: clamp(14px, 4vw, 16px);
+        line-height: 1.5;
+    }
+    
+    .locals-category {
+        font-size: clamp(10px, 2.5vw, 12px);
+        line-height: 1.4;
+    }
+    
+    .locals-item {
+        padding: 12px 0;
+    }
+    
+    .locals-content {
+        gap: 30px;
     }
 }
 
@@ -1469,15 +1541,22 @@ body {
     }
     
     .locals-content {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        display: flex;
         align-items: flex-start;
+        justify-content: space-between;
         gap: calc(var(--space-xl) * 0.5);
+        max-width: 1550px;
+        margin: 0 auto;
+    }
+    
+    .locals-left {
+        flex-shrink: 0;
+        width: auto;
     }
     
     .locals-right {
         width: 801px;
-        justify-self: end;
+        flex-shrink: 0;
     }
     
     .grid-animation-wrap {

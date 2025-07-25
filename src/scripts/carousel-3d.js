@@ -56,16 +56,16 @@ class Carousel3D {
             this.radius = 180;
             this.cardWidth = 80;
             this.cardHeight = 100;
-            this.cameraDistance = 35;
-            this.fov = 50;
+            this.cameraDistance = 25; // Meer ingezoomd op mobile portrait
+            this.fov = 45;
         }
         // Mobile Landscape & Small Tablets
         else if (screenWidth <= 767) {
             this.radius = 220;
             this.cardWidth = 100;
             this.cardHeight = 125;
-            this.cameraDistance = 40;
-            this.fov = 48;
+            this.cameraDistance = 30; // Meer ingezoomd op mobile landscape
+            this.fov = 42;
         }
         // Tablet Portrait
         else if (screenWidth <= 991) {
