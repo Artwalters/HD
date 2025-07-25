@@ -330,13 +330,15 @@ body {
 
 .over-section .section-title {
     font-family: var(--font-heading);
-    font-size: 48px;
+    font-size: 68px;
     font-weight: 400;
     color: #ffffff;
     text-transform: uppercase;
     text-align: left;
     margin-bottom: 40px;
     letter-spacing: 2px;
+    overflow: hidden;
+    display: block;
 }
 
 .over-section .container {
@@ -419,8 +421,7 @@ body {
     /* Section divider lines - 50% opacity and content width */
     .hero-section::after,
     .over-section::after,
-    .dagje-uit-section::after,
-    .leuk-om-te-doen-section::after {
+    .dagje-uit-section::after {
         opacity: 0.5;
         max-width: calc(100% - 30px); /* Account for container padding */
         left: 15px;
@@ -431,7 +432,7 @@ body {
 .dagje-uit-section .section-title,
 .leuk-om-te-doen-section .section-title {
     font-family: var(--font-heading);
-    font-size: 48px;
+    font-size: 68px;
     font-weight: 400;
     color: #ffffff;
     text-transform: uppercase;
@@ -440,6 +441,8 @@ body {
     letter-spacing: 2px;
     flex-shrink: 0;
     width: auto;
+    overflow: hidden;
+    display: block;
 }
 
 .cards-grid {
@@ -460,6 +463,26 @@ body {
     border-radius: 12px;
     aspect-ratio: 4 / 5;
     transition: opacity 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    --overlay-color: transparent;
+    --overlay-opacity: 0;
+}
+
+.empty-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background-color: var(--overlay-color, transparent);
+    opacity: var(--overlay-opacity, 0);
+    transform: scale(1);
+    transition: none;
+    pointer-events: none;
+    z-index: 10;
 }
 
 .empty-card:hover {
@@ -476,6 +499,26 @@ body {
     justify-content: flex-end;
     transition: all 0.3s ease;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    --overlay-color: transparent;
+    --overlay-opacity: 0;
+}
+
+.plek-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    background-color: var(--overlay-color, transparent);
+    opacity: var(--overlay-opacity, 0);
+    transform: scale(1);
+    transition: none;
+    pointer-events: none;
+    z-index: 10;
 }
 
 .plek-card:hover {
@@ -510,18 +553,7 @@ body {
     position: relative;
 }
 
-.leuk-om-te-doen-section::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: #666666;
-    max-width: 1550px;
-    margin: 0 auto;
-    border-radius: 1px;
-}
+/* Divider removed */
 
 /* ==========================================
    3D CAROUSEL SECTION
@@ -629,18 +661,7 @@ body {
     50% { opacity: 1; transform: scale(1.05); }
 }
 
-.carousel-3d-section::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: #666666;
-    max-width: 1550px;
-    margin: 0 auto;
-    border-radius: 1px;
-}
+/* Divider removed */
 
 /* ==========================================
    3D CAROUSEL RESPONSIVE DESIGN
@@ -831,13 +852,15 @@ body {
 
 .locals-title {
     font-family: var(--font-heading);
-    font-size: 48px;
+    font-size: 68px;
     font-weight: 400;
     color: #ffffff;
     text-transform: uppercase;
     text-align: left;
     margin-bottom: 0;
     letter-spacing: 2px;
+    overflow: hidden;
+    display: block;
 }
 
 .locals-right {

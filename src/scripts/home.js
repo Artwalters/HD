@@ -600,21 +600,128 @@ function animateFooterGrid() {
 // SCROLL ANIMATIONS
 // ==========================================
 
+function setupSectionTitleSplitText(titleElement) {
+    if (titleElement && typeof gsap !== 'undefined') {
+        const text = titleElement.textContent;
+        
+        // Split text into individual characters
+        titleElement.innerHTML = text.split('').map(char => 
+            `<span style="display: inline-block; white-space: nowrap;">${char === ' ' ? '&nbsp;' : char}</span>`
+        ).join('');
+        
+        return titleElement.querySelectorAll('span');
+    }
+    return null;
+}
+
+function animateSectionTitle(titleElement) {
+    const chars = setupSectionTitleSplitText(titleElement);
+    
+    if (chars && chars.length > 0) {
+        // Set initial state
+        gsap.set(chars, {
+            y: 100,
+            opacity: 0
+        });
+        
+        // Create timeline for this title
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: titleElement,
+                start: 'top 85%',
+                toggleActions: 'play none none reverse'
+            }
+        });
+        
+        // Animate characters in with stagger
+        tl.to(chars, {
+            duration: 0.6,
+            y: 0,
+            opacity: 1,
+            ease: "power3.out",
+            stagger: 0.02
+        });
+    }
+}
+
+function animateCardsColorOverlay() {
+    // Animation colors from the grid animation
+    const animationColors = ['#6E90DB', '#D49C0C', '#EB625E', '#A2C617'];
+    
+    // Get ALL cards from all sections
+    const allCards = document.querySelectorAll('.plek-card, .empty-card');
+    
+    if (allCards.length === 0) {
+        console.log('No cards found for color overlay animation');
+        return;
+    }
+    
+    console.log(`Found ${allCards.length} cards for color overlay`);
+    
+    // Assign random colors to each card and set initial opacity
+    allCards.forEach(card => {
+        const randomColor = animationColors[Math.floor(Math.random() * animationColors.length)];
+        
+        // Set color and initial opacity (visible)
+        card.style.setProperty('--overlay-color', randomColor);
+        card.style.setProperty('--overlay-opacity', '0.85');
+        
+        // Debug log
+        console.log(`Card styled with color ${randomColor}`, card);
+    });
+    
+    // Group cards by their parent section - check all possible sections
+    const dagjeUitCards = document.querySelectorAll('.dagje-uit-section .plek-card, .dagje-uit-section .empty-card');
+    const leukOmTeDoenCards = document.querySelectorAll('.leuk-om-te-doen-section .plek-card, .leuk-om-te-doen-section .empty-card');
+    
+    // Function to create scroll trigger for a group of cards
+    function createCardScrollTrigger(cards, triggerElement) {
+        if (cards.length === 0) return;
+        
+        // Convert NodeList to array and shuffle for random order
+        const cardsArray = [...cards];
+        const shuffledCards = cardsArray.sort(() => Math.random() - 0.5);
+        
+        // Create timeline with scroll trigger
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: triggerElement,
+                start: 'top 75%',
+                toggleActions: 'play none none reverse'
+            }
+        });
+        
+        // Stagger the disappearance of overlays
+        shuffledCards.forEach((card, index) => {
+            const delay = index * 0.15; // 150ms between each card
+            tl.set(card, {
+                '--overlay-opacity': '0'
+            }, delay);
+        });
+    }
+    
+    // Create scroll triggers for each card group
+    if (dagjeUitCards.length > 0) {
+        createCardScrollTrigger(dagjeUitCards, '.dagje-uit-section');
+    }
+    
+    if (leukOmTeDoenCards.length > 0) {
+        createCardScrollTrigger(leukOmTeDoenCards, '.leuk-om-te-doen-section');
+    }
+}
+
 function initializeScrollAnimations() {
     // Register ScrollTrigger
     gsap.registerPlugin(ScrollTrigger);
 
-    // Simple fade-in for section titles only
-    gsap.from('.section-title', {
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        scrollTrigger: {
-            trigger: '.section-title',
-            start: 'top 90%',
-            toggleActions: 'play none none reverse'
-        }
+    // Animate all section titles with stagger effect
+    const sectionTitles = document.querySelectorAll('.section-title, .locals-title');
+    sectionTitles.forEach(title => {
+        animateSectionTitle(title);
     });
+
+    // Animate cards with color overlay effect
+    animateCardsColorOverlay();
 
     // GSAP Scroll animatie voor footer
     const footerPadding = window.innerWidth <= 768 ? 84 : 100; // var(--space-xl) * 2 op mobile (~42px per kant), 50px op desktop
