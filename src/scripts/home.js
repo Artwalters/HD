@@ -97,8 +97,6 @@ function setupHeroSplitText() {
         const text0 = heroText0.textContent;
         const text1 = heroText1.textContent;
         
-        console.log(`Splitting text: "${text0}" and "${text1}"`);
-        
         heroText0.innerHTML = text0.split('').map(char => 
             `<span style="display: inline-block; white-space: nowrap;">${char === ' ' ? '&nbsp;' : char}</span>`
         ).join('');
@@ -110,8 +108,6 @@ function setupHeroSplitText() {
         // Get the actual span elements
         heroSplit0 = { chars: heroText0.querySelectorAll('span') };
         heroSplit1 = { chars: heroText1.querySelectorAll('span') };
-        
-        console.log(`Split result: ${heroSplit0.chars.length} + ${heroSplit1.chars.length} characters`);
     } else {
         console.error('setupHeroSplitText failed:', { heroText0, heroText1, gsap: typeof gsap });
     }
@@ -123,7 +119,6 @@ function animateHeroTextIn(phaseIndex, color, timeline, position) {
     
     if (heroText0 && heroText1) {
         const [text0, text1] = heroTexts[phaseIndex];
-        console.log(`Hero text IN: phase ${phaseIndex}, color ${color}, text: "${text0} ${text1}"`);
         
         // Change text content and rebuild split at start of phase
         timeline.call(() => {
@@ -137,7 +132,6 @@ function animateHeroTextIn(phaseIndex, color, timeline, position) {
             
             // Set initial position for new characters (coming from bottom)
             if (heroSplit0 && heroSplit0.chars && heroSplit1 && heroSplit1.chars) {
-                console.log(`Setting initial position for ${heroSplit0.chars.length + heroSplit1.chars.length} characters`);
                 gsap.set([...heroSplit0.chars, ...heroSplit1.chars], {
                     y: 100,
                     opacity: 0
@@ -159,12 +153,9 @@ function animateHeroTextIn(phaseIndex, color, timeline, position) {
 }
 
 function animateHeroTextOut(timeline, position) {
-    console.log(`Hero text OUT at position: ${position}`);
-    
     // Animate out current characters to top
     timeline.call(() => {
         if (heroSplit0 && heroSplit0.chars && heroSplit1 && heroSplit1.chars) {
-            console.log(`Animating out ${heroSplit0.chars.length + heroSplit1.chars.length} characters`);
             gsap.to([...heroSplit0.chars, ...heroSplit1.chars], {
                 duration: 0.3,
                 y: -50,
@@ -191,8 +182,6 @@ function setupFooterSplitText() {
         const text0 = footerText0.textContent;
         const text1 = footerText1.textContent;
         
-        console.log(`Splitting footer text: "${text0}" and "${text1}"`);
-        
         footerText0.innerHTML = text0.split('').map(char => 
             `<span style="display: inline-block; white-space: nowrap;">${char === ' ' ? '&nbsp;' : char}</span>`
         ).join('');
@@ -204,8 +193,6 @@ function setupFooterSplitText() {
         // Get the actual span elements
         footerSplit0 = { chars: footerText0.querySelectorAll('span') };
         footerSplit1 = { chars: footerText1.querySelectorAll('span') };
-        
-        console.log(`Footer split result: ${footerSplit0.chars.length} + ${footerSplit1.chars.length} characters`);
     } else {
         console.error('setupFooterSplitText failed:', { footerText0, footerText1, gsap: typeof gsap });
     }
@@ -217,7 +204,6 @@ function animateFooterTextIn(phaseIndex, color, timeline, position) {
     
     if (footerText0 && footerText1) {
         const [text0, text1] = footerTexts[phaseIndex];
-        console.log(`Footer text IN: phase ${phaseIndex}, color ${color}, text: "${text0} ${text1}"`);
         
         // Change text content and rebuild split at start of phase
         timeline.call(() => {
@@ -231,7 +217,6 @@ function animateFooterTextIn(phaseIndex, color, timeline, position) {
             
             // Set initial position for new characters (coming from bottom)
             if (footerSplit0 && footerSplit0.chars && footerSplit1 && footerSplit1.chars) {
-                console.log(`Setting initial position for ${footerSplit0.chars.length + footerSplit1.chars.length} footer characters`);
                 gsap.set([...footerSplit0.chars, ...footerSplit1.chars], {
                     y: 100,
                     opacity: 0
@@ -253,12 +238,9 @@ function animateFooterTextIn(phaseIndex, color, timeline, position) {
 }
 
 function animateFooterTextOut(timeline, position) {
-    console.log(`Footer text OUT at position: ${position}`);
-    
     // Animate out current characters to top
     timeline.call(() => {
         if (footerSplit0 && footerSplit0.chars && footerSplit1 && footerSplit1.chars) {
-            console.log(`Animating out ${footerSplit0.chars.length + footerSplit1.chars.length} footer characters`);
             gsap.to([...footerSplit0.chars, ...footerSplit1.chars], {
                 duration: 0.3,
                 y: -50,
@@ -381,11 +363,11 @@ function initializeImageGrids() {
         container.innerHTML = '';
         
         for (let y = 0; y < 6; y++) {
-            for (let x = 0; x < 8; x++) {
+            for (let x = 0; x < 9; x++) {
                 const cell = document.createElement('div');
                 cell.classList.add('image-cell');
                 
-                const xPos = (x / 7) * 100;
+                const xPos = (x / 8) * 100;
                 const yPos = (y / 5) * 100;
                 cell.style.backgroundPosition = `${xPos}% ${yPos}%`;
                 
@@ -403,7 +385,7 @@ function initializeOverlayGrid() {
     overlayCells = [];
 
     for (let y = 0; y < 6; y++) {
-        for (let x = 0; x < 8; x++) {
+        for (let x = 0; x < 9; x++) {
             const cell = document.createElement('div');
             cell.classList.add('overlay-cell');
             overlayContainer.appendChild(cell);
@@ -424,11 +406,11 @@ function initializeFooterGrids() {
         container.innerHTML = '';
         
         for (let y = 0; y < 4; y++) {
-            for (let x = 0; x < 8; x++) {
+            for (let x = 0; x < 9; x++) {
                 const cell = document.createElement('div');
                 cell.classList.add('image-cell');
                 
-                const xPos = (x / 7) * 100;
+                const xPos = (x / 8) * 100;
                 const yPos = (y / 3) * 100;
                 cell.style.backgroundPosition = `${xPos}% ${yPos}%`;
                 
@@ -446,7 +428,7 @@ function initializeFooterOverlayGrid() {
     footerOverlayCells = [];
 
     for (let y = 0; y < 4; y++) {
-        for (let x = 0; x < 8; x++) {
+        for (let x = 0; x < 9; x++) {
             const cell = document.createElement('div');
             cell.classList.add('overlay-cell');
             footerOverlayContainer.appendChild(cell);
@@ -478,7 +460,7 @@ function animateGridPhase(phaseIndex, timeline, position) {
         force3D: true
     }, gridPhaseStartTime);
 
-    const sortedCells = sortCellsFromOutsideToInside([...overlayCells], 8, 6);
+    const sortedCells = sortCellsFromOutsideToInside([...overlayCells], 9, 6);
 
     // Phase 1: First 20% of cells
     const firstPhaseCells = sortedCells.slice(0, firstPhaseCount);
@@ -584,7 +566,7 @@ function animateFooterGrid() {
         backgroundColor: color
     });
 
-    const sortedCells = sortCellsFromOutsideToInside([...footerOverlayCells], 8, 4);
+    const sortedCells = sortCellsFromOutsideToInside([...footerOverlayCells], 9, 4);
 
     // Animate cells appearing
     footerTimeline.to(sortedCells, {
@@ -875,7 +857,6 @@ function stopAnimations() {
 
 function initializeDragScroll() {
     // Remove drag functionality - use default scroll
-    console.log('Using default scroll for events carousel');
 }
 
 // ==========================================

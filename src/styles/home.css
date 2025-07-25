@@ -82,7 +82,7 @@ body {
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(9, 1fr);
     grid-template-rows: repeat(6, 1fr);
     gap: 2px;
     z-index: 1;
@@ -96,7 +96,7 @@ body {
 }
 
 .image-cell {
-    background-size: 800% 600%;
+    background-size: 900% 600%;
     background-repeat: no-repeat;
     border-radius: 8px;
     border: 1px solid #22201F;
@@ -127,7 +127,7 @@ body {
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(9, 1fr);
     grid-template-rows: repeat(6, 1fr);
     gap: 2px;
     z-index: 2;
@@ -1115,7 +1115,7 @@ body {
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(9, 1fr);
     grid-template-rows: repeat(4, 1fr);
     gap: 1px;
     z-index: 1;
@@ -1142,7 +1142,7 @@ body {
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(9, 1fr);
     grid-template-rows: repeat(4, 1fr);
     gap: 1px;
     z-index: 2;
@@ -1406,11 +1406,14 @@ body {
 
 /* Desktop Large (1400px+) */
 @media (min-width: 1400px) {
+    .cards-grid {
+        width: 801px;
+    }
     .hero-content {
         display: grid;
         grid-template-columns: 1fr 1fr;
         align-items: center;
-        padding: 80px 64px 40px;
+        padding: 80px 0 40px;
         gap: calc(var(--space-xl) * 0.5);
         max-width: 1550px;
     }
@@ -1419,12 +1422,44 @@ body {
         display: grid;
         grid-template-columns: 1fr 1fr;
         align-items: flex-start;
-        gap: 40px;
+        gap: calc(var(--space-xl) * 0.5);
+        max-width: 1550px;
+        margin: 0 auto;
+        padding: 0;
+    }
+    
+    .dagje-uit-section .container,
+    .leuk-om-te-doen-section .container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: flex-start;
+        gap: calc(var(--space-xl) * 0.5);
+        max-width: 1550px;
+        margin: 0 auto;
+        padding: 0;
+    }
+    
+    .locals-section .container {
+        max-width: 1550px;
+        margin: 0 auto;
+        padding: 0;
+    }
+    
+    .locals-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: flex-start;
+        gap: calc(var(--space-xl) * 0.5);
+    }
+    
+    .locals-right {
+        width: 801px;
+        justify-self: end;
     }
     
     .grid-animation-wrap {
         width: 100%;
-        max-width: 730px;
+        max-width: 801px;
         height: 680px;
         justify-self: end;
     }
