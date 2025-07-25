@@ -40,7 +40,10 @@ class Carousel3D {
         
         // Zoom is nu altijd simpel - geen drag tracking nodig
         
-        this.init();
+        // Events data
+        this.eventsData = [];
+        
+        this.loadEvents();
     }
     
     getResponsiveSettings() {
@@ -112,13 +115,58 @@ class Carousel3D {
         this.zoomedOutDistance = this.cameraDistance * 2.5; // 150% verder weg tijdens drag - nog dramatischer
     }
     
+    async loadEvents() {
+        try {
+            const response = await fetch('./src/data/events.json');
+            const data = await response.json();
+            this.eventsData = data.events;
+            
+            // Wait for fonts to load before initializing
+            await this.waitForFonts();
+            this.init();
+        } catch (error) {
+            console.error('❌ Error loading events:', error);
+            this.eventsData = this.createFallbackEvents();
+            
+            // Wait for fonts to load before initializing
+            await this.waitForFonts();
+            this.init();
+        }
+    }
+    
+    async waitForFonts() {
+        try {
+            // Load the correct astronef fonts used in hero (narrow version)
+            await document.fonts.load('400 36px astronef-std-super-narrow');
+            await document.fonts.load('400 48px astronef-std-super-narrow');
+            this.astronefAvailable = true;
+        } catch (error) {
+            this.astronefAvailable = false;
+        }
+        
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    
+    createFallbackEvents() {
+        const months = ['JAN', 'FEB', 'MAR', 'APR', 'MEI', 'JUN', 'JUL', 'AUG', 'SEP', 'OKT', 'NOV', 'DEC'];
+        const colors = ['#4B83F2', '#27AE60', '#9932CC', '#FF6B6B', '#4ECDC4', '#FFE66D', '#E74C3C', '#3498DB', '#F39C12', '#8E44AD', '#16A085', '#E67E22'];
+        
+        return months.map((month, i) => ({
+            id: i + 1,
+            month: month,
+            title: `${month} Event`,
+            description: `Een geweldig evenement in ${month}`,
+            date: `${i + 1} ${month.toLowerCase()}`,
+            color: colors[i]
+        }));
+    }
+    
     init() {
         this.setupThreeJS();
         this.createCards();
         this.setupEventListeners();
         this.animate();
         
-        console.log('🎠 3D Carousel initialized');
     }
     
     createMapCardGeometry(width, height, cornerRadius) {
@@ -160,7 +208,145 @@ class Carousel3D {
         shape.quadraticCurveTo(hw, hh, hw - cr, hh);
         shape.lineTo(-hw + cr, hh);
         
-        return new THREE.ShapeGeometry(shape);
+        // Use ShapeGeometry and manually set UV coordinates
+        const geometry = new THREE.ShapeGeometry(shape);
+        
+        // Generate proper UV coordinates for texture mapping
+        const positions = geometry.attributes.position;
+        const uvs = [];
+        
+        for (let i = 0; i < positions.count; i++) {
+            const x = positions.getX(i);
+            const y = positions.getY(i);
+            
+            // Map coordinates to UV space (0-1)
+            const u = (x + width/2) / width;
+            const v = (y + height/2) / height;
+            
+            uvs.push(u, v);
+        }
+        
+        geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+        
+        return geometry;
+    }
+    
+    createCardTexture(eventData) {
+        
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        
+        // Set canvas size - higher resolution for sharp text
+        canvas.width = 512;
+        canvas.height = 614; // 5:6 aspect ratio (512 * 1.2)
+        
+        // Use event color from JSON
+        const bgColor = eventData.color || '#6E90DB';
+        
+        // Fill background with solid color matching site background
+        context.fillStyle = bgColor;
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Remove pattern overlay to eliminate lines
+        
+        // Draw month label at top - bright white
+        context.fillStyle = '#ffffff';
+        const monthFont = this.astronefAvailable ? '400 42px astronef-std-super-narrow, Arial, sans-serif' : 'bold 42px Arial, sans-serif';
+        context.font = monthFont;
+        context.textAlign = 'center';
+        context.textBaseline = 'top';
+        context.fillText(eventData.month, canvas.width / 2, 25);
+        
+        // Draw title - bright white
+        context.fillStyle = '#ffffff';
+        const titleFont = this.astronefAvailable ? '400 52px astronef-std-super-narrow, Arial, sans-serif' : 'bold 52px Arial, sans-serif';
+        context.font = titleFont;
+        context.textAlign = 'center';
+        context.textBaseline = 'top';
+        
+        // No text shadow for flat appearance
+        context.shadowColor = 'transparent';
+        context.shadowBlur = 0;
+        context.shadowOffsetX = 0;
+        context.shadowOffsetY = 0;
+        
+        // Convert title to uppercase and limit width
+        const titleText = eventData.title.toUpperCase();
+        const titleLines = this.wrapText(context, titleText, canvas.width - 80); // Smaller max width for better readability
+        let yPosition = 120;
+        
+        titleLines.forEach(line => {
+            context.fillText(line, canvas.width / 2, yPosition);
+            yPosition += 45;
+        });
+        
+        // Reset shadow for description
+        context.shadowColor = 'transparent';
+        context.shadowBlur = 0;
+        context.shadowOffsetX = 0;
+        context.shadowOffsetY = 0;
+        
+        // Draw description - bright white
+        context.fillStyle = '#ffffff';
+        context.font = '24px Arial, sans-serif';
+        
+        const descLines = this.wrapText(context, eventData.description, canvas.width - 60);
+        yPosition += 30;
+        
+        descLines.forEach(line => {
+            context.fillText(line, canvas.width / 2, yPosition);
+            yPosition += 32;
+        });
+        
+        // Add date at bottom if exists - bright white
+        if (eventData.date) {
+            context.fillStyle = '#ffffff';
+            context.font = 'bold 22px Arial, sans-serif';
+            context.fillText(eventData.date, canvas.width / 2, canvas.height - 50);
+        }
+        
+        // Create texture from canvas
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.needsUpdate = true;
+        texture.flipY = true; // Flip Y to fix mirroring
+        texture.wrapS = THREE.ClampToEdgeWrapping;
+        texture.wrapT = THREE.ClampToEdgeWrapping;
+        
+        
+        return texture;
+    }
+    
+    wrapText(context, text, maxWidth) {
+        const words = text.split(' ');
+        const lines = [];
+        let currentLine = '';
+        
+        words.forEach(word => {
+            const testLine = currentLine + (currentLine ? ' ' : '') + word;
+            const metrics = context.measureText(testLine);
+            
+            if (metrics.width > maxWidth && currentLine) {
+                lines.push(currentLine);
+                currentLine = word;
+            } else {
+                currentLine = testLine;
+            }
+        });
+        
+        if (currentLine) {
+            lines.push(currentLine);
+        }
+        
+        return lines;
+    }
+    
+    adjustColor(color, amount) {
+        // Adjust color brightness
+        const num = parseInt(color.replace('#', ''), 16);
+        const r = Math.max(0, Math.min(255, (num >> 16) + amount));
+        const g = Math.max(0, Math.min(255, ((num >> 8) & 0x00FF) + amount));
+        const b = Math.max(0, Math.min(255, (num & 0x0000FF) + amount));
+        return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, '0')}`;
     }
 
     setupThreeJS() {
@@ -186,20 +372,21 @@ class Carousel3D {
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         this.renderer.setClearColor(0xffffff, 0);
         
-        // Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-        this.scene.add(ambientLight);
+        // Disable shadows completely
+        this.renderer.shadowMap.enabled = false;
         
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-        directionalLight.position.set(200, 200, 200);
-        directionalLight.castShadow = true;
-        this.scene.add(directionalLight);
+        // Disable tone mapping for accurate colors
+        this.renderer.toneMapping = THREE.NoToneMapping;
+        this.renderer.outputColorSpace = THREE.SRGBColorSpace;
+        
+        // No lighting needed for MeshBasicMaterial
     }
     
     createCards() {
-        // Card geometry with responsive sizing and 5/6 aspect ratio
+        // Card geometry with responsive sizing and custom shape
         const borderRadius = Math.max(8, this.cardWidth * 0.1); // Responsive border radius
         this.cardGeometry = this.createMapCardGeometry(this.cardWidth, this.cardHeight, borderRadius);
+        
         
         // Month names for timeline
         const months = [
@@ -223,19 +410,46 @@ class Carousel3D {
             0xE67E22  // Donkeroranje
         ];
         
-        // Array to store month labels
-        this.monthLabels = [];
-        
         // Create circular timeline
         this.createTimelineCircle();
         
         for (let i = 0; i < this.cardCount; i++) {
-            // Material with border radius simulation
-            const material = new THREE.MeshLambertMaterial({
-                color: colors[i],
+            // Get event data for this card
+            const eventData = this.eventsData[i] || {
+                id: i + 1,
+                month: months[i],
+                title: `Event ${i + 1}`,
+                description: 'Een geweldig evenement in Heerlen.',
+                date: `${i + 1} ${months[i].toLowerCase()}`,
+                color: `#${colors[i].toString(16).padStart(6, '0')}`
+            };
+            
+            // Create texture with event content
+            const texture = this.createCardTexture(eventData);
+            
+            // Custom unlit shader material like Mapbox uses
+            const material = new THREE.ShaderMaterial({
+                vertexShader: `
+                    varying vec2 vUv;
+                    void main() {
+                        vUv = uv;
+                        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                    }
+                `,
+                fragmentShader: `
+                    uniform sampler2D map;
+                    varying vec2 vUv;
+                    void main() {
+                        gl_FragColor = texture2D(map, vUv);
+                    }
+                `,
+                uniforms: {
+                    map: { value: texture }
+                },
                 transparent: true,
-                opacity: 0.9
+                side: THREE.DoubleSide
             });
+            
             this.cardMaterials.push(material);
             
             // Mesh
@@ -259,9 +473,6 @@ class Carousel3D {
             
             this.cards.push(card);
             this.scene.add(card);
-            
-            // Create month label for this card
-            this.createMonthLabel(i, months[i], angle);
         }
     }
     
@@ -335,64 +546,6 @@ class Carousel3D {
         }
     }
     
-    createMonthLabel(index, monthText, angle) {
-        // Create text geometry
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        canvas.width = 512;
-        canvas.height = 128;
-        
-        // Clear canvas
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        
-        // Set font properties - responsive font size
-        const fontSize = window.innerWidth <= 768 ? 48 : 64;
-        context.font = `${fontSize}px astronef, sans-serif`;
-        context.fillStyle = '#22201F';
-        context.textAlign = 'center';
-        context.textBaseline = 'middle';
-        
-        // Draw text
-        context.fillText(monthText, canvas.width / 2, canvas.height / 2);
-        
-        // Create texture from canvas
-        const texture = new THREE.CanvasTexture(canvas);
-        texture.needsUpdate = true;
-        
-        // Create material
-        const material = new THREE.MeshBasicMaterial({
-            map: texture,
-            transparent: true,
-            alphaTest: 0.1
-        });
-        
-        // Create geometry for text plane
-        const labelWidth = this.cardWidth * 0.8;
-        const labelHeight = labelWidth * 0.25;
-        const geometry = new THREE.PlaneGeometry(labelWidth, labelHeight);
-        
-        // Create mesh
-        const label = new THREE.Mesh(geometry, material);
-        
-        // Position below the card - above the timeline circle
-        const labelRadius = this.radius + this.cardHeight * 0.2;
-        label.position.x = Math.cos(angle) * labelRadius;
-        label.position.z = Math.sin(angle) * labelRadius;
-        label.position.y = -this.cardHeight * 0.35;
-        
-        // Face camera
-        label.lookAt(0, label.position.y, 0);
-        
-        // Store reference data
-        label.userData = {
-            index: index,
-            angle: angle,
-            originalRadius: labelRadius
-        };
-        
-        this.monthLabels.push(label);
-        this.scene.add(label);
-    }
     
     setupEventListeners() {
         // Mouse events
@@ -540,11 +693,6 @@ class Carousel3D {
         this.cards = [];
         this.cardMaterials = [];
         
-        // Remove existing month labels
-        this.monthLabels.forEach(label => {
-            this.scene.remove(label);
-        });
-        this.monthLabels = [];
         
         // Remove existing timeline elements
         if (this.timelineCircle) {
@@ -592,7 +740,6 @@ class Carousel3D {
         
         // Update card positions
         this.updateCards();
-        this.updateMonthLabels();
         
         this.renderer.render(this.scene, this.camera);
     }
@@ -623,32 +770,6 @@ class Carousel3D {
         });
     }
     
-    updateMonthLabels() {
-        this.monthLabels.forEach((label, index) => {
-            // Calculate position with rotation
-            const angle = label.userData.angle + this.currentRotation;
-            
-            // Position in circle - slightly outside the cards
-            const labelRadius = label.userData.originalRadius;
-            label.position.x = Math.cos(angle) * labelRadius;
-            label.position.z = Math.sin(angle) * labelRadius;
-            
-            // Keep Y position stable above timeline circle
-            label.position.y = -this.cardHeight * 0.35;
-            
-            // Always face camera for readability
-            label.lookAt(this.camera.position);
-            
-            // Scale and opacity based on distance from front (similar to cards)
-            const distanceFromFront = Math.abs(label.position.z);
-            const scale = Math.max(0.6, 1 - (distanceFromFront / this.radius) * 0.3);
-            label.scale.setScalar(scale);
-            
-            // Opacity based on position
-            const opacity = Math.max(0.4, 1 - (distanceFromFront / this.radius) * 0.5);
-            label.material.opacity = opacity;
-        });
-    }
 }
 
 // Initialize carousel when DOM is loaded

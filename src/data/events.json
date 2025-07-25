@@ -1,0 +1,100 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "month": "JAN",
+      "title": "Winterfestival Heerlen",
+      "description": "Een magisch winterevenement met live muziek, foodtrucks en winterse activiteiten in het centrum.",
+      "date": "15-17 januari",
+      "color": "#6E90DB"
+    },
+    {
+      "id": 2,
+      "month": "FEB",
+      "title": "Carnaval Parade",
+      "description": "De grootste carnavalsoptocht van Zuid-Limburg met praalwagens en muziekgroepen.",
+      "date": "20-22 februari",
+      "color": "#D49C0C"
+    },
+    {
+      "id": 3,
+      "month": "MAR",
+      "title": "Kunst & Cultuur Week",
+      "description": "Een week vol exposities, workshops en culturele activiteiten in heel Heerlen.",
+      "date": "10-17 maart",
+      "color": "#EB625E"
+    },
+    {
+      "id": 4,
+      "month": "APR",
+      "title": "Paasmarkt",
+      "description": "Gezellige paasmarkt met lokale producten, ambachten en paasactiviteiten voor kinderen.",
+      "date": "6-7 april",
+      "color": "#A2C617"
+    },
+    {
+      "id": 5,
+      "month": "MEI",
+      "title": "Food Festival",
+      "description": "Proef de wereld in Heerlen met internationale gerechten en lokale specialiteiten.",
+      "date": "18-20 mei",
+      "color": "#6E90DB"
+    },
+    {
+      "id": 6,
+      "month": "JUN",
+      "title": "Zomerconcerten",
+      "description": "Gratis openluchtconcerten elke vrijdagavond in het Pancratiusplein.",
+      "date": "Elke vrijdag in juni",
+      "color": "#D49C0C"
+    },
+    {
+      "id": 7,
+      "month": "JUL",
+      "title": "Heerlen Jazz",
+      "description": "Internationaal jazzfestival met topacts uit binnen- en buitenland.",
+      "date": "12-14 juli",
+      "color": "#EB625E"
+    },
+    {
+      "id": 8,
+      "month": "AUG",
+      "title": "Straattheater Festival",
+      "description": "Spectaculaire straattheateracts en performances door de hele binnenstad.",
+      "date": "23-25 augustus",
+      "color": "#A2C617"
+    },
+    {
+      "id": 9,
+      "month": "SEP",
+      "title": "Open Monumentendag",
+      "description": "Ontdek de rijke historie van Heerlen met speciale rondleidingen en activiteiten.",
+      "date": "14-15 september",
+      "color": "#6E90DB"
+    },
+    {
+      "id": 10,
+      "month": "OKT",
+      "title": "Herfstmarkt",
+      "description": "Sfeervolle herfstmarkt met seizoensproducten, ambachten en warme dranken.",
+      "date": "19-20 oktober",
+      "color": "#D49C0C"
+    },
+    {
+      "id": 11,
+      "month": "NOV",
+      "title": "Sinterklaas Intocht",
+      "description": "Feestelijke intocht van Sinterklaas met entertainment voor het hele gezin.",
+      "date": "16 november",
+      "color": "#EB625E"
+    },
+    {
+      "id": 12,
+      "month": "DEC",
+      "title": "Kerst in Heerlen",
+      "description": "Sfeervolle kerstmarkt met kraampjes, glühwein en live kerstmuziek.",
+      "date": "14-23 december",
+      "color": "#A2C617"
+    }
+  ]
+}
