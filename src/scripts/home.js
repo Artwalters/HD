@@ -719,8 +719,8 @@ function initializeScrollAnimations() {
     // Animate cards with color overlay effect
     animateCardsColorOverlay();
 
-    // GSAP Scroll animatie voor footer
-    const footerPadding = window.innerWidth <= 768 ? 84 : 100; // var(--space-xl) * 2 op mobile (~42px per kant), 50px op desktop
+    // GSAP Scroll animatie voor footer - aangepast aan nieuwe mobile padding
+    const footerPadding = window.innerWidth <= 768 ? 40 : 100; // 40px op mobile (20px per kant), 50px op desktop
     gsap.to(".footer-white-content", {
         width: `calc(100% - ${footerPadding}px)`,
         height: `calc(100% - ${footerPadding}px)`,

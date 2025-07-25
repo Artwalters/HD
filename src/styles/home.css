@@ -400,11 +400,22 @@ body {
 
 /* Mobile responsive layout */
 @media (max-width: 768px) {
+    .over-section,
+    .dagje-uit-section,
+    .leuk-om-te-doen-section,
+    .todo-section {
+        padding: 40px 0;
+    }
+    
+    .over-section .container {
+        gap: 0;
+    }
+    
     .dagje-uit-section .container,
     .leuk-om-te-doen-section .container {
         flex-direction: column;
         align-items: flex-start;
-        gap: 20px;
+        gap: 0;
     }
     
     .over-section .section-title,
@@ -430,7 +441,8 @@ body {
 }
 
 .dagje-uit-section .section-title,
-.leuk-om-te-doen-section .section-title {
+.leuk-om-te-doen-section .section-title,
+.locals-section .section-title {
     font-family: var(--font-heading);
     font-size: 68px;
     font-weight: 400;
@@ -850,31 +862,13 @@ body {
     width: auto;
 }
 
-.locals-title {
-    font-family: var(--font-heading);
-    font-size: 68px;
-    font-weight: 400;
-    color: #ffffff;
-    text-transform: uppercase;
-    text-align: left;
-    margin-bottom: 0;
-    letter-spacing: 2px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    line-height: 0.9;
-}
-
-.locals-title .title-line {
-    display: block;
-    width: 100%;
-}
 
 .locals-right {
     flex-shrink: 0;
     width: 700px;
     max-width: 100%;
 }
+
 
 .locals-intro {
     font-family: var(--font-body);
@@ -927,7 +921,7 @@ body {
 /* Mobile responsive */
 @media (max-width: 768px) {
     .locals-section {
-        padding: 80px 0;
+        padding: 40px 0;
     }
     
     .locals-content {
@@ -939,18 +933,6 @@ body {
         width: 100%;
     }
     
-    .locals-title {
-        font-size: clamp(48px, 12vw, 68px);
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        line-height: 0.85;
-    }
-    
-    .locals-title .title-line {
-        display: block;
-        width: 100%;
-    }
     
     .locals-right {
         width: 100%;
@@ -979,22 +961,11 @@ body {
 
 /* Extra small mobile devices */
 @media (max-width: 480px) {
-    .locals-section {
-        padding: 60px 0;
+    .locals-section,
+    .todo-section {
+        padding: 30px 0;
     }
     
-    .locals-title {
-        font-size: clamp(36px, 10vw, 48px);
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        line-height: 0.8;
-    }
-    
-    .locals-title .title-line {
-        display: block;
-        width: 100%;
-    }
     
     .locals-intro {
         font-size: clamp(12px, 3.5vw, 14px);
@@ -1309,8 +1280,9 @@ body {
         grid-template-columns: 1fr;
         grid-template-rows: repeat(4, auto);
         gap: 12px;
-        width: 100%;
-        max-width: none;
+        width: calc(100vw - 40px);
+        max-width: 387px;
+        margin: 0 auto;
     }
     
     .empty-card {
@@ -1325,7 +1297,8 @@ body {
     
     .over-section .section-title,
     .dagje-uit-section .section-title,
-    .leuk-om-te-doen-section .section-title {
+    .leuk-om-te-doen-section .section-title,
+    .locals-section .section-title {
         font-size: 32px;
         margin-bottom: 20px;
     }
@@ -1408,8 +1381,9 @@ body {
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(2, 1fr);
         gap: 20px;
-        width: 100%;
-        max-width: none;
+        width: min(90vw, 684px);
+        max-width: 684px;
+        margin: 0 auto;
     }
     
     .dagje-uit-section .container,
@@ -1587,7 +1561,7 @@ body {
     }
     
     .container {
-        padding: 0 15px;
+        padding: 0 20px;
     }
     
     .hero-content {
