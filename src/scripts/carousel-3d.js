@@ -580,7 +580,12 @@ class Carousel3D {
         this.velocity = 0;
         
         const clientX = event.clientX || (event.touches && event.touches[0].clientX);
+        const clientY = event.clientY || (event.touches && event.touches[0].clientY);
         this.lastPointerX = clientX;
+        this.lastPointerY = clientY;
+        this.initialPointerX = clientX;
+        this.initialPointerY = clientY;
+        this.hasMovedHorizontally = false;
         
         this.container.style.cursor = 'grabbing';
         
@@ -606,10 +611,32 @@ class Carousel3D {
     onPointerMove(event) {
         if (!this.isInteracting) return;
         
-        event.preventDefault();
-        
         const clientX = event.clientX || (event.touches && event.touches[0].clientX);
+        const clientY = event.clientY || (event.touches && event.touches[0].clientY);
         const deltaX = clientX - this.lastPointerX;
+        const deltaY = clientY - this.lastPointerY;
+        
+        // Check movement direction on mobile
+        if (window.innerWidth <= 768 && event.touches) {
+            const totalDeltaX = Math.abs(clientX - this.initialPointerX);
+            const totalDeltaY = Math.abs(clientY - this.initialPointerY);
+            
+            // If vertical movement is dominant, allow default scroll behavior
+            if (totalDeltaY > totalDeltaX && totalDeltaY > 10) {
+                this.isInteracting = false;
+                this.container.style.cursor = 'grab';
+                this.zoomIn();
+                return;
+            }
+            
+            // Only prevent default if horizontal movement is detected
+            if (totalDeltaX > 10) {
+                event.preventDefault();
+                this.hasMovedHorizontally = true;
+            }
+        } else {
+            event.preventDefault();
+        }
         
         // Normale drag beweging
         if (Math.abs(deltaX) > 0) {
@@ -623,6 +650,7 @@ class Carousel3D {
         }
         
         this.lastPointerX = clientX;
+        this.lastPointerY = clientY;
     }
     
     onPointerEnd() {
