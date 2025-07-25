@@ -61,6 +61,7 @@ let footerOverlayCells = [];
 let imageGridContainers = [];
 let footerImageGridContainers = [];
 let isAnimating = false;
+let currentActiveColor = '#6E90DB'; // Track the current active color from hero animation
 
 // Animation Colors
 const colors = ['#6E90DB', '#D49C0C', '#EB625E', '#A2C617'];
@@ -133,15 +134,13 @@ function animateHeroTextIn(phaseIndex, color, timeline, position) {
             // Set initial position for new characters (coming from bottom)
             if (heroSplit0 && heroSplit0.chars && heroSplit1 && heroSplit1.chars) {
                 gsap.set([...heroSplit0.chars, ...heroSplit1.chars], {
-                    y: 100,
-                    opacity: 0
+                    y: 200
                 });
                 
                 // Animate in immediately after setting position
                 gsap.to([...heroSplit0.chars, ...heroSplit1.chars], {
                     duration: 0.4,
                     y: 0,
-                    opacity: 1,
                     ease: "power3.out",
                     stagger: 0.02
                 });
@@ -158,8 +157,7 @@ function animateHeroTextOut(timeline, position) {
         if (heroSplit0 && heroSplit0.chars && heroSplit1 && heroSplit1.chars) {
             gsap.to([...heroSplit0.chars, ...heroSplit1.chars], {
                 duration: 0.3,
-                y: -50,
-                opacity: 0,
+                y: -200,
                 ease: "power2.in",
                 stagger: 0.01
             });
@@ -218,15 +216,13 @@ function animateFooterTextIn(phaseIndex, color, timeline, position) {
             // Set initial position for new characters (coming from bottom)
             if (footerSplit0 && footerSplit0.chars && footerSplit1 && footerSplit1.chars) {
                 gsap.set([...footerSplit0.chars, ...footerSplit1.chars], {
-                    y: 100,
-                    opacity: 0
+                    y: 200
                 });
                 
                 // Animate in immediately after setting position
                 gsap.to([...footerSplit0.chars, ...footerSplit1.chars], {
                     duration: 0.4,
                     y: 0,
-                    opacity: 1,
                     ease: "power3.out",
                     stagger: 0.02
                 });
@@ -243,8 +239,7 @@ function animateFooterTextOut(timeline, position) {
         if (footerSplit0 && footerSplit0.chars && footerSplit1 && footerSplit1.chars) {
             gsap.to([...footerSplit0.chars, ...footerSplit1.chars], {
                 duration: 0.3,
-                y: -50,
-                opacity: 0,
+                y: -200,
                 ease: "power2.in",
                 stagger: 0.01
             });
@@ -254,33 +249,7 @@ function animateFooterTextOut(timeline, position) {
     }, null, position);
 }
 
-function createFooterTextTimeline() {
-    const footerTextTimeline = gsap.timeline({
-        repeat: -1,
-        repeatDelay: 0,
-        delay: 1
-    });
-
-    let position = 0;
-    const phaseDuration = 4.2; // Same as hero animation
-
-    for (let i = 0; i < 4; i++) {
-        const color = colors[i];
-        const textPhaseStartTime = position + 0.2;
-        
-        // Add text IN animation at beginning of phase
-        animateFooterTextIn(i, color, footerTextTimeline, textPhaseStartTime);
-        
-        // Add text OUT animation at end of phase
-        animateFooterTextOut(footerTextTimeline, textPhaseStartTime + phaseDuration - 0.4);
-        
-        position += phaseDuration;
-    }
-
-    return footerTextTimeline;
-}
-
-function animateFooterText() {
+function initializeFooterText() {
     // Initialize footer text to first phase (index 0 - blauw)  
     const footerText0 = document.getElementById('footer-text-0');
     const footerText1 = document.getElementById('footer-text-1');
@@ -293,9 +262,6 @@ function animateFooterText() {
         // Setup split text for initial state
         setupFooterSplitText();
     }
-    
-    // Start the cycling animation
-    createFooterTextTimeline();
 }
 
 // ==========================================
@@ -454,6 +420,12 @@ function animateGridPhase(phaseIndex, timeline, position) {
     const backgroundChangeTime = secondPhaseEndTime + FULL_GRID_DURATION;
     const disappearStartTime = backgroundChangeTime + 0.1;
 
+    // Update current active color when phase starts
+    timeline.call(() => {
+        currentActiveColor = color;
+        updateCardColors(color);
+    }, null, gridPhaseStartTime);
+
     timeline.set(overlayCells, { 
         scale: 0, 
         backgroundColor: color,
@@ -503,8 +475,8 @@ function animateGridPhase(phaseIndex, timeline, position) {
     // Add hero text IN animation at beginning of grid phase
     animateHeroTextIn(phaseIndex, color, timeline, gridPhaseStartTime + 0.2);
     
-    // Add hero text OUT animation at end of phase (before cells disappear)
-    animateHeroTextOut(timeline, disappearStartTime - 0.4);
+    // Add hero text OUT animation later in phase (shorter gap before next text)
+    animateHeroTextOut(timeline, gridPhaseStartTime + PHASE_DURATION - 0.7);
 
     // Phase 3: Cells disappear
     const disappearCells = [...sortedCells].reverse();
@@ -532,7 +504,18 @@ function createMasterTimeline() {
 
     for (let i = 0; i < 4; i++) {
         const gridPhaseStartTime = position;
+        
+        // Animate main grid phase
         animateGridPhase(i, masterTimeline, gridPhaseStartTime);
+        
+        // Animate footer grid phase (synchronized with main timeline)
+        animateFooterGridPhase(i, masterTimeline, gridPhaseStartTime);
+        
+        // Add footer text animation synchronized with main timeline
+        const textPhaseStartTime = gridPhaseStartTime + 0.2;
+        animateFooterTextIn(i, colors[i], masterTimeline, textPhaseStartTime);
+        animateFooterTextOut(masterTimeline, textPhaseStartTime + PHASE_DURATION - 0.4);
+        
         position += PHASE_DURATION;
     }
 
@@ -543,57 +526,56 @@ function createMasterTimeline() {
 // FOOTER GRID ANIMATION
 // ==========================================
 
-function animateFooterGrid() {
-    if (footerTimeline) footerTimeline.kill();
-    
+function animateFooterGridPhase(phaseIndex, timeline, position) {
     // Check if footer cells exist
     if (!footerOverlayCells || footerOverlayCells.length === 0) {
         console.warn('Footer overlay cells not found, skipping footer animation');
         return;
     }
     
-    footerTimeline = gsap.timeline({
-        repeat: -1,
-        repeatDelay: 1.0
-    });
-
-    const color = colors[0]; // Use first color
+    const color = colors[phaseIndex];
     const totalCells = footerOverlayCells.length;
     const firstPhaseCount = Math.floor(totalCells * 0.3);
 
-    footerTimeline.set(footerOverlayCells, { 
+    const footerPhaseStartTime = position;
+    const footerAppearTime = footerPhaseStartTime + 0.5;
+    const footerBackgroundTime = footerPhaseStartTime + 1.5;
+    const footerDisappearTime = footerPhaseStartTime + 2.5;
+
+    // Set initial state with current phase color
+    timeline.set(footerOverlayCells, { 
         scale: 0, 
         backgroundColor: color
-    });
+    }, footerPhaseStartTime);
 
     const sortedCells = sortCellsFromOutsideToInside([...footerOverlayCells], 9, 4);
 
     // Animate cells appearing
-    footerTimeline.to(sortedCells, {
+    timeline.to(sortedCells, {
         scale: 1,
         duration: 0,
         stagger: 0.02,
-    }, 0.5);
+    }, footerAppearTime);
 
     // Switch footer background
-    footerTimeline.call(() => {
+    timeline.call(() => {
         footerImageGridContainers.forEach((container, index) => {
             if (container) {
-                if (index === 0) {
+                if (index === phaseIndex % footerImageGridContainers.length) {
                     container.classList.add('active');
                 } else {
                     container.classList.remove('active');
                 }
             }
         });
-    }, null, 1.5);
+    }, null, footerBackgroundTime);
 
     // Animate cells disappearing
-    footerTimeline.to(sortedCells.reverse(), {
+    timeline.to([...sortedCells].reverse(), {
         scale: 0,
         duration: 0,
         stagger: 0.02,
-    }, 2.5);
+    }, footerDisappearTime);
 }
 
 // ==========================================
@@ -644,10 +626,19 @@ function animateSectionTitle(titleElement) {
     }
 }
 
+// Function to update all card colors to match the current active hero color
+function updateCardColors(color) {
+    const allCards = document.querySelectorAll('.plek-card, .empty-card');
+    allCards.forEach(card => {
+        // Only update cards that currently have an overlay (opacity > 0)
+        const currentOpacity = card.style.getPropertyValue('--overlay-opacity');
+        if (currentOpacity && parseFloat(currentOpacity) > 0) {
+            card.style.setProperty('--overlay-color', color);
+        }
+    });
+}
+
 function animateCardsColorOverlay() {
-    // Animation colors from the grid animation
-    const animationColors = ['#6E90DB', '#D49C0C', '#EB625E', '#A2C617'];
-    
     // Get ALL cards from all sections
     const allCards = document.querySelectorAll('.plek-card, .empty-card');
     
@@ -658,16 +649,14 @@ function animateCardsColorOverlay() {
     
     console.log(`Found ${allCards.length} cards for color overlay`);
     
-    // Assign random colors to each card and set initial opacity
+    // Set initial color and opacity for all cards using current active color
     allCards.forEach(card => {
-        const randomColor = animationColors[Math.floor(Math.random() * animationColors.length)];
-        
-        // Set color and initial opacity (visible)
-        card.style.setProperty('--overlay-color', randomColor);
+        // Set color to current active color (synchronized with hero)
+        card.style.setProperty('--overlay-color', currentActiveColor);
         card.style.setProperty('--overlay-opacity', '0.85');
         
         // Debug log
-        console.log(`Card styled with color ${randomColor}`, card);
+        console.log(`Card styled with color ${currentActiveColor}`, card);
     });
     
     // Group cards by their parent section - check all possible sections
@@ -687,7 +676,14 @@ function animateCardsColorOverlay() {
             scrollTrigger: {
                 trigger: triggerElement,
                 start: 'top 75%',
-                toggleActions: 'play none none reverse'
+                toggleActions: 'play none none reverse',
+                onLeaveBack: () => {
+                    // When scrolling back up, restore cards with current active color
+                    shuffledCards.forEach(card => {
+                        card.style.setProperty('--overlay-color', currentActiveColor);
+                        card.style.setProperty('--overlay-opacity', '0.85');
+                    });
+                }
             }
         });
         
@@ -946,8 +942,7 @@ function resetAnimation() {
 
 function startAnimations() {
     if (!isAnimating) {
-        createMasterTimeline();
-        animateFooterGrid();
+        createMasterTimeline(); // Now includes footer animation
         isAnimating = true;
     }
 }
@@ -985,11 +980,13 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeMobileMenu();
     initializeDragScroll();
     
+    // Initialize footer text
+    initializeFooterText();
+    
     // Start animations immediately
     setTimeout(() => {
         startAnimations();
         initializeScrollAnimations();
-        animateFooterText();
     }, 100);
 });
 
