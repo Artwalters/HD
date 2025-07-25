@@ -429,7 +429,7 @@ function animateGridPhase(phaseIndex, timeline, position) {
     timeline.set(overlayCells, { 
         scale: 0, 
         backgroundColor: color,
-        force3D: true
+        force3D: window.innerWidth > 768 // Only use 3D transforms on desktop
     }, gridPhaseStartTime);
 
     const sortedCells = sortCellsFromOutsideToInside([...overlayCells], 9, 6);
@@ -440,7 +440,7 @@ function animateGridPhase(phaseIndex, timeline, position) {
         scale: 1,
         duration: 0,
         stagger: firstPhaseCount > 0 ? FIRST_PHASE_DURATION / firstPhaseCount : 0,
-        force3D: true,
+        force3D: window.innerWidth > 768,
         ease: "none"
     }, gridPhaseStartTime);
 
@@ -450,7 +450,7 @@ function animateGridPhase(phaseIndex, timeline, position) {
         scale: 1,
         duration: 0,
         stagger: secondPhaseCount > 0 ? SECOND_PHASE_DURATION / secondPhaseCount : 0,
-        force3D: true,
+        force3D: window.innerWidth > 768,
         ease: "none"
     }, secondPhaseStartTime);
 
@@ -484,7 +484,7 @@ function animateGridPhase(phaseIndex, timeline, position) {
         scale: 0,
         duration: 0,
         stagger: totalCells > 0 ? DISAPPEAR_DURATION / totalCells : 0,
-        force3D: true,
+        force3D: window.innerWidth > 768,
         ease: "none"
     }, disappearStartTime);
 }
@@ -967,6 +967,12 @@ function initializeDragScroll() {
 
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Mobile optimization: prevent scroll bounce during animations
+    if (window.innerWidth <= 768) {
+        document.body.style.overscrollBehavior = 'none';
+        document.body.style.touchAction = 'pan-y';
+    }
+    
     // Initialize all components
     initializeImageGrids();
     initializeOverlayGrid();
@@ -983,24 +989,36 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize footer text
     initializeFooterText();
     
-    // Start animations immediately
+    // Start animations with mobile-friendly delay
+    const delay = window.innerWidth <= 768 ? 300 : 100;
     setTimeout(() => {
         startAnimations();
         initializeScrollAnimations();
-    }, 100);
+    }, delay);
 });
 
 // ==========================================
 // WINDOW RESIZE HANDLER
 // ==========================================
 
+let resizeTimeout;
+let lastWidth = window.innerWidth;
+
 window.addEventListener('resize', function() {
-    // Restart animations on resize to ensure proper positioning
-    if (isAnimating) {
-        stopAnimations();
-        setTimeout(() => {
-            startAnimations();
-        }, 100);
+    const currentWidth = window.innerWidth;
+    
+    // Only restart animations if width actually changed (not just height changes from mobile scroll)
+    if (Math.abs(currentWidth - lastWidth) > 10) {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            if (isAnimating) {
+                stopAnimations();
+                setTimeout(() => {
+                    startAnimations();
+                    lastWidth = window.innerWidth;
+                }, 100);
+            }
+        }, 250); // Debounce resize events
     }
 });
 
