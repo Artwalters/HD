@@ -28,11 +28,9 @@ class Carousel3D {
         // Touch/Mouse interaction
         this.lastPointerX = 0;
         this.velocity = 0;
-        this.damping = window.innerWidth <= 768 ? 0.88 : 0.95; // Much faster damping on mobile for quicker snap
         
-        // Snapping - nog veel sterker op mobile
-        this.snapThreshold = window.innerWidth <= 768 ? 0.08 : 0.01; // When to start snapping
-        this.snapStrength = window.innerWidth <= 768 ? 0.4 : 0.1; // How strong the snap is
+        // Initialize snapping values
+        this.updateSnapSettings();
         
         // Camera zoom states (initialized after responsive settings)
         this.updateZoomStates();
@@ -108,6 +106,13 @@ class Carousel3D {
             this.radius *= 0.8;
             this.cameraDistance *= 0.9;
         }
+    }
+    
+    updateSnapSettings() {
+        // Snapping - nog veel sterker op mobile
+        this.snapThreshold = window.innerWidth <= 768 ? 0.08 : 0.01; // When to start snapping
+        this.snapStrength = window.innerWidth <= 768 ? 0.4 : 0.1; // How strong the snap is
+        this.damping = window.innerWidth <= 768 ? 0.88 : 0.95; // Much faster damping on mobile for quicker snap
     }
     
     updateZoomStates() {
@@ -628,7 +633,7 @@ class Carousel3D {
             const totalDeltaY = Math.abs(clientY - this.initialPointerY);
             
             // If vertical movement is dominant, allow default scroll behavior
-            if (totalDeltaY > totalDeltaX && totalDeltaY > 10) {
+            if (totalDeltaY > totalDeltaX && totalDeltaY > 15) {
                 this.isInteracting = false;
                 this.container.style.cursor = 'grab';
                 // Subtiele zoom in op mobile
@@ -638,8 +643,8 @@ class Carousel3D {
                 return;
             }
             
-            // Only prevent default if horizontal movement is detected
-            if (totalDeltaX > 10) {
+            // Only prevent default if horizontal movement is detected - lagere threshold
+            if (totalDeltaX > 5) {
                 event.preventDefault();
                 this.hasMovedHorizontally = true;
             }
@@ -702,6 +707,9 @@ class Carousel3D {
         
         // Update responsive settings
         this.getResponsiveSettings();
+        
+        // Update snap settings for current screen size
+        this.updateSnapSettings();
         
         // Update camera zoom states with new responsive values
         this.updateZoomStates();
