@@ -649,8 +649,8 @@ class Carousel3D {
         
         // Normale drag beweging
         if (Math.abs(deltaX) > 0) {
-            // Responsive sensitivity - more sensitive on mobile
-            let sensitivity = window.innerWidth <= 768 ? 0.8 : 0.5;
+            // Lagere sensitivity voor minder responsive draai beweging
+            let sensitivity = window.innerWidth <= 768 ? 0.5 : 0.3;
             
             // Convert to rotation (natural direction - als je de kaarten vasthoudt)
             const rotationDelta = (deltaX / this.canvas.clientWidth) * Math.PI * sensitivity;
