@@ -28,11 +28,11 @@ class Carousel3D {
         // Touch/Mouse interaction
         this.lastPointerX = 0;
         this.velocity = 0;
-        this.damping = window.innerWidth <= 768 ? 0.92 : 0.95; // Faster damping on mobile for quicker snap
+        this.damping = window.innerWidth <= 768 ? 0.88 : 0.95; // Much faster damping on mobile for quicker snap
         
-        // Snapping - veel sterker op mobile
-        this.snapThreshold = window.innerWidth <= 768 ? 0.05 : 0.01; // When to start snapping
-        this.snapStrength = window.innerWidth <= 768 ? 0.25 : 0.1; // How strong the snap is
+        // Snapping - nog veel sterker op mobile
+        this.snapThreshold = window.innerWidth <= 768 ? 0.08 : 0.01; // When to start snapping
+        this.snapStrength = window.innerWidth <= 768 ? 0.4 : 0.1; // How strong the snap is
         
         // Camera zoom states (initialized after responsive settings)
         this.updateZoomStates();
@@ -112,7 +112,10 @@ class Carousel3D {
     
     updateZoomStates() {
         this.originalCameraDistance = this.cameraDistance;
-        this.zoomedOutDistance = this.cameraDistance * 2.5; // 150% verder weg tijdens drag - nog dramatischer
+        // Subtielere zoom op mobile, dramatischer op desktop
+        this.zoomedOutDistance = window.innerWidth <= 768 ? 
+            this.cameraDistance * 1.2 : // Heel subtiele zoom op mobile
+            this.cameraDistance * 2.5;  // Dramatische zoom op desktop
     }
     
     async loadEvents() {
@@ -589,10 +592,8 @@ class Carousel3D {
         
         this.container.style.cursor = 'grabbing';
         
-        // Alleen zoom uit op desktop
-        if (window.innerWidth > 768) {
-            this.zoomOut();
-        }
+        // Subtiele zoom op mobile, normale zoom op desktop
+        this.zoomOut();
     }
     
     zoomOut() {
@@ -600,9 +601,12 @@ class Carousel3D {
         gsap.killTweensOf(this.camera.position);
         this.isZoomAnimating = true;
         
+        // Langzamere animatie op mobile, sneller op desktop
+        const duration = window.innerWidth <= 768 ? 0.6 : 0.25;
+        
         gsap.to(this.camera.position, {
             z: this.zoomedOutDistance,
-            duration: 0.25,
+            duration: duration,
             ease: "power2.out",
             onComplete: () => {
                 this.isZoomAnimating = false;
@@ -627,7 +631,10 @@ class Carousel3D {
             if (totalDeltaY > totalDeltaX && totalDeltaY > 10) {
                 this.isInteracting = false;
                 this.container.style.cursor = 'grab';
-                // Geen zoom op mobile
+                // Subtiele zoom in op mobile
+                if (window.innerWidth <= 768) {
+                    this.zoomIn();
+                }
                 return;
             }
             
@@ -659,10 +666,8 @@ class Carousel3D {
         this.isInteracting = false;
         this.container.style.cursor = 'grab';
         
-        // Alleen zoom in op desktop
-        if (window.innerWidth > 768) {
-            this.zoomIn();
-        }
+        // Subtiele zoom in op mobile, normale zoom op desktop
+        this.zoomIn();
     }
     
     zoomIn() {
@@ -670,9 +675,12 @@ class Carousel3D {
         gsap.killTweensOf(this.camera.position);
         this.isZoomAnimating = true;
         
+        // Langzamere animatie op mobile, normale snelheid op desktop
+        const duration = window.innerWidth <= 768 ? 0.8 : 0.4;
+        
         gsap.to(this.camera.position, {
             z: this.originalCameraDistance,
-            duration: 0.4,
+            duration: duration,
             ease: "power2.inOut",
             onComplete: () => {
                 this.isZoomAnimating = false;
