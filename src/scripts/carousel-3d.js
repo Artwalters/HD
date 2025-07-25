@@ -121,20 +121,44 @@ class Carousel3D {
         console.log('🎠 3D Carousel initialized');
     }
     
-    createRoundedRectGeometry(width, height, radius) {
+    createMapCardGeometry(width, height, cornerRadius) {
         const shape = new THREE.Shape();
-        const x = -width / 2;
-        const y = -height / 2;
+        const hw = width / 2;
+        const hh = height / 2;
+        const cr = cornerRadius;
         
-        shape.moveTo(x + radius, y);
-        shape.lineTo(x + width - radius, y);
-        shape.quadraticCurveTo(x + width, y, x + width, y + radius);
-        shape.lineTo(x + width, y + height - radius);
-        shape.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-        shape.lineTo(x + radius, y + height);
-        shape.quadraticCurveTo(x, y + height, x, y + height - radius);
-        shape.lineTo(x, y + radius);
-        shape.quadraticCurveTo(x, y, x + radius, y);
+        // Bottom notch parameters - kleine halve cirkel zoals in screenshot
+        const notchWidth = width * 0.16; // Smalle breedte (15% van card)
+        const notchDepth = height * 0.06; // Diepte van de halve cirkel (dieper uitgesneden)
+        
+        // Start from top-left corner (with radius)
+        shape.moveTo(-hw + cr, hh);
+        shape.quadraticCurveTo(-hw, hh, -hw, hh - cr);
+        shape.lineTo(-hw, -hh + cr);
+        shape.quadraticCurveTo(-hw, -hh, -hw + cr, -hh);
+        
+        // Bottom edge - left side to notch
+        shape.lineTo(-notchWidth/2, -hh);
+        
+        // Create perfect circular notch with two quadratic curves
+        // Eerste helft van de cirkel
+        shape.quadraticCurveTo(
+            -notchWidth/2, -hh + notchDepth,    // Control point links
+            0, -hh + notchDepth                 // Midden (diepste punt)
+        );
+        
+        // Tweede helft van de cirkel
+        shape.quadraticCurveTo(
+            notchWidth/2, -hh + notchDepth,     // Control point rechts
+            notchWidth/2, -hh                   // End point
+        );
+        
+        // Continue to bottom-right corner
+        shape.lineTo(hw - cr, -hh);
+        shape.quadraticCurveTo(hw, -hh, hw, -hh + cr);
+        shape.lineTo(hw, hh - cr);
+        shape.quadraticCurveTo(hw, hh, hw - cr, hh);
+        shape.lineTo(-hw + cr, hh);
         
         return new THREE.ShapeGeometry(shape);
     }
@@ -175,7 +199,7 @@ class Carousel3D {
     createCards() {
         // Card geometry with responsive sizing and 5/6 aspect ratio
         const borderRadius = Math.max(8, this.cardWidth * 0.1); // Responsive border radius
-        this.cardGeometry = this.createRoundedRectGeometry(this.cardWidth, this.cardHeight, borderRadius);
+        this.cardGeometry = this.createMapCardGeometry(this.cardWidth, this.cardHeight, borderRadius);
         
         // Month names for timeline
         const months = [
